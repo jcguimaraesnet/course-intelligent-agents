@@ -161,6 +161,24 @@ class: flex items-center justify-center
 
 
 ---
+layout: quote-image
+image: /agent-3-components.png
+---
+
+::title::
+
+# O que é um Agente?
+
+::default::
+
+"Um **agente baseado em LLM** é composto por três componentes principais: *cérebro*, *percepção* e *ação*."
+
+
+— Xi et. al. "The Rise and Potential of Large Language Model Based Agents: A Survey”, 2025
+
+
+
+---
 layout: quote
 ---
 
@@ -170,9 +188,33 @@ layout: quote
 
 ::default::
 
-“Um agente é qualquer coisa que possa ser vista como capaz de **perceber seu ambiente** por meio de sensores e **agir** sobre esse ambiente por meio de atuadores.”
+“Um agente é qualquer coisa que possa ser vista como capaz de perceber seu ambiente por meio de **sensores** e agir sobre esse ambiente por meio de **atuadores**.”
 
 — Stuart Russell e Peter Norvig, *Inteligência Artificial: Uma Abordagem Moderna*
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# O que é um Agente?
+
+::left::
+
+- **sensores** -> capta informação (prompt, memória, documentos, imagens, arquivos, páginas da web, etc)
+- **autuadores** -> usa ferramentas para agir sobre o ambiente (invocar API, executar código, navegar em páginas web, etc)
+
+::right::
+
+<AssetImg
+  src="agentes-sensores-autuadores.png"
+  class="rounded-lg max-w-none w-[500px] border-10 border-white""
+  crop-left="95px"
+  crop-right="145px"
+/>
+
 
 ---
 
