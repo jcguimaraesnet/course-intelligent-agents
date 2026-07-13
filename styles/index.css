@@ -24,7 +24,6 @@
 .slidev-layout.section h1::before,
 .slidev-layout.statement h1::before,
 .slidev-layout.fact h1::before,
-.slidev-layout.quote h1::before,
 .slidev-layout.custom-author h1::before,
 .slidev-layout.custom-author h2::before {
   content: none;

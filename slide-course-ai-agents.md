@@ -159,14 +159,20 @@ class: flex items-center justify-center
   <a href="https://antigravity.google/docs/ide/overview" target="_blank">antigravity.google/docs/ide/overview</a>
 </div>
 
+
 ---
-layout: cover
-glowSeed: 42
+layout: quote
 ---
 
-# 1.1 — Os espaços do Antigravity
+::title::
 
-**Subcompetência:** Identificar Editor, Agent Manager e Playground como espaços do Antigravity.
+# O que é um Agente?
+
+::default::
+
+“Um agente é qualquer coisa que possa ser vista como capaz de **perceber seu ambiente** por meio de sensores e **agir** sobre esse ambiente por meio de atuadores.”
+
+— Stuart Russell e Peter Norvig, *Inteligência Artificial: Uma Abordagem Moderna*
 
 ---
 
