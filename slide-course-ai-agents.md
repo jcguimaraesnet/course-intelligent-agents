@@ -163,10 +163,10 @@ class: flex items-center justify-center
 
 
 ---
-layout: center
+layout: section
 ---
 
-# **Conceitos**: o que é um Agente?
+## **Conceitos**: o que é um Agente?
 
 
 
@@ -285,17 +285,166 @@ source: https://openrouter.ai/models
 | imagens | **gpt-image-2** | **gemini-3.1-flash-image** |
 | | [developers.openai.com](https://developers.openai.com/api/docs/models) | [ai.google.dev](https://ai.google.dev/gemini-api/docs/models) |
 
+
+---
+layout: section
 ---
 
-## 🧑‍💻 Editor
+## Instalação e configuração de **ambiente**
 
-<v-clicks>
 
-- Onde você escreve e edita código (como um VS Code).
-- Tab Completion e Command vivem aqui (ver slide 1.3).
-- É o espaço do trabalho **manual + assistido**.
+---
+sourceLabel: Downloads
+source: https://www.python.org/downloads/
+---
 
-</v-clicks>
+# Versões do Python
+
+#### **Use sempre versões estáveis (fase de bugfix)**
+
+
+
+<Transform :scale="0.7" origin="center">
+    <AssetImg
+    src="release-cycle.svg"
+    class="rounded-lg border-10 border-white"
+    />
+</Transform>
+
+
+<!-- 
+Python tem um ciclo de cinco fases com versão estável (bugfixes) a cada dois meses 
+
+**Cinco fases**: 
+- feature, 
+- prerelease, 
+- bugfix, 
+- security, 
+- end-of-life
+-->
+
+---
+layout: default
+sourceLabel: Install UV
+source: https://docs.astral.sh/uv/getting-started/installation
+---
+
+# Instalação Python e UV
+
+<br/>
+
+#### **Instalação do Python em múltiplas plataformas**
+
+<br/>
+
+::code-group
+
+```sh [cross plataform]
+uv python install 3.12
+```
+
+```sh [windows]
+winget install --id Python.Python.3.12 --scope user
+```
+
+```sh [linux]
+sudo apt-get install -y python3.12
+```
+
+```sh [macOS]
+brew install python@3.12
+```
+
+```sh [instalador]
+python-*.exe ou python-*.pkg
+```
+::
+
+<br/><br/>
+
+#### **Instalação UV: uma opção rápida e simplificada para gerenciar projetos python**
+<br/>
+
+
+::code-group
+
+```sh [windows]
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+```sh [macOS/linux]
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+::
+
+
+
+---
+layout: default
+sourceLabel: Install UV
+source: https://docs.astral.sh/uv/getting-started/installation
+footer: true
+---
+
+# Gerenciador de projetos UV
+
+#### **uv é um gerenciador de projetos ultrarrápido escrito em Rust pela Astral (OpenAI)**
+
+<br/>
+
+| | |  |
+| --- | --- | --- |
+| instalação python | `instalador oficial` | ```uv python install``` |
+| versão python | `python --version` | ```uv run python --version``` |
+| criar ambiente/projeto | `python -m venv .venv` | `uv init <projeto>` |
+| ativar ambiente virtual | `.venv/Scripts/activate` | ``-`` *(automático)* |
+| instalar pacote | `pip install <pacote>` | ```uv add <pacote>``` |
+| executar script | `python script.py` | ```uv run script.py``` |
+
+
+<!--
+instalação:
+https://docs.astral.sh/uv/getting-started/installation/
+
+wsl: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+powershell: <br/>
+```powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"```
+
+-->
+
+
+---
+layout: default
+sourceLabel: Install UV
+source: https://docs.astral.sh/uv/getting-started/installation
+footer: true
+---
+
+# Mais sobre o gerenciado UV
+
+#### **Mais rápido e mais simples**
+
+<br/>
+
+| | |  |
+| --- | --- | --- |
+| criar projeto | `-` *não tem* | ```uv init <projeto>``` |
+| congelar pacotes | `pip freeze > requirements.txt` | `automático` *arquivo uv.lock* |
+| arquivo do projeto | `requirements.txt` | ```pyproject.toml``` |
+| recriar ambiente | `pip install -r requirements.txt` | `uv sync` |
+
+
+<!-- 
+usando forma tradicional para recriar ambiente:
+pip install -r requirements.txt (só instala)
+
+Usando UV para recriar ambiente respeitando o lock:
+uv sync (instala, desinstala e atualiza) 
+-->
+
+
 
 ---
 
