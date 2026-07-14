@@ -15,6 +15,8 @@ comark: true
 layout: cover
 glowSeed: 229
 footer: false
+drawings:
+  presenterOnly: true
 addons:
   - slidev-component-pager
 presenter: true
