@@ -19,6 +19,7 @@ drawings:
   presenterOnly: true
 addons:
   - slidev-component-pager
+  - window-mockup
 presenter: true
 ---
 
@@ -220,6 +221,41 @@ class: flex items-center justify-center
     />
 </Transform>
 
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Prompts e Agentes
+
+#### **Prompts definem quem o agente é e o que faz**
+
+::left::
+
+- **Persona** → Direciona a área de atuaçao
+- **Task** → Define o objetivo
+- **Context** → regras, restrições, conhecimento
+- **Format** → saída estruturada
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md
+# Você é um especialista em ...
+
+# Sua tarefa é ...
+
+# Considere a informação abaixo ...
+
+# Retorne no formato JSON abaixo ...
+```
+
+
+</WindowMockup>
 
 
 ---

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@iconify-json/iconoir": "^1.2.11",
+    "slidev-addon-window-mockup": "^0.3.1",
     "slidev-component-pager": "^1.1.0",
     "slidev-theme-dracula": "^0.2.5"
   }
