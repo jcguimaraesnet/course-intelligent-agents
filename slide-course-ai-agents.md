@@ -17,6 +17,7 @@ glowSeed: 229
 footer: false
 addons:
   - slidev-component-pager
+presenter: true
 ---
 
 # Fundamentos de Agentes com Python e APIs
@@ -203,17 +204,20 @@ class: flex items-center justify-center
 
 ::left::
 
-- **sensores** -> capta informação (prompt, memória, documentos, imagens, arquivos, páginas da web, etc)
-- **autuadores** -> usa ferramentas para agir sobre o ambiente (invocar API, executar código, navegar em páginas web, etc)
+- **sensores** -> capta informação (prompt, texto, documentos, imagens, arquivos, markdown, html, etc)
+- **autuadores** -> usa *ferramentas* para agir sobre o ambiente (invocar API, executar código, navegar em páginas web, etc)
 
 ::right::
 
-<AssetImg
-  src="agentes-sensores-autuadores.png"
-  class="rounded-lg max-w-none w-[500px] border-10 border-white""
-  crop-left="95px"
-  crop-right="145px"
-/>
+<Transform :scale="1.2" origin="center center">
+    <AssetImg
+    src="agentes-sensores-autuadores.png"
+    class="rounded-lg max-w-none w-[500px] border-10 border-white"
+    crop-left="95px"
+    crop-right="145px"
+    />
+</Transform>
+
 
 
 ---
