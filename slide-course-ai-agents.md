@@ -547,7 +547,7 @@ print(colored("Hello, Slidev!", "blue"))
 -->
 
 
-```py {monaco-run} {autorun:false} { editorOptions: { lineNumbers: 'on', theme: 'vs-dark' } }
+```python {monaco-run} {autorun: false}
 import time
 
 def baixar(nome):
@@ -563,9 +563,6 @@ def main():
 if __name__ == "__main__":
     main()      # ⏱ 6 segundos
 ```
-
-
-
 
 
 ::right::

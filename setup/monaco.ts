@@ -6,7 +6,7 @@ export default defineMonacoSetup(() => {
       wordWrap: 'on',
       lineNumbers: 'on',
       readOnly: true,
-      //theme: 'light', //PAREI AQUI
+      language: 'python'
     },
   }
 })
