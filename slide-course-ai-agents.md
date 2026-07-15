@@ -25,7 +25,7 @@ addons:
 # Optional configuration for this runner
 python:
   # Install packages from PyPI. Default: []
-  installs: ["cowsay"]
+  installs: []
 
   # Code executed to set up the environment. Default: ""
   prelude: |
@@ -524,6 +524,55 @@ uv init --python 3.14
 ```
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Install UV
+source: https://docs.astral.sh/uv/getting-started/installation
+---
+
+# Chamadas síncronas e assíncronas em Python
+
+#### **Chamadas assíncronas 'não melhora' perfomance, mas permite concorrência**
+
+::left::
+
+```python {none|5|9-11|13}{at:+1}
+import time
+t = time.perf_counter()
+
+def download(file):
+    time.sleep(5)  # ⛔ trava tudo
+    print(f"{time.perf_counter()-t:.0f}s ✓{file}")
+
+def main():
+    download("A")
+    download("B")
+    download("C")
+
+main()
+```
+
+
+::right::
+
+```python {none|5|8-11|13}{at:1}
+import asyncio, time
+t = time.perf_counter()
+
+async def download(file):
+    await asyncio.sleep(5)  # ✅ libera a thread
+    print(f"{time.perf_counter()-t:.0f}s ✓{file}")
+
+async def main():
+    await asyncio.gather(
+        download("A"), download("B"), download("C")
+    )
+
+await main() # or asyncio.run(main()) 
+```
+
+
 
 ---
 layout: two-cols-header
@@ -538,50 +587,39 @@ source: https://docs.astral.sh/uv/getting-started/installation
 
 ::left::
 
-<!-- 
-```py {monaco-run} {autorun:false}
-from termcolor import colored
-
-print(colored("Hello, Slidev!", "blue"))
-``` 
--->
-
-
 ```python {monaco-run} {autorun: false}
 import time
+t = time.perf_counter()
 
-def baixar(nome):
-    print(f"iniciando {nome}")
-    time.sleep(2) # esperando (rede, cpu..)
-    print(f"terminou {nome}")
+def download(file):
+    time.sleep(5)  # ⛔ trava tudo
+    print(f"{time.perf_counter()-t:.0f}s ✓{file}")
 
 def main():
-    baixar("A")
-    baixar("B")
-    baixar("C")
+    download("A")
+    download("B")
+    download("C")
 
-if __name__ == "__main__":
-    main()      # ⏱ 6 segundos
+main()
 ```
 
 
 ::right::
 
-```python [assíncrono]
-import asyncio
+```python {monaco-run} {autorun: false}
+import asyncio, time
+t = time.perf_counter()
 
-async def baixar(nome):
-    print(f"iniciando {nome}")
-    await asyncio.sleep(2)  # esperando (rede, cpu..)
-    print(f"terminou {nome}")
+async def download(file):
+    await asyncio.sleep(5)  # ✅ libera a thread
+    print(f"{time.perf_counter()-t:.0f}s ✓{file}")
 
 async def main():
     await asyncio.gather(
-        baixar("A"), baixar("B"), baixar("C")
+        download("A"), download("B"), download("C")
     )
 
-if __name__ == "__main__":
-    asyncio.run(main())   # ⏱ 2 segundos
+await main() # or asyncio.run(main()) 
 ```
 
 
