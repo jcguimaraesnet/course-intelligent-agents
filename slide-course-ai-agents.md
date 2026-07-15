@@ -678,19 +678,19 @@ source: https://openai.github.io/openai-agents-python
 
 ---
 layoutClass: gap-8
-sourceLabel: OpenAI Agents Sdk
+sourceLabel: OpenAI Agents SDK
 source: https://openai.github.io/openai-agents-python
 ---
 
 # OpenAI Agents SDK
 
-#### **Principais abstrações (primitivas)**
+#### **Principais abstrações (primitivos)**
 
 <br/>
 
 <Transform :scale="0.8">
 
-<v-clicks every="1">
+<v-clicks every="2">
 
 | Conceito | O que é |
 |---|---|
@@ -704,6 +704,266 @@ source: https://openai.github.io/openai-agents-python
 </v-clicks>
 
 </Transform>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Agent
+source: https://openai.github.io/openai-agents-python/agents/
+---
+
+::left::
+
+```python {all|4|5|7-10|12-15|17-19|7-19|all}{at:+1}
+from agents import Agent
+
+Engineer_agent = Agent(
+    name="Software Engineer Agent"
+    model="gpt-5.4-mini"
+    instructions="""
+        # Papel
+        Você é um agente de IA 
+        especialista em engenharia 
+        de software.
+
+        # Tarefa
+        Sua tarefa consiste em 
+        responder perguntas 
+        sobre engenharia de software.
+
+        # Formato de saída
+        Responda de forma objetiva 
+        com tom informal.
+    """
+)
+```
+::right::
+
+**Agent** é uma camada fina que transforma um LLM em um agente autônomo. 
+
+- *name* -> identificador do agente
+- *model* -> id do modelo; que dá inteligência
+- *instructions* -> prompt de instrução
+
+<br/>
+
+<v-click at="+6">
+
+> [!TIP]
+> **instructions** -> existem muitos padrões proposto para elaboraçao de prompts estruturados. 
+- RTF (Role, Task, Format, etc)
+- PTCF (Persona, Task, Context, Format)
+
+</v-click>
+
+<!-- 
+
+- Todas as seções não são obrigatórias, use quando fizer sentido
+
+[https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide](https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide#prompt-structure)
+
+#### OpenAI propõe uma estrutura de documento com seções nomeadas
+
+- Role and Objective
+- Instructions
+- Reasoning Steps
+- Output Format
+- Examples
+- Context
+- Final instructions
+
+
+
+
+async def main():
+  agent = Agent(name="Assistant", 
+                instructions="You are an AI agent",
+                model="gpt-4o")
+
+  result = await Runner.run(agent, "Tell me a joke")
+
+  print(result.final_output)
+
+if __name__ == "__main__":
+    await main() 
+    
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Runner
+source: https://openai.github.io/openai-agents-python/ref/run/
+---
+
+::left::
+
+```python {11-16}{at:+1}
+from agents import Agent, Runner
+
+async def main():
+    Engineer_agent = Agent(
+        name="Software Engineer Agent"
+        model="gpt-5.4-mini"
+        instructions="""Você é especialista em 
+        engenharia de software."""
+    )
+
+    result = await Runner.run(
+        starting_agent=agent, 
+        input="""
+            Quais são os tipos de padrões 
+            de projetos usados em programação?
+        """)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    await main() 
+```
+
+
+
+::right::
+
+**Runner** é o mecanismo de execução dos agentes, gerenciando chamadas LLMs, impondo limites de segurança e realizando transferencia de tarefas (handoff) entre agentes.
+
+- *starting_agent* -> O agente inicial.
+- *input* -> A solicitação (prompt) para o agente.
+
+
+
+<p>&nbsp;</p>
+
+<v-click>
+
+**Existem 3 opções para executar um Runner.**
+
+::code-group
+
+```python [assincrono] {2}
+agent = Agent(name="Assistant", instructions="")
+result = await Runner.run(agent, "Input")
+```
+
+```python [sincrono] {2}
+agent = Agent(name="Assistant", instructions="")
+result = Runner.run_sync(agent, "Input")
+```
+
+```python [stream] {2}
+agent = Agent(name="Assistant", instructions="")
+result = Runner.run_streamed(agent, "Input")
+```
+
+
+
+::
+
+</v-click>
+
+<!-- 
+
+<v-click>
+
+> [!TIP]
+> O runner é um workflow, executado na forma de um **loop**, até que uma saída final seja gerada.
+
+</v-click>
+
+O runner executa esses passos na forma de um loop:
+
+1. O agente é invocado com a entrada fornecida.
+2. Se houver uma saída final, o loop termina.
+3. Se houver handoff, o loop é executado novamente.
+4. Se houver chamadas de ferramentas, o loop é executado novamente.
+
+A regra para determinar se a saída do LLM é considerada uma "saída final" é que ela produza um texto com o tipo desejado e não haja chamadas de ferramentas.
+
+fonte: https://openai.github.io/openai-agents-python/ref/run/
+fonte: https://openai.github.io/openai-agents-python/running_agents/
+
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Criando API Key
+
+#### **Os provedores mais conhecidos de modelos de IA: OpenAI, Anthropic e Google**
+
+::left::
+
+<div class="text-left w-full">
+
+Cadastre e crie uma API Key em um provedor: 
+- [platform.openai.com](https://platform.openai.com)
+- [console.cloud.google.com](https://console.cloud.google.com)
+
+<br/>
+
+<v-click>
+
+> [!TIP]
+> plataformas do tipo **Gateway de LLM** como a _[openrouter.ai](https://openrouter.ai)_ são interessantes para acessar família de modelos de vários provedores (Anthropic, Google, OpenAI, Deepseek). 
+
+</v-click>
+
+</div>
+
+
+
+::right::
+
+<Transform :scale="1.4" origin="center">
+    <AssetImg
+    src="openai-plataform-developer.png"
+    class="max-w-none w-[400px] border-0 border-white"
+    crop-left="2px"
+    crop-right="115px"
+    />
+</Transform>
+
+
+<!--
+
+1. Acessar: https://platform.openai.com
+1. Cadastrar
+2. Acessar profile: https://platform.openai.com/settings/organization/billing/overview
+3. Adiciona crédito
+4. Criar API Key
+
+-->
+
+---
+
+## Diferença entre APIs de LLM
+
+---
+
+## IDE com Agente de Codificação
+
+
+---
+
+## Live Coding
+
+
+---
+
+## Hands-on
+
+- Exercício 1
+- Exercício 2
+- Exercício 3
+
+---
+
+## Etapa 2
+
 
 ---
 
