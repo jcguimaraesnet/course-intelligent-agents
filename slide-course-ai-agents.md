@@ -27,10 +27,6 @@ python:
   # Install packages from PyPI. Default: []
   installs: []
 
-  # Code executed to set up the environment. Default: ""
-  prelude: |
-    GREETING_FROM_PRELUDE = "Hello, Slidev!"
-
   # Automatically load the imported builtin packages. Default: true
   loadPackagesFromImports: true
 
@@ -589,7 +585,7 @@ source: https://docs.astral.sh/uv/getting-started/installation
 
 ::left::
 
-```python {monaco-run} {autorun: false}
+```python {monaco-run} {autorun: false, height: 'auto'}
 import time
 t = time.perf_counter()
 
@@ -603,12 +599,13 @@ def main():
     download("C")
 
 main()
+
 ```
 
 
 ::right::
 
-```python {monaco-run} {autorun: false}
+```python {monaco-run} {autorun: false, height: 'auto'}
 import asyncio, time
 t = time.perf_counter()
 
@@ -622,6 +619,7 @@ async def main():
     )
 
 await main()
+
 ```
 
 
