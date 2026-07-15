@@ -537,7 +537,7 @@ source: https://docs.astral.sh/uv/getting-started/installation
 
 ::left::
 
-```python {none|5|9-11|13}{at:+1}
+```python {none|5|9-11|14}{at:+1}
 import time
 t = time.perf_counter()
 
@@ -550,13 +550,14 @@ def main():
     download("B")
     download("C")
 
-main()
+if __name__ == "__main__":
+    main()
 ```
 
 
 ::right::
 
-```python {none|5|8-11|13}{at:1}
+```python {none|5|8-11|14}{at:1}
 import asyncio, time
 t = time.perf_counter()
 
@@ -569,7 +570,8 @@ async def main():
         download("A"), download("B"), download("C")
     )
 
-await main() # or asyncio.run(main()) 
+if __name__ == "__main__":
+    await main()
 ```
 
 
@@ -581,9 +583,9 @@ sourceLabel: Install UV
 source: https://docs.astral.sh/uv/getting-started/installation
 ---
 
-# Chamadas síncronas e assíncronas em Python
+# Demo: chamada síncrona x assíncrona
 
-#### **Chamadas assíncronas 'não melhora' perfomance, mas permite concorrência**
+#### **Chamada assíncrona otimiza o tempo de ociosidade, executando outras tarefas**
 
 ::left::
 
@@ -619,7 +621,7 @@ async def main():
         download("A"), download("B"), download("C")
     )
 
-await main() # or asyncio.run(main()) 
+await main()
 ```
 
 
