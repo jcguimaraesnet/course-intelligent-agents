@@ -645,6 +645,67 @@ import main
 -->
 
 ---
+layoutClass: gap-8
+sourceLabel: OpenAI Agents Sdk
+source: https://openai.github.io/openai-agents-python
+---
+
+# OpenAI Agents SDK
+
+<Transform :scale="0.7">
+
+| **Framework / SDK** | **Repositório** | **Estrelas**⭐ | **Cenário** |
+|-----------------|-------------|------------|:---|
+| LangChain | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | 139.663 | Genérico |
+| AutoGen (Microsoft) | [microsoft/autogen](https://github.com/microsoft/autogen) | 59.062 | Em fusão |
+| CrewAI | [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) | 53.924 | Multiagente |
+| LlamaIndex | [run-llama/llama_index](https://github.com/run-llama/llama_index) | 50.218 | RAG |
+| LangGraph | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | 35.162 | Líder, baseado em Grafo |
+| Semantic Kernel (Microsoft) | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | 28.160 | Em fusão |
+| smolagents (Hugging Face) | [huggingface/smolagents](https://github.com/huggingface/smolagents) | 27.927 | Minimalista, simplicidade |
+| **OpenAI Agents SDK** | [openai/openai-agents-python](https://github.com/openai/openai-agents-python) | 27.248 | Provedor |
+| Google ADK | [google/adk-python](https://github.com/google/adk-python) | 20.172 | Provedor |
+| Pydantic AI | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | 17.844 | Tipagem Pydantic |
+
+</Transform>
+
+<!--
+- o llamaIndex teve novas funcionalidades para fluxo agentico, mas nasceu com identidade para RAG - comunidade mais ativa para RAG
+- Langchain direciona fluxos agenticos para LangGraph
+- 
+-->
+
+
+---
+layoutClass: gap-8
+sourceLabel: OpenAI Agents Sdk
+source: https://openai.github.io/openai-agents-python
+---
+
+# OpenAI Agents SDK
+
+#### **Principais abstrações (primitivas)**
+
+<br/>
+
+<Transform :scale="0.8">
+
+<v-clicks every="1">
+
+| Conceito | O que é |
+|---|---|
+| **Agent** | Um LLM com nome, instruções, ferramentas e possíveis _handoffs_ — o agente em si. |
+| **Runner** | Motor de execução: roda o loop de raciocínio, faz _retries_ e impõe limites de segurança. |
+| **Tools** | Funções Python (ou APIs/agentes) que o modelo descobre e invoca quando necessário. |
+| **Handoffs** | Delegação de controle e do contexto de um agente para outro (fluxos multiagente). |
+| **Guardrails** | Checagens de política em cada passo, mantendo saídas e chamadas dentro das regras. |
+| **Tracing** | Logs estruturados de prompts, respostas e chamadas — para _debug_ e observabilidade. |
+
+</v-clicks>
+
+</Transform>
+
+---
 
 ## Resumo
 
