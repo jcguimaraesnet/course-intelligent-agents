@@ -259,7 +259,7 @@ source: https://docs.astral.sh/uv/getting-started/installation
 footer: true
 ---
 
-# Mais sobre o gerenciado UV
+# Mais sobre o gerenciador UV
 
 #### **Mais rápido e mais simples**
 

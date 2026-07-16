@@ -184,8 +184,6 @@ src: ./slide-etapa1.md  # This slide only contains a frontmatter
 
 
 ---
-layout: section
-routeAlias: etapa2
 src: ./slide-etapa2.md  # This slide only contains a frontmatter
 ---
 
