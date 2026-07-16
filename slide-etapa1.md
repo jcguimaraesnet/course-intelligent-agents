@@ -1,8 +1,9 @@
 ---
 layout: section
+routeAlias: etapa1
 ---
 
-## **Conceitos**: o que é um Agente?
+## **Etapa 1:** introdução
 
 
 
@@ -27,7 +28,6 @@ image: /agent-3-components.png
 
 ---
 layout: quote
-routeAlias: etapa1
 ---
 
 ::title::
@@ -858,8 +858,6 @@ layoutClass: gap-8
 
 # Hands-on
 
-
-
 ::left::
 
 ```python
@@ -898,9 +896,3 @@ if __name__ == "__main__":
 - [ ] usar async/await
 
 <br/>
-
-
----
-
-## Etapa 2
-

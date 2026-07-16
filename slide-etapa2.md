@@ -1,5 +1,5 @@
-
-# Slide etapa 2
+## **Etapa 2:** OpenAI Agents SDK 
+**Entendendo o básico**
 
 ---
 
