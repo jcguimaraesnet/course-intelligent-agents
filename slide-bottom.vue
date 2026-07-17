@@ -37,6 +37,13 @@ const showFooter = computed(() => $frontmatter.footer !== false)
 
 const source = computed<string | undefined>(() => $frontmatter.source)
 const sourceLabel = computed<string | undefined>(() => $frontmatter.sourceLabel)
+
+// Apenas para exibição: remove o prefixo `http://` ou `https://`. O `:href`
+// continua usando `source` (URL completa), então o link segue direcionando
+// corretamente.
+const sourceDisplay = computed<string | undefined>(() =>
+  source.value?.replace(/^https?:\/\//, ''),
+)
 </script>
 
 <template>
@@ -57,7 +64,7 @@ const sourceLabel = computed<string | undefined>(() => $frontmatter.sourceLabel)
 
     <div v-if="source" class="slidev-footer__end">
       <span v-if="sourceLabel">{{ sourceLabel }}:</span>
-      <a :href="source" target="_blank">{{ source }}</a>
+      <a :href="source" target="_blank">{{ sourceDisplay }}</a>
     </div>
   </footer>
 </template>
