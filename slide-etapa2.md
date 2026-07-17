@@ -727,6 +727,122 @@ Na Groq, temperature=0 vira 1e-8 internamente; o intervalo aceito é 0 a 2.
 ---
 layout: two-cols-header
 layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# Sobre o max_tokens
+
+#### **Limita a quantidade de tokens da resposta (raciocínio e saída)**
+
+<br/>
+
+::left::
+
+<div class="text-left w-full">
+
+> [!IMPORTANT]
+> O `max_tokens` limita **só o output** — e o raciocínio está dentro dele.
+
+<div class="h-2" />
+
+<v-clicks every="1">
+
+- A conta soma **três** partes: input, reasoning e resposta.
+- `max_tokens = 200` no exemplo ao lado → o reasoning sozinho estoura o limite e a **resposta vem vazia**: você paga e não recebe texto.
+
+</v-clicks>
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center gap-3">
+
+<Transform :scale="0.8" origin="top">
+
+| Parte | Tokens | |
+|---|---|---|
+| **input** — *"Quantos R tem em morango?"* | 18 | ✅ |
+| **reasoning** — invisível | 200 | ✅ |
+| **resposta** — *"Tem 1 letra R."* | 6 | ❌ |
+| **output** = reasoning + resposta | **206** | ✂️ |
+| **custo** = input + output | **218** | |
+
+</Transform>
+
+</div>
+
+<!--
+Números ilustrativos, como nos slides de temperatura e top_p.
+
+O reasoning É output: no SDK, reasoning_tokens vive dentro de output_tokens_details.
+Por isso o max_tokens o inclui — e por isso um limite baixo pode devolver resposta vazia.
+
+O max_tokens NÃO toca no input. Num chat com histórico (slides 40 e 41), o que cresce é o input
+sendo reenviado a cada turno — e contra isso o max_tokens não faz nada. É teto de segurança, não economia.
+
+Não é pedido de brevidade: o modelo é cortado no meio da frase ao bater o limite.
+Se quer resposta curta, peça nas instructions.
+
+Se perguntarem como medir: result.context_wrapper.usage tem input_tokens, output_tokens e total_tokens.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Limitando a saída com max_tokens
+
+::left::
+
+```python [main.py]{11,15}{maxHeight:'320px'}
+import asyncio, os
+from dotenv import load_dotenv
+from agents import (Agent, Runner, ModelSettings,
+                    set_default_openai_api, set_tracing_disabled)
+
+load_dotenv() 
+set_default_openai_api("chat_completions")
+set_tracing_disabled(True)
+
+async def main():
+    for limite in (100, 500):
+        agent = Agent(
+            name="Assistente",
+            instructions="Responda de forma direta.",
+            model_settings=ModelSettings(max_tokens=limite),
+        )
+        result = await Runner.run(agent, "Quantos R tem em morango?")
+        u = result.context_wrapper.usage
+
+        print(f"\n=== max_tokens={limite} ===")
+        print(f"input:     {u.input_tokens}")
+        print(f"reasoning: {u.output_tokens_details.reasoning_tokens}")
+        print(f"output:    {u.output_tokens}")
+        print(f"resposta:  {result.final_output!r}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!TIP]
+> Para respostas mais curtas, o campo indicado é o `instructions` — é lá que você pede brevidade ao modelo. <br/>
+> O `max_tokens` serve como **teto de segurança**: garante que nenhuma resposta estoure o tamanho (e o custo) desejado.
+
+<!--
+# só funciona com um modelo de RACIOCÍNIO.
+
+# alguns modelos não tem raciocínio
+
+# é um tipo de parâmetro mais usado como guardrail, para restringir em uso indevido.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 ---
 
 # Hands-on
