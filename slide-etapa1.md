@@ -853,12 +853,15 @@ layout: default
 
 🤖 &nbsp;**Exercício \#2:** Agente de QA para qualquer assunto
 
+🤖 &nbsp;**Exercício \#3:** Crie duas versões de um agente: síncrono e assíncrono
+
+🤖 &nbsp;**Exercício \#4:** Rode o mesmo agente em dois provedores gratuitos
+
 - [ ] download antigravity
-- [ ] criar projeto
-- [ ] instalar uv/python
-- [ ] adicionar pacotes
-- [ ] criar API KEY
-- [ ] usar Agente e Runner
-- [ ] usar async/await
+- [ ] crie projeto
+- [ ] instale uv/python
+- [ ] adicione os pacotes
+- [ ] crie a API KEY
+- [ ] use as classes Agent e Runner
 
 <br/>

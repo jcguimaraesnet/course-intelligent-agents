@@ -955,11 +955,20 @@ layout: default
 
 <br/>
 
-🤖 &nbsp;**Exercício \#1:** Agente de Q&A de qualquer assunto com histórico multi-turno
+🤖 &nbsp;**Exercício \#1:** Prove que o agente esquece: a mesma pergunta com e sem `history`
 
-- [ ] escolha um provedor
-- [ ] crie a API Key
-- [ ] configure o .env
-- [ ] desenvolva o agente
+🤖 &nbsp;**Exercício \#2:** Crie um agente barista/tipo de café e varie `temperature`/`top_p`.
+
+🤖 &nbsp;**Exercício \#3:** Analise as diferenças entre execuções no exec #3 e tire conclusões.
+
+🤖 &nbsp;**Exercício \#4:** Meça os tokens de cada chamada e force uma resposta vazia com `max_tokens`
+
+
+- [ ] escolher provedor gratuito e criar a API Key
+- [ ] configurar o `.env`: key, base URL e modelo
+- [ ] ativar Chat Completions e desativar o tracing
+- [ ] montar o `history` com as roles `user` e `assistant`
+- [ ] configurar o `ModelSettings`: temperature, top_p e max_tokens
+- [ ] ler o `usage` para comparar os tokens
 
 <br/>
