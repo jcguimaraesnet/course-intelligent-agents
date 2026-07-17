@@ -437,6 +437,55 @@ O histórico de mensagens é armazenado nos servidores da OpenAI por 30 dias.
 -->
 
 ---
+layout: default
+sourceLabel: ModelSettings
+source: https://openai.github.io/openai-agents-python/models/#common-advanced-modelsettings-options
+---
+
+# Objeto ModelSettings
+
+#### **O objeto Model Settings oferece vários parâmetros para usar com LLMs**
+
+<br/>
+
+<Transform :scale="0.7">
+
+| Propriedade | Descrição | Valores&nbsp;possíveis&nbsp;&nbsp;&nbsp;&nbsp; | Default |
+|---|---|---|---|
+| `temperature` | Aleatoriedade na escolha do próximo token | `0.0` a `2.0` | `None` |
+| `top_p` | Limita a escolha aos tokens mais prováveis | `0.0` a `1.0` | `None` |
+| `max_tokens` | Limite de tokens gerados na resposta | `> 0` | `None` |
+| `frequency_penalty` | Penaliza tokens já usados, reduzindo repetição | `-2.0` a `2.0`| `None` |
+
+</Transform>
+
+<Transform :scale="0.7" origin="top left">
+
+> [!IMPORTANT]
+> A família **GPT-5** (raciocínio) não suporta `temperature` nem `top_p`. <br/>
+> No lugar deles, configure `reasoning.effort` e `verbosity`.
+
+</Transform>
+
+<!--
+temperatura ->  ex.: `0.2` factual, `1.4` criativo
+top_p -> — ex.: `0.9` = top 90% da massa 
+max_tokens -> até o teto do modelo — ex.: `500`
+frequency_penalty ->  ex.: `0.5` 
+
+
+Default `None` não é zero: o SDK omite o parâmetro da chamada e vale o default do provedor.
+Na OpenAI, omitir significa temperature=1.0, top_p=1.0 e frequency_penalty=0.0.
+Os intervalos são da API da OpenAI — o SDK aceita qualquer float e só repassa.
+Nem todo modelo/provedor suporta todos eles.
+
+A substituição no GPT-5 NÃO é automática: o SDK não converte temperature em effort, ele repassa o valor cru
+e a API rejeita com 400 "Unsupported parameter: 'temperature' is not supported with this model".
+Os defaults de effort/verbosity só entram quando você NÃO passa model_settings — se passar o seu, ele substitui inteiro.
+Exceção: os aliases gpt-5-chat-latest não são de raciocínio e aceitam temperature normalmente.
+-->
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 ---
@@ -491,55 +540,6 @@ Rode de novo com temperature=0.0 e compare — as 3 saídas ficam praticamente i
 
 A recomendação de não mexer nos dois é da própria doc da OpenAI ("altering this or top_p but not both").
 Na Groq, temperature=0 vira 1e-8 internamente; o intervalo aceito é 0 a 2.
--->
-
----
-layout: default
-sourceLabel: ModelSettings
-source: https://openai.github.io/openai-agents-python/models/#common-advanced-modelsettings-options
----
-
-# Objeto ModelSettings
-
-#### **O objeto Model Settings oferece vários parâmetros para usar com LLMs**
-
-<br/>
-
-<Transform :scale="0.7">
-
-| Propriedade | Descrição | Valores&nbsp;possíveis&nbsp;&nbsp;&nbsp;&nbsp; | Default |
-|---|---|---|---|
-| `temperature` | Aleatoriedade na escolha do próximo token | `0.0` a `2.0` | `None` |
-| `top_p` | Limita a escolha aos tokens mais prováveis | `0.0` a `1.0` | `None` |
-| `max_tokens` | Limite de tokens gerados na resposta | `> 0` | `None` |
-| `frequency_penalty` | Penaliza tokens já usados, reduzindo repetição | `-2.0` a `2.0`| `None` |
-
-</Transform>
-
-<Transform :scale="0.7" origin="top left">
-
-> [!IMPORTANT]
-> A família **GPT-5** (raciocínio) não suporta `temperature` nem `top_p`. <br/>
-> No lugar deles, configure `reasoning.effort` e `verbosity`.
-
-</Transform>
-
-<!--
-temperatura ->  ex.: `0.2` factual, `1.4` criativo
-top_p -> — ex.: `0.9` = top 90% da massa 
-max_tokens -> até o teto do modelo — ex.: `500`
-frequency_penalty ->  ex.: `0.5` 
-
-
-Default `None` não é zero: o SDK omite o parâmetro da chamada e vale o default do provedor.
-Na OpenAI, omitir significa temperature=1.0, top_p=1.0 e frequency_penalty=0.0.
-Os intervalos são da API da OpenAI — o SDK aceita qualquer float e só repassa.
-Nem todo modelo/provedor suporta todos eles.
-
-A substituição no GPT-5 NÃO é automática: o SDK não converte temperature em effort, ele repassa o valor cru
-e a API rejeita com 400 "Unsupported parameter: 'temperature' is not supported with this model".
-Os defaults de effort/verbosity só entram quando você NÃO passa model_settings — se passar o seu, ele substitui inteiro.
-Exceção: os aliases gpt-5-chat-latest não são de raciocínio e aceitam temperature normalmente.
 -->
 
 ---
