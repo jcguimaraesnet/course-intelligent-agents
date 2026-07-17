@@ -179,47 +179,47 @@ class: flex items-center justify-center
 </div>
 
 ---
-src: ./slide-etapa1.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa1.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa2.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa2.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa3.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa3.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa4.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa4.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa5.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa5.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa6.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa6.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa7.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa7.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa8.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa8.md  # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./slide-etapa9.md  # This slide only contains a frontmatter
+src: ./pages/slide-etapa9.md  # This slide only contains a frontmatter
 ---
 
 

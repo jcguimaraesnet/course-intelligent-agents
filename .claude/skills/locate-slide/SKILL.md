@@ -8,7 +8,7 @@ description: Localiza em qual arquivo e linha vive um slide do deck Slidev, a pa
 O número que o usuário enxerga na apresentação **não corresponde a nenhuma
 contagem simples de arquivo**. [slides.md](slides.md) traz os slides de abertura
 e depois puxa as etapas via `src:`, então o slide 37 pode estar na linha 170 de
-`slide-etapa2.md`. Contar separadores `---` na mão erra: eles também delimitam
+`pages/slide-etapa2.md`. Contar separadores `---` na mão erra: eles também delimitam
 frontmatter, e os includes deslocam tudo.
 
 Por isso, resolva com o parser do próprio Slidev — mesma numeração do build:
@@ -19,11 +19,11 @@ node .claude/skills/locate-slide/scripts/locate-slide.mjs 37
 
 ```
 slide 37/38
-file:      slide-etapa2.md
+file:      pages/slide-etapa2.md
 title:     Gateway/Provedores com API gratuita
 lines:     164-191    (separador `---` na linha 164)
 frontmatter: 165-168
-content:   slide-etapa2.md:170
+content:   pages/slide-etapa2.md:170
 ```
 
 Vários de uma vez: `... locate-slide.mjs 12 37`. Índice completo: `--list`.
@@ -42,7 +42,7 @@ pede:
 - `lines` — o slide inteiro, do separador `---` até o fim. Use para mover,
   remover ou duplicar o slide sem cortar o vizinho.
 
-Ao citar o slide para o usuário, use o caminho clicável (`slide-etapa2.md:170`).
+Ao citar o slide para o usuário, use o caminho clicável (`pages/slide-etapa2.md:170`).
 
 ## Escopo
 
