@@ -187,3 +187,106 @@ if __name__ == "__main__":
 <!--
 # Enfatize que aqui o acesso é por atributo (.sabor), diferente do TypedDict que usa chave.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Agent
+source: https://openai.github.io/openai-agents-python/agents/
+---
+
+# Comportamento de agentes no system message
+
+#### **Use técnicas de prompt engineering no campo instructions (`system message`)**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {5-21}{maxHeight:'320px'}
+from agents import Agent
+
+agent = Agent(
+    name="Software Engineer Agent",
+    instructions="""
+        # Papel
+        - Você é um agente de IA especialista 
+        em engenharia de software.
+
+        # Instructions
+        - Responda apenas sobre perguntas de engenharia 
+        de software. Se o usuário perguntar sobre outro 
+        assunto, recuse educadamente.
+
+        # Tarefa
+        Sua tarefa consiste em responder perguntas 
+        sobre engenharia de software.
+
+        # Formato de saída
+        - Responda de forma objetiva com tom informal.
+    """
+)
+```
+::right::
+
+<v-click at="+6">
+
+> [!NOTE]
+> **instructions** -> existem muitos padrões proposto para prompts estruturados de agentes. 
+- RTF (Role, Task, Format, etc)
+- PTCF (Persona, Task, Context, Format)
+
+</v-click>
+
+<!-- 
+
+- Todas as seções não são obrigatórias, use quando fizer sentido
+
+[https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide](https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide#prompt-structure)
+
+#### OpenAI propõe uma estrutura de documento com seções nomeadas
+
+- Role and Objective
+- Instructions
+- Reasoning Steps
+- Output Format
+- Examples
+- Context
+- Final instructions
+
+-->
+
+---
+layout: default
+sourceLabel: OpenAI Prompting Guide
+source: https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide#prompt-structure
+---
+
+# Estrutura de prompt sugerida pela OpenAI
+
+#### **A OpenAI sugere organizar o campo `instructions` em seções nomeadas**
+
+<br/>
+
+<Transform :scale="0.7">
+
+| Seção | Descrição |
+|---|---|
+| `Role and Objective` | Quem o modelo é e o que ele deve alcançar na interação |
+| `Instructions` | Regras e diretrizes de comportamento que o modelo deve seguir |
+| `Reasoning Steps` | Sequência lógica ou método a aplicar ao resolver o problema |
+| `Output Format` | Como a resposta deve ser estruturada e apresentada |
+| `Examples` | Exemplos de entrada e saída que ilustram o comportamento desejado |
+| `Context` | Informações de apoio, documentos ou dados que o modelo deve consultar |
+| `Final instructions` | Meta-orientação final, ex.: pedir para "pensar passo a passo" |
+
+<div class="h-10" />
+
+> As seções são **opcionais**: adicione ou remova conforme o caso de uso do seu agente.
+
+</Transform>
+
+
+<!--
+As seções não são obrigatórias — adicione ou remova conforme o caso de uso.
+-->
