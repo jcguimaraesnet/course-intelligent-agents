@@ -1,48 +1,38 @@
-# Curso: Agentes de IA com Python
+<div align="center">
 
-Apresentação (slides) do curso **Fundamentos de Agentes com Python e APIs — Desenvolvimento de Agentes Inteligentes**.
+# 🤖 Curso: Agentes de IA com Python
 
-🔗 **Slides online:** https://jcguimaraesnet.github.io/course-ai-agents/
+Apresentação (slides) do curso <br/>
+**Fundamentos de Agentes com Python e APIs — Desenvolvimento de Agentes Inteligentes**
 
-Construído com [Slidev](https://sli.dev).
+<br/>
 
-## Rodando localmente
+[![Slides online](https://img.shields.io/badge/📊_Slides-online-8B5CF6?style=for-the-badge)](https://jcguimaraesnet.github.io/course-ai-agents/)
+[![Slidev](https://img.shields.io/badge/Built_with-Slidev-2B90B6?style=for-the-badge&logo=vite&logoColor=white)](https://sli.dev)
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
+[![GitHub](https://img.shields.io/badge/jcguimaraesnet-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jcguimaraesnet)
 
-```bash
-pnpm install
-pnpm dev
-```
+</div>
 
-Abre em <http://localhost:3030>.
+<br/>
 
-## Scripts
+## 📚 Ementa do curso
 
-| Comando | O que faz |
-|---------|-----------|
-| `pnpm dev` | Servidor de desenvolvimento (hot-reload) |
-| `pnpm build` | Gera o site estático em `dist/` (com `--base /course-ai-agents/`) |
-| `pnpm export` | Exporta os slides para PDF |
+<div align="center">
+  <img src="public/ementa.png" alt="Ementa do curso — as 9 etapas, da introdução aos agentes assíncronos" width="100%">
+</div>
 
-## Estrutura
+<br/>
 
-| Caminho | Descrição |
-|---------|-----------|
-| `slides.md` | O deck (entrada do Slidev) |
-| `layouts/` | Layouts customizados (`custom-author`, `image-x`) |
-| `components/` | Componentes Vue (`GitHubIcon`) |
-| `slide-bottom.vue` | Barra inferior com número da página e fonte (todos os slides) |
-| `global-bottom.vue` | Fundo com efeito *glow* (todos os slides) |
-| `styles/index.css` | Estilos globais (prefixo `#` nos títulos) |
-| `public/` | Imagens |
+---
 
-## Publicação
+<div align="center">
 
-O deploy é automático: a cada push na branch `main`, o workflow
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) faz o build e publica no GitHub Pages.
+### ⭐ Gostou do conteúdo?
 
-> ⚠️ Como este é um *project site* (servido em `/course-ai-agents/`), o build **precisa** do
-> `--base /course-ai-agents/` — já configurado no script `build`.
+Deixe uma **star** no repositório! <br/>
+É o que me incentiva a manter o material atualizado e a publicar as próximas etapas.
 
-## Autor
+[![Star no GitHub](https://img.shields.io/github/stars/jcguimaraesnet/course-ai-agents?style=social)](https://github.com/jcguimaraesnet/course-ai-agents)
 
-**Júlio César Guimarães** · [LinkedIn](https://linkedin.com/in/jcguimaraesnet) · [GitHub](https://github.com/jcguimaraesnet)
+</div>
