@@ -189,6 +189,41 @@ if __name__ == "__main__":
 -->
 
 ---
+layout: default
+sourceLabel: OpenAI Prompting Guide
+source: https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide#prompt-structure
+---
+
+# Estrutura de prompt para agentes
+
+#### **A OpenAI sugere organizar o campo `instructions` em seções nomeadas**
+
+<br/>
+
+<Transform :scale="0.7">
+
+| Seção | Descrição |
+|---|---|
+| `Role and Objective` | Quem o modelo é e o que ele deve alcançar na interação |
+| `Instructions` | Regras e diretrizes de comportamento que o modelo deve seguir |
+| `Reasoning Steps` | Sequência lógica ou método a aplicar ao resolver o problema |
+| `Output Format` | Como a resposta deve ser estruturada e apresentada |
+| `Examples` | Exemplos de entrada e saída que ilustram o comportamento desejado |
+| `Context` | Informações de apoio, documentos ou dados que o modelo deve consultar |
+| `Final instructions` | Meta-orientação final, ex.: pedir para "pensar passo a passo" |
+
+<div class="h-10" />
+
+> As seções são **opcionais**: adicione ou remova conforme o caso de uso do seu agente.
+
+</Transform>
+
+
+<!--
+As seções não são obrigatórias — adicione ou remova conforme o caso de uso.
+-->
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 sourceLabel: Agent
@@ -256,37 +291,4 @@ agent = Agent(
 
 -->
 
----
-layout: default
-sourceLabel: OpenAI Prompting Guide
-source: https://developers.openai.com/cookbook/examples/gpt4-1_prompting_guide#prompt-structure
----
 
-# Estrutura de prompt sugerida pela OpenAI
-
-#### **A OpenAI sugere organizar o campo `instructions` em seções nomeadas**
-
-<br/>
-
-<Transform :scale="0.7">
-
-| Seção | Descrição |
-|---|---|
-| `Role and Objective` | Quem o modelo é e o que ele deve alcançar na interação |
-| `Instructions` | Regras e diretrizes de comportamento que o modelo deve seguir |
-| `Reasoning Steps` | Sequência lógica ou método a aplicar ao resolver o problema |
-| `Output Format` | Como a resposta deve ser estruturada e apresentada |
-| `Examples` | Exemplos de entrada e saída que ilustram o comportamento desejado |
-| `Context` | Informações de apoio, documentos ou dados que o modelo deve consultar |
-| `Final instructions` | Meta-orientação final, ex.: pedir para "pensar passo a passo" |
-
-<div class="h-10" />
-
-> As seções são **opcionais**: adicione ou remova conforme o caso de uso do seu agente.
-
-</Transform>
-
-
-<!--
-As seções não são obrigatórias — adicione ou remova conforme o caso de uso.
--->
