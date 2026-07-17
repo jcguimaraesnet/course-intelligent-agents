@@ -841,38 +841,121 @@ if __name__ == "__main__":
 -->
 
 ---
-layout: two-cols-header
-layoutClass: gap-8
+layout: section
+---
+
+## Live Coding
+🤖 **Agente:** um atendente de sorveteria que conversa, lembra do que você disse e mostra o custo de cada turno
+
+<!--
+Cobre toda a Etapa 2 sem tocar na Responses API: .env + provedor gratuito, chat_completions,
+tracing desligado, instructions (role system), roles user/assistant, histórico, loop multi-turno,
+ModelSettings (temperature/max_tokens) e usage.
+
+=================================================================
+PARTE 0 — o .env (mostrar antes de escrever qualquer código)
+
+OPENAI_API_KEY=...
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+OPENAI_DEFAULT_MODEL=gpt-5-nano
+
+=================================================================
+PARTE 1 — conectar e falar UMA vez
+
+import asyncio
+from dotenv import load_dotenv
+from agents import Agent, Runner, set_default_openai_api, set_tracing_disabled
+
+load_dotenv()
+set_default_openai_api("chat_completions")  # modelo não OpenAI
+set_tracing_disabled(True)                  # modelo não OpenAI
+
+agent = Agent(
+    name="Atendente",
+    instructions="Você é o atendente de uma sorveteria. Seja simpático e direto.",
+)
+
+async def main():
+    result = await Runner.run(agent, "Oi, o que você tem hoje?")
+    print(result.final_output)
+
+asyncio.run(main())
+
+>>> RODE. Se respondeu, a conexão com o provedor está de pé.
+>>> Aponte: instructions é a role system. Ninguém digitou isso, é você que definiu.
+
+=================================================================
+PARTE 2 — o agente não lembra
+
+Troque só a main(), mantendo o resto:
+
+history = [
+    {"role": "user", "content": "Quero algo com chocolate."},
+    {"role": "assistant", "content": "Temos chocolate belga e chocolate branco."},
+    {"role": "user", "content": "Qual dos dois é mais doce?"},
+]
+
+async def main():
+    result = await Runner.run(agent, history)
+    print(result.final_output)
+
+>>> "Qual dos DOIS" só faz sentido com contexto.
+>>> Apague as duas primeiras linhas do history e rode de novo: o agente se perde. É a lição.
+
+=================================================================
+PARTE 3 — conversa de verdade
+
+async def main():
+    history = []
+    while True:
+        pergunta = input("\nvocê> ")
+        if pergunta.strip().lower() == "sair":
+            break
+
+        history.append({"role": "user", "content": pergunta})
+        result = await Runner.run(agent, history)
+        print(f"atendente> {result.final_output}")
+
+        history = result.to_input_list()   # histórico + a resposta nova
+
+>>> Agora dá para perguntar "e qual combina com ele?" que o agente entende.
+
+=================================================================
+PARTE 4 — ModelSettings
+
+from agents import ModelSettings
+
+agent = Agent(
+    name="Atendente",
+    instructions="Você é o atendente de uma sorveteria. Seja simpático e direto.",
+    model_settings=ModelSettings(temperature=1.2, max_tokens=200),
+)
+
+>>> Peça "me surpreenda com uma combinação" duas vezes: respostas diferentes.
+>>> Baixe para temperature=0.0 e repita: sai igual. É o slide da temperatura, ao vivo.
+
+=================================================================
+PARTE 5 — o custo (o fecho da aula)
+
+Dentro do loop, logo após imprimir a resposta:
+
+        u = result.context_wrapper.usage
+        print(f"[input={u.input_tokens} output={u.output_tokens} total={u.total_tokens}]")
+
+>>> Rode 4 ou 5 turnos e aponte o INPUT CRESCENDO a cada turno.
+>>> É o histórico inteiro sendo reenviado — prova ao vivo do slide 41.
+>>> E amarra o slide 48: o max_tokens segura o output, mas contra o input crescente não faz nada.
+-->
+
+---
+layout: default
 ---
 
 # Hands-on
 
+<br/>
 
-::left::
-
-```python
-import os
-import asyncio
-from dotenv import load_dotenv
-from agents import Agent, Runner
-
-async def main():
-    load_dotenv()
-
-    agent = Agent(name="", instructions="")
-
-    result = await Runner.run(agent, "")
-
-    print(result.final_output)
-
-if __name__ == "__main__":
-    asyncio.run(main())
-```
-
-::right::
-
-
-**\#1** Crie um agente de Q&A e use uma API gratuita<br/>
+🤖 &nbsp;**Exercício \#1:** Agente de Q&A de qualquer assunto com histórico multi-turno
 
 - [ ] escolha um provedor
 - [ ] crie a API Key

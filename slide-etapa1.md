@@ -793,11 +793,15 @@ Download e documentação em:
 layout: section
 ---
 
-## Live Coding 1
-**Meu primeiro agente:** um agente para responder um Hello Word
+## Live Coding
+
+🤖 &nbsp;**Agente 1:** um agente para responder um Hello Word
+
+🤖 &nbsp;**Agente 2:** um agente de Q&A para assuntos de engenharia de software
 
 <!--
-- 
+=================================================================
+AGENTE 1 — Hello World
 
 ```python
 import os
@@ -818,74 +822,36 @@ result = Runner.run_sync(agent, "Run agent")
 print(result.final_output)
 ```
 
--->
+=================================================================
+AGENTE 2 — Q&A de engenharia de software
 
----
-layout: section
----
-
-## Live Coding 2
-**Meu segundo agente:** um agente de Q&A para assuntos de engenharia de software
-
-
-
-<!--
-- 
+O código que estava nesta nota era uma cópia idêntica do Agente 1 (o Echo Agent
+do Hello Word), então o Q&A ainda precisa ser escrito. Partindo do Agente 1,
+muda só o miolo:
 
 ```python
-import os
-from dotenv import load_dotenv
-from agents import Agent, Runner
-
-load_dotenv()
-
-api_key = os.getenv("OPENAI_API_KEY")
-
-if not api_key:
-    print("Error: OPENAI_API_KEY not found. Please set it in your.env file.")
-else:
-    print("API Key loaded successfully.")
-
-agent = Agent(name="Echo Agent", instructions="Return the words 'Hello Word!'")
-result = Runner.run_sync(agent, "Run agent")
+agent = Agent(
+    name="QA Agent",
+    instructions="Você é um especialista em engenharia de software. Seja objetivo.",
+)
+result = Runner.run_sync(agent, "O que é injeção de dependência?")
 print(result.final_output)
 ```
 
--->
+>>> O gancho: mesmo esqueleto, muda só o instructions e a pergunta.
+-->  
 
 ---
-layout: two-cols-header
-layoutClass: gap-8
+layout: default
 ---
 
 # Hands-on
 
-::left::
+<br/>
 
-```python
-import os
-import asyncio
-from dotenv import load_dotenv
-from agents import Agent, Runner
+🤖 &nbsp;**Exercício \#1:** Agente para responder Hello Word
 
-async def main():
-    load_dotenv()
-
-    agent = Agent(name="", instructions="")
-
-    result = await Runner.run(agent, "")
-
-    print(result.final_output)
-
-if __name__ == "__main__":
-    asyncio.run(main())
-```
-
-::right::
-
-
-**\#1** Agente para responder Hello Word<br/>
-**\#2** Agente de QA para qualquer assunto
+🤖 &nbsp;**Exercício \#2:** Agente de QA para qualquer assunto
 
 - [ ] download antigravity
 - [ ] criar projeto
