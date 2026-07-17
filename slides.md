@@ -51,6 +51,8 @@ nota 123
 -->
 
 ---
+routeAlias: ementa
+---
 
 # Ementa do curso
 
