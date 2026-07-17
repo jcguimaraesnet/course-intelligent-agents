@@ -13,6 +13,7 @@
  *
  * Conteúdo da barra:
  *   esquerda -> página / total (<SlideCurrentNo/> / <SlidesTotal/>, nativos)
+ *   centro   -> link do GitHub; só aparece quando o slide NÃO define `source`
  *   direita  -> a fonte/link do slide, vinda do frontmatter
  *
  * Frontmatter (por slide):
@@ -44,6 +45,16 @@ const sourceLabel = computed<string | undefined>(() => $frontmatter.sourceLabel)
       <SlideCurrentNo />/<SlidesTotal />
     </div>
 
+    <a
+      v-if="!source"
+      class="slidev-footer__center"
+      href="https://github.com/jcguimaraesnet/course-ai-agents"
+      target="_blank"
+    >
+      <ri-github-fill />
+      <span>jcguimaraesnet</span>
+    </a>
+
     <div v-if="source" class="slidev-footer__end">
       <span v-if="sourceLabel">{{ sourceLabel }}:</span>
       <a :href="source" target="_blank">{{ source }}</a>
@@ -74,5 +85,24 @@ const sourceLabel = computed<string | undefined>(() => $frontmatter.sourceLabel)
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+/* Centraliza no slide, não entre os irmãos: o `space-between` do footer jogaria
+   o link para a borda quando o `__end` não existe. */
+.slidev-footer__center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.slidev-footer__center:hover {
+  opacity: 1;
 }
 </style>
