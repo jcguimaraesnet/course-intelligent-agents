@@ -488,6 +488,188 @@ Exceção: os aliases gpt-5-chat-latest não são de raciocínio e aceitam tempe
 ---
 layout: two-cols-header
 layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# Sobre o top_p
+
+#### **O `top_p` soma as chances de cima para baixo — e risca o resto do cardápio**
+
+<br/>
+
+::left::
+
+<div class="text-left w-full">
+
+> [!IMPORTANT]
+> O `top_p` **retira** sabores do cardápio. <br/>
+> Quando uma palavra é retirada, o cardápio encolhe.
+
+<div class="h-2" />
+
+<v-clicks every="1">
+
+- `top_p = 0.1` → o cardápio encolhe até sobrar a palavra **Chocolate**.
+- `top_p = 1.0` → cardápio inteiro, inclusive a palavra **Flocos**.
+
+</v-clicks>
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center gap-3">
+
+<Transform :scale="1" origin="top">
+
+| Sabor | Chance | Soma |
+|---|---|---|
+| Chocolate | 60% | 60% |
+| Morango | 20% | **80%** |
+| ~~Baunilha~~ | ~~15%~~ | ~~95%~~ |
+| ~~Pistache~~ | ~~4%~~ | ~~99%~~ |
+| ~~Flocos~~ | ~~1%~~ | ~~100%~~ |
+
+</Transform>
+
+<div class="text-sm opacity-70">ex: <code>top_p = 0.8</code></div>
+
+</div>
+
+<!--
+A tabela mostra o corte com top_p = 0.8: soma 60 + 20 = 80, bateu o limite, o resto é riscado.
+Os bullets falam dos extremos 0.1 e 1.0 porque são os valores que rodam no exemplo de código.
+
+Se perguntarem por que com top_p=0.1 o Chocolate sobrevive, já que 60% passa de 10%:
+o primeiro da lista nunca é cortado — senão não sobraria nada para escolher.
+
+É a MESMA lista do slide "Sobre a temperatura", de propósito: a turma vê os dois botões agindo sobre ela.
+Lá o Flocos continua no cardápio e ganha chance; aqui ele é riscado e não sai nunca mais.
+Essa é a diferença entre os dois parâmetros — se sobrar só uma ideia da aula, que seja essa.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Ajuste de aleatoriedade com top_p
+
+::left::
+
+```python [main.py]{3,11,15}{maxHeight:'320px'}
+import asyncio, os
+from dotenv import load_dotenv
+from agents import (Agent, Runner, ModelSettings,
+                    set_default_openai_api, set_tracing_disabled)
+
+load_dotenv() 
+set_default_openai_api("chat_completions")
+set_tracing_disabled(True)
+
+async def main():
+    for p in (0.1, 1.0):
+        agent = Agent(
+            name="Sorveteiro",
+            instructions="Responda com uma única palavra.",
+            model_settings=ModelSettings(top_p=p),
+        )
+        print(f"\n=== top_p={p} ===")
+        for i in range(3):
+            result = await Runner.run(agent, "Diga um sabor de sorvete.")
+            print(f"{i+1}. {result.final_output}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!TIP]
+> É como o **cardápio** da sorveteria: `top_p` baixo deixa só os sabores mais prováveis, enquanto `top_p` alto considera o cardápio inteiro, inclusive os menos comuns. <br/>
+> *O sorteio continua, o que muda é o tamanho do cardápio.*
+
+<!--
+Mesmo experimento do slide anterior, trocando o botão: top_p=0.1 repete o sabor mais provável, top_p=1.0 varia.
+
+Se perguntarem "então top_p é o número de opções?": não exatamente. O corte é por massa de probabilidade
+acumulada, não por contagem — 0.1 pode deixar 1 sabor numa pergunta óbvia e vários numa pergunta ambígua.
+O cardápio encolhe e cresce sozinho conforme o quanto o modelo está seguro. Só entre nesse detalhe se puxarem.
+
+Repare que aqui NÃO passamos temperature — ela fica no default do provedor (1.0).
+É de propósito: é o que respeita o CAUTION do slide anterior (mexer em um OU no outro).
+Se alguém puser temperature=0 junto, o top_p vira decoração: com temperatura zero não há sorteio para restringir.
+
+Por que 0.1 e não 0.0: o intervalo é 0 a 1, mas top_p=0 é um caso de borda que cada provedor trata
+de um jeito (alguns dão erro, outros viram greedy). 0.1 já é extremo o bastante e funciona em todos.
+
+Contraste com temperatura: temperature reescala as probabilidades (achata ou exagera a curva);
+top_p descarta a cauda e re-normaliza o que sobrou. Efeito parecido na tela, mecanismos diferentes.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# Sobre a temperatura
+
+#### **A temperatura ajusta a preferência por palavras mais ou menos prováveis**
+
+<br/>
+
+::left::
+
+<div class="text-left w-full">
+
+> [!IMPORTANT]
+> A temperatura **não tira ninguém do cardápio**. <br/>
+> Ela só mexe nas chances.
+
+<div class="h-2" />
+
+<v-clicks every="1">
+
+- `temperature = 0` → respostas com palavras mais prováveis: **Chocolate**.
+- `temperature = 2` → as chances se achatam: até **Flocos** (1%) vira uma saída provável.
+
+</v-clicks>
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center gap-3">
+
+<Transform :scale="1" origin="top">
+
+| Sabor | Chance |
+|---|---|
+| Chocolate | 60% |
+| Morango | 20% |
+| Baunilha | 15% |
+| Pistache | 4% |
+| Flocos | 1% |
+
+</Transform>
+
+</div>
+
+<!--
+# É importante mencionar que os modelos são treinados em corpos de textos, onde cada palavra pode aparecer mais ou menos durante o treinamento. 
+
+Os números são ilustrativos, para dar o que apontar na tela — não são a saída real de nenhum modelo.
+
+O ponto do IMPORTANT é o que separa temperature de top_p, e só faz sentido junto com o slide do top_p:
+aqui ninguém sai da lista, então com temperatura alta o Flocos PODE sair.
+Lá o Flocos é riscado da lista, então por mais que se rode, ele NUNCA sai.
+Um reequilibra as chances, o outro elimina candidatos.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 ---
 
 # Ajuste de aleatoriedade com temperatura
