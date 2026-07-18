@@ -400,6 +400,8 @@ if __name__ == "__main__":
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: Gerenciamento de estado
+source: https://openai.github.io/openai-agents-python/running_agents/#state-and-conversation-management
 ---
 
 # Chat multi-turno com Responses API
