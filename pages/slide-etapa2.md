@@ -320,9 +320,15 @@ OPENAI_DEFAULT_MODEL=google/gemma-4-26b-a4b-it:free
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: Gerenciamento de estado
+source: https://openai.github.io/openai-agents-python/running_agents/#state-and-conversation-management
 ---
 
 # Chat multi-turno com Chat Completions API
+
+#### **Histórico de mensagens gerenciado como `estado` na aplicação (`client`)**
+
+<div class="h-2" />
 
 ::left::
 
@@ -367,9 +373,17 @@ if __name__ == "__main__":
 ::right::
 
 > [!IMPORTANT]
-> O histórico de mensagens deve ser armazenado e reenviado a cada nova requisição para que o modelo entenda o contexto.
+> Memória agêntica se divide em *long-term memory* e *short-term memory*, e podem ser gerenciadas no `client` ou no `server`.
 
 <!--
+# Esse cenário `REENVIA` o histórico de mensagens a `cada nova requisição`.
+
+# Memória de `curto prazo` pode ser gerenciada como `estado` da aplicação (estado volátil, se perde no fim da execução da aplicação)
+
+# A estratégia de gerenciamento de memória agentica depende do cenário de negócio.
+
+# Reenviar os histórico de mensagens se enquadra em `memória de curto-prazo` com gestão no `client`
+
 > Qual a capital da França?
 
 > E a população dela?
@@ -385,6 +399,10 @@ layoutClass: gap-8
 ---
 
 # Chat multi-turno com Responses API
+
+#### **Histórico de mensagens armazenado no `servidor` da OpenAI**
+
+<div class="h-2" />
 
 ::left::
 
@@ -429,11 +447,14 @@ if __name__ == "__main__":
 
 ::right::
 
-> [!TIP]
-> O histórico não é reenviado: cada requisição leva apenas a nova mensagem e o identificador da resposta anterior. A OpenAI guarda a conversa.
+> [!IMPORTANT]
+> Mesmo nas estratégias de armazenamento de mensagens em `servidor`, cabe decidir entre armazenar (ou não), de forma persistente, o identificador da última conversa (`previous_id`) para memória de longo ou curto prazo.
 
 <!--
-O histórico de mensagens é armazenado nos servidores da OpenAI por 30 dias.
+# O histórico de mensagens é armazenado nos servidores da OpenAI por 30 dias.
+
+
+# Response API permite gerenciar o estado no `servidor` e dependendo do cenário pode ser enquadrada como memória de `curto-prazo` ou `longo-prazo`.
 -->
 
 ---

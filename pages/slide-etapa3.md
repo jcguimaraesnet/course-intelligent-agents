@@ -522,8 +522,7 @@ domínio: e-commerce, clínica, escola, academia etc. Monte uma nova FAQ, ajuste
 papel e a restrição de escopo, e mantenha a saída estruturada em dataclass.
 
 # Exercício #2 — Duas bases de conhecimento (condicional)
-O assistente tem duas FAQs (ex.: "antes da compra" e "pós-venda"). O programa decide
-qual base injetar no prompt se a pessoa é um COMPRADOR ou um CLIENTE (dynamic instructions / condicional). Enfatiza carregamento condicional de contexto.
+O assistente tem duas FAQs (ex.: "antes da compra" e "pós-venda", ou cliente com assinatura "gold" e "silver"). O programa decide qual base injetar no prompt se a pessoa é um COMPRADOR ou um CLIENTE (dynamic instructions / condicional). Enfatiza carregamento condicional de contexto.
 
 # Exercício #3 — Seção de exemplos enriquecida (categorização)
 Adicione ao prompt uma seção de EXEMPLOS (few-shot) com pares pergunta -> categoria,
