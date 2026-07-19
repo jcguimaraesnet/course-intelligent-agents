@@ -427,3 +427,192 @@ Quero vender um plano de academia para iniciantes.
 # exemplo 2:
 Preciso convencer um cliente a comprar um seguro de carro.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Handoffs
+source: https://openai.github.io/openai-agents-python/handoffs/
+---
+
+# Orquestração de agentes com handoff
+
+#### **Handoff é uma das principais primitivas do SDK Agents**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-left w-full self-start [&_ul]:my-10 [&_li]:mb-5">
+
+- **handoff** pode ser usado de duas formas para orquestrar agentes: como **parâmetro** e como uma **função**.
+- Um agente com handoff se transforma em um **tool** que pode ser invocada por outro agente.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+    <AssetImg src="multiagent-patterns-architecture.png" class="w-full max-w-[440px] rounded-lg" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Handoffs
+source: https://openai.github.io/openai-agents-python/handoffs/
+---
+
+# Handoff como parâmetro
+
+#### **O parâmetro `handoff` é a maneira mais simples de orquestrar agentes**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {22|5,10,18}{maxHeight:'320px',at:'+1'}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+from agents.extensions.handoff_prompt import RECOMMENDED_PROMPT_PREFIX
+
+refund_agent = Agent(
+    name="Reembolso",
+    instructions=(
+        f"{RECOMMENDED_PROMPT_PREFIX}\n"
+        "Você resolve pedidos de reembolso de forma objetiva."
+    ),
+)
+
+triage_agent = Agent(
+    name="Triagem",
+    instructions=(
+        f"{RECOMMENDED_PROMPT_PREFIX}\n"
+        "Atenda o cliente. Se ele pedir reembolso, "
+        "transfira para o agente de Reembolso."
+    ),
+    handoffs=[refund_agent],  # handoff como parâmetro
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    question = input("Cliente: ")
+    result = await Runner.run(triage_agent, question)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+<v-click at="1">
+
+> [!NOTE]
+> O `RECOMMENDED_PROMPT_PREFIX` ensina o modelo a usar o mecanismo de handoff. Sem ele, o agente pode não entender que deve **transferir** a conversa, reduzindo a precisão das delegações.
+
+</v-click>
+
+<!--
+`esse código não é funcional porque tem prompts simplificados`
+# inputs de teste (input do console)
+
+# aciona o handoff:
+Comprei o ingresso #A123 mas o show foi cancelado, quero reembolso.
+
+# não aciona (fica na triagem):
+Quais são as formas de pagamento aceitas?
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Handoffs
+source: https://openai.github.io/openai-agents-python/handoffs/
+---
+
+# Handoff como função
+
+#### **A função `handoff()` é a maneira mais poderosa de orquestrar agentes**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {32-36,8-11}{maxHeight:'320px',at:'+1'}
+import asyncio
+from dataclasses import dataclass
+from dotenv import load_dotenv
+from agents import (Agent, Runner, handoff, RunContextWrapper,
+                    set_default_openai_api, set_tracing_disabled)
+from agents.extensions.handoff_prompt import RECOMMENDED_PROMPT_PREFIX
+
+@dataclass
+class EscalationData:
+    order_id: str   # pedido relacionado
+    reason: str     # motivo da escalada
+
+async def on_escalation(ctx: RunContextWrapper, data: EscalationData):
+    print(f"[LOG] Reembolso do pedido {data.order_id}: {data.reason}")
+
+refund_agent = Agent(
+    name="Reembolso",
+    instructions=(
+        f"{RECOMMENDED_PROMPT_PREFIX}\n"
+        "Você resolve pedidos de reembolso de forma objetiva."
+    ),
+)
+
+triage_agent = Agent(
+    name="Triagem",
+    instructions=(
+        f"{RECOMMENDED_PROMPT_PREFIX}\n"
+        "Atenda o cliente. Se ele pedir reembolso, "
+        "transfira para o agente de Reembolso."
+    ),
+    handoffs=[
+        handoff(
+            agent=refund_agent,
+            on_handoff=on_escalation,
+            input_type=EscalationData,
+        )
+    ],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    question = input("Cliente: ")
+    result = await Runner.run(triage_agent, question)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> O parâmetro `input_type` permite indicar uma classe para ser preenchida antes de delegar para outro agente. Uma função de callback `on_handoff` é obrigatória e acionada antes da delegação.
+
+
+
+<!--
+# inputs de teste (input do console)
+
+# aciona o handoff (o modelo preenche order_id e reason):
+Comprei o ingresso #A123 mas o show foi cancelado, quero reembolso.
+
+# não aciona (fica na triagem):
+Quais são as formas de pagamento aceitas?
+
+# input_type exige on_handoff (mantido mínimo: só um log).
+-->

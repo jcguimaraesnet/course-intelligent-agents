@@ -321,9 +321,9 @@ layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
-# Engenharia de contexto com agentes
+# Engenharia de contexto com system prompts
 
-#### **Existem muitas maneiras de gerenciar contexto com agentes**
+#### **A área de `system prompts` é um dos primeiros caminhos para gerenciar contextos**
 
 <div class="h-1" />
 
@@ -346,6 +346,8 @@ class: flex items-center justify-center
 <!--
 # A engenharia de contexto é diferente da de engenharia de prompting. 
 
+Porque o termo `engenharia`? Porque é importante trazer técnicas de engenharia para nem menos e nem mais contexto, para melhor desempenho dos agentes.
+
 # Os dois conceitos serão abordados inevitavelmente na disciplina, mas serão abordados de forma sistemática na outra disciplina.
 
 # A engenharia de contexto é bastante complexa porque aborda muitos problemas de contexto:
@@ -355,6 +357,69 @@ class: flex items-center justify-center
 - troca de informações estruturadas entre agentes
 - uso de ferramentas de modo assertivo
 - e muito mais
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Context
+source: https://openai.github.io/openai-agents-python/context/
+---
+
+# Bases de conhecimento em system prompts
+
+#### **System prompt é um caminho natural para injeção de dados**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {10,12-16}{maxHeight:'320px',at:'+1'}
+import asyncio
+from pathlib import Path
+
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+BASE_DIR = Path(__file__).parent
+
+faq = (BASE_DIR / "faq.md").read_text(encoding="utf-8")
+
+instructions = (
+    "Você é um assistente de venda de ingressos. "
+    "Responda usando apenas a base de conhecimento abaixo.\n\n"
+    "{knowledge_base}"
+).format(knowledge_base=faq)
+
+agent = Agent(
+    name="Assistente de Ingressos",
+    instructions=instructions,
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    question = input("Cliente: ")
+    result = await Runner.run(agent, question)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> A base de conhecimento (`faq.md`) é lida como texto e **concatenada direto na instrução** do agente. Para bases pequenas, é o caminho mais direto — sem RAG nem vector store.
+
+<!--
+`não é um código funcional - rodar o live coding`
+
+# a instrução é um texto simples concatenado com a faq.md (base de conhecimento na mesma pasta).
+# ver o Live Coding a seguir para a versão completa (com prompts.py e saída estruturada).
 -->
 
 ---
