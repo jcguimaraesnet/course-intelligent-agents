@@ -69,3 +69,9 @@ source: https://developers.googleblog.com/developers-guide-to-multi-agent-patter
 | **Composite Patterns** | Um fluxo que combina vários padrões: coordenação, paralelismo, validação e aprovação humana | Misto |
 
 </div>
+
+<!--
+# O link do google para arquiteturas multiagentes é uma das maiores referências atuais para o assunto
+
+> https://developers.googleblog.com/developers-guide-to-multi-agent-patterns-in-adk/
+-->
