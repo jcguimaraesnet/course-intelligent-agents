@@ -616,3 +616,37 @@ Quais são as formas de pagamento aceitas?
 
 # input_type exige on_handoff (mantido mínimo: só um log).
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Um modelo para cada agente
+
+#### **A escolha do modelo para cada agente é uma decisão de projeto importante**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-left w-full self-start [&_ul]:my-8 [&_li]:mb-3">
+
+- **Custo** — modelos caros para tarefas mais complexas.
+- **Desempenho** — modelos especialistas por tipo de tarefa.
+- **Latência** — modelos rápidos para tarefas sem raciocínio.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+    <AssetImg src="modelos-4-logotipos.jpg" class="w-full max-w-[180px] rounded-lg" />
+</div>
+
+<!--
+`mostrar um exemplo de notícia:`
+
+https://oglobo.globo.com/economia/tecnologia/noticia/2026/07/19/tokenmaxxing-flopou-agentes-de-ia-prometeram-eficiencia-mas-estao-entregando-boletos-altissimos.ghtml
+-->

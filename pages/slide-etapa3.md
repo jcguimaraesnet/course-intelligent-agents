@@ -413,13 +413,91 @@ if __name__ == "__main__":
 ::right::
 
 > [!NOTE]
-> A base de conhecimento (`faq.md`) é lida como texto e **concatenada direto na instrução** do agente. Para bases pequenas, é o caminho mais direto — sem RAG nem vector store.
+> A base de conhecimento (`faq.md`) é lida como texto e **concatenada na instrução** do agente. 
 
 <!--
 `não é um código funcional - rodar o live coding`
 
 # a instrução é um texto simples concatenado com a faq.md (base de conhecimento na mesma pasta).
 # ver o Live Coding a seguir para a versão completa (com prompts.py e saída estruturada).
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Context
+source: https://openai.github.io/openai-agents-python/context/
+---
+
+# Bases de conhecimento e RunContextWrapper
+
+#### **`RunContextWrapper` permite injetar conhecimento de forma segmentada**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {11-14|16-22|34-36|40}{maxHeight:'320px',at:'+1'}
+import asyncio
+from dataclasses import dataclass
+from pathlib import Path
+
+from dotenv import load_dotenv
+from agents import (Agent, Runner, RunContextWrapper,
+                    set_default_openai_api, set_tracing_disabled)
+
+BASE_DIR = Path(__file__).parent
+
+@dataclass
+class Policies:
+    purchase: str   # política de compra
+    refund: str     # política de reembolso
+
+def build_instructions(ctx: RunContextWrapper[Policies],
+                       agent: Agent) -> str:
+    return (
+        "Você é um assistente de venda de ingressos.\n\n"
+        f"# Política de compra\n{ctx.context.purchase}\n\n"
+        f"# Política de reembolso\n{ctx.context.refund}"
+    )
+
+agent = Agent[Policies](
+    name="Assistente de Ingressos",
+    instructions=build_instructions,
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    policies = Policies(
+        purchase=(BASE_DIR / "purchase.md").read_text(encoding="utf-8"),
+        refund=(BASE_DIR / "refund.md").read_text(encoding="utf-8"),
+    )
+
+    question = input("Cliente: ")
+    result = await Runner.run(agent, question, context=policies)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+<v-click at="1">
+
+> [!NOTE]
+> `RunContextWrapper` permite segmentar cada tipo de conhecimento (compra, reembolso) no system prompt. 
+
+</v-click>
+
+<!--
+`não é um código totalmente funcional - exemplo simples, sem markdown de policies`
+
+# o context não é enviado ao LLM sozinho: a função build_instructions é que o injeta no prompt.
+# vantagem: dá para organizar o conhecimento por segmento (compra, reembolso, etc.).
 -->
 
 ---
