@@ -731,3 +731,38 @@ https://lmarena.ai
 Um leaderboard (ranking ao vivo), onde humanos votam às cegas em qual de duas respostas é melhor, e isso vira um ranking ao vivo.
 
 -->
+
+---
+layout: default
+---
+
+# Recomendações por tipo de tarefa
+
+#### **Alguns tipos de tarefas podem ser resolvidos por três grupos de modelos**
+
+<div class="h-8" />
+
+<Transform :scale="0.8">
+
+| Tipo de tarefa | Descrição | Modelo |
+|---|---|---|
+| **Classificar** | Rotular a mensagem do cliente (ex.: pré-venda ou pós-venda) | Modelo econômico |
+| **Resumir** | Condensar uma conversa longa em poucos pontos-chave | Modelo econômico |
+| **Consolidar** | Unir benefícios e objeções numa mensagem de venda final | Modelo intermediário |
+| **Responder** | Tirar dúvidas do cliente sobre um produto ou pedido | Modelo intermediário |
+| **Criticar** | Avaliar uma resposta, dar nota e sugerir melhorias | Modelo avançado |
+| **Planejar** | Decompor a tarefa e delegar aos agentes certos | Modelo avançado |
+
+</Transform>
+
+<!--
+# A recomendação é um ponto de partida, não uma regra fixa — depende do domínio e da dificuldade real de cada tarefa.
+
+# Tarefas de rotular/condensar (classificar, resumir) toleram modelos econômicos: pouca ou nenhuma cadeia de raciocínio.
+
+# Tarefas de julgamento e coordenação (criticar, planejar) pedem modelos avançados: exigem raciocínio, comparação e decisão.
+
+# Responder e consolidar ficam no meio: precisam de boa escrita e coerência, mas sem raciocínio profundo.
+
+# nem todo provedor fornece uma família de modelos em três níveis, e nesse caso pode fazer sentido considerar combinar modelos de outras famílias.
+-->
