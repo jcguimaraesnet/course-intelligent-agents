@@ -227,9 +227,9 @@ source: https://ai.google.dev/gemini-api/docs/pricing
 
 | Provedor | Modelo (exemplo) | Plataforma | Cartão |
 |---|---|---|---|
+| OpenRouter | `deepseek/deepseek-r1:free` | [openrouter.ai](https://openrouter.ai/models?max_price=0) | não |
 | Google | `gemini-3.5-flash` | [aistudio.google.com](https://aistudio.google.com) | não |
 | Groq | `llama-3.3-70b-versatile` | [console.groq.com](https://console.groq.com) | não |
-| OpenRouter | `deepseek/deepseek-r1:free` | [openrouter.ai](https://openrouter.ai/models?max_price=0) | não |
 | NVIDIA | `meta/llama-3.3-70b-instruct` | [build.nvidia.com](https://build.nvidia.com) | não |
 | Hugging Face | `meta-llama/Llama-3.3-70B-Instruct` | [huggingface.co](https://huggingface.co) | não |
 | OpenAI | `gpt-5` *(sem tier grátis)* | [platform.openai.com](https://platform.openai.com) | **sim** |

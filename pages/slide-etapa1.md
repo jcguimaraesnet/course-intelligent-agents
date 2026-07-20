@@ -69,40 +69,6 @@ class: flex items-center justify-center
 
 
 ---
-layout: two-cols-header
-layoutClass: gap-8
-class: flex items-center justify-center
----
-
-# Prompts e Agentes
-
-#### **Prompts definem o papel do agente e o que deve fazer**
-
-::left::
-
-- **Persona** → Direciona a área de atuaçao
-- **Task** → Define o objetivo
-- **Context** → regras, restrições, conhecimento
-- **Format** → saída estruturada
-
-::right::
-
-<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
-
-```md
-# Você é um especialista em ...
-
-# Sua tarefa é ...
-
-# Considere a informação abaixo ...
-
-# Retorne no formato JSON abaixo ...
-```
-
-</WindowMockup>
-
-
----
 layout: default
 sourceLabel: Lista completa
 source: https://openrouter.ai/models
@@ -128,6 +94,12 @@ layout: section
 ---
 
 ## Instalação e configuração de **ambiente**
+
+<!--
+
+Parar a aula e pedir alunos
+
+-->
 
 
 ---
@@ -473,7 +445,7 @@ sourceLabel: OpenAI Agents Sdk
 source: https://openai.github.io/openai-agents-python
 ---
 
-# OpenAI Agents SDK
+# SDK e Frameworks para agentes de IA
 
 <Transform :scale="0.7">
 
@@ -536,49 +508,32 @@ sourceLabel: Agent
 source: https://openai.github.io/openai-agents-python/agents/
 ---
 
+# Um agente básico
+
+#### **Agent é o primitivo mais elementar e usado no SDK Agents da OpenAI**
+
 ::left::
 
-```python {all|4|5|7-10|12-15|17-19|7-19|all}{at:+1}
+```python [main.py] {all|4|5|6-7|all}{at:+1}
+
 from agents import Agent
 
-Engineer_agent = Agent(
+agent = Agent(
     name="Software Engineer Agent",
     model="gpt-5.4-mini",
-    instructions="""
-        # Papel
-        Você é um agente de IA 
-        especialista em engenharia 
-        de software.
-
-        # Tarefa
-        Sua tarefa consiste em 
-        responder perguntas 
-        sobre engenharia de software.
-
-        # Formato de saída
-        Responda de forma objetiva 
-        com tom informal.
-    """
+    instructions=("Você é um agente de IA especialista "
+                  "em engenharia de software."),
 )
 ```
 ::right::
 
-**Agent** é uma camada fina que transforma um LLM em um agente autônomo. 
+**Agent** é uma camada fina que define quem o agente é o que ele deve fazer. Os três parâmetros abaixo são necessários para uma definição inicial de agente.
 
 - *name* -> identificador do agente
 - *model* -> id do modelo; que dá inteligência
 - *instructions* -> prompt de instrução
 
-<br/>
 
-<v-click at="+6">
-
-> [!TIP]
-> **instructions** -> existem muitos padrões proposto para elaboraçao de prompts estruturados. 
-- RTF (Role, Task, Format, etc)
-- PTCF (Persona, Task, Context, Format)
-
-</v-click>
 
 <!-- 
 
@@ -605,17 +560,21 @@ sourceLabel: Runner
 source: https://openai.github.io/openai-agents-python/ref/run/
 ---
 
+# Runner para executar agentes
+
+#### **Runner é o mecanismo de execução dos agentes**
+
 ::left::
 
-```python {11-16}{at:+1}
+```python {11-16}{maxHeight:'320px',at:+1}
 from agents import Agent, Runner
 
 async def main():
     agent = Agent(
         name="Software Engineer Agent",
         model="gpt-5.4-mini",
-        instructions="""Você é especialista em 
-        engenharia de software."""
+        instructions="""Você é especialista em engenharia 
+            de software."""
     )
 
     result = await Runner.run(
@@ -634,45 +593,17 @@ if __name__ == "__main__":
 
 ::right::
 
-**Runner** é o mecanismo de execução dos agentes, gerenciando chamadas LLMs, impondo limites de segurança e realizando transferencia de tarefas (handoff) entre agentes.
+Além de executar os agentes, gerencia chamadas LLMs, e realiza orquestração entre agentes.
 
 - *starting_agent* -> O agente inicial.
 - *input* -> A solicitação (prompt) para o agente.
 
 
-
-<p>&nbsp;</p>
-
-<v-click>
-
-**Existem 3 opções para executar um Runner.**
-
-::code-group
-
-```python [assincrono] {2}
-agent = Agent(name="Assistant", instructions="")
-result = await Runner.run(agent, "Input")
-```
-
-```python [sincrono] {2}
-agent = Agent(name="Assistant", instructions="")
-result = Runner.run_sync(agent, "Input")
-```
-
-```python [stream] {2}
-agent = Agent(name="Assistant", instructions="")
-result = Runner.run_streamed(agent, "Input")
-```
-
-
-
-::
-
-</v-click>
-
 <!-- 
 
 <v-click>
+
+RESERVAR ISSO PARA ETAPA 5
 
 > [!TIP]
 > O runner é um workflow, executado na forma de um **loop**, até que uma saída final seja gerada.
@@ -696,27 +627,83 @@ fonte: https://openai.github.io/openai-agents-python/running_agents/
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: Running agents
+source: https://openai.github.io/openai-agents-python/running_agents/
+---
+
+# Runner assíncrono e síncrono
+
+::left::
+
+```python [Runner assíncrono]
+import asyncio
+from agents import Agent, Runner
+
+agent = Agent(name="Software Engineer Agent",
+        instructions=("Você é especialista "
+        "em engenharia de software."))
+
+async def main():
+    result = await Runner.run(
+        agent, "O que é injeção de dependência?")
+    print(result.final_output)
+
+asyncio.run(main())
+```
+
+::right::
+
+```python [Runner síncrono]
+from agents import Agent, Runner
+
+agent = Agent(
+    name="Software Engineer Agent",
+    instructions=("Você é especialista "
+                  "em engenharia de software."))
+
+result = Runner.run_sync(
+    agent, "O que é injeção de dependência?")
+
+print(result.final_output)
+
+```
+
+::bottom::
+
+<Transform :scale="0.7" origin="top left">
+
+> [!TIP]
+> Prefira a forma **assíncrona** já que fluxos agenticos dependem de chamadas de LLM (rede).
+
+</Transform>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
-# Criando API Key
+# Criação de API Key na plataforma da OpenAI
 
-#### **Os provedores mais conhecidos de modelos de IA: OpenAI, Anthropic e Google**
+#### **OpenAI, Anthropic e Google fornecem experiências parecidas para criação de Api Key**
 
 ::left::
 
 <div class="text-left w-full">
 
-Cadastre e crie uma API Key em um provedor: 
+Na plataforma da OpenAI é possível criar e administrar **Api Key**, formas de pagamento, adicionar créditos, acompanhar custos e traces.
 - [platform.openai.com](https://platform.openai.com)
-- [console.cloud.google.com](https://console.cloud.google.com)
+
 
 <br/>
 
 <v-click>
 
 > [!TIP]
-> plataformas do tipo **Gateway de LLM** como a _[openrouter.ai](https://openrouter.ai)_ são interessantes para acessar família de modelos de vários provedores (Anthropic, Google, OpenAI, Deepseek). 
+> Nesta primeira etapa teremos uma experência inicial com a OpenAI, provedor e líder de mercado. Na segunda etapa iremos escolher outro provedor ou agregador independente.
+
+
+
 
 </v-click>
 
@@ -743,6 +730,9 @@ Cadastre e crie uma API Key em um provedor:
 2. Acessar profile: https://platform.openai.com/settings/organization/billing/overview
 3. Adiciona crédito
 4. Criar API Key
+5. No hand-ons disponibilizar chave temporária para alunos - explicar que na segunda etapa vamos decidir
+
+plataformas do tipo **Gateway de LLM** como a _[openrouter.ai](https://openrouter.ai)_ são interessantes para acessar família de modelos de vários provedores (Anthropic, Google, OpenAI, Deepseek). 
 
 -->
 
@@ -861,7 +851,11 @@ layout: default
 - [ ] crie projeto
 - [ ] instale uv/python
 - [ ] adicione os pacotes
-- [ ] crie a API KEY
+- [ ] crie a API KEY na OpenAI `ou use do professor`
 - [ ] use as classes Agent e Runner
 
 <br/>
+
+<!--
+Criar uma chave aleatória e exclusiva para usar somente nesta aula. Explique na próxima etapa que cada aluno escolherá um provedor final.
+-->
