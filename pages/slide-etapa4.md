@@ -6,6 +6,36 @@ routeAlias: etapa4
 ## **Etapa 4:** Otimização de Agentes
 
 ---
+layoutClass: gap-8
+sourceLabel: OpenAI Agents SDK
+source: https://openai.github.io/openai-agents-python
+---
+
+# Principais primitivos do OpenAI Agents SDK
+
+#### **O Agents SDK fornece seis principais abstrações para sistemas agenticos**
+
+<br/>
+
+<Transform :scale="0.8">
+
+<v-clicks every="2">
+
+| Conceito | O que é |
+|---|---|
+| **Agent** | Um LLM com nome, instruções, ferramentas e possíveis _handoffs_ — o agente em si. |
+| **Runner** | Motor de execução: roda o loop de raciocínio, faz _retries_ e impõe limites de segurança. |
+| **Tools** | Funções Python (ou APIs/agentes) que o modelo descobre e invoca quando necessário. |
+| **Handoffs** | Delegação de controle e do contexto de um agente para outro (fluxos multiagente). |
+| **Guardrails** | Checagens de política em cada passo, mantendo saídas e chamadas dentro das regras. |
+| **Tracing** | Logs estruturados de prompts, respostas e chamadas — para _debug_ e observabilidade. |
+
+</v-clicks>
+
+</Transform>
+
+
+---
 layout: quote-image
 image: /paper-tran-multiagent-system.png
 sourceLabel: Multi-Agent Collaboration Mechanisms - A Survey of LLMs

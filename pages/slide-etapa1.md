@@ -97,10 +97,121 @@ layout: section
 
 <!--
 
-Parar a aula e pedir alunos
+verificar como está o WSL na máquina windows - TODOS DEVEM USAR WSL
 
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: WSL
+source: https://learn.microsoft.com/windows/wsl/
+---
+
+# Windows Subsystem for Linux (WSL)
+
+#### **Linux e mac oferecem ambientes de desenvolvimento rápidos e o WSL também**
+
+::left::
+
+<div class="text-left w-full [&_li]:mb-5">
+
+- **Experência semelhante com linux/mac** — WSL usa shell bash para linha de comando.
+- **Ambiente rápido e leve** — Sistema de arquivo baseado em linux rápido e leve.
+- **Integração com o Windows** — arquivos, terminal e o editor (VS Code/Antigravity) acessam o WSL.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+    <AssetImg src="wsl.jpg" class="w-full max-w-[440px] rounded-lg" />
+</div>
+
+
+---
+layout: default
+layoutClass: gap-8
+sourceLabel: OpenAI Agents Sdk
+source: https://openai.github.io/openai-agents-python
+---
+
+# Frameworks de agentes e o OpenAI Agents SDK
+
+<div class="text-sm leading-tight [&_td]:py-2.5 [&_th]:py-0.5 [&_td]:px-2 [&_th]:px-2">
+
+| **Framework / SDK** | **Repositório** | **Estrelas**⭐ | **Pacote PyPi** | **Cenário** |
+|-----------------|-------------|------------|------------|:---|
+| LangChain | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | 139.663 | langchain | Genérico |
+| AutoGen (Microsoft) | [microsoft/autogen](https://github.com/microsoft/autogen) | 59.062 | autogen-agentchat | Em fusão |
+| CrewAI | [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) | 53.924 | crewai | Multiagente |
+| LlamaIndex | [run-llama/llama_index](https://github.com/run-llama/llama_index) | 50.218 | llama-index | RAG |
+| LangGraph | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | 35.162 | langgraph | Líder, baseado em Grafo |
+| Semantic Kernel (Microsoft) | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | 28.160 | semantic-kernel | Em fusão |
+| smolagents (Hugging Face) | [huggingface/smolagents](https://github.com/huggingface/smolagents) | 27.927 | smolagents | Minimalista, simplicidade |
+| **OpenAI Agents SDK** | [openai/openai-agents-python](https://github.com/openai/openai-agents-python) | 27.248 | _openai-agents_ | Provedor |
+| Google ADK | [google/adk-python](https://github.com/google/adk-python) | 20.172 | google-adk | Provedor |
+| Pydantic AI | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | 17.844 | pydantic-ai | Tipagem Pydantic |
+
+</div>
+
+<!--
+`importante explicar que o pacote da openai será usado durante todo o curso`
+
+- o llamaIndex teve novas funcionalidades para fluxo agentico, mas nasceu com identidade para RAG - comunidade mais ativa para RAG
+- Langchain direciona fluxos agenticos para LangGraph
+- 
+-->
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Antigravity IDE
+
+#### **IDE da Google para desenvolvimento de software com agente de codificação**
+
+::left::
+
+<div class="text-left w-full">
+
+Download e documentação em:
+- [antigravity.google/download](https://antigravity.google/download#antigravity-ide)
+- [antigravity.google/docs/ide/overview](https://antigravity.google/docs/ide/overview)
+
+<br/>
+
+<v-click>
+
+> [!TIP]
+> A Google decidiu dividir o produto Antigravity em dois: Antigravity 2.0 e Antigravity IDE. 
+
+</v-click>
+
+</div>
+
+::right::
+
+<Transform :scale="0.9" origin="center">
+    <AssetImg
+    src="ide-google-antigravity.png"
+    class="rounded-lg"
+    />
+</Transform>
+
+<!-- 
+
+# criar pasta pelo antigravity e usar o terminal para instalar uv, init, python, etc
+
+# verifique se o aluno tem acesso ao plano Pro gratuito para estudantes
+
+- checar se todos tem o Antigravity instalado
+- mostrar rapidamente o chatbot agentico
+ -->
 
 ---
 sourceLabel: Downloads
@@ -255,14 +366,6 @@ uv sync (instala, desinstala e atualiza)
 
 
 ---
-layout: section
----
-
-## Meu primeiro **Agente** de IA
-**Configuração e princípios básicos**
-
-
----
 layout: default
 sourceLabel: Install UV
 source: https://docs.astral.sh/uv/getting-started/installation
@@ -279,24 +382,25 @@ source: https://docs.astral.sh/uv/getting-started/installation
 ```sh [uv]
 mkdir my-first-agent
 cd my-first-agent
+
 uv python install 3.14
 uv init --python 3.14
 uv add openai-agents python-dotenv
-echo "OPENAI_API_KEY=sk-proj-xxxxxxxx" >> .env
-echo "GEMINI_API_KEY=AIzaSyxxxxxxxx" >> .env
-uv run main.py
+
+# uv run main.py # para executar
 ```
 
 ```sh [pip]
 mkdir my-first-agent
 cd my-first-agent
+
 python -m venv .venv
 source .venv/bin/activate
+
 pip install openai-agents python-dotenv
-echo "OPENAI_API_KEY=sk-proj-xxxxxxxx" >> .env
-echo "GEMINI_API_KEY=AIzaSyxxxxxxxx" >> .env
 pip freeze > requirements.txt
-python main.py
+
+# python main.py # para executar
 ```
 ::
 
@@ -312,6 +416,114 @@ uv python install 3.14
 uv init --python 3.14
 ```
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Criação de API Key na plataforma da OpenAI
+
+#### **OpenAI, Anthropic e Google fornecem experiências parecidas para criação de Api Key**
+
+::left::
+
+<div class="text-left w-full">
+
+Na plataforma da OpenAI é possível criar e administrar **Api Key**, formas de pagamento, adicionar créditos, acompanhar custos e traces.
+- [platform.openai.com](https://platform.openai.com)
+
+
+<br/>
+
+<v-click>
+
+> [!TIP]
+> Nesta primeira etapa teremos uma experência inicial com a OpenAI, provedor e líder de mercado. Na segunda etapa iremos escolher outro provedor ou agregador independente.
+
+
+
+
+</v-click>
+
+</div>
+
+
+
+::right::
+
+<Transform :scale="1.4" origin="center">
+    <AssetImg
+    src="openai-plataform-developer.png"
+    class="max-w-none w-[400px] border-0 border-white"
+    crop-left="2px"
+    crop-right="115px"
+    />
+</Transform>
+
+
+<!--
+
+1. Acessar: https://platform.openai.com
+1. Cadastrar
+2. Acessar profile: https://platform.openai.com/settings/organization/billing/overview
+3. Adiciona crédito
+4. Criar API Key
+5. No hand-ons disponibilizar chave temporária para alunos - explicar que na segunda etapa vamos decidir
+
+plataformas do tipo **Gateway de LLM** como a _[openrouter.ai](https://openrouter.ai)_ são interessantes para acessar família de modelos de vários provedores (Anthropic, Google, OpenAI, Deepseek). 
+
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: python-dotenv
+source: https://pypi.org/project/python-dotenv/
+---
+
+# Variáveis de ambiente
+
+#### **API Keys nunca devem ser armazenadas dentro do código-fonte**
+
+::left::
+
+<div class="text-left w-full [&_li]:mb-4">
+
+- **`OPENAI_API_KEY`** → credencial de autenticação no provedor de LLM.
+- **`OPENAI_DEFAULT_MODEL`** → modelo padrão que o agente usa.
+- **`OPENAI_BASE_URL`** → endpoint da API; permite apontar para outro provedor.
+
+</div>
+
+<br/>
+
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title=".env" codeblock>
+
+```ini
+
+OPENAI_API_KEY=sk-proj-XXXXXXXXXXXXXXXX
+
+OPENAI_DEFAULT_MODEL=gpt-5-nano
+
+OPENAI_BASE_URL=https://api.openai.com/v1
+
+```
+
+</WindowMockup>
+
+---
+layout: section
+---
+
+## Meu primeiro **Agente** de IA
+**Configuração e princípios básicos**
+
 
 ---
 layout: two-cols-header
@@ -440,68 +652,6 @@ import main
 -->
 
 ---
-layoutClass: gap-8
-sourceLabel: OpenAI Agents Sdk
-source: https://openai.github.io/openai-agents-python
----
-
-# SDK e Frameworks para agentes de IA
-
-<Transform :scale="0.7">
-
-| **Framework / SDK** | **Repositório** | **Estrelas**⭐ | **Cenário** |
-|-----------------|-------------|------------|:---|
-| LangChain | [langchain-ai/langchain](https://github.com/langchain-ai/langchain) | 139.663 | Genérico |
-| AutoGen (Microsoft) | [microsoft/autogen](https://github.com/microsoft/autogen) | 59.062 | Em fusão |
-| CrewAI | [crewAIInc/crewAI](https://github.com/crewAIInc/crewAI) | 53.924 | Multiagente |
-| LlamaIndex | [run-llama/llama_index](https://github.com/run-llama/llama_index) | 50.218 | RAG |
-| LangGraph | [langchain-ai/langgraph](https://github.com/langchain-ai/langgraph) | 35.162 | Líder, baseado em Grafo |
-| Semantic Kernel (Microsoft) | [microsoft/semantic-kernel](https://github.com/microsoft/semantic-kernel) | 28.160 | Em fusão |
-| smolagents (Hugging Face) | [huggingface/smolagents](https://github.com/huggingface/smolagents) | 27.927 | Minimalista, simplicidade |
-| **OpenAI Agents SDK** | [openai/openai-agents-python](https://github.com/openai/openai-agents-python) | 27.248 | Provedor |
-| Google ADK | [google/adk-python](https://github.com/google/adk-python) | 20.172 | Provedor |
-| Pydantic AI | [pydantic/pydantic-ai](https://github.com/pydantic/pydantic-ai) | 17.844 | Tipagem Pydantic |
-
-</Transform>
-
-<!--
-- o llamaIndex teve novas funcionalidades para fluxo agentico, mas nasceu com identidade para RAG - comunidade mais ativa para RAG
-- Langchain direciona fluxos agenticos para LangGraph
-- 
--->
-
-
----
-layoutClass: gap-8
-sourceLabel: OpenAI Agents SDK
-source: https://openai.github.io/openai-agents-python
----
-
-# OpenAI Agents SDK
-
-#### **Principais abstrações (primitivos)**
-
-<br/>
-
-<Transform :scale="0.8">
-
-<v-clicks every="2">
-
-| Conceito | O que é |
-|---|---|
-| **Agent** | Um LLM com nome, instruções, ferramentas e possíveis _handoffs_ — o agente em si. |
-| **Runner** | Motor de execução: roda o loop de raciocínio, faz _retries_ e impõe limites de segurança. |
-| **Tools** | Funções Python (ou APIs/agentes) que o modelo descobre e invoca quando necessário. |
-| **Handoffs** | Delegação de controle e do contexto de um agente para outro (fluxos multiagente). |
-| **Guardrails** | Checagens de política em cada passo, mantendo saídas e chamadas dentro das regras. |
-| **Tracing** | Logs estruturados de prompts, respostas e chamadas — para _debug_ e observabilidade. |
-
-</v-clicks>
-
-</Transform>
-
-
----
 layout: two-cols-header
 layoutClass: gap-8
 sourceLabel: Agent
@@ -510,7 +660,7 @@ source: https://openai.github.io/openai-agents-python/agents/
 
 # Um agente básico
 
-#### **Agent é o primitivo mais elementar e usado no SDK Agents da OpenAI**
+#### **Agent é a classe mais elementar e usado no SDK Agents da OpenAI**
 
 ::left::
 
@@ -676,108 +826,6 @@ print(result.final_output)
 > Prefira a forma **assíncrona** já que fluxos agenticos dependem de chamadas de LLM (rede).
 
 </Transform>
-
----
-layout: two-cols-header
-layoutClass: gap-8
-class: flex items-center justify-center
----
-
-# Criação de API Key na plataforma da OpenAI
-
-#### **OpenAI, Anthropic e Google fornecem experiências parecidas para criação de Api Key**
-
-::left::
-
-<div class="text-left w-full">
-
-Na plataforma da OpenAI é possível criar e administrar **Api Key**, formas de pagamento, adicionar créditos, acompanhar custos e traces.
-- [platform.openai.com](https://platform.openai.com)
-
-
-<br/>
-
-<v-click>
-
-> [!TIP]
-> Nesta primeira etapa teremos uma experência inicial com a OpenAI, provedor e líder de mercado. Na segunda etapa iremos escolher outro provedor ou agregador independente.
-
-
-
-
-</v-click>
-
-</div>
-
-
-
-::right::
-
-<Transform :scale="1.4" origin="center">
-    <AssetImg
-    src="openai-plataform-developer.png"
-    class="max-w-none w-[400px] border-0 border-white"
-    crop-left="2px"
-    crop-right="115px"
-    />
-</Transform>
-
-
-<!--
-
-1. Acessar: https://platform.openai.com
-1. Cadastrar
-2. Acessar profile: https://platform.openai.com/settings/organization/billing/overview
-3. Adiciona crédito
-4. Criar API Key
-5. No hand-ons disponibilizar chave temporária para alunos - explicar que na segunda etapa vamos decidir
-
-plataformas do tipo **Gateway de LLM** como a _[openrouter.ai](https://openrouter.ai)_ são interessantes para acessar família de modelos de vários provedores (Anthropic, Google, OpenAI, Deepseek). 
-
--->
-
----
-layout: two-cols-header
-layoutClass: gap-8
-class: flex items-center justify-center
----
-
-# Antigravity IDE
-
-#### **IDE da Google para desenvolvimento de software com agente de codificação**
-
-::left::
-
-<div class="text-left w-full">
-
-Download e documentação em:
-- [antigravity.google/download](https://antigravity.google/download#antigravity-ide)
-- [antigravity.google/docs/ide/overview](https://antigravity.google/docs/ide/overview)
-
-<br/>
-
-<v-click>
-
-> [!TIP]
-> A Google decidiu dividir o produto Antigravity em dois: Antigravity 2.0 e Antigravity IDE. 
-
-</v-click>
-
-</div>
-
-::right::
-
-<Transform :scale="0.9" origin="center">
-    <AssetImg
-    src="ide-google-antigravity.png"
-    class="rounded-lg"
-    />
-</Transform>
-
-<!-- 
-- checar se todos tem o Antigravity instalado
-- mostrar rapidamente o chatbot agentico
- -->
 
 ---
 layout: section
