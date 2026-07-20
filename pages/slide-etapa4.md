@@ -665,7 +665,7 @@ class: flex items-center justify-center
 
 - **Custo** — modelos com menor custo sem prejudicar a qualidade (medido em milhão de tokens por dólar)
 - **Desempenho** — modelos mais inteligentes e especialistas por tipo de tarefa (medido por pontuação em benchmarks).
-- **Velocidade** — modelos rápidos quando agilidade é necessária (medido por quantidade tokens/sec).
+- **Latência** — modelos rápidos quando agilidade é necessária (medido por tempo de resposta).
 
 </div>
 
@@ -734,6 +734,8 @@ Um leaderboard (ranking ao vivo), onde humanos votam às cegas em qual de duas r
 
 ---
 layout: default
+sourceLabel: Seleção de modelo
+source: https://developers.openai.com/api/docs/guides/model-selection
 ---
 
 # Recomendações por tipo de tarefa
@@ -742,18 +744,18 @@ layout: default
 
 <div class="h-8" />
 
-<Transform :scale="0.8">
+<div class="text-sm leading-tight [&_td]:py-2.5 [&_th]:py-2.5 [&_td]:px-2 [&_th]:px-2">
 
 | Tipo de tarefa | Descrição | Modelo |
 |---|---|---|
-| **Classificar** | Rotular a mensagem do cliente (ex.: pré-venda ou pós-venda) | Modelo econômico |
-| **Resumir** | Condensar uma conversa longa em poucos pontos-chave | Modelo econômico |
+| **Classificar** | Rotular a mensagem do cliente (ex.: pré-venda ou pós-venda) | Modelo rápido/econômico |
+| **Resumir** | Condensar uma conversa longa em poucos pontos-chave | Modelo rápido/econômico |
 | **Consolidar** | Unir benefícios e objeções numa mensagem de venda final | Modelo intermediário |
 | **Responder** | Tirar dúvidas do cliente sobre um produto ou pedido | Modelo intermediário |
 | **Criticar** | Avaliar uma resposta, dar nota e sugerir melhorias | Modelo avançado |
 | **Planejar** | Decompor a tarefa e delegar aos agentes certos | Modelo avançado |
 
-</Transform>
+</div>
 
 <!--
 # A recomendação é um ponto de partida, não uma regra fixa — depende do domínio e da dificuldade real de cada tarefa.
