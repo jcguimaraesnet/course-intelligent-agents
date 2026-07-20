@@ -129,6 +129,28 @@ source: https://learn.microsoft.com/windows/wsl/
     <AssetImg src="wsl.jpg" class="w-full max-w-[440px] rounded-lg" />
 </div>
 
+<!--
+# comandos WSL
+wsl --version
+wsl --update
+wsl --status
+wsl --install -d Ubuntu
+wsl
+wsl -l --running
+wsl --help
+
+# comando WSL para distro por aluno
+# export
+wsl --export ubuntu C:\LabWSL\ubuntu-base.tar
+
+# import aluno1
+wsl --import ubuntu-<nome-aluno> C:\LabWSL C:\LabWSL\ubuntu-base.tar
+wsl -d <nome-aluno> -u root -e bash -c "useradd -m -G sudo -s /bin/bash <nome-aluno> && echo '<nome-aluno>:senha123' | chpasswd && echo -e '[user]\ndefault=<nome-aluno>' > /etc/wsl.conf"
+
+# import aluno2
+wsl --import ubuntu-<nome-aluno> C:\LabWSL C:\LabWSL\ubuntu-base.tar
+wsl -d <nome-aluno> -u root -e bash -c "useradd -m -G sudo -s /bin/bash <nome-aluno> && echo '<nome-aluno>:123456' | chpasswd && echo -e '[user]\ndefault=<nome-aluno>' > /etc/wsl.conf"
+-->
 
 ---
 layout: default

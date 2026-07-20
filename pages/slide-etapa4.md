@@ -663,9 +663,9 @@ class: flex items-center justify-center
 
 <div class="text-left w-full self-start [&_ul]:my-8 [&_li]:mb-3">
 
-- **Custo** — modelos caros para tarefas mais complexas.
-- **Desempenho** — modelos especialistas por tipo de tarefa.
-- **Latência** — modelos rápidos para tarefas sem raciocínio.
+- **Custo** — modelos com menor custo sem prejudicar a qualidade (medido em milhão de tokens por dólar)
+- **Desempenho** — modelos mais inteligentes e especialistas por tipo de tarefa (medido por pontuação em benchmarks).
+- **Velocidade** — modelos rápidos quando agilidade é necessária (medido por quantidade tokens/sec).
 
 </div>
 
@@ -689,4 +689,45 @@ https://oglobo.globo.com/economia/tecnologia/noticia/2026/07/19/tokenmaxxing-flo
 > Modelo aberto ou fechado
 
 > outros
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Onde comparar modelos
+
+#### **Escolhas de modelos é uma decisão de engenharia (nem sempre equilibrio é possível)**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-left w-full self-start [&_ul]:my-10 [&_li]:mb-5">
+
+- [**openrouter.ai/models**](https://openrouter.ai/models) — agrega centenas de modelos de vários provedores, com **preço** e contexto lado a lado.
+- [**artificialanalysis.ai**](https://artificialanalysis.ai) — site independente que publica o **Intelligence Index** (composto de vários benchmarks), além de outros recortes.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+    <AssetImg src="benchmark-artificialanalysis.png" class="w-full max-w-[380px] rounded-lg" />
+</div>
+
+<!--
+
+**openrouter.ai** agregador de LLM com página de ranking e comparações
+
+**Artificial Analysis (artificialanalysis.ai):** tambem traz recortes de código, matemática, por tipo de industria (saúde, engenharia, computação, jurídico) além de métricas operacionais como velocidade (tokens/s), latência (time-to-first-token) e preço.
+
+ # Benchmarks clássicos saturaram (MMLU, HumanEval, etc) os modelos de ponta já acertam mais de 90%, por isso o Artificial Analysis usa versões mais difíceis ou sucessores (MMLU-Pro, LiveCodeBench, AIME).
+
+# LMArena (antigo Chatbot Arena)
+https://lmarena.ai
+Um leaderboard (ranking ao vivo), onde humanos votam às cegas em qual de duas respostas é melhor, e isso vira um ranking ao vivo.
+
 -->
