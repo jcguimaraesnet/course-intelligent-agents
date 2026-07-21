@@ -912,3 +912,175 @@ ANTHROPIC_API_KEY=sk-ant-...
 # a triagem (econômico) roda no deepseek-v4-flash via OpenRouter;
 # o especialista (avançado) roda no Fable via Anthropic.
 -->
+
+---
+layout: default
+sourceLabel: Streaming
+source: https://openai.github.io/openai-agents-python/streaming/
+---
+
+# Agentes, streaming e eventos
+
+#### **Streaming permite mostrar eventos e respostas parciais**
+
+<div class="h-8" />
+
+<div class="[&_table]:w-full text-xs">
+
+| Tipo Evento | Classe | Uso |
+|---|---|---|
+| `raw_response_event` | `RawResponsesStreamEvent` | Efeito "digitando" — texto em tempo real |
+| `run_item_stream_event` | `RunItemStreamEvent` | Lógica da aplicação (logar ferramentas e passos) |
+| `agent_updated_stream_event` | `AgentUpdatedStreamEvent` | Avisar a troca de agente após um handoff |
+
+</div>
+
+<div class="h-10" />
+
+<Transform :scale="0.8">
+
+> [!NOTE]
+> O evento `run_item_stream_event` reúne **vários outros sub-eventos** que podem ser monitorados — por exemplo: **mensagem gerada**, **ferramenta chamada** e **handoff solicitado**.
+
+</Transform>
+
+<!--
+# Runner.run_streamed devolve um RunResultStreaming; percorre-se com `async for event in result.stream_events()`.
+
+# raw_response_event é o nível mais baixo (token a token) — ideal para o efeito de digitação.
+
+# run_item_stream_event só dispara quando um item inteiro fica pronto — melhor para lógica de negócio; dentro dele, olha-se event.item.type.
+
+# agent_updated_stream_event avisa, ao vivo, que o controle passou para outro agente (ex.: da triagem para o especialista nos slides anteriores).
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Streaming
+source: https://openai.github.io/openai-agents-python/streaming/
+---
+
+# Agente e streaming com respostas parciais
+
+#### **O evento `raw_response_event` permite exibir respostas parciais**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {18,20-23|all}{maxHeight:'320px',at:+1}
+import asyncio
+from dotenv import load_dotenv
+from openai.types.responses import ResponseTextDeltaEvent
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+agent = Agent(
+    name="Vendedor",
+    instructions=("Escreva uma mensagem de venda "
+                  "para o pedido do cliente."))
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    request = input("Cliente: ")
+    result = Runner.run_streamed(agent, request)
+
+    async for event in result.stream_events():
+        if (event.type == "raw_response_event"
+                and isinstance(event.data, ResponseTextDeltaEvent)):
+            print(event.data.delta, end="", flush=True)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> `Runner.run_streamed` não espera a resposta ficar pronta. A cada `raw_response_event` é exibido um **pedaço do texto** produzindo o efeito "digitando".
+
+<!--
+# inputs de teste (input do console)
+
+# exemplo 1:
+Quero uma mensagem de venda para um tênis de corrida.
+
+# exemplo 2:
+Crie um anúncio para um notebook gamer.
+
+# o mesmo agente "Vendedor" do slide de generator/critic, agora respondendo em streaming.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Streaming
+source: https://openai.github.io/openai-agents-python/streaming/
+---
+
+# Agentes e streaming com itens de evento
+
+#### **Os itens de evento permitem monitorar o funcionamento interno dos agentes**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {25-29|all}{maxHeight:'320px',at:+1}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+
+specialist = Agent(
+    name="Especialista",
+    instructions="Resolva casos de reembolso do cliente.",
+)
+
+triage = Agent(
+    name="Triagem",
+    instructions=("Responda dúvidas simples do cliente. "
+                  "Se for reembolso, use o handoff."),
+    handoffs=[specialist],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    request = input("Cliente: ")
+    result = Runner.run_streamed(triage, request)
+
+    async for event in result.stream_events():
+        if (event.type == "run_item_stream_event"
+                and event.name == "handoff_requested"):
+            print(f"[handoff solicitado por {event.item.agent.name}]")
+
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> Filtrar `event.name == "handoff_requested"` avisa o **exato momento** em que a triagem decide **delegar** ao especialista — caso clássico de observabilidade em fluxos multiagente.
+
+<!--
+# inputs de teste (input do console)
+
+# fica na triagem (nenhum handoff):
+Qual o horário de atendimento?
+
+# dispara o handoff (aparece o log de monitoramento):
+Comprei o produto errado e quero meu dinheiro de volta.
+
+# event.name == "handoff_requested" corresponde ao sub-evento "handoff solicitado".
+# event.item.agent identifica o agente que pediu o handoff (a triagem).
+-->
