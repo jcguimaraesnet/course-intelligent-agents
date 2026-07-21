@@ -772,8 +772,6 @@ source: https://developers.openai.com/api/docs/guides/model-selection
 ---
 layout: two-cols-header
 layoutClass: gap-8
-sourceLabel: Orquestração de agentes
-source: https://openai.github.io/openai-agents-python/multi_agent/
 ---
 
 # Dois agentes, dois modelos
@@ -833,4 +831,84 @@ Qual o horário de atendimento de vocês?
 
 # caso de reembolso (handoff para o especialista, modelo avançado):
 Comprei o produto errado e quero meu dinheiro de volta, o que faço?
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Orquestração de agentes
+source: https://openai.github.io/openai-agents-python/multi_agent/
+---
+
+# Dois agentes, dois modelos, *dois* provedores
+
+#### **Classe `AsyncOpenAI` e `OpenAIChatCompletionsModel` para diferentes provedores**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {10-17,21-22,29-30|all}{maxHeight:'320px',at:+1}
+import asyncio
+import os
+from dotenv import load_dotenv
+from openai import AsyncOpenAI
+from agents import (Agent, Runner, handoff,
+                    OpenAIChatCompletionsModel, set_tracing_disabled)
+
+load_dotenv()
+
+openrouter = AsyncOpenAI(
+    base_url=os.environ["OPENROUTER_BASE_URL"],
+    api_key=os.environ["OPENROUTER_API_KEY"],
+)
+anthropic = AsyncOpenAI(
+    base_url=os.environ["ANTHROPIC_BASE_URL"],
+    api_key=os.environ["ANTHROPIC_API_KEY"],
+)
+
+specialist = Agent(
+    name="Especialista",
+    model=OpenAIChatCompletionsModel(
+        model="claude-fable-5", openai_client=anthropic),
+    instructions=("Resolva reclamações complexas de reembolso, "
+                  "avaliando o caso e propondo uma solução."),
+)
+
+triage = Agent(
+    name="Triagem",
+    model=OpenAIChatCompletionsModel(
+        model="deepseek-v4-flash", openai_client=openrouter),
+    instructions=("Responda dúvidas simples do cliente. "
+                  "Se for um caso de reembolso, use o handoff."),
+    handoffs=[handoff(specialist)],
+)
+
+async def main():
+    set_tracing_disabled(True)
+    question = input("Cliente: ")
+    result = await Runner.run(triage, question)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> As variáveis `OPENAI_API_KEY` e `OPENAI_DEFAULT_MODEL` só servem quando **todos os modelos são do mesmo provedor**. Com provedores diferentes, cada agente recebe seu próprio `base_url` e `api_key` via `OpenAIChatCompletionsModel`.
+
+<!--
+# .env (como se existisse):
+OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+OPENROUTER_API_KEY=sk-or-...
+ANTHROPIC_BASE_URL=https://api.anthropic.com/v1
+ANTHROPIC_API_KEY=sk-ant-...
+
+# cada AsyncOpenAI aponta para um provedor (base_url + api_key próprios);
+# o OpenAIChatCompletionsModel liga o agente àquele cliente/modelo.
+
+# a triagem (econômico) roda no deepseek-v4-flash via OpenRouter;
+# o especialista (avançado) roda no Fable via Anthropic.
 -->
