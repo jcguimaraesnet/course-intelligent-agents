@@ -475,16 +475,18 @@ source: https://openai.github.io/openai-agents-python/models/#common-advanced-mo
 
 <br/>
 
-<Transform :scale="0.7">
+<div class="text-sm leading-tight [&_td]:py-2.5 [&_th]:py-2.5 [&_td]:px-2 [&_th]:px-2">
 
 | Propriedade | Descrição | Valores&nbsp;possíveis&nbsp;&nbsp;&nbsp;&nbsp; | Default |
 |---|---|---|---|
-| `temperature` | Aleatoriedade na escolha do próximo token | `0.0` a `2.0` | `None` |
-| `top_p` | Limita a escolha aos tokens mais prováveis | `0.0` a `1.0` | `None` |
+| `temperature` | Aleatoriedade na escolha do próximo token | `0.0` a `2.0` | `1` |
+| `top_p` | Limita a escolha aos tokens mais prováveis | `0.0` a `1.0` | `1` |
 | `max_tokens` | Limite de tokens gerados na resposta | `> 0` | `None` |
-| `frequency_penalty` | Penaliza tokens já usados, reduzindo repetição | `-2.0` a `2.0`| `None` |
+| `frequency_penalty` | Penaliza tokens já usados, reduzindo repetição | `-2.0` a `2.0`| `0` |
 
-</Transform>
+</div>
+
+<div class="h-15" />
 
 <Transform :scale="0.7" origin="top left">
 
@@ -520,7 +522,7 @@ class: flex items-start justify-center
 
 # Sobre o top_p
 
-#### **O `top_p` soma as chances de cima para baixo — e risca o resto do cardápio**
+#### **O `top_p` soma as chances de cima para baixo e risca o resto do cardápio**
 
 <br/>
 
@@ -658,8 +660,8 @@ class: flex items-start justify-center
 
 <v-clicks every="1">
 
-- `temperature = 0` → respostas com palavras mais prováveis: **Chocolate**.
-- `temperature = 2` → as chances se achatam: até **Flocos** (1%) vira uma saída provável.
+- `temperature = 0` → reduz a probabilidade para o token mais provável: **Chocolate** (comportamento previsível).
+- `temperature = 2` → aumenta a probabilidade para token menos prováveis: **Flocos** (comportamento criativo).
 
 </v-clicks>
 
@@ -671,13 +673,13 @@ class: flex items-start justify-center
 
 <Transform :scale="1" origin="top">
 
-| Sabor | Chance |
-|---|---|
-| Chocolate | 60% |
-| Morango | 20% |
-| Baunilha | 15% |
-| Pistache | 4% |
-| Flocos | 1% |
+| Sabor | 0.0 | 1.0 | 2.0 |
+|---|---|---|---|
+| Chocolate | **100%** | 60% | 41% |
+| Morango | 0% | 20% | 23% |
+| Baunilha | 0% | 15% | 20% |
+| Pistache | 0% | 4% | 11% |
+| Flocos | 0% | 1% | **5%** |
 
 </Transform>
 
@@ -757,6 +759,77 @@ layoutClass: gap-8
 class: flex items-start justify-center
 ---
 
+# Sobre o frequency_penalty
+
+#### **O `frequency_penalty` olha o que **já foi dito** e penaliza quem se repete.**
+
+
+<div class="h-2" />
+
+
+::left::
+
+<div class="text-left w-full [&_table]:w-full">
+
+| Valor | Efeito |
+|---|---|
+| `−2.0` | incentiva repetição |
+| `0.0` | neutro, chance constante (sem memória de repetição) |
+| `+2.0` | combate repetição, força variedade |
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center gap-3">
+
+<Transform :scale="1" origin="top">
+
+| "Chocolate" já saiu | −2.0 | 0.0 | 2.0 |
+|---|---|---|---|
+| 0 vez | 60% | 60% | 60% |
+| 1 vez | **92%** | 60% | **17%** |
+| 2 vezes | **99%** | 60% | **3%** |
+
+</Transform>
+
+<div class="text-sm opacity-70">chance de repetir <code>Chocolate</code></div>
+
+</div>
+
+::bottom::
+
+<Transform :scale="0.8">
+
+> [!NOTE]
+> Valores **negativo** em `frequency_penalty` incentiva comportamento de loop, e quase nunca são usados.
+
+</Transform>
+
+
+<!--
+Mesma lista de sabores dos slides de temperatura/top_p, de propósito: agora o botão é a REPETIÇÃO.
+
+Os números são ilustrativos, mas seguem a mecânica real: o frequency_penalty subtrai (penalty × nº de vezes que o
+token já saiu) do logit da palavra, e depois renormaliza. Por isso a chance do Chocolate despenca a cada repetição
+(60% → 17% → 3% com penalty=2), enquanto com penalty=0 ela fica sempre em 60% (o modelo "não lembra" que já disse).
+
+Diferença para os outros dois parâmetros — se sobrar só uma ideia:
+temperatura reescala as chances da próxima palavra; top_p corta a cauda da próxima palavra;
+frequency_penalty depende do HISTÓRICO da saída — só age depois que a palavra apareceu.
+
+Primo do frequency_penalty é o presence_penalty: penaliza se a palavra JÁ apareceu (liga/desliga, sem contar
+quantas vezes). frequency_penalty escala com a contagem; presence_penalty é binário.
+
+Nem todo modelo/provedor suporta; modelos de raciocínio costumam rejeitar o parâmetro.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
 # Sobre o max_tokens
 
 #### **Limita a quantidade de tokens da resposta (raciocínio e saída)**
@@ -793,7 +866,7 @@ class: flex items-start justify-center
 | **reasoning** — invisível | 200 | ✅ |
 | **resposta** — *"Tem 1 letra R."* | 6 | ❌ |
 | **output** = reasoning + resposta | **206** | ✂️ |
-| **custo** = input + output | **218** | |
+| **total** = input + output | **218** | |
 
 </Transform>
 
