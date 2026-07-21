@@ -784,13 +784,12 @@ source: https://openai.github.io/openai-agents-python/multi_agent/
 
 ::left::
 
-```python [main.py] {9,17,20}{maxHeight:'320px'}
+```python [main.py] {8,15,18|all}{maxHeight:'320px',at:+1}
 import asyncio
 from dotenv import load_dotenv
-from agents import (Agent, Runner,
+from agents import (Agent, Runner, handoff,
                     set_default_openai_api, set_tracing_disabled)
 
-# agente avançado: resolve casos que exigem raciocínio
 specialist = Agent(
     name="Especialista",
     model="deepseek-v4-pro",
@@ -798,13 +797,12 @@ specialist = Agent(
                   "avaliando o caso e propondo uma solução."),
 )
 
-# agente econômico: atende e faz a triagem
 triage = Agent(
     name="Triagem",
     model="deepseek-v4-flash",
     instructions=("Responda dúvidas simples do cliente. "
                   "Se for um caso de reembolso, use o handoff."),
-    handoffs=[specialist],
+    handoffs=[handoff(specialist)],
 )
 
 async def main():
