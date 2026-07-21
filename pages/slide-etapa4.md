@@ -1084,3 +1084,108 @@ Comprei o produto errado e quero meu dinheiro de volta.
 # event.name == "handoff_requested" corresponde ao sub-evento "handoff solicitado".
 # event.item.agent identifica o agente que pediu o handoff (a triagem).
 -->
+
+---
+layout: default
+sourceLabel: Context / Usage
+source: https://openai.github.io/openai-agents-python/context/
+---
+
+# Consumo de tokens por agentes
+
+#### **O Agents SDK permite monitorar o consumo de tokens de cada agente**
+
+<div class="h-8" />
+
+<div class="text-sm leading-tight [&_td]:py-2.5 [&_th]:py-2.5 [&_td]:px-2 [&_th]:px-2">
+
+| Campo | O que mede |
+|---|---|
+| `input_tokens` | Tokens de entrada (prompt) |
+| `output_tokens` | Tokens de saída (resposta) |
+| `total_tokens` | Soma de entrada + saída |
+| `input_tokens_details.cached_tokens` | Tokens de entrada reaproveitados do cache de prompt (mais baratos) |
+| `output_tokens_details.reasoning_tokens` | Tokens gastos em raciocínio (modelos de reasoning) |
+
+</div>
+
+<div class="h-6" />
+
+<Transform :scale="0.8">
+
+> [!NOTE]
+> Os campos `cached_tokens` e `reasoning_tokens` só vêm preenchidos **quando o provedor reporta** esses dados.
+
+</Transform>
+
+<!--
+# acessa-se pelo RunContextWrapper: result.context_wrapper.usage (após o run) ou ctx.usage (dentro de tools/hooks).
+
+# o usage é agregado por run — soma todos os passos, inclusive múltiplos agentes/handoffs.
+
+# requests conta chamadas ao LLM, não o custo em R$: para dinheiro, multiplica-se os tokens pelo preço por milhão de cada modelo.
+
+# cached_tokens e reasoning_tokens só aparecem preenchidos quando o provedor os reporta.
+
+# liga com "um modelo para cada agente" (slide 76) e "recomendações por tarefa" (slide 78): usage é como se mede custo por agente.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Context / Usage
+source: https://openai.github.io/openai-agents-python/context/
+---
+
+# Monitoramento de tokens por agentes
+
+#### **O Agents SDK permite monitorar o consumo de tokens para cada agente**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {18-24|all}{maxHeight:'320px',at:+1}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner, RunConfig,
+                    set_default_openai_api, set_tracing_disabled)
+
+agent = Agent(
+    name="Assistente",
+    instructions="Responda a dúvida do cliente.",
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    question = input("Cliente: ")
+
+    for model in ("deepseek-v4-flash", "deepseek-v4-pro"):
+        result = await Runner.run(agent, question,
+                                  run_config=RunConfig(model=model))
+        usage = result.context_wrapper.usage
+        print(f"[{model}] {usage.total_tokens} tokens "
+              f"({usage.input_tokens} entrada / "
+              f"{usage.output_tokens} saída)")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> `result.context_wrapper.usage` permite acompanhar o consumo de tokens para cada execução do **agente**.
+
+<!--
+# inputs de teste (input do console)
+
+# exemplo:
+Comprei o produto errado e quero meu dinheiro de volta.
+
+# RunConfig.model tem precedência sobre o model definido no Agent (vale para todo o run).
+# cada chamada tem seu próprio usage; útil para comparar custo entre um modelo econômico e um avançado.
+-->
