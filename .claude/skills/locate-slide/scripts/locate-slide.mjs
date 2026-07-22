@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Localiza slides do deck pelo número exibido na apresentação.
-// Usa o próprio parser do Slidev para que os `src:` includes de slides.md
+// Usa o próprio parser do Slidev para que os `src:` includes de slides-ai-agents.md
 // sejam resolvidos exatamente como no build.
 //
 // Uso:
@@ -15,14 +15,14 @@ import { relative, resolve, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 // A skill vive em .claude/skills/locate-slide/scripts/, então a raiz do repo
-// está quatro níveis acima. Confirmamos procurando o slides.md.
+// está quatro níveis acima. Confirmamos procurando o slides-ai-agents.md.
 function findRoot() {
   let dir = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..')
   for (let i = 0; i < 6; i++) {
-    if (existsSync(resolve(dir, 'slides.md'))) return dir
+    if (existsSync(resolve(dir, 'slides-ai-agents.md'))) return dir
     dir = dirname(dir)
   }
-  throw new Error('slides.md não encontrado — rode a partir do repositório do deck.')
+  throw new Error('slides-ai-agents.md não encontrado — rode a partir do repositório do deck.')
 }
 
 // @slidev/parser não é dependência direta do projeto, então não aparece em
@@ -73,7 +73,7 @@ const numbers = args.filter((a) => /^\d+$/.test(a)).map(Number)
 
 const root = findRoot()
 const { load } = await loadParser(root)
-const data = await load({ roots: [], userRoot: root }, resolve(root, 'slides.md'))
+const data = await load({ roots: [], userRoot: root }, resolve(root, 'slides-ai-agents.md'))
 const total = data.slides.length
 
 if (list || numbers.length === 0) {

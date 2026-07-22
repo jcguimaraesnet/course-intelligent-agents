@@ -6,7 +6,7 @@ description: Localiza em qual arquivo e linha vive um slide do deck Slidev, a pa
 # Localizar slide por número
 
 O número que o usuário enxerga na apresentação **não corresponde a nenhuma
-contagem simples de arquivo**. [slides.md](slides.md) traz os slides de abertura
+contagem simples de arquivo**. [slides-ai-agents.md](slides-ai-agents.md) traz os slides de abertura
 e depois puxa as etapas via `src:`, então o slide 37 pode estar na linha 170 de
 `pages/slide-etapa2.md`. Contar separadores `---` na mão erra: eles também delimitam
 frontmatter, e os includes deslocam tudo.

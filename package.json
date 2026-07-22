@@ -3,9 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "slidev slides.md --open",
-    "build": "slidev build slides.md --base /course-ai-agents/ --out dist",
-    "export": "slidev export slides.md"
+    "dev": "slidev slides-ai-agents.md --port 3030 --strictPort --open",
+    "dev:n8n": "slidev slides-n8n.md --port 3131 --strictPort --open",
+    "build": "pnpm build:ai-agents && pnpm build:n8n",
+    "build:ai-agents": "slidev build slides-ai-agents.md --base /course-ai-agents/ai-agents/ --out dist/ai-agents",
+    "build:n8n": "slidev build slides-n8n.md --base /course-ai-agents/n8n/ --out dist/n8n",
+    "export": "slidev export slides-ai-agents.md"
   },
   "devDependencies": {
     "@iconify-json/logos": "^1.2.11",

@@ -4,7 +4,7 @@
   O Slidev resolve este arquivo pelo módulo virtual `#slidev/custom-nav-controls`
   e o renderiza dentro da NavControls, depois do contador de slides.
 
-  O alvo é o `routeAlias: ementa` (slides.md), e não o número do slide: assim o
+  O alvo é o `routeAlias: ementa` (slides-ai-agents.md), e não o número do slide: assim o
   botão não quebra quando slides são inseridos antes dele.
 -->
 <script setup lang="ts">

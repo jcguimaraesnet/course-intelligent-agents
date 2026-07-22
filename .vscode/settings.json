@@ -1,0 +1,6 @@
+{
+  // A extensão do Slidev procura `**/slides.md` por padrão. Como cada curso tem
+  // seu próprio entry (`slides-ai-agents.md`, `slides-n8n.md`, ...), ampliamos o
+  // glob — senão a extensão não encontra entry nenhum e não ativa.
+  "slidev.include": ["**/slides-*.md"]
+}
