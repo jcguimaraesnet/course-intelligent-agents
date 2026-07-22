@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "slidev slides-ai-agents.md --port 3030 --strictPort --open",
     "dev:n8n": "slidev slides-n8n.md --port 3131 --strictPort --open",
-    "build": "pnpm build:ai-agents && pnpm build:n8n",
+    "dev:block-project": "slidev slides-block-project.md --port 3232 --strictPort --open",
+    "build": "pnpm build:ai-agents && pnpm build:n8n && pnpm build:block-project",
     "build:ai-agents": "slidev build slides-ai-agents.md --base /course-ai-agents/ai-agents/ --out dist/ai-agents",
     "build:n8n": "slidev build slides-n8n.md --base /course-ai-agents/n8n/ --out dist/n8n",
+    "build:block-project": "slidev build slides-block-project.md --base /course-ai-agents/block-project/ --out dist/block-project",
     "export": "slidev export slides-ai-agents.md"
   },
   "devDependencies": {
