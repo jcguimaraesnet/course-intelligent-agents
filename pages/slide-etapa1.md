@@ -275,6 +275,22 @@ source: https://docs.astral.sh/uv/getting-started/installation
 
 <br/>
 
+
+
+#### **Instalação UV: uma opção rápida e simplificada para gerenciar projetos python**
+<br/>
+
+
+::code-group
+
+```sh [macOS/linux]
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+::
+
+<br/><br/>
+
 #### **Instalação do Python em múltiplas plataformas**
 
 <br/>
@@ -285,37 +301,8 @@ source: https://docs.astral.sh/uv/getting-started/installation
 uv python install 3.12
 ```
 
-```sh [windows]
-winget install --id Python.Python.3.12 --scope user
-```
-
-```sh [linux]
-sudo apt-get install -y python3.12
-```
-
 ```sh [macOS]
 brew install python@3.12
-```
-
-```sh [instalador]
-python-*.exe ou python-*.pkg
-```
-::
-
-<br/><br/>
-
-#### **Instalação UV: uma opção rápida e simplificada para gerenciar projetos python**
-<br/>
-
-
-::code-group
-
-```sh [windows]
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
-
-```sh [macOS/linux]
-curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
 ::
