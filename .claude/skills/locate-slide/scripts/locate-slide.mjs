@@ -1,28 +1,62 @@
 #!/usr/bin/env node
-// Localiza slides do deck pelo número exibido na apresentação.
-// Usa o próprio parser do Slidev para que os `src:` includes de slides-ai-agents.md
+// Localiza slides de um deck pelo número exibido na apresentação.
+// Usa o próprio parser do Slidev para que os `src:` includes do deck
 // sejam resolvidos exatamente como no build.
 //
+// O repositório pode ter vários decks na raiz (slides-ai-agents.md,
+// slides-n8n.md, ...). Escolha qual com --deck; se houver só um, ele é o padrão.
+//
 // Uso:
-//   node locate-slide.mjs 37        -> localiza o slide 37
-//   node locate-slide.mjs 12 37     -> localiza vários de uma vez
-//   node locate-slide.mjs --list    -> índice de todos os slides
-//   node locate-slide.mjs 37 --json -> saída JSON
+//   node locate-slide.mjs 37                 -> localiza o slide 37 (deck único)
+//   node locate-slide.mjs --deck n8n 37      -> escolhe o deck slides-n8n.md
+//   node locate-slide.mjs --deck n8n --list  -> índice do deck n8n
+//   node locate-slide.mjs 12 37              -> vários de uma vez
+//   node locate-slide.mjs 37 --json          -> saída JSON
 
 import { createRequire } from 'node:module'
-import { realpathSync, existsSync, readFileSync } from 'node:fs'
-import { relative, resolve, dirname } from 'node:path'
+import { realpathSync, existsSync, readFileSync, readdirSync } from 'node:fs'
+import { relative, resolve, dirname, basename } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+const DECK_PATTERN = /^slides-.*\.md$/
+
+// Lista os decks (slides-*.md) na raiz do repo, em ordem estável.
+function listDecks(root) {
+  return readdirSync(root).filter((f) => DECK_PATTERN.test(f)).sort()
+}
+
+// Converte o basename do deck no nome curto usado em --deck (slides-n8n.md -> n8n).
+function deckShortName(file) {
+  return file.replace(/^slides-/, '').replace(/\.md$/, '')
+}
+
 // A skill vive em .claude/skills/locate-slide/scripts/, então a raiz do repo
-// está quatro níveis acima. Confirmamos procurando o slides-ai-agents.md.
+// está quatro níveis acima. Confirmamos procurando qualquer deck slides-*.md.
 function findRoot() {
   let dir = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..')
   for (let i = 0; i < 6; i++) {
-    if (existsSync(resolve(dir, 'slides-ai-agents.md'))) return dir
+    if (existsSync(dir) && listDecks(dir).length > 0) return dir
     dir = dirname(dir)
   }
-  throw new Error('slides-ai-agents.md não encontrado — rode a partir do repositório do deck.')
+  throw new Error('nenhum slides-*.md encontrado — rode a partir do repositório do deck.')
+}
+
+// Resolve qual deck usar. `--deck` aceita nome curto (n8n), basename
+// (slides-n8n.md) ou caminho .md. Sem `--deck`: usa o único deck se houver
+// apenas um; com vários, exige a escolha explícita.
+function resolveDeck(root, deckArg) {
+  if (deckArg) {
+    const candidates = deckArg.endsWith('.md')
+      ? [resolve(root, deckArg), resolve(process.cwd(), deckArg)]
+      : [resolve(root, `slides-${deckArg}.md`)]
+    const match = candidates.find((c) => existsSync(c))
+    if (match) return match
+    throw new Error(`deck não encontrado: ${deckArg}`)
+  }
+  const decks = listDecks(root)
+  if (decks.length === 1) return resolve(root, decks[0])
+  const names = decks.map(deckShortName).join(', ')
+  throw new Error(`há vários decks (${names}) — escolha com --deck <nome>, ex: --deck n8n`)
 }
 
 // @slidev/parser não é dependência direta do projeto, então não aparece em
@@ -66,14 +100,33 @@ function describe(slide, n, total, root) {
   }
 }
 
+// Lê o valor de uma flag, aceitando "--deck n8n" e "--deck=n8n".
+function flagValue(args, name) {
+  const eq = args.find((arg) => arg.startsWith(`${name}=`))
+  if (eq) return eq.slice(name.length + 1)
+  const idx = args.indexOf(name)
+  return idx >= 0 && idx + 1 < args.length ? args[idx + 1] : null
+}
+
 const args = process.argv.slice(2)
 const json = args.includes('--json')
 const list = args.includes('--list')
-const numbers = args.filter((a) => /^\d+$/.test(a)).map(Number)
+const deckArg = flagValue(args, '--deck')
+const numbers = args.filter((arg) => /^\d+$/.test(arg)).map(Number)
 
-const root = findRoot()
-const { load } = await loadParser(root)
-const data = await load({ roots: [], userRoot: root }, resolve(root, 'slides-ai-agents.md'))
+// Erros de configuração (deck ambíguo, deck inexistente, parser ausente) são
+// esperados e acionáveis: mostramos só a mensagem, sem stack trace.
+let root, deckPath, load
+try {
+  root = findRoot()
+  deckPath = resolveDeck(root, deckArg)
+  ;({ load } = await loadParser(root))
+} catch (err) {
+  console.error(err.message)
+  process.exit(1)
+}
+
+const data = await load({ roots: [], userRoot: root }, deckPath)
 const total = data.slides.length
 
 if (list || numbers.length === 0) {
@@ -81,7 +134,7 @@ if (list || numbers.length === 0) {
   if (json) {
     console.log(JSON.stringify(all, null, 2))
   } else {
-    console.log(`${total} slides\n`)
+    console.log(`${total} slides — ${basename(deckPath)}\n`)
     for (const s of all) {
       console.log(`${String(s.slide).padStart(3)} | ${s.file}:${s.contentLine} | ${s.title ?? '(sem título)'}`)
     }

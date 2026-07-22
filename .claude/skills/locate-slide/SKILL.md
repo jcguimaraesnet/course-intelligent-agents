@@ -6,10 +6,10 @@ description: Localiza em qual arquivo e linha vive um slide do deck Slidev, a pa
 # Localizar slide por número
 
 O número que o usuário enxerga na apresentação **não corresponde a nenhuma
-contagem simples de arquivo**. [slides-ai-agents.md](slides-ai-agents.md) traz os slides de abertura
-e depois puxa as etapas via `src:`, então o slide 37 pode estar na linha 170 de
-`pages/slide-etapa2.md`. Contar separadores `---` na mão erra: eles também delimitam
-frontmatter, e os includes deslocam tudo.
+contagem simples de arquivo**. O deck (ex.: [slides-ai-agents.md](slides-ai-agents.md))
+traz os slides de abertura e depois puxa as etapas via `src:`, então o slide 37
+pode estar na linha 170 de `pages/ai-agents/slide-etapa2.md`. Contar separadores
+`---` na mão erra: eles também delimitam frontmatter, e os includes deslocam tudo.
 
 Por isso, resolva com o parser do próprio Slidev — mesma numeração do build:
 
@@ -17,13 +17,26 @@ Por isso, resolva com o parser do próprio Slidev — mesma numeração do build
 node .claude/skills/locate-slide/scripts/locate-slide.mjs 37
 ```
 
+## Qual deck
+
+O repositório tem mais de um deck na raiz (`slides-ai-agents.md`,
+`slides-n8n.md`, ...). Escolha com `--deck <nome curto>`:
+
+```bash
+node .claude/skills/locate-slide/scripts/locate-slide.mjs --deck n8n 5
+```
+
+Sem `--deck`, o script usa o deck se houver só um; com vários, ele lista os nomes
+e pede a escolha. Primeiro descubra qual deck o usuário está editando (o arquivo
+aberto, o assunto do pedido) e passe o nome curto correspondente.
+
 ```
 slide 37/38
-file:      pages/slide-etapa2.md
+file:      pages/ai-agents/slide-etapa2.md
 title:     Gateway/Provedores com API gratuita
 lines:     164-191    (separador `---` na linha 164)
 frontmatter: 165-168
-content:   pages/slide-etapa2.md:170
+content:   pages/ai-agents/slide-etapa2.md:170
 ```
 
 Vários de uma vez: `... locate-slide.mjs 12 37`. Índice completo: `--list`.
@@ -42,7 +55,7 @@ pede:
 - `lines` — o slide inteiro, do separador `---` até o fim. Use para mover,
   remover ou duplicar o slide sem cortar o vizinho.
 
-Ao citar o slide para o usuário, use o caminho clicável (`pages/slide-etapa2.md:170`).
+Ao citar o slide para o usuário, use o caminho clicável (`pages/ai-agents/slide-etapa2.md:170`).
 
 ## Escopo
 
