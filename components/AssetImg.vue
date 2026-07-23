@@ -6,11 +6,11 @@
  * Por que existe:
  *   - `<img src="/foo.jpg">` (estático) quebra no build do Slidev (import guard / fs.allow).
  *   - `<img :src="'/foo.jpg'">` (runtime) funciona, mas NÃO recebe o prefixo do `--base`,
- *     então quebraria em produção num project site (ex.: /course-ai-agents/).
+ *     então quebraria em produção num project site (ex.: /course-intelligent-agents/).
  *
  * Resolve o caminho contra `import.meta.env.BASE_URL`:
  *   dev        -> BASE_URL = "/"                  -> /foo.jpg
- *   produção   -> BASE_URL = "/course-ai-agents/" -> /course-ai-agents/foo.jpg
+ *   produção   -> BASE_URL = "/course-intelligent-agents/" -> /course-intelligent-agents/foo.jpg
  *
  * Uso:
  *   <AssetImg src="foo.jpg" class="rounded-lg h-70 border-4 border-white" />

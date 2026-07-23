@@ -55,7 +55,7 @@ const sourceDisplay = computed<string | undefined>(() =>
     <a
       v-if="!source"
       class="slidev-footer__center"
-      href="https://github.com/jcguimaraesnet/course-ai-agents"
+      href="https://github.com/jcguimaraesnet/course-intelligent-agents"
       target="_blank"
     >
       <ri-github-fill />

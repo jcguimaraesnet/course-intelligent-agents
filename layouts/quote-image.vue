@@ -33,7 +33,7 @@ const props = defineProps<{
 }>()
 
 /* Resolve contra o `base` do Vite (necessário no GitHub Pages, que serve
-   o deck em /course-ai-agents/). URLs absolutas passam direto. */
+   o deck em /course-intelligent-agents/). URLs absolutas passam direto. */
 const resolvedImage = computed(() => {
   if (/^https?:\/\//.test(props.image)) return props.image
   const base = import.meta.env.BASE_URL || '/'
