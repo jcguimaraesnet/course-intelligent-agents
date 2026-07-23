@@ -121,6 +121,67 @@ Ementa do projeto — visão geral das 5 etapas.
 </Transform>
 
 ---
+
+# Principais entregáveis do projeto
+
+#### **Listagem com os principais componentes do sistema**
+
+<div class="h-2" />
+
+<Transform :scale="0.9">
+
+<div class="[&_table]:w-full text-xs">
+
+| #Req | Descrição |
+| --- | --- |
+| 1 | Dois agentes Python independentes, cada um projeto separado com responsabilidade distinta |
+| 2 | Um agente com memória conversacional persistente com `SQLiteSession` (apenas o primeiro) |
+| 3 | Primeiro agente (com memória) e RAG/embeddings para recuperação de contexto semântico |
+| 4 | Os dois agentes expostos via API REST, com duas APIs: `run` (executar) e `status` (consultar) |
+| 5 | Workflow n8n invoca de forma assíncrona os dois agentes (background task e polling) |
+| 6 | Servidor MCP deve expor as ferramentas de ao menos um dos agentes |
+| 7 | Orquestração dos dois agentes no n8n, com roteamento e merge |
+| 8 | Terceiro agente dentro do n8n (Agent node), para roteamento e/ou merge |
+| 9 | Gatilho (trigger) que dispara o workflow n8n — webhook, agendamento ou manual |
+
+</div>
+
+</Transform>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Caso de uso de exemplo
+#### **Este cenário não deve ser usado por nenhum aluno**
+
+::left::
+
+<div class="h-10" />
+
+Um **assistente de atendimento para um e-commerce**, disponível através de um chatbot.
+
+O cliente faz **dois tipos de pedido**, que exigem capacidades diferentes:
+
+- **Tirar dúvidas** — políticas, trocas, catálogo _(o agente precisa saber e lembrar)_
+- **Consultar um pedido** — status de entrega em tempo real _(o agente precisa agir sobre um sistema externo)_
+
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-customer-service-2-line text-[15rem] text-purple-300" />
+</div>
+
+<!--
+Para trocar o ícone por uma imagem própria: coloque o arquivo em public/ e
+substitua o bloco <div>...</div> do ::right:: por, por exemplo:
+  <AssetImg src="seu-arquivo.png" class="rounded-lg w-[420px] border-8 border-white" />
+-->
+
+---
 src: ./pages/block-project/slide-etapa1.md
 ---
 
