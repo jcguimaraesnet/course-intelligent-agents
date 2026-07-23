@@ -182,6 +182,269 @@ substitua o bloco <div>...</div> do ::right:: por, por exemplo:
 -->
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 1 — Dois agentes independentes
+#### **Dois projetos Python separados, com responsabilidades distintas**
+
+::left::
+
+<div class="h-10" />
+
+- **Agente Atendente** — responde dúvidas: políticas, trocas, catálogo
+- **Agente Rastreador** — consulta o status de um pedido específico
+- Cada um é um projeto próprio; **não se chamam entre si** — quem coordena é o n8n
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-robot-2-line text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 2 — Memória conversacional
+#### **Histórico persistente com `SQLiteSession` — apenas no Atendente**
+
+::left::
+
+<div class="h-10" />
+
+- O **Atendente** lembra do histórico do cliente entre sessões distintas
+- Persistência real em SQLite — não some ao reiniciar o processo
+- O Rastreador não precisa: é uma consulta pontual
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-brain-line text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 3 — RAG / embeddings
+#### **Recuperação de contexto sobre a base de conhecimento — no Atendente**
+
+::left::
+
+<div class="h-10" />
+
+- O Atendente responde consultando, via RAG, a base da loja: políticas, FAQ, catálogo
+- Impede o agente de "inventar" política — resposta ancorada no material real
+- O backend dos vetores é livre (vector DB, FAISS, etc.)
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-file-search-line text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 4 — APIs REST (run e status)
+#### **Cada agente exposto por FastAPI, com dois endpoints**
+
+::left::
+
+<div class="h-10" />
+
+- `run` (executar) — submete a tarefa e devolve um identificador na hora
+- `status` (consultar) — busca o resultado quando estiver pronto
+- Mesmo padrão nos dois agentes
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-plug-line text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 5 — Invocação assíncrona
+#### **O n8n dispara `run` e faz polling do `status` (background task)**
+
+::left::
+
+<div class="h-10" />
+
+- O agente processa em background — não segura a conexão HTTP
+- O n8n dispara `run`, recebe o identificador e consulta `status` até concluir
+- Laço de espera no próprio workflow (ideal: um sub-workflow reutilizável)
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-loop-left-line text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 6 — Servidor MCP
+#### **Ferramentas de ao menos um agente publicadas via MCP**
+
+::left::
+
+<div class="h-10" />
+
+- A ferramenta `consultar_pedido` do Rastreador é exposta por um servidor MCP
+- Vira serviço padronizado e reutilizável — deixa de estar "presa" ao agente
+- O atendimento humano pode usá-la no Claude Desktop, sem abrir o ERP
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-tools-line text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 7 — Orquestração no n8n
+#### **Roteamento entre os agentes e merge das respostas**
+
+::left::
+
+<div class="h-10" />
+
+- Roteia pela intenção: dúvida → Atendente, pedido → Rastreador, misto → os dois
+- O **Merge** junta as saídas numa resposta única
+- O n8n é o **único** orquestrador
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-flow-chart text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 8 — Terceiro agente (Agent node)
+#### **Um agente dentro do n8n, para roteamento e/ou consolidação**
+
+::left::
+
+<div class="h-10" />
+
+- Um **Agent node** no orquestrador — o "cérebro do maestro"
+- Classifica a intenção para decidir o roteamento e consolida a resposta final
+- Não é par dos dois agentes Python — é capacidade do próprio n8n
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-mind-map text-[15rem] text-purple-300" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Req 9 — Gatilho do workflow
+#### **O evento que dispara toda a orquestração**
+
+::left::
+
+<div class="h-10" />
+
+- Um **webhook**: o cliente envia mensagem no chat → o n8n inicia o fluxo
+- O tipo é livre: webhook, agendamento ou manual
+- É o ponto de entrada de tudo
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-webhook-line text-[15rem] text-purple-300" />
+</div>
+
+---
+
+# Outros casos de uso possíveis
+#### **Exemplos que se encaixam na arquitetura de dois agentes**
+
+<div class="h-8" />
+
+
+
+<div class="[&_table]:w-full text-xs">
+
+| Caso de uso | Descrição |
+| --- | --- |
+| Suporte de TI interno | Um agente resolve chamados consultando runbooks e a base de conhecimento; outro verifica status de sistemas e ativos via API |
+| Portal de RH do colaborador | Um agente responde sobre políticas e benefícios; outro consulta holerite e férias e abre solicitações no sistema de RH |
+| Análise de contratos | Um agente extrai cláusulas e dados do documento; outro avalia riscos consultando a base de jurisprudência e políticas internas |
+| Atendimento de clínica | Um agente esclarece convênios, preparos e procedimentos; outro consulta e agenda horários disponíveis via API |
+
+</div>
+
+<div class="h-10" />
+
+<div class="text-xs opacity-60 mt-4">Em todos, um agente <b>sabe e lembra</b> (memória + RAG) e outro <b>age sobre um sistema externo</b> (ferramenta) — orquestrados pelo n8n.</div>
+
+---
+layout: section
+---
+
+## Leitura do TP1
+
+---
+
+# Entregáveis do TP1
+#### **Principais componentes da primeira entrega**
+
+<div class="h-2" />
+
+<Transform :scale="0.9">
+
+<div class="[&_table]:w-full text-xs">
+
+| # | Entregável |
+| --- | --- |
+| 1 | Descrição do problema |
+| 2 | Dois requisitos funcionais mínimos e verificáveis |
+| 3 | Inputs, outputs e restrições técnicas |
+| 4 | Arquitetura inicial |
+| 5 | Agente Python funcional |
+| 6 | Prompts documentados |
+| 7 | Saída JSON |
+| 8 | Entrega (PDF, repo, vídeo e ZIP no Moodle) |
+
+</div>
+
+</Transform>
+
+---
 src: ./pages/block-project/slide-etapa1.md
 ---
 
