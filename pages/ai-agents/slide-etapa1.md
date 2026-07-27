@@ -503,7 +503,7 @@ source: https://pypi.org/project/python-dotenv/
 
 # Variáveis de ambiente
 
-#### **API Keys nunca devem ser armazenadas dentro do código-fonte**
+#### **O arquivo `.env` é uma das formas mais comuns de armazenar API Keys**
 
 ::left::
 
@@ -515,9 +515,6 @@ source: https://pypi.org/project/python-dotenv/
 
 </div>
 
-<br/>
-
-
 ::right::
 
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title=".env" codeblock>
@@ -525,14 +522,32 @@ source: https://pypi.org/project/python-dotenv/
 ```ini
 
 OPENAI_API_KEY=sk-proj-XXXXXXXXXXXXXXXX
-
-OPENAI_DEFAULT_MODEL=gpt-5-nano
-
+OPENAI_DEFAULT_MODEL=gpt-5 -nano
 OPENAI_BASE_URL=https://api.openai.com/v1
 
 ```
-
 </WindowMockup>
+
+<div class="h-1" />
+
+::bottom::
+
+<Transform :scale="0.8">
+
+> [!CAUTION]
+> Nunca esqueça de adicionar o arquivo `.env` no `.gitignore` para que não seja versionado. 
+> _Comando:_ `echo ".env" >> .gitignore`
+
+</Transform>
+
+<!-- 
+## importante mencionar o `.env` porque cai no TP1
+
+## importante mencionar o `gitignore` porque cai no TP1
+ -->
+
+
+
 
 ---
 layout: section
