@@ -234,8 +234,8 @@ if __name__ == "__main__":
 
 ---
 layout: default
-sourceLabel: API Google Pricing
-source: https://ai.google.dev/gemini-api/docs/pricing
+sourceLabel: Free LLM
+source: https://freellm.net
 ---
 
 # Gateway/Provedores com API gratuita
