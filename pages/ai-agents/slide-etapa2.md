@@ -36,6 +36,48 @@ source: https://freellm.net
 ---
 layout: two-cols-header
 layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Variáveis para modelos não OpenAI
+
+#### **Para cada provedor de modelos, um arquivo `.env` com valores diferentes**
+
+::left::
+
+> [!IMPORTANT]
+> As três variáveis do arquivo `.env` sempre permancem com o prefixo `OPENAI_`, mesmo para modelo não-OpenAI. 
+
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title=".env" codeblock>
+
+```ini
+
+OPENAI_API_KEY=sk-or-v1-XXXXXXXXXXXXXXXX
+
+OPENAI_DEFAULT_MODEL=deepseek/deepseek-r1:free
+
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+
+```
+</WindowMockup>
+
+
+
+
+<!-- 
+## importante mencionar o `.env` porque cai no TP1
+
+## importante mencionar o `gitignore` porque cai no TP1
+ -->
+
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 class: flex items-start justify-center
 sourceLabel: Tracing
 source: https://openai.github.io/openai-agents-python/tracing/
