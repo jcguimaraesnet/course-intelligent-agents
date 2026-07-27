@@ -190,24 +190,24 @@ sourceLabel: Ativando Chat Completions
 source: https://openai.github.io/openai-agents-python/models/#responses-api-support
 ---
 
+# Ativando a API Chat Completions
+
+#### **Para usar modelos não OpenAI, use sempre a API Chat Completions**
+
 ::left::
 
-```python {all|5,7,15|all}{at:+1} 
+```python {all|3,7|all}{maxHeight:'320px',at:+1}
 import asyncio, os
 from dotenv import load_dotenv
 from agents import Agent, Runner, set_default_openai_api
 
-os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
-
-set_default_openai_api("chat_completions")
-
 async def main():
     load_dotenv()
+    set_default_openai_api("chat_completions")
 
     agent = Agent(
         name="Assistant",
-        instructions="You are a history professor.",
-        model="deepseek-v4-fast"
+        instructions="You are a history professor."
     )
 
     result = await Runner.run(agent, 
@@ -221,15 +221,13 @@ if __name__ == "__main__":
 
 ::right::
 
+<v-clicks every="1" at="+1">
+
 > [!TIP]
-> O OpenAI Agents SDK permite **ativar/desativar** o uso da Chat Completions API para usar com outros modelos não OpenAI. 
+> O OpenAI Agents SDK permite **ativar/desativar** o uso da Chat Completions API através do método `set_default_openai_api`. 
 
-<br/>
 
-<v-clicks every="2" at="+1">
-
-- O método `set_default_openai_api` precisa invocado
-- As variáveis `OPENAI_API_KEY` e `OPENAI_BASE_URL` devem ser preenchidas com as informações do provedor não OpenAI.
+- As variáveis `OPENAI_API_KEY` e `OPENAI_BASE_URL` devem ser preenchidas com as informações do provedor **não OpenAI**.
 
 </v-clicks>
 
