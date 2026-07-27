@@ -3,7 +3,7 @@ layout: section
 routeAlias: etapa2
 ---
 ## **Etapa 2:** OpenAI Agents SDK 
-**Entendendo o básico**
+**O básico do SDK Agents e como usar modelos não-OpenAI**
 
 ---
 layout: two-cols-header
@@ -1077,7 +1077,7 @@ layout: default
 🤖 &nbsp;**Exercício \#4:** Analise as diferenças entre execuções os exec `#2` e `#3` e tire conclusões.
 
 - [ ] escolher provedor gratuito e criar a API Key
-- [ ] configurar o `.env`: key, base URL e modelo
+- [ ] configurar o `.env`: key, base URL, modelo e `.gitignore`
 - [ ] ativar Chat Completions e desativar o tracing
 - [ ] montar o `history` com as roles `user` e `assistant`
 - [ ] configurar o `ModelSettings`: temperature, top_p e max_tokens
