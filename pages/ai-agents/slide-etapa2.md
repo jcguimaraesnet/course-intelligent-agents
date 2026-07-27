@@ -113,13 +113,12 @@ Há três maneiras para desativar:
 
 <div class="flex flex-col items-center gap-3">
 
-<Transform :scale="1" origin="top">
-    <AssetImg
-    src="openai-plataform-developer-traces.png"
-    class="rounded-lg border-10 border-white"
-    />
-</Transform>
-
+```mermaid {theme: 'neutral', scale: 0.8}
+graph TD
+B[Text] --> C{Decision}
+C -->|One| D[Result 1]
+C -->|Two| E[Result 2]
+```
 
 </div>
 
