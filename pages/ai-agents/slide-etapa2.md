@@ -6,6 +6,34 @@ routeAlias: etapa2
 **O básico do SDK Agents e como usar modelos não-OpenAI**
 
 ---
+layout: default
+sourceLabel: Free LLM
+source: https://freellm.net
+---
+
+# Gateway/Provedores com API gratuita
+
+#### **Plataformas do tipo agregador de provedores oferecem dezenas de modelos gratuitos**
+
+<div class="h-10" />
+
+<Transform :scale="0.8">
+
+| Provedor | Modelo (exemplo) | Plataforma | Cartão |
+|---|---|---|---|
+| OpenRouter | `deepseek/deepseek-r1:free` | [openrouter.ai](https://openrouter.ai/models?max_price=0) | não |
+| Google | `gemini-3.5-flash` | [aistudio.google.com](https://aistudio.google.com) | não |
+| Groq | `llama-3.3-70b-versatile` | [console.groq.com](https://console.groq.com) | não |
+| NVIDIA | `meta/llama-3.3-70b-instruct` | [build.nvidia.com](https://build.nvidia.com) | não |
+| Hugging Face | `meta-llama/Llama-3.3-70B-Instruct` | [huggingface.co](https://huggingface.co) | não |
+| OpenAI | `gpt-5` *(sem tier grátis)* | [platform.openai.com](https://platform.openai.com) | **sim** |
+
+
+</Transform>
+
+
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-start justify-center
@@ -230,34 +258,6 @@ if __name__ == "__main__":
 - As variáveis `OPENAI_API_KEY` e `OPENAI_BASE_URL` devem ser preenchidas com as informações do provedor **não OpenAI**.
 
 </v-clicks>
-
-
----
-layout: default
-sourceLabel: Free LLM
-source: https://freellm.net
----
-
-# Gateway/Provedores com API gratuita
-
-#### **Plataformas do tipo agregador de provedores oferecem dezenas de modelos gratuitos**
-
-<div class="h-10" />
-
-<Transform :scale="0.8">
-
-| Provedor | Modelo (exemplo) | Plataforma | Cartão |
-|---|---|---|---|
-| OpenRouter | `deepseek/deepseek-r1:free` | [openrouter.ai](https://openrouter.ai/models?max_price=0) | não |
-| Google | `gemini-3.5-flash` | [aistudio.google.com](https://aistudio.google.com) | não |
-| Groq | `llama-3.3-70b-versatile` | [console.groq.com](https://console.groq.com) | não |
-| NVIDIA | `meta/llama-3.3-70b-instruct` | [build.nvidia.com](https://build.nvidia.com) | não |
-| Hugging Face | `meta-llama/Llama-3.3-70B-Instruct` | [huggingface.co](https://huggingface.co) | não |
-| OpenAI | `gpt-5` *(sem tier grátis)* | [platform.openai.com](https://platform.openai.com) | **sim** |
-
-
-</Transform>
-
 
 
 ---
