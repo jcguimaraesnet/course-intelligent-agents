@@ -79,6 +79,77 @@ OPENAI_BASE_URL=https://openrouter.ai/api/v1
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-start justify-center
+---
+
+# Por debaixo do capô
+
+#### **Cada camada abstrai uma complexidade**
+
+<br/>
+
+::left::
+
+<div class="text-left w-full">
+
+> [!IMPORTANT]
+> Quando usamos o OpenAI Agents SDK, há `três camadas` de abstração envolvidas.
+
+<div class="h-2" />
+
+<!-- <v-click>
+
+Há três maneiras para desativar:
+
+- `set_tracing_disabled(True)` &nbsp;⭐
+- `OPENAI_AGENTS_DISABLE_TRACING=1`
+- `RunConfig.tracing_disabled = true`
+
+
+</v-click> -->
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center gap-3">
+
+<Transform :scale="1" origin="top">
+    <AssetImg
+    src="openai-plataform-developer-traces.png"
+    class="rounded-lg border-10 border-white"
+    />
+</Transform>
+
+
+</div>
+
+<!--
+## 1 - importando a função
+```
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+```
+
+## 2 - variável de ambiente
+```
+OPENAI_AGENTS_DISABLE_TRACING=1
+```
+
+## 3 - usando a classe RunConfig
+```
+from agents import (Agent, Runner, RunConfig)
+run_config = RunConfig(tracing_disabled=True)
+result = Runner.run_streamed(agent, "Tarefa ...", run_config=run_config)
+```
+
+
+
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
 sourceLabel: Tracing
 source: https://openai.github.io/openai-agents-python/tracing/
 ---
