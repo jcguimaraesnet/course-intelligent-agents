@@ -55,6 +55,29 @@ Há três maneiras para desativar:
 
 </div>
 
+<!--
+## 1 - importando a função
+```
+from agents import (Agent, Runner,
+                    set_default_openai_api, set_tracing_disabled)
+```
+
+## 2 - variável de ambiente
+```
+OPENAI_AGENTS_DISABLE_TRACING=1
+```
+
+## 3 - usando a classe RunConfig
+```
+from agents import (Agent, Runner, RunConfig)
+run_config = RunConfig(tracing_disabled=True)
+result = Runner.run_streamed(agent, "Tarefa ...", run_config=run_config)
+```
+
+
+
+-->
+
 ---
 layout: default
 sourceLabel: Install UV
