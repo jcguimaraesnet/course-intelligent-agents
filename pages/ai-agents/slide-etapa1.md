@@ -748,10 +748,14 @@ source: https://openai.github.io/openai-agents-python/ref/run/
 
 ::left::
 
-```python {11-16}{maxHeight:'320px',at:+1}
+```python {14-19}{maxHeight:'320px',at:+1}
+import asyncio
 from agents import Agent, Runner
+from dotenv import load_dotenv
 
 async def main():
+    load_dotenv()
+
     agent = Agent(
         name="Software Engineer Agent",
         model="gpt-5.4-mini",
