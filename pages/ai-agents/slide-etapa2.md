@@ -1224,6 +1224,32 @@ layout: section
 
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Codificação assistida por IA - parte 3
+
+#### **Usando o símbolo @ (mention) para adicionar contexto ao prompt**
+
+::left::
+
+> [!TIP]
+> O símbolo de `@` na janela de agente de codificação pode ser usado para adicionar contexto de arquivo, diretório, comando executado no terminal, sessão de conversa, etc.
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt" codeblock>
+
+```md
+Modifique a variável de modelo 
+para o gpt 5.6 terra no arquivo `@.env`
+```
+</WindowMockup>
+
+
+---
 layout: default
 layoutClass: gap-8
 sourceLabel: Prompt Optimizer
