@@ -1219,6 +1219,75 @@ if __name__ == "__main__":
 layout: section
 ---
 
+## Codificação assistida por IA
+**Usando o agente de codificação do Antigravity**
+
+
+---
+layout: default
+layoutClass: gap-8
+sourceLabel: Prompt Optimizer
+source: https://github.com/linshenkx/prompt-optimizer
+---
+
+# Codificação assistida por IA - parte 4
+
+#### **Usando o agente de codificação para gerar código**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'280px'}
+# Tarefa
+Você deve desenvolver um script Python que atenda aos seguintes requisitos:
+
+# Requisitos:
+1. O script deve se chamar "main.py"
+2. Utilize o OpenAI Agents SDK, especificamente as classes `Agent` e `Runner`
+3. Crie um agente com a função de engenheiro de software
+4. O prompt do usuário passado ao `Runner` deve perguntar "O que é injeção de dependência?"
+5. Utilize programação assíncrona
+6. Variáveis de ambientes devem ser lidas do arquivo .env
+7. Ao final do script, imprima a resposta do agente no console
+
+# Validações
+- O código deve ser funcional e pronto para execução
+
+# Saída
+- Desenvolva o código python no arquivo @main.py
+- Coloque o prompt em um novo arquivo chamado prompt.py
+```
+</WindowMockup>
+
+<!--
+# 1 - para gerar código correto, é preciso entender os conceitos previamente
+
+# 2 - para gerar código correto, é preciso validar a geração do código (human-in-the-loop).
+
+# 3 - use o prompt menos sofisticado abaixo e reformule pelo prompt generator do claude
+
+`https://platform.claude.com/workbench/`
+`https://github.com/linshenkx/prompt-optimizer`
+
+```
+Escreva num script Python que use o SDK Agents da OpenAI, usando as classes Agent e Runner, onde o agente tem um papel de engenheiro de software e o user prompt usado no Runner é de uma pergunta sobre o que é injeção de dependência. 
+
+Ao final do script deve ser impresso a resposta da pergunta sobre injeção de dependência. Gere um script que use programação assíncrona. 
+
+Faça tudo isso no arquivo main.py
+```
+
+
+
+
+-->
+
+
+---
+layout: section
+---
+
 ## Live Coding
 🤖 **Agente:** um atendente de sorveteria que conversa, lembra do que você disse e mostra o custo de cada turno
 
