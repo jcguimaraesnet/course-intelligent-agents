@@ -844,6 +844,8 @@ class: flex items-start justify-center
 </div>
 
 <!--
+## enfatizar que os extremos direcionam ou para criatividade ou para o determinismo (tanto temperatura quanto top_p)
+
 A tabela mostra o corte com top_p = 0.8: soma 60 + 20 = 80, bateu o limite, o resto é riscado.
 Os bullets falam dos extremos 0.1 e 1.0 porque são os valores que rodam no exemplo de código.
 
@@ -897,6 +899,9 @@ if __name__ == "__main__":
 > *O sorteio continua, o que muda é o tamanho do cardápio.*
 
 <!--
+
+## enfatizar que os extremos direcionam ou para criatividade ou para o determinismo (tanto temperatura quanto top_p)
+
 Mesmo experimento do slide anterior, trocando o botão: top_p=0.1 repete o sabor mais provável, top_p=1.0 varia.
 
 Se perguntarem "então top_p é o número de opções?": não exatamente. O corte é por massa de probabilidade
@@ -1261,5 +1266,93 @@ Troque só a main(), mantendo o resto:
 
 history = [
     {"role": "user", "content": "Quero algo com chocolate."},
-    {"role": "assistant", "content": "Temos c
+    {"role": "assistant", "content": "Temos chocolate belga e chocolate branco."},
+    {"role": "user", "content": "Qual dos dois é mais doce?"},
+]
+
+async def main():
+    result = await Runner.run(agent, history)
+    print(result.final_output)
+
+>>> "Qual dos DOIS" só faz sentido com contexto.
+>>> Apague as duas primeiras linhas do history e rode de novo: o agente se perde. É a lição.
+
+=================================================================
+PARTE 3 — conversa de verdade
+
+async def main():
+    history = []
+    while True:
+        pergunta = input("\nvocê> ")
+        if pergunta.strip().lower() == "sair":
+            break
+
+        history.append({"role": "user", "content": pergunta})
+        result = await Runner.run(agent, history)
+        print(f"atendente> {result.final_output}")
+
+        history = result.to_input_list()   # histórico + a resposta nova
+
+>>> Agora dá para perguntar "e qual combina com ele?" que o agente entende.
+
+=================================================================
+PARTE 4 — ModelSettings
+
+from agents import ModelSettings
+
+agent = Agent(
+    name="Atendente",
+    instructions="Você é o atendente de uma sorveteria. Seja simpático e direto.",
+    model_settings=ModelSettings(temperature=1.2, max_tokens=200),
+)
+
+>>> Peça "me surpreenda com uma combinação" duas vezes: respostas diferentes.
+>>> Baixe para temperature=0.0 e repita: sai igual. É o slide da temperatura, ao vivo.
+
+=================================================================
+PARTE 5 — o custo (o fecho da aula)
+
+Dentro do loop, logo após imprimir a resposta:
+
+        u = result.context_wrapper.usage
+        print(f"[input={u.input_tokens} output={u.output_tokens} total={u.total_tokens}]")
+
+>>> Rode 4 ou 5 turnos e aponte o INPUT CRESCENDO a cada turno.
+>>> É o histórico inteiro sendo reenviado — prova ao vivo do slide 41.
+>>> E amarra o slide 48: o max_tokens segura o output, mas contra o input crescente não faz nada.
+-->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🤖 &nbsp;**Exercício \#2:** Use (excepcionalmente) o SDK da OpenAI para com System e User prompt.
+
+🤖 &nbsp;**Exercício \#1:** Prove que um agente esquece: a mesma pergunta com e sem `history`
+
+🤖 &nbsp;**Exercício \#3:** Crie um agente sorveteiro/sabor sorvete com criatividade e outro com determinismo.
+
+🤖 &nbsp;**Exercício \#4:** Analise as diferenças entre execuções com criatividade e mais determinismo.
+
+- [ ] escolher provedor gratuito e criar a API Key
+- [ ] configurar o `.env`: key, base URL, modelo e `.gitignore`
+- [ ] ativar Chat Completions e desativar o tracing
+- [ ] montar o `history` com as roles `user` e `assistant`
+- [ ] configurar o `ModelSettings`: temperature, top_p e max_tokens
+
+<br/>
+
+<!-- 
+
+## todos os exercícios são importantíssimos para o TP1
+
+O exercício 2 tem um aprendizado interessantes porque o domínio de café/barista/cafeteria 
+normalmente sinaliza que os modelos foram muito mais treinados com corpus de texto 
+de 'café' do que com 'cappuchino' por exemplo, então top_p e temperatura podem não surtir efeito
+porque o probabilidade da resposta, mesmo com temperatura alta, é de ser na maioria das vezes a 
+palavra 'café'. É um caso diferente do domínio de sorveteria. 
 -->
