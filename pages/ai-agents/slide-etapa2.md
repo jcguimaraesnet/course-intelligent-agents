@@ -83,42 +83,40 @@ class: flex items-start justify-center
 
 # Por debaixo do capô
 
-#### **Cada camada abstrai uma complexidade**
+#### **O Agents SDK usa a lib `OpenAI SDK` por debaixo do capô**
 
-<br/>
+
 
 ::left::
 
+
 <div class="text-left w-full">
+
+<div class="h-20" />
 
 > [!IMPORTANT]
 > Quando usamos o OpenAI Agents SDK, há `três camadas` de abstração envolvidas.
-
-<div class="h-2" />
-
-<!-- <v-click>
-
-Há três maneiras para desativar:
-
-- `set_tracing_disabled(True)` &nbsp;⭐
-- `OPENAI_AGENTS_DISABLE_TRACING=1`
-- `RunConfig.tracing_disabled = true`
-
-
-</v-click> -->
 
 </div>
 
 ::right::
 
-<div class="flex flex-col items-center gap-3">
+<div class="flex flex-col items-center">
 
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
+<div class="h-10" />
+
+<Transform :scale="0.8" origin="top">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+Layer1@{ shape: rounded, label: "OpenAI Agents SDK" }
+Layer2@{ shape: rounded, label: "OpenAI SDK" }
+Layer3@{ shape: rounded, label: "OpenAI API" }
+Layer1 --> Layer2
+Layer2 --> Layer3
 ```
+
+</Transform>
 
 </div>
 
