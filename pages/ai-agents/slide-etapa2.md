@@ -146,6 +146,155 @@ result = Runner.run_streamed(agent, "Tarefa ...", run_config=run_config)
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: OpenAI Agents SDK
+source: https://openai.github.io/openai-agents-python
+---
+
+# 1ª Camada: OpenAI Agents SDK -> OpenAI SDK
+
+#### **O Agents SDK abstrai o uso da lib OpenAI SDK**
+
+::left::
+
+```python [OpenAI Agents SDK]{maxHeight:'320px'}
+import asyncio
+from dotenv import load_dotenv
+from agents import Agent, Runner
+
+async def main():
+    load_dotenv()
+
+    agent = Agent(
+        name="Professor",
+        instructions="Você é um professor de história.",
+        model="gpt-5-nano",
+    )
+
+    result = await Runner.run(agent,
+        "Qual a capital da França?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+```bash [instalar o Agents SDK]
+uv add openai-agents
+```
+
+<div class="h-10" />
+
+> [!NOTE]
+> O pacote Agents SDK é mais apropriado para orquestrar fluxos entre agentes.
+
+<!-- 
+## Enfatizar que o pacote é outro, `openai-agents`
+ -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: OpenAI Python SDK
+source: https://github.com/openai/openai-python
+---
+
+# 2ª Camada: OpenAI SDK -> OpenAI API
+
+#### **A lib OpenAI SDK faz a requisição HTTP para a API**
+
+::left::
+
+```python [OpenAI SDK]{maxHeight:'320px'}
+import asyncio
+from openai import AsyncOpenAI
+
+async def main():
+    client = AsyncOpenAI(
+        api_key="sk-proj-abc123",
+        base_url="https://api.openai.com/v1",
+    )
+
+    resp = await client.chat.completions.create(
+        model="gpt-5-nano",
+        messages=[
+            {"role": "system",
+             "content": "Você é um professor de história."},
+            {"role": "user",
+             "content": "Qual a capital da França?"},
+        ],
+    )
+
+    print(resp.choices[0].message.content)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+```bash [instalar o OpenAI SDK]
+uv add openai
+```
+
+<div class="h-10" />
+
+> [!NOTE]
+> O pacote OpenAI SDK é mais apropriado chamadas simples aos modelos de IA da OpenAI.
+
+
+<!-- 
+## Enfatizar que o pacote é outro, `openai`
+ -->
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Playground API
+source: https://platform.openai.com/playground
+---
+
+# 3ª Camada: OpenAI API via cURL
+
+#### **A última camada, a mais crua, é a API da OpenAI**
+
+::left::
+
+```bash [cURL]{maxHeight:'320px'}
+curl https://api.openai.com/v1/chat/completions \
+  -H "Authorization: Bearer sk-proj-abc123" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-5-nano",
+    "messages": [
+      {"role": "system",
+       "content": "Você é um professor de história."},
+      {"role": "user",
+       "content": "Qual a capital da França?"}
+    ]
+  }'
+```
+
+::right::
+
+<div class="h-2" />
+
+> [!NOTE]
+> A API da OpenAI pode ser mais apropriada para cenários mais excepcionais ou testes rápidos.
+
+<!--
+## fazer a requisição usando curl
+
+## analogia: acessando diretamente a internet, o "site da OpenAI" para fazer a requisição
+
+## Pode usar o playground, mas ainda sem multiturno
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 class: flex items-start justify-center
 sourceLabel: Tracing
 source: https://openai.github.io/openai-agents-python/tracing/
