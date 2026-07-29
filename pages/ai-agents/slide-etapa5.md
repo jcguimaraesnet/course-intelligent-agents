@@ -33,23 +33,24 @@ class: flex items-start justify-center
 
 <div class="flex flex-col items-center">
 
-<div class="h-3" />
+<div class="h-0" />
 
-<Transform :scale="0.70" origin="top">
+<Transform :scale="0.65" origin="top">
 
 ```mermaid {theme: 'dark'}
 flowchart TD
 Task["User Prompt"]
 subgraph Agent
   LLM["LLM"]
-  Tools["Tool 1, Tool 2, Tool 3"]
+  Tools["Tools (1, 2, 3, ...)"]
 end
 Env["Environment"]
-Task --> Agent
-LLM --> Tools
-Tools --> LLM
-Tools -->|Ação| Env
-Env -->|Resultado| Tools
+Task -->|Prompt| LLM
+LLM -->|Answer| Task
+LLM -->|"LLM 1<br/>(choice)"| Tools
+Tools -->|"LLM 2<br/>(output)"| LLM
+Tools -->|invoke| Env
+Env -->|return| Tools
 ```
 
 </Transform>
