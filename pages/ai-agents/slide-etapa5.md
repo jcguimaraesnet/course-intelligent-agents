@@ -33,21 +33,23 @@ class: flex items-start justify-center
 
 <div class="flex flex-col items-center">
 
-<div class="h-7" />
+<div class="h-3" />
 
-<Transform :scale="0.62" origin="top">
+<Transform :scale="0.70" origin="top">
 
 ```mermaid {theme: 'dark'}
 flowchart TD
-Step1@{ shape: rounded, label: "Usuário envia a pergunta" }
-Step2@{ shape: rounded, label: "LLM decide chamar a ferramenta" }
-Step3@{ shape: rounded, label: "Aplicação executa a função" }
-Step4@{ shape: rounded, label: "Resultado volta ao LLM" }
-Step5@{ shape: rounded, label: "LLM responde ao usuário" }
-Step1 --> Step2
-Step2 --> Step3
-Step3 --> Step4
-Step4 --> Step5
+Task["User Prompt"]
+subgraph Agent
+  LLM["LLM"]
+  Tools["Tool 1, Tool 2, Tool 3"]
+end
+Env["Environment"]
+Task --> Agent
+LLM --> Tools
+Tools --> LLM
+Tools -->|Ação| Env
+Env -->|Resultado| Tools
 ```
 
 </Transform>
