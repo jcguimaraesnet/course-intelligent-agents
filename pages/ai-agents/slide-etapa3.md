@@ -364,7 +364,7 @@ class: flex items-center justify-center
 
 <div class="text-left w-full self-start [&_ul]:my-0 [&_li]:mb-5">
 
-- **`instructions` (`system message`)** é um dos caminhos mais simples para injetar base de conhecimento.
+- **`instructions` (`system prompt`)** é um dos caminhos mais simples para injetar base de conhecimento.
 - Cenários de **pequenas bases de conhecimento** são indicados para injetar diretamente no campo `instructions`.
 - Carregar bases de conhecimento condicionalmente com **`dynamic instructions`** é uma técnica consolidada.
 
@@ -470,7 +470,7 @@ source: https://openai.github.io/openai-agents-python/context/
 
 ::left::
 
-```python [main.py] {11-14|16-22|34-36|40}{maxHeight:'320px',at:'+1'}
+```python [main.py] {all|11-14|16-22|34-36|40}{maxHeight:'320px',at:'+1'}
 import asyncio
 from dataclasses import dataclass
 from pathlib import Path
