@@ -1203,3 +1203,148 @@ Comprei o produto errado e quero meu dinheiro de volta.
 # RunConfig.model tem precedência sobre o model definido no Agent (vale para todo o run).
 # cada chamada tem seu próprio usage; útil para comparar custo entre um modelo econômico e um avançado.
 -->
+
+---
+layout: section
+---
+
+## Live Coding
+🎟️ **Agente:** assistente virtual que faz triagem e encaminha para dúvidas de compras e dúvidas de reembolsos.
+
+##### **- Use RunContextWrapper para injetar base de conhecimento dinamicamente**
+##### **- Use OpenAIChatCompletionsModel para provedores diferentes**
+##### **- Use a função handoff para orquestrar o fluxo entre agentes**
+##### **- Use a streaming com efeito de digitação**
+##### **- capture o evento de transferencia de agente**
+
+<!--
+=================================================================
+ARQUIVO 1 — purchase.md  (mesma pasta do main.py)
+
+# Política de compra
+
+**Formas de pagamento**
+Aceitamos cartão de crédito (Visa, Mastercard, Elo), PIX e boleto bancário.
+
+**Parcelamento**
+Compras acima de R$ 200 podem ser parceladas em até 12x sem juros no cartão de crédito.
+
+**Limite por CPF**
+Para coibir a ação de cambistas, cada CPF pode comprar no máximo 4 ingressos por partida.
+
+=================================================================
+ARQUIVO 2 — refund.md  (mesma pasta do main.py)
+
+# Política de reembolso
+
+**Direito de arrependimento**
+O cancelamento pode ser solicitado em até 7 dias corridos após a compra, conforme o Código de Defesa do Consumidor.
+
+**Prazo de estorno**
+O valor é estornado na mesma forma de pagamento em até 10 dias úteis após a aprovação do pedido.
+
+**Evento cancelado**
+Se a partida for cancelada, o reembolso é integral e automático, sem necessidade de solicitação.
+
+=================================================================
+ARQUIVO 3 — main.py  (parte 1: imports e dois provedores)
+
+import asyncio
+import os
+from dataclasses import dataclass
+from pathlib import Path
+
+from dotenv import load_dotenv
+from openai import AsyncOpenAI
+from openai.types.responses import ResponseTextDeltaEvent
+from agents import (Agent, Runner, handoff, RunContextWrapper,
+                    OpenAIChatCompletionsModel, set_tracing_disabled)
+from agents.extensions.handoff_prompt import RECOMMENDED_PROMPT_PREFIX
+
+load_dotenv()
+BASE_DIR = Path(__file__).parent
+
+# um provedor para a triagem (gpt-5-nano), outro para os agentes DeepSeek
+openai_client = AsyncOpenAI(
+    base_url=os.environ["OPENAI_BASE_URL"],
+    api_key=os.environ["OPENAI_API_KEY"],
+)
+openrouter = AsyncOpenAI(
+    base_url=os.environ["OPENROUTER_BASE_URL"],
+    api_key=os.environ["OPENROUTER_API_KEY"],
+)
+
+@dataclass
+class Policies:
+    purchase: str   # política de compra
+    refund: str     # política de reembolso
+
+-----------------------------------------------------------------
+main.py  (parte 2: instruções injetadas de forma condicional)
+
+def build_instructions(ctx: RunContextWrapper[Policies],
+                       agent: Agent) -> str:
+    if agent.name == "Compras":
+        return (f"{RECOMMENDED_PROMPT_PREFIX}\n"
+                "Você tira dúvidas sobre a compra de ingressos.\n\n"
+                f"# Política de compra\n{ctx.context.purchase}")
+    return (f"{RECOMMENDED_PROMPT_PREFIX}\n"
+            "Você tira dúvidas sobre reembolso de ingressos.\n\n"
+            f"# Política de reembolso\n{ctx.context.refund}")
+
+-----------------------------------------------------------------
+main.py  (parte 3: os especialistas DeepSeek via OpenRouter)
+
+purchase_agent = Agent[Policies](
+    name="Compras",
+    model=OpenAIChatCompletionsModel(
+        model="deepseek-v4-pro", openai_client=openrouter),
+    instructions=build_instructions,   # injeta só a política de compra
+)
+
+refund_agent = Agent[Policies](
+    name="Reembolsos",
+    model=OpenAIChatCompletionsModel(
+        model="deepseek-v4-pro", openai_client=openrouter),
+    instructions=build_instructions,   # injeta só a política de reembolso
+)
+
+-----------------------------------------------------------------
+main.py  (parte 4: a triagem roteia via handoff)
+
+triage_agent = Agent[Policies](
+    name="Triagem",
+    model=OpenAIChatCompletionsModel(
+        model="gpt-5-nano", openai_client=openai_client),
+    instructions=(
+        f"{RECOMMENDED_PROMPT_PREFIX}\n"
+        "Identifique a dúvida do cliente. Se for sobre compra, "
+        "transfira para o agente Compras; se for sobre reembolso, "
+        "transfira para o agente Reembolsos."
+    ),
+    handoffs=[handoff(purchase_agent), handoff(refund_agent)],
+)
+
+-----------------------------------------------------------------
+main.py  (parte 5: execução em streaming com respostas parciais)
+
+c
+
+=================================================================
+INPUTS DE TESTE (digite no console)
+
+# compra -> handoff para o agente Compras:
+Posso parcelar a compra dos ingressos no cartão?
+
+# reembolso -> handoff para o agente Reembolsos:
+Comprei o ingresso errado, consigo o dinheiro de volta?
+
+=================================================================
+# porque o atributo end e flush no print?
+`print(event.data.delta, end="", flush=True)`
+
+## print default sempre coloca uma quebra de linha: print(x, end="\n")
+
+## print default descarrega quando tem uma quebra de linha
+
+-->
