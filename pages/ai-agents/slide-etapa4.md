@@ -1145,15 +1145,18 @@ source: https://openai.github.io/openai-agents-python/context/
 
 ::left::
 
-```python [main.py] {18-24|all}{maxHeight:'320px',at:+1}
-import asyncio
+```python [main.py] {all|19-25}{maxHeight:'320px',at:+1}
+import asyncio, time
 from dotenv import load_dotenv
-from agents import (Agent, Runner, RunConfig,
+from agents import (Agent, Runner,
                     set_default_openai_api, set_tracing_disabled)
 
+INPUT_PRICE = 0.054
+OUTPUT_PRICE = 0.257
+
 agent = Agent(
-    name="Assistente",
-    instructions="Responda a dúvida do cliente.",
+    name="Professor",
+    instructions="Você é um professor de história"
 )
 
 async def main():
@@ -1161,15 +1164,19 @@ async def main():
     set_default_openai_api("chat_completions")
     set_tracing_disabled(True)
 
-    question = input("Cliente: ")
+    start = time.perf_counter()
+    result = await Runner.run(agent, "Qual a capital da França?")
+    latency = time.perf_counter() - start
 
-    for model in ("deepseek-v4-flash", "deepseek-v4-pro"):
-        result = await Runner.run(agent, question,
-                                  run_config=RunConfig(model=model))
-        usage = result.context_wrapper.usage
-        print(f"[{model}] {usage.total_tokens} tokens "
-              f"({usage.input_tokens} entrada / "
-              f"{usage.output_tokens} saída)")
+    usage = result.context_wrapper.usage
+    cost = (usage.input_tokens / 1_000_000 * INPUT_PRICE +
+            usage.output_tokens / 1_000_000 * OUTPUT_PRICE)
+
+    print(f"Resposta: {result.final_output}")
+    print(f"[{agent.model}] {usage.total_tokens} tokens "
+          f"({usage.input_tokens} entrada / "
+          f"{usage.output_tokens} saída)")
+    print(f"    custo: ${cost:.6f} | latência: {latency:.2f}s")
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -1177,8 +1184,15 @@ if __name__ == "__main__":
 
 ::right::
 
+<v-click at="1">
+
 > [!NOTE]
 > `result.context_wrapper.usage` permite acompanhar o consumo de tokens para cada execução do **agente**.
+
+> [!IMPORTANT]
+> O custo dos tokens normalmente é **diferente para entrada e saída**, seguindo o padrão de custo por **milhão de tokens**.
+
+</v-click>
 
 <!--
 # inputs de teste (input do console)
