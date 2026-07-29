@@ -1226,10 +1226,58 @@ layout: section
 ---
 layout: two-cols-header
 layoutClass: gap-8
+---
+
+# Codificação assistida por IA - parte 1
+
+#### **O editor oferece o Tab Completion como forma de codificação assistida por IA**
+
+::left::
+```python {maxHeight:'320px'}
+async def create_software_engineer_agent(
+    model: str = "gpt-5.4-mini",
+) -> Agent:
+    """
+    cria e retorna uma instancia do
+    agente Engenheiro de Software
+    """
+
+async def ask_agent(
+    agent: Agent,
+    prompt: str,
+) -> str:
+    """
+    Executa o agente de forma assíncrona
+    com o prompt fornecido.
+    """
+```
+
+::right::
+
+Meios de potencializar o Tab Completions:
+- **Type Hints:** são anotações de tipo, indicam explicitamente o tipo de dado esperado em parâmetro ou retorno.
+- **Docstrings:** são strings de documentação, delimitado por três aspas na primeira linha abaixo de uma função.
+
+
+<!--
+# Eu particularmente não gosto do tab completions
+
+# Existem duas configurações para habilitar tab completions
+
+# 1 - Ctrl + Shift + P -> Open Settings -> Tab Completions -> On
+
+# 2 - Canto inferior direito -> Antigravity Settings -> Suggestions in Editor
+
+-->
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
-# Codificação assistida por IA - parte 3
+# Codificação assistida por IA - parte 2
 
 #### **Usando o símbolo @ (mention) para adicionar contexto ao prompt**
 
@@ -1256,7 +1304,7 @@ sourceLabel: Prompt Optimizer
 source: https://github.com/linshenkx/prompt-optimizer
 ---
 
-# Codificação assistida por IA - parte 4
+# Codificação assistida por IA - parte 3
 
 #### **Usando o agente de codificação para gerar código**
 
@@ -1309,6 +1357,40 @@ Faça tudo isso no arquivo main.py
 
 -->
 
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Codificação assistida por IA - parte 4
+#### **Codificação clássica e assistida por IA em coexistência**
+
+::left::
+
+<div class="w-full flex flex-col gap-1">
+
+Duas formas de programar:
+
+- **Editor de código** — serve para validação humana _(human-in-the-loop)_ do que o agente gerou de codificação; também serve para modificações pontuais.
+- **Agente** — a linguagem natural como forma de programar em agentes de codificação é o novo normal.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center gap-6 h-full">
+  <div class="i-ri-code-s-slash-line text-[9rem] text-purple-300" />
+  <div class="i-ri-links-line text-[4rem] text-gray-400" />
+  <div class="i-ri-robot-2-line text-[9rem] text-purple-300" />
+</div>
+
+<!--
+Para trocar os ícones por uma imagem própria: coloque o arquivo em public/ e
+substitua o bloco <div>...</div> do ::right:: por, por exemplo:
+  <AssetImg src="seu-arquivo.png" class="rounded-lg w-[420px] border-8 border-white" />
+-->
 
 ---
 layout: section
