@@ -1211,11 +1211,11 @@ layout: section
 ## Live Coding
 🎟️ **Agente:** assistente virtual que faz triagem e encaminha para dúvidas de compras e dúvidas de reembolsos.
 
-##### **- Use RunContextWrapper para injetar base de conhecimento dinamicamente**
-##### **- Use OpenAIChatCompletionsModel para provedores diferentes**
-##### **- Use a função handoff para orquestrar o fluxo entre agentes**
-##### **- Use a streaming com efeito de digitação**
-##### **- capture o evento de transferencia de agente**
+##### **1. Use RunContextWrapper para injetar base de conhecimento dinamicamente**
+##### **2. Use OpenAIChatCompletionsModel para provedores diferentes**
+##### **3. Use a função handoff para orquestrar o fluxo entre agentes**
+##### **4. Use a streaming com efeito de digitação**
+##### **5. Capture o evento de transferencia de agente**
 
 <!--
 =================================================================
