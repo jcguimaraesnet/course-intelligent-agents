@@ -1348,3 +1348,49 @@ Comprei o ingresso errado, consigo o dinheiro de volta?
 ## print default descarrega quando tem uma quebra de linha
 
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🤖 &nbsp;**Exercício \#1:** Agente único com streaming (digitação).
+
+🤖 &nbsp;**Exercício \#2:** Três agentes orquestrados com handoff.
+
+🤖 &nbsp;**Exercício \#3:** Exercício anterior com dois provedores diferentes.
+
+🤖 &nbsp;**Exercício \#4:** Exercício anterior imprimindo custo/latência.
+
+
+- [ ] não esqueça do print com os parametros end e flush para streaming
+- [ ] não esqueça de usar RECOMMENDED_PROMPT_PREFIX para transferência de agentes
+- [ ] não esqueça de usar a classe OpenAIChatCompletionsModel para provedores diferentes
+- [ ] não esqueça de pesquisar o custo por milhão de tokens no openrouter.ai
+
+<br/>
+
+<!--
+# Exercício #1 — Agente único com streaming (digitação)
+Reaproveite um agente simples e troque Runner.run por Runner.run_streamed. Percorra
+result.stream_events() e, no raw_response_event (isinstance ResponseTextDeltaEvent),
+imprima event.data.delta com end="" e flush=True para o efeito "digitando".
+
+# Exercício #2 — Três agentes orquestrados com handoff
+Triagem + dois especialistas. A triagem decide e delega via handoff() (sem roteamento
+por código). Use RECOMMENDED_PROMPT_PREFIX nas instruções e, no streaming, trate
+agent_updated_stream_event para avisar quando o controle passa para outro agente.
+
+# Exercício #3 — Dois provedores diferentes
+Evolua o #2: dois clientes AsyncOpenAI, cada um com base_url e api_key próprios
+(ex.: OpenAI para a triagem e OpenRouter para os especialistas). Ligue cada agente
+ao seu provedor/modelo com OpenAIChatCompletionsModel.
+
+# Exercício #4 — Custo e latência
+Evolua o #3: após o run, leia usage = result.context_wrapper.usage e calcule o custo
+(input_tokens/1_000_000 * preço_entrada + output_tokens/1_000_000 * preço_saída).
+Meça a latência com time.perf_counter() antes/depois e imprima tokens, custo e tempo.
+-->
