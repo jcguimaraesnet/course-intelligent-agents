@@ -251,3 +251,83 @@ Que horas são nesse exato momento?
 
 # o LLM sozinho não sabe a hora atual: ele decide chamar a tool, o Runner executa a função e devolve o resultado ao modelo, que então responde.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# Docstring e type hint na escolha de ferramentas
+
+#### **Boa documentação resolve a ambiguidade entre ferramentas parecidas**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {9-12,16-24,30|all}{maxHeight:'320px',at:+1}
+import asyncio
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+@function_tool
+def get_current_time() -> str:
+    """Retorna a hora atual no fuso horário local do servidor.
+    Use quando o usuário pergunta a hora sem mencionar nenhum lugar.
+    """
+    return datetime.now().strftime("%H:%M:%S")
+
+@function_tool
+def get_time_in_timezone(timezone: str) -> str:
+    """Retorna a hora atual em um fuso horário específico.
+    Use quando o usuário menciona uma cidade, país ou região.
+    Args:
+        timezone: Adapte para o padrão IANA.
+            Exemplos: Brasilia -> 'America/Sao_Paulo',
+                      Lisboa -> 'Europe/Lisbon',
+                      Nova Iorque -> 'America/New_York'
+    """
+    return datetime.now(ZoneInfo(timezone)).strftime("%H:%M:%S")
+
+assistant = Agent(
+    name="Assistente",
+    instructions="Você é um assistente pessoal",
+    tools=[get_current_time, get_time_in_timezone],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Que horas são em Tóquio agora?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> **Duas ferramentas semelhante** para o LLM escolher. 
+> 
+> Sem **docstring** e **type hint**, o LLM não saberia qual das duas ferramentas usar, nem **como** preencher o `timezone`.
+
+<!--
+# inputs de teste (input do console)
+
+# sem lugar -> get_current_time:
+Que horas são agora?
+
+# menciona um lugar -> get_time_in_timezone(timezone="Asia/Tokyo"):
+Que horas são em Tóquio agora?
+
+# a docstring "Use quando..." desambigua QUAL ferramenta; o arg do docstring + o type hint (str, padrão IANA) desambiguam COMO preencher o timezone.
+-->
