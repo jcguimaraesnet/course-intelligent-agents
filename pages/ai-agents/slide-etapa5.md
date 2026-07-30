@@ -102,13 +102,11 @@ class: flex items-start justify-center
 
 1. Runner.Run executa e e inicia um loop.
 2. O agente é invocado com o prompt e tools fornecidos.
-3. Se houver um output final do LMM, o loop termina.
-4. Se houver um output com handoff do LMM, o loop é executado novamente com o novo agente.
-5. Se houver um output com tool calling do LMM, o loop é executado novamente com o agente atual.
+3. Se o LLM gerar um output final, o loop termina.
+4. Se o LLM gerar um output com handoff, o **loop é executado novamente** com o novo agente.
+5. Se o LLM gerar um output com tool calling, o **loop é executado novamente** com o agente atual.
 
 </div>
-
-<!-- </Transform> -->
 
 ::right::
 
@@ -147,7 +145,7 @@ Env -->|return| Tools
 </div>
 
 <!--
-# o loop do Runner: invoca o agente, checa a saída; se final, encerra; se handoff, repete com o novo agente; se tool call, repete com o agente atual.
+## Importante: O LLM não tem capacidade de invocar ferramenta; LLM gera texto; Quem invoca ferramenta é o Runner, é o sistema agêntico que você desenvolve.
 
-# cada volta que termina em tool call ou handoff dispara uma nova chamada de LLM (ver slide anterior sobre nº de chamadas).
+## cada volta que termina em tool call ou handoff dispara uma nova chamada de LLM (ver slide anterior sobre nº de chamadas).
 -->
