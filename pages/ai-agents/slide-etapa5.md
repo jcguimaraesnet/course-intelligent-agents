@@ -79,3 +79,75 @@ Env -->|return| Tools
 
 # o modelo pode encadear várias chamadas antes de produzir a resposta final ao usuário.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# O loop na chamada de ferramentas (tool calling)
+
+#### **no SDK Agents, o Runner gerencia um loop quando um fluxo é executado**
+
+
+
+::left::
+
+<Transform :scale="0.85" origin="top">
+
+<div class="text-left w-full self-start [&_ul]:my-0 [&_ol]:my-0 [&_li]:mb-3">
+
+<div class="h-5" />
+
+1. Runner.Run executa e e inici um loop.
+2. O agente é invocado com o prompt e tools fornecidos.
+3. Se houver um output final do LMM, o loop termina.
+4. Se houver um output com handoff do LMM, o loop é executado novamente com o novo agente.
+5. Se houver um output com tool calling do LMM, o loop é executado novamente com o agente atual.
+
+</div>
+
+</Transform>
+
+::right::
+
+<div class="flex flex-col items-center">
+
+<div class="h-0" />
+
+<Transform :scale="0.65" origin="top">
+
+```mermaid {theme: 'dark', flowchart: { subGraphTitleMargin: { top: 10, bottom: 10 } }}
+---
+config:
+  theme: dark
+  flowchart:
+    subGraphTitleMargin:
+      top: 10
+      bottom: 10
+---
+flowchart TD
+Task["User"]
+subgraph Agent["Runner"]
+  LLM["Agent"]
+  Tools["Tools (1, 2, 3, ...)"]
+end
+Env["Environment"]
+Task -->|Prompt| LLM
+LLM -->|Answer| Task
+LLM -->|"LLM 1<br/>(choice)"| Tools
+Tools -->|"LLM 2<br/>(output)"| LLM
+Tools -->|invoke| Env
+Env -->|return| Tools
+```
+
+</Transform>
+
+</div>
+
+<!--
+# o loop do Runner: invoca o agente, checa a saída; se final, encerra; se handoff, repete com o novo agente; se tool call, repete com o agente atual.
+
+# cada volta que termina em tool call ou handoff dispara uma nova chamada de LLM (ver slide anterior sobre nº de chamadas).
+-->
