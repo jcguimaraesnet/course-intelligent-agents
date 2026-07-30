@@ -88,7 +88,7 @@ class: flex items-start justify-center
 
 # O loop na chamada de ferramentas (tool calling)
 
-#### **no SDK Agents, o Runner gerencia um loop quando um fluxo é executado**
+#### **No SDK Agents, o Runner gerencia um loop quando um fluxo é executado**
 
 
 
