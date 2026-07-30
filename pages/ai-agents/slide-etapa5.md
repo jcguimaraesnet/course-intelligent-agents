@@ -433,34 +433,38 @@ source: https://faker.readthedocs.io/
 
 ::left::
 
-```python [seed_faker.py] {5-7|all}{maxHeight:'320px',at:+1}
+```python [seed_faker.py] {6-8|all}{maxHeight:'320px',at:+1}
 import json
 import random
 from faker import Faker
 
-fake = Faker(locale="pt_BR")
-Faker.seed(seed=42)   # seed do Faker (nomes)
-random.seed(42)       # seed do random (salário e idade)
+def gerar_funcionarios():
+    fake = Faker(locale="pt_BR")
+    Faker.seed(seed=42)   # seed do Faker (nomes)
+    random.seed(42)       # seed do random (salário e idade)
 
-funcionarios = [
-    {
-        "nome": fake.name(),
-        "salario": round(random.uniform(2000, 15000), 2),
-        "idade": random.randint(18, 65),
-    }
-    for _ in range(5)
-]
+    funcionarios = [
+        {
+            "nome": fake.name(),
+            "salario": round(random.uniform(2000, 15000), 2),
+            "idade": random.randint(18, 65),
+        }
+        for _ in range(5)
+    ]
 
-with open("funcionarios.json", "w", encoding="utf-8") as f:
-    json.dump(funcionarios, f, ensure_ascii=False, indent=2)
+    with open("funcionarios.json", "w", encoding="utf-8") as f:
+        json.dump(funcionarios, f, ensure_ascii=False, indent=2)
 
-print(f"{len(funcionarios)} funcionários salvos em funcionarios.json")
+    print(f"{len(funcionarios)} funcionários salvos em funcionarios.json")
+
+if __name__ == "__main__":
+    gerar_funcionarios()
 ```
 
 ::right::
 
 > [!NOTE]
-> Usando o método `seed` com **random** e **Fakker**, cada geração de dados gera **exatamente os mesmos** dados, facilitando **reprodução** de testes.
+> Usando o método `seed` com **random** e **Faker**, cada geração de dados gera **exatamente os mesmos** dados, facilitando **reprodução** de testes.
 
 <!--
 # seed fixa = geração determinística: mesma seed -> mesmos dados em qualquer máquina/execução.
@@ -468,4 +472,78 @@ print(f"{len(funcionarios)} funcionários salvos em funcionarios.json")
 # são duas fontes de aleatoriedade: o Faker (nomes) e o random (salário/idade); cada uma precisa da sua própria seed.
 
 # temática de RH (funcionários) só para não repetir a de produtos usada na prova; a técnica é idêntica.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# Uma tool que lê o arquivo JSON gerado
+
+#### **A ferramenta consulta o arquivo e o agente responde com o dado real**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {9-20,34|all}{maxHeight:'320px',at:+1}
+import asyncio
+import json
+from pathlib import Path
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+from seed_faker import gerar_funcionarios
+
+@function_tool
+def buscar_funcionario(nome: str) -> str:
+    """Busca um funcionário pelo nome no arquivo funcionarios.json.
+    Args:
+        nome: Nome (ou parte do nome) do funcionário a procurar.
+    """
+    dados = json.loads(
+        Path("funcionarios.json").read_text(encoding="utf-8"))
+    for f in dados:
+        if nome.lower() in f["nome"].lower():
+            return json.dumps(f, ensure_ascii=False)
+    return "Funcionário não encontrado."
+
+assistant = Agent(
+    name="Assistente de RH",
+    instructions=("Responda dúvidas sobre funcionários "
+                  "consultando a ferramenta."),
+    tools=[buscar_funcionario],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    gerar_funcionarios()   # gera o funcionarios.json
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Qual é o salário da Brenda Alves?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> O uso de ferramentas adicionar a capacidade do agente de **perceber e agir sobre o ambiente**: **buscar dados** que não estão no seu conhecimento (pesos internos) e **executar ações** com efeitos no mundo real.
+
+<!--
+## a pergunta ("salário da Brenda Alves") obriga o agente a chamar a tool, que lê o arquivo e retorna o registro real.
+
+## os nomes dependem da versão do Faker; ajuste o nome da pergunta para um que exista no seu funcionarios.json.
+
+## exemplos práticos de perceber o ambientet: navegar em uma página na internet, obter o clima atual em uma cidade, etc.
+
+## exemplos práticos de agir sobre o ambiente: enviar um e-mail, inserir um registro no banco de dados, criar uma agenda no calendário, etc
 -->
