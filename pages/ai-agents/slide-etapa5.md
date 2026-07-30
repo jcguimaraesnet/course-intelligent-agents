@@ -332,3 +332,88 @@ if __name__ == "__main__":
 
 ## o type hint (str) e docstring ajudam o LLM preencher o parâmetro timezone
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Streaming
+source: https://openai.github.io/openai-agents-python/streaming/
+---
+
+# Investigando a escolha da ferramenta
+
+#### **O evento `tool_called` revela qual ferramenta o agente escolheu**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {43-51|all}{maxHeight:'320px',at:+1}
+import asyncio
+from datetime import datetime
+from zoneinfo import ZoneInfo
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+@function_tool
+def get_current_datetime_v1(timezone: str) -> str:
+    """Retorna a HORA atual (HH:MM:SS) no fuso informado.
+    Use quando o usuário pergunta as horas.
+    Args:
+        timezone: Adapte para o padrão IANA.
+            Exemplos: Brasilia -> 'America/Sao_Paulo',
+                      Lisboa -> 'Europe/Lisbon',
+                      Nova Iorque -> 'America/New_York'
+    """
+    return datetime.now(ZoneInfo(timezone)).strftime("%H:%M:%S")
+
+@function_tool
+def get_current_datetime_v2(timezone: str) -> str:
+    """Retorna a DATA atual (DD/MM/AAAA) no fuso informado.
+    Use quando o usuário pergunta o dia ou a data.
+    Args:
+        timezone: Adapte para o padrão IANA.
+            Exemplos: Brasilia -> 'America/Sao_Paulo',
+                      Lisboa -> 'Europe/Lisbon',
+                      Nova Iorque -> 'America/New_York'
+    """
+    return datetime.now(ZoneInfo(timezone)).strftime("%d/%m/%Y")
+
+assistant = Agent(
+    name="Assistente",
+    instructions="Você é um assistente pessoal",
+    tools=[get_current_datetime_v1, get_current_datetime_v2],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    result = Runner.run_streamed(starting_agent=assistant,
+                                 input="Que dia é hoje em Tóquio?")
+
+    async for event in result.stream_events():
+        if (event.type == "run_item_stream_event"
+                and event.name == "tool_called"):
+            print(f"[ferramenta escolhida: {event.item.raw_item.name}]")
+
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> No fluxo do streaming é possível capturar, pelo tipo e nome do evento **(tool_called)**, que ferramenta foi escolhida e disparada no loop do agente.
+
+<!--
+# investigar a escolha = capturar o evento tool_called no fluxo de streaming.
+
+# event.item é um ToolCallItem; event.item.raw_item.name é o nome da tool, e .arguments traz os argumentos (JSON).
+
+# aqui, "Que dia é hoje..." deve acionar get_current_datetime_v2; troque para "Que horas..." para ver o v1 ser escolhido.
+-->
