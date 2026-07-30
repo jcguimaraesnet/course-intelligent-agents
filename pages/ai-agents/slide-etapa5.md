@@ -44,11 +44,19 @@ class: flex items-start justify-center
 
 <Transform :scale="0.65" origin="top">
 
-```mermaid {theme: 'dark'}
+```mermaid {theme: 'dark', flowchart: { subGraphTitleMargin: { top: 10, bottom: 10 } }}
+---
+config:
+  theme: dark
+  flowchart:
+    subGraphTitleMargin:
+      top: 10
+      bottom: 10
+---
 flowchart TD
 Task["User"]
-subgraph Agent
-  LLM["LLM"]
+subgraph Agent["Runner"]
+  LLM["Agent"]
   Tools["Tools (1, 2, 3, ...)"]
 end
 Env["Environment"]
