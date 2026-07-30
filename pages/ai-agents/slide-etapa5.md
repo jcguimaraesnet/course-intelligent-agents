@@ -149,3 +149,46 @@ Env -->|return| Tools
 
 ## cada volta que termina em tool call ou handoff dispara uma nova chamada de LLM (ver slide anterior sobre nº de chamadas).
 -->
+
+---
+layout: default
+sourceLabel: Tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# Tipos de ferramentas no Agents SDK
+
+#### **O Agents SDK oferece diferentes categorias de ferramentas**
+
+<div class="h-8" />
+
+<div class="text-sm leading-tight [&_td]:py-2.5 [&_th]:py-2.5 [&_td]:px-2 [&_th]:px-2">
+
+| Tipo de ferramenta | Descrição |
+|---|---|
+| **Chamada de função** | **Encapsula qualquer `função Python` como ferramenta.** |
+| Ferramentas hospedadas na OpenAI | Executa ferramenta no servidor da OpenAI (web, arquivos, code interpreter, imagem). |
+| Ferramentas locais | Permite usar ComputerTool e ShellTool no seu ambiente. |
+| Agentes como ferramentas | Expõe um agente como ferramenta sem handoff. |
+| Ferramenta Codex | Executa tarefas do Codex (beta experimental). |
+
+</div>
+
+<div class="h-10" />
+
+<div class="text-sm">
+
+> [!NOTE]
+> A **chamada de função** (_function calling_) é a mais usada e compatível com **modelos não-OpenAI**.
+
+</div>
+
+<!--
+## function calling é o caminho mais sem atrito para usar com modelos não openAI, funciona em qualquer provedor via chat completions.
+
+## ferramentas hospedadas (web search, file search, etc.), ComputerTool/ShellTool e a ferramenta Codex dependem da stack da OpenAI.
+
+## "agentes como ferramentas" difere do handoff: chama o agente e recebe o resultado, sem transferir o controle do fluxo.
+
+## ferramenta Codex permite que um agente no SDK envie comandos(prompts) para um workspace (com acesso ao sistema de arquivos) do Codex
+-->
