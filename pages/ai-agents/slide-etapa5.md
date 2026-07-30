@@ -19,13 +19,20 @@ class: flex items-start justify-center
 
 ::left::
 
+<div class="text-left w-full self-start [&_ul]:my-0 [&_li]:mb-3">
 
-<div class="text-left w-full">
+<div class="h-5" />
 
-<div class="h-20" />
+- LLMs são treinados em dados e só podem fornecer informações até a **data final** do seu treinamento. 
+- LLMs não sabem **que horas são**, não sabem o **clima atual**, o **preço de uma ação em tempo real**.
+- O _tool calling_ revolucionou a capacidade dos LLMs, permitindo _perceber e agir_ sobre o _ambiente_ externo. 
+
+<!-- <Transform :scale="0.85">
 
 > [!IMPORTANT]
-> O LLM não executa a ferramenta: ele **decide** chamá-la e devolve os argumentos; quem executa é a **aplicação**, que retorna o resultado ao modelo.
+> 
+
+</Transform> -->
 
 </div>
 
@@ -39,7 +46,7 @@ class: flex items-start justify-center
 
 ```mermaid {theme: 'dark'}
 flowchart TD
-Task["User Prompt"]
+Task["User"]
 subgraph Agent
   LLM["LLM"]
   Tools["Tools (1, 2, 3, ...)"]
