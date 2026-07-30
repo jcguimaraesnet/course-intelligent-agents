@@ -749,7 +749,7 @@ source: https://openai.github.io/openai-agents-python/models/#common-advanced-mo
 
 # Objeto ModelSettings
 
-#### **O objeto Model Settings oferece vários parâmetros para usar com LLMs**
+#### **O objeto Model Settings possibilita configurar vários `hiperparâmetros`**
 
 <br/>
 
