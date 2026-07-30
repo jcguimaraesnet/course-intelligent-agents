@@ -261,7 +261,7 @@ source: https://openai.github.io/openai-agents-python/tools/
 
 # Docstring e type hint na escolha de ferramentas
 
-#### **Boa documentação resolve a ambiguidade entre ferramentas parecidas**
+#### **Boa documentação resolve a ambiguidade entre ferramentas semelhantes**
 
 <div class="h-2" />
 
