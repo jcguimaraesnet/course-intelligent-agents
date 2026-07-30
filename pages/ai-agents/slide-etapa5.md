@@ -267,7 +267,7 @@ source: https://openai.github.io/openai-agents-python/tools/
 
 ::left::
 
-```python [main.py] {9-12,16-24,30|all}{maxHeight:'320px',at:+1}
+```python [main.py] {9-10,21-22|all}{maxHeight:'320px',at:+1}
 import asyncio
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -276,16 +276,9 @@ from agents import (Agent, Runner, function_tool,
                     set_default_openai_api, set_tracing_disabled)
 
 @function_tool
-def get_current_time() -> str:
-    """Retorna a hora atual no fuso horário local do servidor.
-    Use quando o usuário pergunta a hora sem mencionar nenhum lugar.
-    """
-    return datetime.now().strftime("%H:%M:%S")
-
-@function_tool
-def get_time_in_timezone(timezone: str) -> str:
-    """Retorna a hora atual em um fuso horário específico.
-    Use quando o usuário menciona uma cidade, país ou região.
+def get_current_datetime_v1(timezone: str) -> str:
+    """Retorna a HORA atual (HH:MM:SS) no fuso informado.
+    Use quando o usuário pergunta as horas.
     Args:
         timezone: Adapte para o padrão IANA.
             Exemplos: Brasilia -> 'America/Sao_Paulo',
@@ -294,10 +287,22 @@ def get_time_in_timezone(timezone: str) -> str:
     """
     return datetime.now(ZoneInfo(timezone)).strftime("%H:%M:%S")
 
+@function_tool
+def get_current_datetime_v2(timezone: str) -> str:
+    """Retorna a DATA atual (DD/MM/AAAA) no fuso informado.
+    Use quando o usuário pergunta o dia ou a data.
+    Args:
+        timezone: Adapte para o padrão IANA.
+            Exemplos: Brasilia -> 'America/Sao_Paulo',
+                      Lisboa -> 'Europe/Lisbon',
+                      Nova Iorque -> 'America/New_York'
+    """
+    return datetime.now(ZoneInfo(timezone)).strftime("%d/%m/%Y")
+
 assistant = Agent(
     name="Assistente",
     instructions="Você é um assistente pessoal",
-    tools=[get_current_time, get_time_in_timezone],
+    tools=[get_current_datetime_v1, get_current_datetime_v2],
 )
 
 async def main():
@@ -306,7 +311,7 @@ async def main():
     set_tracing_disabled(True)
 
     result = await Runner.run(starting_agent=assistant,
-                              input="Que horas são em Tóquio agora?")
+                              input="Que dia é hoje em Tóquio?")
     print(result.final_output)
 
 if __name__ == "__main__":
@@ -318,16 +323,12 @@ if __name__ == "__main__":
 > [!NOTE]
 > **Duas ferramentas semelhante** para o LLM escolher. 
 > 
-> Sem **docstring** e **type hint**, o LLM não saberia qual das duas ferramentas usar, nem **como** preencher o `timezone`.
+> Com **docstring** e **type hint**, o LLM sabe qual das duas ferramentas usar, e **como** preencher o `timezone`.
+>
+> \* De modo proposital, o nome das duas funções são parecidas. Defina bons nomes para cada função.
 
 <!--
-# inputs de teste (input do console)
+## a primeira linha da docstring é o que desambigua as duas funções (HORA e DATA)
 
-# sem lugar -> get_current_time:
-Que horas são agora?
-
-# menciona um lugar -> get_time_in_timezone(timezone="Asia/Tokyo"):
-Que horas são em Tóquio agora?
-
-# a docstring "Use quando..." desambigua QUAL ferramenta; o arg do docstring + o type hint (str, padrão IANA) desambiguam COMO preencher o timezone.
+## o type hint (str) e docstring ajudam o LLM preencher o parâmetro timezone
 -->
