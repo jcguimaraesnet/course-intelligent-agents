@@ -192,3 +192,62 @@ source: https://openai.github.io/openai-agents-python/tools/
 
 ## ferramenta Codex permite que um agente no SDK envie comandos(prompts) para um workspace (com acesso ao sistema de arquivos) do Codex
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# Chamadas de ferramentas com funções Python
+
+#### **Funções Python se tornam ferramentas usando o decorador `@function_tool`**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {7-9,14|all}{maxHeight:'320px',at:+1}
+import asyncio
+from datetime import datetime
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+@function_tool
+def get_current_time():
+    return datetime.now().strftime("%H:%M:%S")
+
+assistant = Agent(
+    name="Assistente",
+    instructions="Você é um assistente pessoal",
+    tools=[get_current_time],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Que horas são nesse exato momento?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> O nome da ferramenta será o **nome da função Python**, e devem ser nomes com boa semântica para serem **escolhidas pelos LLMs** oportunamente.
+
+<!--
+# inputs de teste (input do console)
+
+# aciona a ferramenta get_current_time:
+Que horas são nesse exato momento?
+
+# o LLM sozinho não sabe a hora atual: ele decide chamar a tool, o Runner executa a função e devolve o resultado ao modelo, que então responde.
+-->
