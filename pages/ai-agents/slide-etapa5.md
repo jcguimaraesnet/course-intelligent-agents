@@ -547,3 +547,88 @@ if __name__ == "__main__":
 
 ## exemplos práticos de agir sobre o ambiente: enviar um e-mail, inserir um registro no banco de dados, criar uma agenda no calendário, etc
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Forcing tool use
+source: https://openai.github.io/openai-agents-python/agents/
+---
+
+# Forçando a ferramenta com `tool_choice`
+
+#### **`tool_choice` obriga o agente a invocar uma ferramenta específica**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {19-25,34-35|all}{maxHeight:'320px',at:+1}
+import asyncio
+import json
+from pathlib import Path
+from dotenv import load_dotenv
+from agents import (Agent, Runner, ModelSettings, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+from seed_faker import gerar_funcionarios
+
+@function_tool
+def buscar_funcionario(nome: str) -> str:
+    """Busca dados do funcionário pelo nome, no funcionarios.json."""
+    dados = json.loads(
+        Path("funcionarios.json").read_text(encoding="utf-8"))
+    for f in dados:
+        if nome.lower() in f["nome"].lower():
+            return json.dumps(f, ensure_ascii=False)
+    return "Funcionário não encontrado."
+
+@function_tool
+def calcular_folha_total() -> str:
+    """Soma os salários de todos os funcionários (folha de pagamento)."""
+    dados = json.loads(
+        Path("funcionarios.json").read_text(encoding="utf-8"))
+    total = sum(f["salario"] for f in dados)
+    return f"Folha total: R$ {total:.2f}"
+
+assistant = Agent(
+    name="Assistente de RH",
+    instructions=(
+        "Responda dúvidas de RH e inclua os resultados de "
+        "todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_funcionario, calcular_folha_total],
+    # força SEMPRE esta tool, ignorando o texto do pedido
+    model_settings=ModelSettings(tool_choice="calcular_folha_total"),
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    gerar_funcionarios()
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Qual é o salário da Brenda Alves?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> `tool_choice` na `ModelSettings` **força** a chamada de uma tool específica. Aqui, mesmo perguntando pela _Brenda_ (que puxaria `buscar_funcionario`), o agente é obrigado a chamar `calcular_folha_total` — ao contrário do modo livre (`"auto"`) dos exercícios anteriores.
+
+<!--
+# valores de tool_choice: "auto" (padrão, o modelo decide), "required" (obriga ALGUMA tool), "none" (proíbe tools) ou o NOME de uma tool (obriga aquela).
+
+# confirmação: a folha total é calculada mesmo o texto pedindo o salário da Brenda -> prova que o comportamento mudou vs. execução livre.
+
+# o SDK reseta o tool_choice após a chamada forçada, evitando loop infinito (senão o modelo seria obrigado a chamar a tool para sempre).
+
+# a instrução ("inclua os resultados de TODAS as ferramentas") faz o total forçado aparecer na resposta — solução leve via prompt; muda o texto, não o fluxo/custo.
+
+# outro cenário do enunciado (encerrar assim que a tool retorna, sem texto extra p/ baratear): tool_use_behavior="stop_on_first_tool" no Agent.
+-->
