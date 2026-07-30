@@ -417,3 +417,55 @@ if __name__ == "__main__":
 
 # aqui, "Que dia é hoje..." deve acionar get_current_datetime_v2; troque para "Que horas..." para ver o v1 ser escolhido.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Faker
+source: https://faker.readthedocs.io/
+---
+
+# Dados fictícios reproduzíveis com Faker
+
+#### **O pacote `faker` gera dados e o método `seed` garante dados fixos**
+
+<div class="h-2" />
+
+::left::
+
+```python [seed_faker.py] {5-7|all}{maxHeight:'320px',at:+1}
+import json
+import random
+from faker import Faker
+
+fake = Faker(locale="pt_BR")
+Faker.seed(seed=42)   # seed do Faker (nomes)
+random.seed(42)       # seed do random (salário e idade)
+
+funcionarios = [
+    {
+        "nome": fake.name(),
+        "salario": round(random.uniform(2000, 15000), 2),
+        "idade": random.randint(18, 65),
+    }
+    for _ in range(5)
+]
+
+with open("funcionarios.json", "w", encoding="utf-8") as f:
+    json.dump(funcionarios, f, ensure_ascii=False, indent=2)
+
+print(f"{len(funcionarios)} funcionários salvos em funcionarios.json")
+```
+
+::right::
+
+> [!NOTE]
+> Usando o método `seed` com **random** e **Fakker**, cada geração de dados gera **exatamente os mesmos** dados, facilitando **reprodução** de testes.
+
+<!--
+# seed fixa = geração determinística: mesma seed -> mesmos dados em qualquer máquina/execução.
+
+# são duas fontes de aleatoriedade: o Faker (nomes) e o random (salário/idade); cada uma precisa da sua própria seed.
+
+# temática de RH (funcionários) só para não repetir a de produtos usada na prova; a técnica é idêntica.
+-->
