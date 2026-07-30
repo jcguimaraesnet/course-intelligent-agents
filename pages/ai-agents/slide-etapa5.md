@@ -94,13 +94,13 @@ class: flex items-start justify-center
 
 ::left::
 
-<Transform :scale="0.85" origin="top">
+<!-- <Transform :scale="0.85" origin="top"> -->
 
-<div class="text-left w-full self-start [&_ul]:my-0 [&_ol]:my-0 [&_li]:mb-3">
+<div class="text-17px w-full self-start [&_ul]:my-0 [&_ol]:my-0 [&_li]:mb-3">
 
 <div class="h-5" />
 
-1. Runner.Run executa e e inici um loop.
+1. Runner.Run executa e e inicia um loop.
 2. O agente é invocado com o prompt e tools fornecidos.
 3. Se houver um output final do LMM, o loop termina.
 4. Se houver um output com handoff do LMM, o loop é executado novamente com o novo agente.
@@ -108,7 +108,7 @@ class: flex items-start justify-center
 
 </div>
 
-</Transform>
+<!-- </Transform> -->
 
 ::right::
 
