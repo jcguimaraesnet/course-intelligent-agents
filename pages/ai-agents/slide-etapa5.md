@@ -647,7 +647,7 @@ source: https://openai.github.io/openai-agents-python/agents/
 
 ::left::
 
-```python [main.py] {36-37,50|all}{maxHeight:'320px',at:+1}
+```python [main.py] {36-37,49|all}{maxHeight:'320px',at:+1}
 import asyncio
 import json
 from pathlib import Path
@@ -691,7 +691,6 @@ async def main():
     load_dotenv()
     set_default_openai_api("chat_completions")
     set_tracing_disabled(True)
-
     gerar_funcionarios()
 
     result = await Runner.run(starting_agent=assistant,
