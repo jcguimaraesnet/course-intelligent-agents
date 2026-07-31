@@ -25,7 +25,7 @@ source: https://pydantic.dev/docs/validation
 
 - **Validação automática** — dados fora do formato falham logo na entrada, com mensagem de erro.
 - **Conversão de tipos** — converte o valor para o tipo declarado quando possível (ex.: o texto `"42"` vira o número `42`)
-- **Auto-documentação** — contratos descritos no formato **JSON Schema**.
+- **Auto-documentação** — contratos descritos no formato **JSON Schema** e mais assertividade.
 
 </div>
 
@@ -51,6 +51,15 @@ class CalendarEvent(BaseModel):
   width: 85%;
 }
 </style>
+
+
+<!-- 
+## a vantagem adicional da validação de entrada não-LLM . Se o LLM "alucinar" e transmitir dados formatados incorretamente, o SDK detectará o problema gerando um erro. 
+
+## entrada estruturada de dados em ferramentas (objetos complexos)
+
+-->
+
 
 ---
 layout: two-cols-header
