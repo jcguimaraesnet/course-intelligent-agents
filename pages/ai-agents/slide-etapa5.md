@@ -434,14 +434,15 @@ from faker import Faker
 
 def gerar_funcionarios():
     fake = Faker(locale="pt_BR")
-    Faker.seed(seed=42)   # seed do Faker (nomes)
-    random.seed(42)       # seed do random (salário e idade)
+    Faker.seed(seed=42)   # seed do Faker (nomes e datas)
+    random.seed(42)       # seed do random (salário)
 
     funcionarios = [
         {
-            "nome": fake.name(),
-            "salario": round(random.uniform(2000, 15000), 2),
-            "idade": random.randint(18, 65),
+            "name": fake.name(),
+            "salary": round(random.uniform(2000, 15000), 2),
+            "birth_date": fake.date_of_birth(
+                minimum_age=18, maximum_age=65).isoformat(),
         }
         for _ in range(5)
     ]
@@ -504,8 +505,8 @@ def buscar_salario(nome: str) -> str:
     dados = json.loads(
         Path("funcionarios.json").read_text(encoding="utf-8"))
     for f in dados:
-        if nome.lower() in f["nome"].lower():
-            return f"Salário: R$ {f['salario']:.2f}"
+        if nome.lower() in f["name"].lower():
+            return f"Salário: R$ {f['salary']:.2f}"
     raise ValueError(f"Funcionário '{nome}' não encontrado.")
 
 assistant = Agent(
@@ -579,8 +580,8 @@ def buscar_salario(nome: str) -> str:
     dados = json.loads(
         Path("funcionarios.json").read_text(encoding="utf-8"))
     for f in dados:
-        if nome.lower() in f["nome"].lower():
-            return f"Salário: R$ {f['salario']:.2f}"
+        if nome.lower() in f["name"].lower():
+            return f"Salário: R$ {f['salary']:.2f}"
     raise ValueError(f"Funcionário '{nome}' não encontrado.")
 
 @function_tool
@@ -588,7 +589,7 @@ def calcular_folha_total() -> str:
     """Soma os salários de todos os funcionários (folha de pagamento)."""
     dados = json.loads(
         Path("funcionarios.json").read_text(encoding="utf-8"))
-    total = sum(f["salario"] for f in dados)
+    total = sum(f["salary"] for f in dados)
     return f"Folha total: R$ {total:.2f}"
 
 assistant = Agent(
@@ -665,8 +666,8 @@ def buscar_salario(nome: str) -> str:
     dados = json.loads(
         Path("funcionarios.json").read_text(encoding="utf-8"))
     for f in dados:
-        if nome.lower() in f["nome"].lower():
-            return f"Salário: R$ {f['salario']:.2f}"
+        if nome.lower() in f["name"].lower():
+            return f"Salário: R$ {f['salary']:.2f}"
     raise ValueError(f"Funcionário '{nome}' não encontrado.")
 
 @function_tool
@@ -674,7 +675,7 @@ def calcular_folha_total() -> str:
     """Soma os salários de todos os funcionários (folha de pagamento)."""
     dados = json.loads(
         Path("funcionarios.json").read_text(encoding="utf-8"))
-    total = sum(f["salario"] for f in dados)
+    total = sum(f["salary"] for f in dados)
     return f"Folha total: R$ {total:.2f}"
 
 assistant = Agent(
@@ -764,8 +765,8 @@ def buscar_salario(nome: str) -> str:
     dados = json.loads(
         Path("funcionarios.json").read_text(encoding="utf-8"))
     for f in dados:
-        if nome.lower() in f["nome"].lower():
-            return f"Salário: R$ {f['salario']:.2f}"
+        if nome.lower() in f["name"].lower():
+            return f"Salário: R$ {f['salary']:.2f}"
     raise ValueError(f"Funcionário '{nome}' não encontrado.")
 
 assistant = Agent(

@@ -199,3 +199,85 @@ print(json.dumps(
 
 ## required lista os campos obrigatórios; o SDK valida a resposta do LLM contra esse schema antes de entregar o objeto.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Output types
+source: https://openai.github.io/openai-agents-python/agents/
+---
+
+# Saída estruturada (tipado/JSON)
+
+#### **O uso do Pydantic fornece um schema seguro de tipos de dados**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {8-11,30,40|all}{maxHeight:'320px',at:+1}
+import asyncio
+from datetime import date
+from dotenv import load_dotenv
+from pydantic import BaseModel
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+class Employee(BaseModel):
+    name: str
+    birth_date: date
+    salary: float
+
+@function_tool
+def buscar_funcionario(nome: str) -> str:
+    """Busca os dados de um funcionário por nome de funcionário.
+    Args:
+        nome: Nome (ou parte do nome) do funcionário a procurar.
+    """
+    return ("A funcionária Brenda Alves tem um salário "
+            "de 5 mil reais e sua data de nascimento "
+            "é 30/07/1982.")
+
+assistant = Agent(
+    name="Assistente de RH",
+    instructions=(
+        "Responda dúvidas de RH e inclua os resultados de "
+        "todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_funcionario],
+    output_type=Employee,
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Quais os dados da Brenda Alves?")
+    if isinstance(result.final_output, Employee):
+        print(result.final_output)
+        print(result.final_output.model_dump_json(indent=2))
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> Com `output_type`, o agente devolve uma instância de **Employee** (e não um texto livre)
+> 
+> O LLM extrai os dados da string da ferramenta e o SDK **valida** contra o schema Pydantic antes de entregar.
+
+<!--
+## a tool devolve texto em linguagem natural; quem estrutura os dados no formato Employee é o LLM, guiado pelo output_type.
+
+## output_type=Employee vira um JSON Schema (slide anterior) enviado ao modelo; a resposta é validada e convertida em objeto tipado.
+
+## result.final_output deixa de ser str e passa a ser um Employee -> acesse result.final_output.salary, .birth_date, etc.
+
+## note a data "30/07/1982" no texto: o modelo a converte para o tipo date do schema; formatos inválidos falhariam na validação.
+
+## não há gerar_funcionarios() nem leitura de JSON aqui: o foco é a saída estruturada, não a fonte do dado.
+-->
