@@ -807,3 +807,109 @@ if __name__ == "__main__":
 
 ## resultado esperado: o final_output NÃO é um traceback; é uma resposta do agente pedindo, educadamente, que o usuário revise o nome.
 -->
+
+---
+layout: section
+---
+
+## Live Coding
+📚 **Agente:** bibliotecário que consulta o acervo e responde sobre os livros disponíveis.
+
+##### **1. Escolha uma temática nova (acervo de uma biblioteca)**
+##### **2. Documente a ferramenta com docstring e type hint**
+##### **3. Gere os dados com Faker e seed fixa em um arquivo JSON**
+##### **4. Crie uma function tool que busca o dado no JSON**
+
+<!--
+=================================================================
+ARQUIVO 1 — seed_faker.py  (gera o acervo com dados reproduzíveis)
+
+import json
+import random
+from faker import Faker
+
+def gerar_livros():
+    fake = Faker(locale="pt_BR")
+    Faker.seed(seed=42)   # seed do Faker (título e autor)
+    random.seed(42)       # seed do random (ano e exemplares)
+
+    livros = [
+        {
+            "titulo": fake.sentence(nb_words=3).rstrip("."),
+            "autor": fake.name(),
+            "ano": random.randint(1950, 2024),
+            "exemplares": random.randint(1, 10),
+        }
+        for _ in range(5)
+    ]
+
+    with open("livros.json", "w", encoding="utf-8") as f:
+        json.dump(livros, f, ensure_ascii=False, indent=2)
+
+    print(f"{len(livros)} livros salvos em livros.json")
+
+if __name__ == "__main__":
+    gerar_livros()
+
+=================================================================
+ARQUIVO 2 — main.py  (parte 1: a function tool com docstring e type hint)
+
+import asyncio
+import json
+from pathlib import Path
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+from seed_faker import gerar_livros
+
+@function_tool
+def buscar_livro(titulo: str) -> str:
+    """Busca um livro pelo título no arquivo livros.json.
+    Args:
+        titulo: Título (ou parte do título) do livro a procurar.
+    """
+    dados = json.loads(
+        Path("livros.json").read_text(encoding="utf-8"))
+    for livro in dados:
+        if titulo.lower() in livro["titulo"].lower():
+            return json.dumps(livro, ensure_ascii=False)
+    raise ValueError(f"Livro '{titulo}' não encontrado.")
+
+-----------------------------------------------------------------
+main.py  (parte 2: o agente bibliotecário)
+
+assistant = Agent(
+    name="Bibliotecário",
+    instructions=(
+        "Responda dúvidas sobre o acervo e inclua os resultados "
+        "de todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_livro],
+)
+
+-----------------------------------------------------------------
+main.py  (parte 3: gera o JSON e executa o agente)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+    gerar_livros()
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Quantos exemplares temos do livro X?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+=================================================================
+INPUTS DE TESTE (digite no console)
+
+# os títulos dependem da versão do Faker; abra o livros.json gerado e
+# use um título que exista lá. Ex.: "Quantos exemplares temos de <titulo>?"
+
+# aciona a ferramenta buscar_livro -> lê o JSON e retorna o registro real.
+
+# título inexistente -> a tool levanta ValueError (falha segura via slide anterior).
+-->
