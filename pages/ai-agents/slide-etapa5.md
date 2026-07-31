@@ -481,9 +481,9 @@ sourceLabel: Tools
 source: https://openai.github.io/openai-agents-python/tools/
 ---
 
-# Uma tool que lê o arquivo JSON gerado
+# Ferramenta como meio para buscar dados
 
-#### **A ferramenta consulta o arquivo e o agente responde com o dado real**
+#### **Ferramentas são úteis para busca de dados privados e externos ao LLM**
 
 <div class="h-2" />
 
@@ -499,8 +499,8 @@ from agents import (Agent, Runner, function_tool,
 from seed_faker import gerar_funcionarios
 
 @function_tool
-def buscar_funcionario(nome: str) -> str:
-    """Busca um funcionário pelo nome no arquivo funcionarios.json.
+def buscar_salario(nome: str) -> str:
+    """Busca o salário de um funcionário por nome de funcionário.
     Args:
         nome: Nome (ou parte do nome) do funcionário a procurar.
     """
@@ -508,7 +508,7 @@ def buscar_funcionario(nome: str) -> str:
         Path("funcionarios.json").read_text(encoding="utf-8"))
     for f in dados:
         if nome.lower() in f["nome"].lower():
-            return json.dumps(f, ensure_ascii=False)
+            return f"Salário: R$ {f['salario']:.2f}"
     return "Funcionário não encontrado."
 
 assistant = Agent(
@@ -517,7 +517,7 @@ assistant = Agent(
         "Responda dúvidas de RH e inclua os resultados de "
         "todas as chamadas de ferramentas na resposta final"
     ),    
-    tools=[buscar_funcionario],
+    tools=[buscar_salario],
 )
 
 async def main():
@@ -537,7 +537,7 @@ if __name__ == "__main__":
 ::right::
 
 > [!IMPORTANT]
-> O uso de ferramentas adicionar a capacidade do agente de **perceber e agir sobre o ambiente**: **buscar dados** que não estão no seu conhecimento (pesos internos) e **executar ações** com efeitos no mundo real.
+> O uso de ferramentas adiciona capacidade ao agente de **perceber e agir sobre o ambiente**: **buscar dados** que não estão no seu conhecimento (pesos internos) e **executar ações** com efeitos no mundo real.
 
 <!--
 ## a pergunta ("salário da Brenda Alves") obriga o agente a chamar a tool, que lê o arquivo e retorna o registro real.
@@ -564,7 +564,7 @@ source: https://openai.github.io/openai-agents-python/agents/
 
 ::left::
 
-```python [main.py] {19-25,33-34|all}{maxHeight:'320px',at:+1}
+```python [main.py] {22-28,36-37|all}{maxHeight:'320px',at:+1}
 import asyncio
 import json
 from pathlib import Path
@@ -574,13 +574,16 @@ from agents import (Agent, Runner, ModelSettings, function_tool,
 from seed_faker import gerar_funcionarios
 
 @function_tool
-def buscar_funcionario(nome: str) -> str:
-    """Busca dados do funcionário pelo nome, no funcionarios.json."""
+def buscar_salario(nome: str) -> str:
+    """Busca o salário de um funcionário por nome de funcionário.
+    Args:
+        nome: Nome (ou parte do nome) do funcionário a procurar.
+    """
     dados = json.loads(
         Path("funcionarios.json").read_text(encoding="utf-8"))
     for f in dados:
         if nome.lower() in f["nome"].lower():
-            return json.dumps(f, ensure_ascii=False)
+            return f"Salário: R$ {f['salario']:.2f}"
     return "Funcionário não encontrado."
 
 @function_tool
@@ -597,7 +600,7 @@ assistant = Agent(
         "Responda dúvidas de RH e inclua os resultados de "
         "todas as chamadas de ferramentas na resposta final"
     ),
-    tools=[buscar_funcionario, calcular_folha_total],
+    tools=[buscar_salario, calcular_folha_total],
     model_settings=ModelSettings(tool_choice="calcular_folha_total"),
 )
 
@@ -605,7 +608,6 @@ async def main():
     load_dotenv()
     set_default_openai_api("chat_completions")
     set_tracing_disabled(True)
-
     gerar_funcionarios()
 
     result = await Runner.run(starting_agent=assistant,
@@ -640,15 +642,15 @@ sourceLabel: Tool use behavior
 source: https://openai.github.io/openai-agents-python/agents/
 ---
 
-# Encerrando após a tool com `stop_on_first_tool`
+# Encerrando o loop na primeira ferramenta
 
-#### **O output da 1ª ferramenta vira a resposta e economiza chamadas ao modelo**
+#### **`tool_use_behavior` e `stop_on_first_tool` permitem controle fino do loop agêntico**
 
 <div class="h-2" />
 
 ::left::
 
-```python [main.py] {21-22,35|all}{maxHeight:'320px',at:+1}
+```python [main.py] {36-37,50|all}{maxHeight:'320px',at:+1}
 import asyncio
 import json
 from pathlib import Path
@@ -656,6 +658,19 @@ from dotenv import load_dotenv
 from agents import (Agent, Runner, function_tool,
                     set_default_openai_api, set_tracing_disabled)
 from seed_faker import gerar_funcionarios
+
+@function_tool
+def buscar_salario(nome: str) -> str:
+    """Busca o salário de um funcionário por nome de funcionário.
+    Args:
+        nome: Nome (ou parte do nome) do funcionário a procurar.
+    """
+    dados = json.loads(
+        Path("funcionarios.json").read_text(encoding="utf-8"))
+    for f in dados:
+        if nome.lower() in f["nome"].lower():
+            return f"Salário: R$ {f['salario']:.2f}"
+    return "Funcionário não encontrado."
 
 @function_tool
 def calcular_folha_total() -> str:
@@ -667,9 +682,11 @@ def calcular_folha_total() -> str:
 
 assistant = Agent(
     name="Assistente de RH",
-    instructions="Responda dúvidas de RH usando as ferramentas.",
-    tools=[calcular_folha_total],
-    # encerra assim que a 1ª tool retorna: o output vira a resposta
+    instructions=(
+        "Responda dúvidas de RH e inclua os resultados de "
+        "todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_salario, calcular_folha_total],
     tool_use_behavior="stop_on_first_tool",
 )
 
@@ -681,7 +698,7 @@ async def main():
     gerar_funcionarios()
 
     result = await Runner.run(starting_agent=assistant,
-                              input="Qual é o total da folha de pagamento?")
+        input="Qual é o total da folha de pagamento?")
     print(result.final_output)
     print(f"Chamadas ao modelo: {result.context_wrapper.usage.requests}")
 
@@ -691,10 +708,18 @@ if __name__ == "__main__":
 
 ::right::
 
-> [!NOTE]
-> Com `tool_use_behavior="stop_on_first_tool"`, o output da 1ª tool vira a **resposta final** e o loop encerra — **1 chamada** ao modelo, contra **2** no modo livre (decidir a tool + redigir a resposta). `usage.requests` mostra esse número.
+> [!IMPORTANT]
+> A observabilidade é um tema importante em sistemas agênticos. 
+> 
+> É possível acompanhar a **quantidade de chamadas aos modelos** através do atributo `result.context_wrapper .usage.requests`
 
 <!--
+## cenário de uso 1: É comum sistemas agênticos lidar com dezenas de ferramentas. A possibilidade de controlar o loop agêntico é interessante para evitar chamadas de ferramentas desnecessárias.
+
+## cenário de uso 2: economia de custo em segundas chamadas de modelos que normalmente só formatam a resposta. Se a ferramenta traz uma resposta pronta, talvez não faça sentido uma segunda chamada de LLM
+
+## Com `tool_use_behavior="stop_on_first_tool"`, garanto que a segunda chamada ao LLM não será feita. A resposta da tool já é a resposta final do agente.
+
 # stop_on_first_tool: o retorno da 1ª ferramenta é tratado como final_output; não há 2ª chamada de LLM para redigir a resposta.
 
 # comparação (Questão 2): modo livre "run_llm_again" (padrão) = 2 chamadas ao modelo; stop_on_first_tool = 1 chamada. usage.requests confirma.
