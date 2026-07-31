@@ -27,12 +27,6 @@ class: flex items-start justify-center
 - LLMs não sabem **que horas são**, não sabem o **clima atual**, o **preço de uma ação em tempo real**.
 - O _tool calling_ revolucionou a capacidade dos LLMs, permitindo _perceber e agir_ sobre o _ambiente_ externo. 
 
-<!-- <Transform :scale="0.85">
-
-> [!IMPORTANT]
-> 
-
-</Transform> -->
 
 </div>
 
@@ -202,7 +196,7 @@ source: https://openai.github.io/openai-agents-python/tools/
 
 # Chamadas de ferramentas com funções Python
 
-#### **Funções Python se tornam ferramentas usando o decorador `@function_tool`**
+#### **Funções python se tornam ferramentas usando o decorador `@function_tool`**
 
 <div class="h-2" />
 
@@ -261,7 +255,7 @@ source: https://openai.github.io/openai-agents-python/tools/
 
 # Docstring e type hint na escolha de ferramentas
 
-#### **Boa documentação resolve a ambiguidade entre ferramentas semelhantes**
+#### **Uma boa documentação resolve a ambiguidade entre ferramentas semelhantes**
 
 <div class="h-2" />
 
