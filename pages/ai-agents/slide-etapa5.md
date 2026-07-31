@@ -726,3 +726,84 @@ if __name__ == "__main__":
 
 # trade-off: a resposta é o texto CRU da tool (sem o LLM formatar/explicar); ótimo quando a tool já devolve o resultado pronto.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Handling errors in tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# Tornando a falha da ferramenta segura
+
+#### **`failure_error_function` transforma a exceção em uma mensagem útil ao modelo**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {9-11,13,24,42|all}{maxHeight:'320px',at:+1}
+import asyncio
+import json
+from pathlib import Path
+from dotenv import load_dotenv
+from agents import (Agent, Runner, RunContextWrapper, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+from seed_faker import gerar_funcionarios
+
+def erro_ao_buscar(ctx: RunContextWrapper, error: Exception) -> str:
+    return (f"Falha na busca: {error} "
+            "Peça ao usuário para revisar o nome.")
+
+@function_tool(failure_error_function=erro_ao_buscar)
+def buscar_salario(nome: str) -> str:
+    """Busca o salário de um funcionário por nome de funcionário.
+    Args:
+        nome: Nome (ou parte do nome) do funcionário a procurar.
+    """
+    dados = json.loads(
+        Path("funcionarios.json").read_text(encoding="utf-8"))
+    for f in dados:
+        if nome.lower() in f["nome"].lower():
+            return f"Salário: R$ {f['salario']:.2f}"
+    raise ValueError(f"Funcionário '{nome}' não encontrado.")
+
+assistant = Agent(
+    name="Assistente de RH",
+    instructions=(
+        "Responda dúvidas de RH e inclua os resultados de "
+        "todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_salario],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+    gerar_funcionarios()
+
+    result = await Runner.run(starting_agent=assistant,
+                input="Qual é o salário do Fulano de Tal?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> O uso de `failure_error_function` evita erros inesperados em sistemas agênticos, além de permitir que o modelo receba a string da exceção para gerar uma saída amigável.
+
+<!--
+## a pergunta usa um nome inexistente ("Fulano de Tal") -> a tool levanta ValueError (Questão 1) -> failure_error_function o captura (Questão 2).
+
+## o SDK NÃO deixa o programa quebrar: a string retornada por erro_ao_buscar volta ao LLM como resultado da tool, e o loop agêntico continua.
+
+## a assinatura é fixa: recebe (RunContextWrapper, Exception) e retorna str (pode ser async). É o mesmo contrato da default_tool_error_function.
+
+## para deixar a exceção realmente estourar (sem tratamento), passe failure_error_function=None no decorador.
+
+## resultado esperado: o final_output NÃO é um traceback; é uma resposta do agente pedindo, educadamente, que o usuário revise o nome.
+-->
