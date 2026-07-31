@@ -40,6 +40,8 @@ O **MCP (Model Context Protocol)** é um protocolo que padroniza como agentes de
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: MCP Servers
+source: https://mcpservers.org
 ---
 
 # Excalidraw para diagramas de arquitetura
