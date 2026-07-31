@@ -714,6 +714,8 @@ if __name__ == "__main__":
 
 ## cenário de uso 2: economia de custo em segundas chamadas de modelos que normalmente só formatam a resposta. Se a ferramenta traz uma resposta pronta, talvez não faça sentido uma segunda chamada de LLM
 
+## é possível configurar tool_use_behavior com StopAtTools: força o encerramento do loop quando uma determinada tool é acionada.
+
 ## Com `tool_use_behavior="stop_on_first_tool"`, garanto que a segunda chamada ao LLM não será feita. A resposta da tool já é a resposta final do agente.
 
 # stop_on_first_tool: o retorno da 1ª ferramenta é tratado como final_output; não há 2ª chamada de LLM para redigir a resposta.
