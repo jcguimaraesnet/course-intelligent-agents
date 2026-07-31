@@ -506,7 +506,7 @@ def buscar_salario(nome: str) -> str:
     for f in dados:
         if nome.lower() in f["nome"].lower():
             return f"Salário: R$ {f['salario']:.2f}"
-    return "Funcionário não encontrado."
+    raise ValueError(f"Funcionário '{nome}' não encontrado.")
 
 assistant = Agent(
     name="Assistente de RH",
@@ -581,7 +581,7 @@ def buscar_salario(nome: str) -> str:
     for f in dados:
         if nome.lower() in f["nome"].lower():
             return f"Salário: R$ {f['salario']:.2f}"
-    return "Funcionário não encontrado."
+    raise ValueError(f"Funcionário '{nome}' não encontrado.")
 
 @function_tool
 def calcular_folha_total() -> str:
@@ -667,7 +667,7 @@ def buscar_salario(nome: str) -> str:
     for f in dados:
         if nome.lower() in f["nome"].lower():
             return f"Salário: R$ {f['salario']:.2f}"
-    return "Funcionário não encontrado."
+    raise ValueError(f"Funcionário '{nome}' não encontrado.")
 
 @function_tool
 def calcular_folha_total() -> str:
