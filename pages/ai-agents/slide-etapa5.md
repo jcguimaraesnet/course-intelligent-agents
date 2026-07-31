@@ -461,6 +461,9 @@ if __name__ == "__main__":
 > Usando o método `seed` com **random** e **Faker**, cada geração de dados gera **exatamente os mesmos** dados, facilitando **reprodução** de testes.
 
 <!--
+
+# para adicionar o pacote: uv add faker
+
 # seed fixa = geração determinística: mesma seed -> mesmos dados em qualquer máquina/execução.
 
 # são duas fontes de aleatoriedade: o Faker (nomes) e o random (salário/idade); cada uma precisa da sua própria seed.
