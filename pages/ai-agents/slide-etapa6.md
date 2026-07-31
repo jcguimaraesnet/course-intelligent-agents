@@ -276,3 +276,74 @@ if __name__ == "__main__":
 ## note a data "30/07/1982" e o valor 5 MIL REAIS no texto: o modelo a converte.
 
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Faker
+source: https://faker.readthedocs.io/
+---
+
+# Saída estruturadas e aninhadas - parte 1
+
+#### **O Pydantic funciona muito bem com estruturas aninhadas**
+
+<div class="h-2" />
+
+::left::
+
+```python [seed_faker.py] {5-15,27|all}{maxHeight:'320px',at:+1}
+import json
+import random
+from faker import Faker
+
+def gerar_folha():
+    folha = []
+    for _ in range(3):
+        hours = random.randint(160, 200)
+        hourly_rate = round(random.uniform(30, 120), 2)
+        folha.append({
+            "hours": hours,
+            "hourly_rate": hourly_rate,
+            "total": round(hours * hourly_rate, 2),
+        })
+    return folha
+
+def gerar_funcionarios_folha():
+    fake = Faker(locale="pt_BR")
+    Faker.seed(seed=42)   # seed do Faker (nomes e datas)
+    random.seed(42)       # seed do random (horas e valor/hora)
+
+    funcionarios = [
+        {
+            "name": fake.name(),
+            "birth_date": fake.date_of_birth(
+                minimum_age=18, maximum_age=65).isoformat(),
+            "payroll": gerar_folha(),
+        }
+        for _ in range(5)
+    ]
+
+    with open("funcionarios.json", "w", encoding="utf-8") as f:
+        json.dump(funcionarios, f, ensure_ascii=False, indent=2)
+
+    print(f"{len(funcionarios)} funcionários salvos.")
+
+if __name__ == "__main__":
+    gerar_funcionarios_folha()
+```
+
+::right::
+
+> [!NOTE]
+> Cada funcionário carrega uma **lista aninhada** (`payroll`) com 3 meses. No próximo slide, o Pydantic modela isso com **modelos aninhados** (um modelo dentro do outro).
+
+<!--
+## estrutura aninhada: o funcionário deixa de ser "plano" e passa a conter uma lista de objetos (a folha de pagamento).
+
+## gerar_folha() devolve 3 meses; cada mês tem hours, hourly_rate e total (= hours * hourly_rate).
+
+## as duas seeds continuam garantindo reprodutibilidade, mesmo com a estrutura mais complexa.
+
+## parte 2: criar os modelos Pydantic Payroll e Employee (com payroll: list[Payroll]) para validar essa árvore.
+-->
