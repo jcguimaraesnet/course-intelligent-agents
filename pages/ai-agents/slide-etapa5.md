@@ -913,3 +913,45 @@ INPUTS DE TESTE (digite no console)
 
 # título inexistente -> a tool levanta ValueError (falha segura via slide anterior).
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Agente com tool que busca dado em JSON.
+
+🛠️ &nbsp;**Exercício \#2:** Agente com tool e captura de evento da tool.
+
+🛠️ &nbsp;**Exercício \#3:** Agente com duas tools e tool_choice.
+
+🛠️ &nbsp;**Exercício \#4:** Agente com tool e failure_error_function.
+
+
+- [ ] gere os dados com Faker e seed fixa e leia o JSON na tool
+- [ ] capture o run_item_stream_event para ver a tool escolhida
+- [ ] use ModelSettings com tool_choice para forçar a ferramenta
+- [ ] trate a exceção com failure_error_function e teste com id inválido
+
+<br/>
+
+<!--
+# Exercício #1 — Tool que busca dado em JSON
+Gere os dados com Faker e seed fixa em um arquivo JSON. Crie uma function_tool com
+docstring e type hint que lê o arquivo e retorna o registro pelo nome/id.
+
+# Exercício #2 — Captura do evento da tool
+Rode em streaming e percorra result.stream_events(). No run_item_stream_event, quando
+o item for tool_called, imprima qual ferramenta o modelo escolheu.
+
+# Exercício #3 — Duas tools e tool_choice
+Adicione uma segunda tool. Force a escolha com model_settings=ModelSettings(
+tool_choice="nome_da_tool"). Lembre que o SDK reseta o tool_choice após a chamada.
+
+# Exercício #4 — failure_error_function
+Faça a tool levantar exceção quando o dado não existir. Passe failure_error_function
+no @function_tool para devolver uma string de erro ao modelo, sem quebrar a execução.
+-->
