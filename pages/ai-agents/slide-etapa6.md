@@ -347,3 +347,93 @@ if __name__ == "__main__":
 
 ## parte 2: criar os modelos Pydantic Payroll e Employee (com payroll: list[Payroll]) para validar essa árvore.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Output types
+source: https://openai.github.io/openai-agents-python/agents/
+---
+
+# Saída estruturadas e aninhadas - parte 2
+
+#### **O `output_type` é uma estrutura aninhada de Employee -> Payroll**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {11-19,41,51|all}{maxHeight:'320px',at:+1}
+import asyncio
+import json
+from pathlib import Path
+from datetime import date
+from dotenv import load_dotenv
+from pydantic import BaseModel
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+from seed_faker import gerar_funcionarios_folha
+
+class Payroll(BaseModel):
+    hours: int
+    hourly_rate: float
+    total: float
+
+class Employee(BaseModel):
+    name: str
+    birth_date: date
+    payroll: list[Payroll]
+
+@function_tool
+def buscar_funcionario(nome: str) -> str:
+    """Busca os dados e a folha de um funcionário pelo nome.
+    Args:
+        nome: Nome (ou parte do nome) do funcionário a procurar.
+    """
+    dados = json.loads(
+        Path("funcionarios.json").read_text(encoding="utf-8"))
+    for f in dados:
+        if nome.lower() in f["name"].lower():
+            return json.dumps(f, ensure_ascii=False)
+    raise ValueError(f"Funcionário '{nome}' não encontrado.")
+
+assistant = Agent(
+    name="Assistente de RH",
+    instructions=(
+        "Responda dúvidas de RH e inclua os resultados de "
+        "todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_funcionario],
+    output_type=Employee,
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+    gerar_funcionarios_folha()
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Retorne toda a folha da Brenda Alves")
+    if isinstance(result.final_output, Employee):
+        print(result.final_output)
+        print(result.final_output.model_dump_json(indent=2))
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> O LLM lê o retorno da ferramenta e converte para um `Employee` com a lista de `Payroll`.
+
+<!--
+## modelos aninhados: Employee contém uma lista de Payroll; o Pydantic valida cada nível da árvore.
+
+## a tool lê o funcionarios.json (gerado por gerar_funcionarios_folha) e devolve o registro bruto; o output_type reestrutura em objetos tipados.
+
+## result.final_output é um Employee -> result.final_output.payroll é uma list[Payroll]; acesse .payroll[0].total, etc.
+
+## a pergunta pede "toda a folha" -> o modelo retorna os 3 meses aninhados, não só um valor plano.
+-->
