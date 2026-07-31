@@ -271,13 +271,8 @@ if __name__ == "__main__":
 > O LLM extrai os dados da string da ferramenta e o SDK **valida** contra o schema Pydantic antes de entregar.
 
 <!--
-## a tool devolve texto em linguagem natural; quem estrutura os dados no formato Employee é o LLM, guiado pelo output_type.
+## a tool devolve texto em linguagem natural; quem estrutura os dados no formato Employee é o LLM, guiado pelo output_type `model_json_schema()`.
 
-## output_type=Employee vira um JSON Schema (slide anterior) enviado ao modelo; a resposta é validada e convertida em objeto tipado.
+## note a data "30/07/1982" e o valor 5 MIL REAIS no texto: o modelo a converte.
 
-## result.final_output deixa de ser str e passa a ser um Employee -> acesse result.final_output.salary, .birth_date, etc.
-
-## note a data "30/07/1982" no texto: o modelo a converte para o tipo date do schema; formatos inválidos falhariam na validação.
-
-## não há gerar_funcionarios() nem leitura de JSON aqui: o foco é a saída estruturada, não a fonte do dado.
 -->
