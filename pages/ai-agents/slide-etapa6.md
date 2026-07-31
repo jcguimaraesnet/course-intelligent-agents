@@ -35,12 +35,13 @@ source: https://pydantic.dev/docs/validation
 
 ```python [modelo.py]
 
+from datetime import date
 from pydantic import BaseModel
 
-class CalendarEvent(BaseModel):
+class Employee(BaseModel):
     name: str
-    date: str
-    participants: list[str]
+    birth_date: date
+    salary: float
 
 ```
 
@@ -75,21 +76,23 @@ source: https://pydantic.dev/docs/validation
 ::left::
 
 ```python {monaco-run} {autorun: false, height: 'auto'}
-class CalendarEvent:
-    def __init__(self, name: str, date: str,
-                 participants: list[str]):
+from datetime import date
+
+class Employee:
+    def __init__(self, name: str, birth_date: date,
+                 salary: float):
         self.name = name
-        self.date = date
-        self.participants = participants
+        self.birth_date = birth_date
+        self.salary = salary
 
 # Python ignora os tipos de dados
-evento = CalendarEvent(
+employee = Employee(
     name=42,
-    date="2026-07-17",
-    participants="ninguém",
+    birth_date="32/05/1982",
+    salary="muito",
 )
 
-print("Evento: ", evento.name)
+print("Funcionário: ", employee.name)
 
 ```
 
@@ -97,42 +100,102 @@ print("Evento: ", evento.name)
 ::right::
 
 ```python {monaco-run} {autorun: false, height: 'auto'}
+from datetime import date
 from pydantic import BaseModel
 
-class CalendarEvent(BaseModel):
+class Employee(BaseModel):
     name: str
-    date: str
-    participants: list[str]
+    birth_date: date
+    salary: float
 
-# os mesmos tipos errados agora falham:
-evento = CalendarEvent(
+
+# os mesmos tipos errados agora falham
+employee = Employee(
     name=42,
-    date="2026-07-17",
-    participants="ninguém",
+    birth_date="32/05/1982",
+    salary="muito",
 )
 
-print("Evento: ", evento.name)
+print("Funcionário: ", employee.name)
 ```
 
 <!--
 
-Versão funcional: com dados válidos, o Pydantic aceita e constrói o objeto sem erro.
+## os tres parametros são fornecidos como tipos inválidos, e o python instancia a classe com sucesso, enquanto o pydantic não. 
 
-```python
+## Pydantic oferece sistemas agenticos mais seguros
+
+## data precisa ser passada no formato ISO
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Pydantic
+source: https://pydantic.dev/docs/validation
+---
+
+# Saídas estruturadas com schema JSON
+
+#### **LLMs recebem o resultado do `model_json_schema()` para gerar outputs tipados/JSON**
+
+<div class="h-2" />
+
+
+::left::
+
+
+```python [main.py] {maxHeight:'260px'}
+import json
+from datetime import date
 from pydantic import BaseModel
 
-class CalendarEvent(BaseModel):
+class Employee(BaseModel):
     name: str
-    date: str
-    participants: list[str]
+    birth_date: date
+    salary: float
 
-evento = CalendarEvent(
-    name="Reunião",
-    date="2026-07-17",
-    participants=["Ana", "Bruno"],
-)
-
-print("Evento: ", evento.name)  # Evento:  Reunião
+print(json.dumps(
+    Employee.model_json_schema(), indent=2))
 ```
 
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="console" codeblock style="width: 380px">
+
+```json {*}{maxHeight:'210px'}
+{
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "birth_date": {
+      "format": "date",
+      "title": "Birth Date",
+      "type": "string"
+    },
+    "salary": {
+      "title": "Salary",
+      "type": "number"
+    }
+  },
+  "required": [
+    "name",
+    "birth_date",
+    "salary"
+  ],
+  "title": "Employee",
+  "type": "object"
+}
+```
+</WindowMockup>
+
+<!--
+## o model_json_schema() traduz o modelo Pydantic para JSON Schema, o formato que o LLM entende para produzir saídas estruturadas.
+
+## note como o campo date vira "type": string + "format": date; o LLM recebe esse contrato e devolve dados no formato certo.
+
+## required lista os campos obrigatórios; o SDK valida a resposta do LLM contra esse schema antes de entregar o objeto.
 -->
