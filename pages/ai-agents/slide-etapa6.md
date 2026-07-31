@@ -418,6 +418,7 @@ async def main():
     if isinstance(result.final_output, Employee):
         print(result.final_output)
         print(result.final_output.model_dump_json(indent=2))
+        print(f"Qtde de calls: {result.context_wrapper.usage.requests}")
 
 if __name__ == "__main__":
     asyncio.run(main())
