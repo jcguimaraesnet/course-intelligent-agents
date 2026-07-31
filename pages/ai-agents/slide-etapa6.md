@@ -438,3 +438,99 @@ if __name__ == "__main__":
 
 ## a pergunta pede "toda a folha" -> o modelo retorna os 3 meses aninhados, não só um valor plano.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Tool use behavior
+source: https://openai.github.io/openai-agents-python/agents/
+---
+
+# Saída estruturadas e aninhadas - parte 2
+
+#### **`stop_on_first_tool` e tool tipada permite reduzir custo pela metade**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {22,31,41-42,56|all}{maxHeight:'320px',at:+1}
+import asyncio
+import json
+from pathlib import Path
+from datetime import date
+from dotenv import load_dotenv
+from pydantic import BaseModel
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+from seed_faker import gerar_funcionarios_folha
+
+class Payroll(BaseModel):
+    hours: int
+    hourly_rate: float
+    total: float
+
+class Employee(BaseModel):
+    name: str
+    birth_date: date
+    payroll: list[Payroll]
+
+@function_tool
+def buscar_funcionario(nome: str) -> Employee:
+    """Busca os dados e a folha de um funcionário pelo nome.
+    Args:
+        nome: Nome (ou parte do nome) do funcionário a procurar.
+    """
+    dados = json.loads(
+        Path("funcionarios.json").read_text(encoding="utf-8"))
+    for f in dados:
+        if nome.lower() in f["name"].lower():
+            return Employee(**f)
+    raise ValueError(f"Funcionário '{nome}' não encontrado.")
+
+assistant = Agent(
+    name="Assistente de RH",
+    instructions=(
+        "Responda dúvidas de RH e inclua os resultados de "
+        "todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_funcionario],
+    output_type=Employee,
+    tool_use_behavior="stop_on_first_tool",
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+    gerar_funcionarios_folha()
+
+    result = await Runner.run(starting_agent=assistant,
+                              input="Retorne toda a folha da Brenda Alves")
+    if isinstance(result.final_output, Employee):
+        print(result.final_output)
+        print(result.final_output.model_dump_json(indent=2))
+        print(f"Qtde de calls: {result.context_wrapper.usage.requests}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> Neste exemplo, a tool devolve um tipo **Employee** (e não uma string). 
+> 
+> Combinando com **stop_on_first_tool**, o Runner não faz a segunda chamada ao LLM.
+
+<!--
+## Employee(**f) é o operador de desempacotamento de dicionário. O **f "abre" o dicionário e passa cada par chave→valor como argumento nomeado para o construtor.
+
+## diferença para a parte 2: lá a tool devolve texto e um 2º LLM estrutura o Employee (2 calls); aqui a tool JÁ devolve o Employee.
+
+## stop_on_first_tool: o retorno da 1ª tool é o final_output; o loop encerra sem nova chamada de modelo -> usage.requests == 1.
+
+## o output_type=Employee evita a conversão para str do retorno da tool (comportamento do SDK quando não há output_type).
+
+## trade-off: economiza uma chamada de LLM, mas a resposta é exatamente o objeto da tool (o modelo não redige/for­mata texto).
+-->
