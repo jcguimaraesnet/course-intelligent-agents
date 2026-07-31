@@ -1,6 +1,6 @@
 ---
 layout: section
-routeAlias: etapa2
+routeAlias: etapa1-2
 ---
 
 ## **Etapa 1.2 - Tema Relacionado:**

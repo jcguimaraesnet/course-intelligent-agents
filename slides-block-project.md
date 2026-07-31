@@ -31,6 +31,7 @@ routeAlias: ementa
 # Ementa do projeto
 
 - **Etapa 1** — <Link to="etapa1" title="Visão Geral do Projeto"/>
+- **Etapa 1.2** — <Link to="etapa1-2" title="Etapa 1.2 - Tema Relacionado"/>
 - **Etapa 2** — <Link to="etapa2" title="Ferramentas, Raciocínio e Memória"/>
 - **Etapa 3** — <Link to="etapa3" title="Exposição via FastAPI"/>
 - **Etapa 4** — <Link to="etapa4" title="Operacionalização com MCP"/>
@@ -41,11 +42,11 @@ Ementa do projeto — visão geral das 5 etapas.
 -->
 
 ---
-src: ./pages/block-project/slide-etapa1.md
+src: ./pages/block-project/slide-etapa1_0.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa2.md
+src: ./pages/block-project/slide-etapa1_2.md
 ---
 
 ---
