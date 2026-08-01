@@ -83,10 +83,10 @@ source: https://openai.github.io/openai-agents-python/running_agents/
 
 ::left::
 
-```python [main.py] {22|all}{maxHeight:'320px',at:+1}
+```python [main.py] {16,22|all}{maxHeight:'320px',at:+1}
 import asyncio
 from dotenv import load_dotenv
-from agents import (Agent, Runner,
+from agents import (Agent, Runner, TResponseInputItem,
                     set_default_openai_api, set_tracing_disabled)
 
 agent = Agent(
@@ -99,7 +99,7 @@ async def main():
     set_default_openai_api("chat_completions")
     set_tracing_disabled(True)
 
-    messages = []
+    messages: list[TResponseInputItem] = []
     while True:
         question = input("You: ")
         messages.append({"role": "user", "content": question})
