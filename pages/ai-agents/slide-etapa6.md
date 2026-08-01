@@ -201,6 +201,90 @@ print(json.dumps(
 -->
 
 ---
+layout: default
+sourceLabel: Pydantic Fields
+source: https://docs.pydantic.dev/latest/concepts/fields/
+---
+
+# Enriquecendo o schema de validação
+
+#### **Recursos do Pydantic que dão mais contexto ao LLM e endurecem a validação**
+
+<br/>
+
+<div class="[&_table]:w-full text-12px leading-tight [&_td]:py-2 [&_th]:py-3">
+
+| Recurso | O que faz | Exemplo |
+| --- | --- | --- |
+| `Field` | Container que enriquece o campo | `x: str = Field(...)` |
+| `description` | Descreve o campo para o LLM | `Field(description="...")` |
+| `ge` `le` `gt` `lt` | Restringem valores (≥ ≤ > <) | `Field(ge=0, le=100)` |
+| `Literal` | Conjunto fechado de opções | `Literal["RH", "TI"]` |
+| `min_length` `max_length` | Tamanho de string | `Field(min_length=2)` |
+| `\| None = None` | Campo opcional | `obs: str \| None = None` |
+| `= valor` | Valor default | `active: bool = True` |
+| `date` `datetime` | Formato de data / data-hora | `birth_date: date` |
+| `EmailStr` `HttpUrl` | Formato de e-mail / URL | `email: EmailStr` |
+
+</div>
+
+
+<!--
+## cada recurso vira uma chave no JSON Schema (description, enum, minimum, maxLength, format...) que o LLM lê como instrução de formato.
+
+## restrições fortes (Literal/enum, description) costumam ser bem seguidas; faixas (ge/le) e pattern podem ser tratadas como sugestão por alguns provedores.
+
+## a garantia dura vem sempre da validação local do Pydantic ao instanciar o objeto: se o LLM sair da faixa, estoura ali.
+
+## EmailStr e HttpUrl exigem o extra: uv add "pydantic[email]".
+-->
+
+---
+layout: default
+layoutClass: gap-8
+sourceLabel: Pydantic Fields
+source: https://docs.pydantic.dev/latest/concepts/fields/
+---
+
+# Um modelo Employee com schema rico
+
+#### **Quanto mais rico o schema, mais o modelo tende a acertar a saída.**
+
+<div class="h-7" />
+
+```python [modelo.py] {*}{maxHeight:'320px'}
+from typing import Literal
+from datetime import date, datetime
+from pydantic import BaseModel, Field, EmailStr, HttpUrl
+
+class Employee(BaseModel):
+    """Cadastro de funcionário do RH."""              # descrição do modelo
+    name: str = Field(description="Nome completo",
+                      min_length=2, max_length=100)    # Field + string
+    age: int = Field(ge=18, le=65)                     # ge, le
+    salary: float = Field(gt=0,
+                          description="Salário bruto mensal (R$)")
+    department: Literal["RH", "TI", "Financeiro"]      # conjunto fechado
+    email: EmailStr                                    # formato e-mail
+    site: HttpUrl | None = None                        # opcional + URL
+    birth_date: date                                   # formato data
+    admitted_at: datetime                              # formato data-hora
+    active: bool = True                                # valor default
+```
+
+<!--
+## a docstring da classe vira a description do objeto inteiro no schema.
+
+## age com ge/le vira minimum/maximum; salary com gt vira exclusiveMinimum; department vira enum.
+
+## email/site usam EmailStr/HttpUrl -> "format": "email"/"uri"; birth_date/admitted_at -> "format": date/date-time.
+
+## site é opcional (| None = None) e sai do required; active tem default True e também sai do required.
+
+## rode Employee.model_json_schema() para ver todas essas restrições no JSON que o LLM recebe.
+-->
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 sourceLabel: Output types
