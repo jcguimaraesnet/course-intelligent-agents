@@ -1011,13 +1011,13 @@ layout: default
 
 <br/>
 
-🛠️ &nbsp;**Exercício \#1:** Agente com tool que busca dado em JSON.
+🛠️ &nbsp;**Exercício \#1:** Crie um agente com tool que busca dado em JSON.
 
-🛠️ &nbsp;**Exercício \#2:** Agente com tool e captura de evento da tool.
+🛠️ &nbsp;**Exercício \#2:** Adicione a captura de evento da tool e imprima no console.
 
-🛠️ &nbsp;**Exercício \#3:** Agente com duas tools e tool_choice.
+🛠️ &nbsp;**Exercício \#3:** Adicione uma segunda tool e um tool_choice.
 
-🛠️ &nbsp;**Exercício \#4:** Agente com tool e failure_error_function.
+🛠️ &nbsp;**Exercício \#4:** Adicione um failure_error_function.
 
 
 - [ ] gere os dados com Faker e seed fixa e leia o JSON na tool

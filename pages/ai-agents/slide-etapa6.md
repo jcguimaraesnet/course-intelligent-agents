@@ -534,3 +534,180 @@ if __name__ == "__main__":
 
 ## trade-off: economiza uma chamada de LLM, mas a resposta é exatamente o objeto da tool (o modelo não redige/for­mata texto).
 -->
+
+---
+layout: section
+---
+
+## Live Coding
+📚 **Agente:** bibliotecário que consulta o acervo e responde sobre os livros disponíveis.
+
+##### **1. Use um modelo Pydantic para o livro**
+##### **2. Use um modelo Pydantic para o histórico de empréstimos**
+##### **3. Gere dados de cinco livros com históricos**
+##### **4. Use um prompt para retornar um livro com histórico (saída tipada)**
+
+<!--
+=================================================================
+ARQUIVO 1 — seed_faker.py  (gera 5 livros, cada um com histórico)
+
+import json
+import random
+from faker import Faker
+
+def gerar_emprestimos(fake):
+    return [
+        {
+            "borrower": fake.name(),
+            "loan_date": fake.date_this_decade().isoformat(),
+            "returned": random.choice([True, False]),
+        }
+        for _ in range(random.randint(1, 3))
+    ]
+
+def gerar_livros():
+    fake = Faker(locale="pt_BR")
+    Faker.seed(seed=42)   # seed do Faker (títulos, autores, nomes)
+    random.seed(42)       # seed do random (ano, devolução, qtde)
+
+    livros = [
+        {
+            "title": fake.sentence(nb_words=3).rstrip("."),
+            "author": fake.name(),
+            "year": random.randint(1950, 2024),
+            "loans": gerar_emprestimos(fake),
+        }
+        for _ in range(5)
+    ]
+
+    with open("livros.json", "w", encoding="utf-8") as f:
+        json.dump(livros, f, ensure_ascii=False, indent=2)
+
+    print(f"{len(livros)} livros salvos em livros.json")
+
+if __name__ == "__main__":
+    gerar_livros()
+
+=================================================================
+ARQUIVO 2 — main.py  (parte 1: modelos Pydantic aninhados)
+
+import asyncio
+import json
+from pathlib import Path
+from datetime import date
+from dotenv import load_dotenv
+from pydantic import BaseModel
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+from seed_faker import gerar_livros
+
+class Loan(BaseModel):
+    borrower: str
+    loan_date: date
+    returned: bool
+
+class Book(BaseModel):
+    title: str
+    author: str
+    year: int
+    loans: list[Loan]
+
+-----------------------------------------------------------------
+main.py  (parte 2: a function tool que lê o JSON)
+
+@function_tool
+def buscar_livro(titulo: str) -> str:
+    """Busca um livro e seu histórico pelo título no livros.json.
+    Args:
+        titulo: Título (ou parte do título) do livro a procurar.
+    """
+    dados = json.loads(
+        Path("livros.json").read_text(encoding="utf-8"))
+    for livro in dados:
+        if titulo.lower() in livro["title"].lower():
+            return json.dumps(livro, ensure_ascii=False)
+    raise ValueError(f"Livro '{titulo}' não encontrado.")
+
+-----------------------------------------------------------------
+main.py  (parte 3: o agente com saída tipada)
+
+assistant = Agent(
+    name="Bibliotecário",
+    instructions=(
+        "Responda dúvidas sobre o acervo e inclua os resultados "
+        "de todas as chamadas de ferramentas na resposta final"
+    ),
+    tools=[buscar_livro],
+    output_type=Book,
+)
+
+-----------------------------------------------------------------
+main.py  (parte 4: gera o JSON e executa)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+    gerar_livros()
+
+    result = await Runner.run(starting_agent=assistant,
+        input="Retorne o livro X com seu histórico de empréstimos")
+    if isinstance(result.final_output, Book):
+        print(result.final_output.model_dump_json(indent=2))
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+=================================================================
+INPUTS DE TESTE (digite no console)
+
+# os títulos dependem da versão do Faker; abra o livros.json gerado e
+# use um título que exista lá.
+
+# saída tipada: result.final_output é um Book -> .loans é list[Loan];
+# acesse result.final_output.loans[0].borrower, etc.
+
+# estrutura aninhada: Book contém uma lista de Loan (histórico de empréstimos).
+-->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um modelo Pydantic com validação de tipos.
+
+🛠️ &nbsp;**Exercício \#2:** Crie um agente com output_type e saída tipada.
+
+🛠️ &nbsp;**Exercício \#3:** Adicione um segundo modelo Pydantic aninhado.
+
+🛠️ &nbsp;**Exercício \#4:** Adicione uma tool que retorna a instância com stop_on_first_tool.
+
+
+- [ ] declare os campos com type hints e teste dados inválidos
+- [ ] defina output_type com o seu modelo no Agent
+- [ ] aninhe modelos usando list de outro modelo
+- [ ] retorne a instância na tool e use stop_on_first_tool
+
+<br/>
+
+<!--
+# Exercício #1 — Validação de tipos
+Crie um BaseModel com campos tipados. Passe valores errados e veja a exceção.
+Compare com uma classe Python comum, que aceita qualquer tipo.
+
+# Exercício #2 — Saída tipada
+Defina output_type com o seu modelo no Agent. O final_output deixa de ser texto
+e vira uma instância validada. Confirme com isinstance antes de usar.
+
+# Exercício #3 — Estrutura aninhada
+Modele um objeto que contém uma lista de outro modelo. Gere os dados com Faker
+e seed fixa. O Pydantic valida a árvore inteira.
+
+# Exercício #4 — Retorno direto da tool
+A tool constrói e devolve a instância. Com stop_on_first_tool o Runner encerra
+sem a segunda chamada ao modelo. Mantenha output_type para não virar string.
+-->
