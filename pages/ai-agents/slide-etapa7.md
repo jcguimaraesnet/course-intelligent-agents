@@ -296,3 +296,55 @@ image: /rag-icon.png
 O conhecimento do LLM, que vem do treinamento, é **interno, estático, fixo e público**. O RAG permite adicionar conhecimento **externo, dinâmico, evolutivo e privado**.
 
 &nbsp;
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# RAG: dois tipos de recuperação
+
+#### **A abordagem de recuperar pode mudar quando o dado é estruturado ou não estruturado**
+
+::left::
+
+<div class="text-left w-full self-start [&_ul]:my-0 [&_li]:mb-3">
+
+<div class="h-20" />
+
+- **Dado estruturado:** chamada de ferramenta usando API ou consultas a bancos de dados (já visto na etapa 5).
+- **Dado não estruturado:** busca semântica em corpus de textos **(PDF, Docx, HTML)** armazenados como vetores de dados.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center">
+
+<div class="h-10" />
+
+```mermaid {theme: 'dark', flowchart: { subGraphTitleMargin: { top: 50, bottom: 10 } }}
+---
+config:
+  theme: dark
+  flowchart:
+    subGraphTitleMargin:
+      top: 10
+      bottom: 10
+---
+flowchart TD
+Retriever["Retriever"]
+Data{"Data"}
+Structured["Structured"]
+NotStructured["Not structured"]
+DBAPI["Database / API / JSON"]
+Embeddings["Embeddings"]
+Retriever --> Data
+Data --> Structured
+Data --> NotStructured
+Structured --> DBAPI
+NotStructured --> Embeddings
+```
+
+</div>
