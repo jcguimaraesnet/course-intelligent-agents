@@ -8,6 +8,35 @@ routeAlias: etapa7
 ---
 layout: two-cols-header
 layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Padrões de memória e conhecimento
+
+#### **Agentes possuem memória e conhecimento com padrões bem conhecidos**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-17px w-full self-start [&_ul]:my-6 [&_li]:mb-4">
+
+- **Memória de curto prazo** — histórico da conversa dentro da sessão.
+- **Memória de longo prazo** — persistência entre sessões.
+- **Conhecimento de treinamento** — o que o modelo guarda nos seus pesos internos.
+- **Conhecimento recuperado** — dados em tempo real com recuperação de informação (RAG).
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="agent-memory-knowledge-pattern.png" class="w-full max-w-[380px] rounded-lg mt-[30px]" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 sourceLabel: Conversations
 source: https://openai.github.io/openai-agents-python/running_agents/
 ---
@@ -126,5 +155,66 @@ if __name__ == "__main__":
 ## a pergunta do usuário ainda é anexada antes do run; o to_input_list cuida do resto do histórico após o run.
 
 ## é o padrão recomendado para manter conversas multi-turno no Agents SDK sem gerenciar o formato à mão.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Sessions
+source: https://openai.github.io/openai-agents-python/sessions/
+---
+
+# Agente com histórico de mensagens (sessão)
+
+#### **Exemplo de histórico gerenciado automaticamente com `SQLiteSession`**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {16,20|all}{maxHeight:'320px',at:+1}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner, SQLiteSession,
+                    set_default_openai_api, set_tracing_disabled)
+
+agent = Agent(
+    name="Assistente",
+    instructions="Você é um assistente pessoal",
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    session = SQLiteSession("first_session", db_path="messages.db")
+    while True:
+        question = input("You: ")
+        result = await Runner.run(starting_agent=agent,
+                                  input=question, session=session)
+        print("Agent: ", result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> Com uma `Session`, o SDK grava e recupera o histórico de forma automática.
+> 
+> Com `SQLiteSession` a conversa é persistida no disco e sobrevive ao reinício do programa.
+
+<!--
+## evolução dos 2 slides anteriores: nada de messages, append ou to_input_list. A sessão cuida de armazenar e reinjetar o histórico.
+
+## você passa apenas a pergunta nova (input=question); a Session antepõe automaticamente o histórico salvo antes de chamar o modelo.
+
+## db_path=":memory:" (padrão) guarda em memória e some ao encerrar; com um arquivo (messages.db) a conversa é persistida.
+
+## o session_id ("first_session") isola conversas: sessões diferentes = históricos independentes no mesmo banco.
+
+## há outros backends de Session (ex.: em memória, Redis, etc.); SQLiteSession é o mais simples para persistência local.
 -->
 
