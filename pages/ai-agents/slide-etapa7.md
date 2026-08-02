@@ -348,3 +348,61 @@ NotStructured --> Embeddings
 ```
 
 </div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# RAG com dados estruturados
+
+#### **Exemplos de dados estruturados: API, banco, arquivo**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {7-14,19|all}{maxHeight:'320px',at:+1}
+import asyncio
+import requests
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+@function_tool
+def get_price_of_bitcoin() -> str:
+    """Get the price of Bitcoin."""
+    url = ("https://api.coingecko.com/api/v3/simple/price"
+           "?ids=bitcoin&vs_currencies=usd")
+    response = requests.get(url)
+    price = response.json()["bitcoin"]["usd"]
+    return f"${price:,.2f} USD."
+
+crypto_agent = Agent(
+    name="Assistente Cripto",
+    instructions=("Você é um assistente de criptomoedas. "
+                  "Use ferramentas para obter dados em tempo real."),
+    tools=[get_price_of_bitcoin],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    result = await Runner.run(starting_agent=crypto_agent,
+                              input="Qual é o preço do Bitcoin?")
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> O uso de **tool function** não é obrigatório para caracterizar um sistema de RAG, mas simplifica o sistema.
+> 
+> O resultado da tool function é adicionado como **contexto ao prompt do usuário**.
