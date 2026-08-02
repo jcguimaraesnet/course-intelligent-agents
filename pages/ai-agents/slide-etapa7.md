@@ -279,3 +279,20 @@ Generate --> Answer
 <!--
 ## RAG: Recuperação aumentada por recuperação
 -->
+
+---
+layout: quote-image
+image: /rag-icon.png
+---
+
+::title::
+
+# Porque usar RAG?
+
+<div class="h-15" />
+
+::default::
+
+O conhecimento do LLM, que vem do treinamento, é **interno, estático, fixo e público**. O RAG permite adicionar conhecimento **externo, dinâmico, evolutivo e privado**.
+
+&nbsp;
