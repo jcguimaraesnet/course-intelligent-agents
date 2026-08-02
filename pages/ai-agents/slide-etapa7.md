@@ -218,3 +218,64 @@ if __name__ == "__main__":
 ## há outros backends de Session (ex.: em memória, Redis, etc.); SQLiteSession é o mais simples para persistência local.
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# RAG - Retrieve Augmented Generation
+
+#### **RAG amplia a capacidade de resposta de LLMs usando bases externas**
+
+::left::
+
+<div class="text-left w-full self-start [&_ul]:my-0 [&_li]:mb-3">
+
+<div class="h-5" />
+
+RAG consiste em três etapas:
+
+- **Recuperar:** recupera informações relevantes com base na solicitação do usuário.
+- **Aumentar:** adiciona as informações recuperadas como contexto ao prompt do usuário.
+- **Gerar:** o LLM produz uma resposta com base no contexto e no prompt do usuário.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center">
+
+<div class="h-0" />
+
+<Transform :scale="0.65" origin="top">
+
+```mermaid {theme: 'dark', flowchart: { subGraphTitleMargin: { top: 10, bottom: 10 } }}
+---
+config:
+  theme: dark
+  flowchart:
+    subGraphTitleMargin:
+      top: 10
+      bottom: 10
+---
+flowchart TD
+Prompt["Prompt"]
+subgraph RAG["RAG"]
+  Retrieve["Retrieve"]
+  Augment["Augment"]
+  Generate["Generate"]
+  Retrieve --> Augment --> Generate
+end
+Answer["Answer"]
+Prompt --> Retrieve
+Generate --> Answer
+```
+
+</Transform>
+
+</div>
+
+<!--
+## RAG: Recuperação aumentada por recuperação
+-->
