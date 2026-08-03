@@ -298,11 +298,11 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ::code-group
 
 ```sh [cross plataform]
-uv python install 3.12
+uv python install 3.14
 ```
 
 ```sh [macOS]
-brew install python@3.12
+brew install python@3.14
 ```
 
 ::
@@ -425,7 +425,7 @@ pip freeze > requirements.txt
 <!-- 
 o comando abaixo substitui tres linhas de comandos:
 ```shell
-uv init my-first-agent --python 3.12
+uv init my-first-agent --python 3.14
 ```
 ```shell
 mkdir my-first-agent
