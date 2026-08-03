@@ -406,3 +406,60 @@ if __name__ == "__main__":
 > O uso de **tool function** não é obrigatório para caracterizar um sistema de RAG, mas simplifica o sistema.
 > 
 > O resultado da tool function é adicionado como **contexto ao prompt do usuário**.
+
+---
+layout: quote-image
+image: /embeddings.png
+---
+
+::title::
+
+# RAG, dados não estruturados e embeddings
+
+<div class="h-15" />
+
+::default::
+
+**Embeddings** são representações vetoriais de palavras, e é um dos meios mais comuns de se **compreender contexto** e **semântica da linguagem humana** na área de _Natural Language Processing_ (NLP).
+
+&nbsp;
+
+<!--
+
+## Explicação da imagem: Palavras viram vetores de números
+
+## Processamento de linguagem natural (NLP) é um subcampo da ciência da computação e da inteligência artificial (IA) que usa aprendizado de máquina para permitir que computadores entendam e se comuniquem com a linguagem humana.
+
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Porque usar embeddings?
+
+#### **Embeddings permite a _busca semântica_ em grandes volumes de textos**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-17px w-full self-start [&_ul]:my-0 [&_li]:mb-4">
+
+- Quando a resposta a uma pergunta é uma informação **estruturada** em banco de dados/API, basta uma query/request.
+- E quando a resposta a uma pergunta está em um **parágrafo** de um documento com centenas de páginas, **como identificar esse parágrafo?**
+- Os embeddings são indicados para cenários com **dados não estruturados**, armazenados tipicamente em grandes documentos **(pdf, html, docx, txt)**
+
+</div>
+
+::right::
+
+<Transform :scale="0.6" origin="top">
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="pdf-page.png" class="w-full max-w-[380px] rounded-lg mt-[10px]" />
+</div>
+
+</Transform>
