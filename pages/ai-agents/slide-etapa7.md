@@ -696,6 +696,8 @@ layout: section
 ##### **3. Crie o pipeline de recuperação/geração RAG**
 ##### **4. Execute um prompt sobre um texto que existe nos embeddings**
 ##### **5. Execute um prompt sobre um texto que NÃO exista (defina um threshold)**
+##### **6. Adicione histórico de conversa para respostas com memória (além do RAG)**
+##### **7. Teste um prompt que responde a partir da memória, e outro do RAG**
 
 <!--
 =================================================================
@@ -768,3 +770,47 @@ if __name__ == "__main__":
 ## o threshold (0.35) evita "alucinar" contexto: sem política relevante, o agente admite que não sabe.
 ## ajuste o valor observando os scores impressos pela tool para calibrar o corte.
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um corpus com cinco frases e gere seus embeddings em memória.
+
+🛠️ &nbsp;**Exercício \#2:** Implemente a busca por similaridade de cosseno e imprima o score de cada frase.
+
+🛠️ &nbsp;**Exercício \#3:** Monte um agente RAG com uma tool que recupera o trecho mais parecido.
+
+🛠️ &nbsp;**Exercício \#4:** Adicione um threshold para o agente admitir quando não há resposta.
+
+<br/>
+
+- [ ] gere os vetores das frases uma vez e guarde em memória
+- [ ] compare a pergunta com cada frase e mostre os scores
+- [ ] recupere o trecho mais similar dentro de uma tool
+- [ ] defina um corte mínimo e trate a ausência de contexto
+
+<br/>
+
+<!--
+# Exercício #1 — Indexação
+Crie uma lista de cinco frases e gere os embeddings com SentenceTransformer.
+Guarde os vetores em memória para reusar nas buscas seguintes.
+
+# Exercício #2 — Similaridade de cosseno
+Vetorize a pergunta e calcule a similaridade contra cada frase.
+Imprima o score de todas para entender por que uma vence.
+
+# Exercício #3 — Agente RAG
+Coloque a recuperação numa tool e conecte ao agente.
+A tool devolve o trecho mais parecido, que vira contexto da resposta.
+
+# Exercício #4 — Threshold
+Defina um valor mínimo de similaridade. Abaixo dele, a tool sinaliza
+ausência de contexto e o agente responde que não sabe.
+-->
+
