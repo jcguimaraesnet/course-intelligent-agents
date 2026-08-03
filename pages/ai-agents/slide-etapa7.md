@@ -629,7 +629,7 @@ source: https://openai.github.io/openai-agents-python/tools/
 
 ::left::
 
-```python [main.py] {8,17,22|all}{maxHeight:'320px',at:+1}
+```python [main.py] {9,19,25,27,33|all}{maxHeight:'320px',at:+1}
 import asyncio
 import numpy as np
 from dotenv import load_dotenv
@@ -637,24 +637,31 @@ from sentence_transformers import SentenceTransformer
 from agents import (Agent, Runner, function_tool,
                     set_default_openai_api, set_tracing_disabled)
 
-model = SentenceTransformer("all-MiniLM-L6-v2")  # roda em CPU
+# carrega o modelo de embeddings local (roda em CPU)
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Corpus "não estruturado" indexado em memória (sem DB)
+# cada elemento do array é um PDF/documento diferente
 docs = [
     "O Pantanal é a maior planície alagável do mundo.",
     "A capital da França é Paris.",
     "O Bitcoin foi criado por Satoshi Nakamoto em 2009.",
 ]
 
-doc_vectors = model.encode(docs, normalize_embeddings=True)  # indexação
+# fluxo de indexação dos documentos em embeddings
+database_vector = model.encode(docs, normalize_embeddings=True)
 
 @function_tool
 def buscar_contexto(pergunta: str) -> str:
     """Recupera o trecho mais relevante do corpus para a pergunta."""
-    q = model.encode([pergunta], normalize_embeddings=True)[0]
-    scores = doc_vectors @ q          # cosseno (vetores já normalizados)
+    # gera o embedding da pergunta
+    query = model.encode([pergunta], normalize_embeddings=True)[0]
+    # similaridade de cosseno entre a pergunta e cada documento
+    scores = database_vector @ query
+    # percorre cada documento com seu score
     for doc, score in zip(docs, scores):
+        # imprime o score e o texto (apenas para depuração)
         print(f"{score:.3f}  {doc}")
+    # retorna o documento de maior similaridade
     return docs[int(np.argmax(scores))]
 
 rag_agent = Agent(

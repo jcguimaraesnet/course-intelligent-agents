@@ -85,3 +85,24 @@ layout: default
 > Mesmo embora o tamanho das janelas de contexto tenha aumentado recentemente, o uso de chunks continuará sendo uma boa técnica para gerenciamento de contexto, custo e latência.
 
 </Transform>
+
+---
+layout: default
+---
+
+# RAG: estratégias de chunks
+
+#### **Existem algumas abordagens comuns para divisão de textos longos em chunks**
+
+<br/>
+
+<div class="[&_table]:w-full text-16px leading-tight [&_td]:py-3 [&_th]:py-3 [&_td:first-child]:whitespace-nowrap [&_th:first-child]:whitespace-nowrap">
+
+| Abordagem | Descrição |
+| --- | --- |
+| **Comprimento fixo** | Divide o documento em blocos fixos de palavras, mantendo os chunks com o mesmo tamanho. É a abordagem mais simples. |
+| **Janela deslizante** | Divide o documento em blocos fixos de palavras, com sobreposição da janela anterior e próxima. |
+| **Por pontuação** | Divide o documento com base na pontuação, preservando integridade semântica mas resultando em tamanhos pequenos e variáveis. |
+| **Por tópico ou seção** | Divie o documento com base em suas seções ou parágrafos (quando o documentos está estruturado dessa forma). |
+
+</div>
