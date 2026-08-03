@@ -696,8 +696,6 @@ layout: section
 ##### **3. Crie o pipeline de recuperação/geração RAG**
 ##### **4. Execute um prompt sobre um texto que existe nos embeddings**
 ##### **5. Execute um prompt sobre um texto que NÃO exista (defina um threshold)**
-##### **6. Adicione histórico de conversa para respostas com memória (além do RAG)**
-##### **7. Teste um prompt que responde a partir da memória, e outro do RAG**
 
 <!--
 =================================================================
