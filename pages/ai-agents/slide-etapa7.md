@@ -463,3 +463,223 @@ class: flex items-center justify-center
 </div>
 
 </Transform>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Busca semântica por similaridade de cosseno 
+
+#### **A busca por similaridade é o "equivalente" a uma query de igualdade em banco de dados**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-16px w-full self-start [&_ul]:my-0 [&_li]:mb-4">
+
+- Cada palavra é um **vetor** com centenas de índices (dimensões), onde cada índice representa uma característica.
+- As palavras **aeronave** e **avião** têm representações vetoriais com números parecidos, portanto mais **similares**.
+- A **similaridade de cosseno** é um dos algoritmos matemáticos mais usados para comparar dois trechos de texto, usando seu significado semântico (os embeddings).
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="embeddings.png" class="w-full max-w-[380px] rounded-lg mt-[8px]" />
+</div>
+
+---
+layout: default
+---
+
+# A similaridade de cosseno (em detalhes)
+
+#### **Similaridade de cosseno calcula a similaridade entre dois vetores, resultando entre 0 e 1**
+
+<br/>
+
+<div class="[&_table]:w-full text-12px leading-tight [&_td]:py-2 [&_th]:py-3">
+
+| User Prompt | Embedding | Frases (de uma notícia) | Embedding | Similaridade Cosseno |
+| --- | --- | --- | --- | --- |
+| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Neymar aprecia jogos de poker | `[0.89, 0.15, 0.42, …]` | **0.98** |
+| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Neymar deve jogar poker amanhã | `[0.74, 0.33, 0.58, …]` | **0.85** |
+| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Poker é um jogo difícil | `[0.31, 0.76, 0.54, …]` | **0.71** |
+| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Poker exige muita estratégia | `[0.26, 0.81, 0.49, …]` | **0.67** |
+
+</div>
+
+<div class="h-25" />
+
+<Transform :scale="0.7" origin="left bottom">
+
+> [!NOTE]
+> **Similaridade próxima de 1:** os textos são muito semelhantes ou têm contexto/significado parecido.
+> **Similaridade próxima de 0:** os textos não têm relação.
+
+</Transform>
+
+<!--
+## os valores dos embeddings e das similaridades são fictícios, apenas para ilustrar a ideia.
+
+## o mesmo prompt é comparado com cada frase; a frase mais próxima em significado ("aprecia" ≈ "gosta") tem a maior similaridade (0.98).
+
+## "Poker é um jogo difícil" e "exige estratégia" falam de poker, mas não de gostar/jogar → similaridade menor.
+
+## na prática o vetor tem centenas/milhares de dimensões; aqui mostramos só os primeiros índices.
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# RAG: dois fluxos independentes
+
+#### **Sistemas RAG se dividem em dois momentos: indexação e recuperação/geração**
+
+::left::
+
+<div class="text-left w-full self-start [&_ul]:my-0 [&_li]:mb-4">
+
+<div class="h-5" />
+
+- **Indexação:** carrega os documentos, gera os vetores _embeddings_ e guarda em um banco de dados vetorial.
+- **Recuperação e geração:** na pergunta do usuário, busca os trechos mais parecidos, junta ao prompt e o LLM gera a resposta.
+
+</div>
+
+::right::
+
+<div class="flex flex-row items-start justify-center gap-2">
+
+<div class="flex flex-col items-center">
+
+<div class="text-center text-sm">Indexação</div>
+
+<Transform :scale="0.6" origin="top">
+
+```mermaid {theme: 'dark'}
+---
+config:
+  theme: dark
+---
+flowchart TD
+Docs["Documentos"]
+Embed["Embeddings"]
+VDB[("Vector DB")]
+Docs --> Embed --> VDB
+```
+
+</Transform>
+
+</div>
+
+<div class="flex flex-col items-center">
+
+<div class="text-center text-sm">Recuperação e Geração</div>
+
+<Transform :scale="0.6" origin="top">
+
+```mermaid {theme: 'dark', flowchart: { subGraphTitleMargin: { top: 10, bottom: 10 } }}
+---
+config:
+  theme: dark
+  flowchart:
+    subGraphTitleMargin:
+      top: 10
+      bottom: 10
+---
+flowchart TD
+Prompt["Prompt"]
+subgraph RAG["RAG"]
+  Retrieve["Retrieve"]
+  Augment["Augment"]
+  Generate["Generate"]
+  Retrieve --> Augment --> Generate
+end
+Answer["Answer"]
+Prompt --> Retrieve
+Generate --> Answer
+```
+
+</Transform>
+
+</div>
+
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# RAG: exemplo simples
+
+#### **Exemplo abaixo com sistema RAG com ingestão e recuperação**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {8,17,22|all}{maxHeight:'320px',at:+1}
+import asyncio
+import numpy as np
+from dotenv import load_dotenv
+from sentence_transformers import SentenceTransformer
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+model = SentenceTransformer("all-MiniLM-L6-v2")  # roda em CPU
+
+# Corpus "não estruturado" indexado em memória (sem DB)
+docs = [
+    "O Pantanal é a maior planície alagável do mundo.",
+    "A capital da França é Paris.",
+    "O Bitcoin foi criado por Satoshi Nakamoto em 2009.",
+]
+
+doc_vectors = model.encode(docs, normalize_embeddings=True)  # indexação
+
+@function_tool
+def buscar_contexto(pergunta: str) -> str:
+    """Recupera o trecho mais relevante do corpus para a pergunta."""
+    q = model.encode([pergunta], normalize_embeddings=True)[0]
+    scores = doc_vectors @ q          # cosseno (vetores já normalizados)
+    for doc, score in zip(docs, scores):
+        print(f"{score:.3f}  {doc}")
+    return docs[int(np.argmax(scores))]
+
+rag_agent = Agent(
+    name="Assistente RAG",
+    instructions=("Use a ferramenta buscar_contexto para recuperar "
+                  "informação e responda apenas com base nela."),
+    tools=[buscar_contexto],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    result = await Runner.run(starting_agent=rag_agent,
+                              input="Quem criou o Bitcoin?")
+    print(f"Resposta: {result.final_output}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> A **indexação** e a **recuperação** devem usar o mesmo modelo de embedding.
+> 
+> Neste exemplo os vetores **embeddings** são gerados com a lib **SentenceTransformer** (local, sem custo), e não pela API da OpenAI (nuvem, com custo).
