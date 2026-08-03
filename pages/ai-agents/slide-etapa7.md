@@ -358,7 +358,7 @@ source: https://openai.github.io/openai-agents-python/tools/
 
 # RAG com dados estruturados
 
-#### **Exemplos de dados estruturados: API, banco, arquivo**
+#### **Exemplos de dados estruturados: API, banco de dados, arquivo csv, json, xml**
 
 <div class="h-2" />
 
