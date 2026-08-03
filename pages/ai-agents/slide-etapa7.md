@@ -683,3 +683,88 @@ if __name__ == "__main__":
 > A **indexação** e a **recuperação** devem usar o mesmo modelo de embedding.
 > 
 > Neste exemplo os vetores **embeddings** são gerados com a lib **SentenceTransformer** (local, sem custo), e não pela API da OpenAI (nuvem, com custo).
+
+---
+layout: section
+---
+
+## Live Coding
+📚 **Agente:** bibliotecário que responde sobre políticas de empréstimo e devolução.
+
+##### **1. Crie cinco políticas diferentes (empréstimo/devolução)**
+##### **2. Faça a indexação das políticas como embeddings (memória)**
+##### **3. Crie o pipeline de recuperação/geração RAG**
+##### **4. Execute um prompt sobre um texto que existe nos embeddings**
+##### **5. Execute um prompt sobre um texto que NÃO exista (defina um threshold)**
+
+<!--
+=================================================================
+main.py — RAG de políticas da biblioteca (embeddings em memória)
+
+import asyncio
+import numpy as np
+from dotenv import load_dotenv
+from sentence_transformers import SentenceTransformer
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# 1. Cinco políticas de empréstimo/devolução
+policies = [
+    "O prazo de empréstimo padrão é de 14 dias corridos.",
+    "Cada usuário pode ter no máximo 5 livros emprestados ao mesmo tempo.",
+    "A renovação pode ser feita 2 vezes, se não houver reserva do título.",
+    "O atraso na devolução gera multa de R$ 1,00 por dia por livro.",
+    "Livros de referência só podem ser consultados no local, sem empréstimo.",
+]
+
+# 2. Indexação das políticas como embeddings (em memória)
+policy_vectors = model.encode(policies, normalize_embeddings=True)
+
+THRESHOLD = 0.35  # similaridade mínima para considerar relevante
+
+# 3. Pipeline de recuperação (a geração fica a cargo do agente)
+@function_tool
+def buscar_politica(pergunta: str) -> str:
+    """Recupera a política mais relevante para a pergunta do usuário."""
+    q = model.encode([pergunta], normalize_embeddings=True)[0]
+    scores = policy_vectors @ q
+    for pol, score in zip(policies, scores):
+        print(f"{score:.3f}  {pol}")
+    best = int(np.argmax(scores))
+    if scores[best] < THRESHOLD:
+        return "NENHUMA_POLITICA_RELEVANTE"
+    return policies[best]
+
+bibliotecario = Agent(
+    name="Bibliotecário",
+    instructions=(
+        "Responda sobre políticas de empréstimo e devolução usando a "
+        "ferramenta buscar_politica. Se ela retornar "
+        "'NENHUMA_POLITICA_RELEVANTE', diga que não há política sobre o tema."
+    ),
+    tools=[buscar_politica],
+)
+
+async def perguntar(texto: str):
+    result = await Runner.run(starting_agent=bibliotecario, input=texto)
+    print(f"\nP: {texto}\nR: {result.final_output}\n")
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    # 4. Pergunta cuja resposta EXISTE nos embeddings
+    await perguntar("Qual é a multa por atraso na devolução?")
+    # 5. Pergunta FORA do corpus (cai no threshold)
+    await perguntar("A biblioteca tem uma cafeteria?")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+
+=================================================================
+## o threshold (0.35) evita "alucinar" contexto: sem política relevante, o agente admite que não sabe.
+## ajuste o valor observando os scores impressos pela tool para calibrar o corte.
+-->
