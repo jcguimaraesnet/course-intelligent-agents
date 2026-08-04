@@ -265,3 +265,14 @@ if __name__ == "__main__":
 > O documento é uma **notícia fatiada em frases** (chunks): cada frase vira chuncks na forma de embeddings (vetores).
 > 
 > Na pergunta, o RAG recupera **a frase mais parecida** com a pergunta e o LLM responde com base apenas nela.
+
+<!--
+## https://huggingface.co/datasets/iara-project/news-articles-ptbr-dataset/viewer/default/train
+
+## `database_vector @ query` — o `@` é o operador de multiplicação de matrizes do NumPy (produto escalar). Como os vetores estão normalizados, esse produto entre a matriz de chunks e o vetor da pergunta devolve diretamente a similaridade de cosseno de cada chunk.
+
+## `normalize_embeddings=True` — coloca todo embedding com norma 1 (vetor unitário). É isso que permite trocar a similaridade de cosseno por um simples produto escalar (`@`); sem normalizar, seria preciso dividir pela norma dos vetores.
+
+## `zip(chunks, scores)` — junta cada chunk ao seu score correspondente, par a par (chunk[0] com score[0], chunk[1] com score[1]...), permitindo iterar sobre os dois ao mesmo tempo no `for` e imprimir texto + similaridade.
+
+-->
