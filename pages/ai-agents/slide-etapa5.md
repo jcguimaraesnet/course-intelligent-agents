@@ -1005,6 +1005,50 @@ INPUTS DE TESTE (digite no console)
 
 ---
 layout: default
+layoutClass: gap-8
+---
+
+# Live coding: codificação assistida por IA
+
+#### **Prompt para gerar o assistente bibliotecário (function tool + JSON)**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um assistente bibliotecário que consulta o acervo e responde
+sobre os livros disponíveis usando uma ferramenta.
+
+# Contexto
+1. Em "seed_faker.py", gere um "livros.json" com 5 livros usando Faker
+   (locale "pt_BR") com SEED FIXA (`Faker.seed(42)` e `random.seed(42)`),
+   salvando com `json.dump(..., ensure_ascii=False, indent=2)`. Cada
+   registro: titulo, autor, ano e exemplares.
+2. Em "main.py", use o OpenAI Agents SDK, assíncrono, lendo o ".env";
+   configure `set_default_openai_api("chat_completions")` e
+   `set_tracing_disabled(True)`.
+3. Crie uma `@function_tool` "buscar_livro" com type hints e docstring
+   clara, que lê o "livros.json" e retorna o livro pelo título (falha
+   segura com ValueError se não encontrar).
+4. Crie um agente Bibliotecário que usa a ferramenta e inclui na resposta
+   os resultados das chamadas de ferramenta.
+5. Demonstre com uma pergunta de usuário definida no script:
+   - "Quantos exemplares temos do livro <titulo>?" (use um título real
+     presente no livros.json gerado)
+
+# Saída e Verificação
+- Gere seed_faker.py, livros.json e main.py.
+- O código deve ser funcional e pronto para execução
+```
+</WindowMockup>
+
+---
+layout: default
 ---
 
 # Hands-on

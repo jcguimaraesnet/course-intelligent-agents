@@ -778,6 +778,49 @@ if __name__ == "__main__":
 
 ---
 layout: default
+layoutClass: gap-8
+---
+
+# Live coding: codificação assistida por IA
+
+#### **Prompt para gerar o assistente bibliotecário (RAG com threshold)**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um assistente bibliotecário que responde sobre políticas de
+empréstimo e devolução usando RAG (recuperação semântica).
+
+# Contexto
+1. Em "main.py", use o OpenAI Agents SDK, assíncrono, lendo o ".env";
+   configure `set_default_openai_api("chat_completions")` e
+   `set_tracing_disabled(True)`.
+2. Defina 5 políticas diferentes de empréstimo/devolução como uma lista
+   de textos.
+3. Indexe as políticas como embeddings em memória com
+   `sentence-transformers` (modelo local, ex.: "all-MiniLM-L6-v2").
+4. Crie uma `@function_tool` de recuperação que calcula a similaridade de
+   cosseno entre a pergunta e as políticas e retorna a mais relevante.
+5. Use um THRESHOLD de similaridade: se nenhuma política passar do corte,
+   retorne "NENHUMA_POLITICA_RELEVANTE" para o agente admitir que não sabe.
+6. Demonstre com perguntas de usuário definidas no script:
+   - "Qual é a multa por atraso na devolução?" (existe no corpus)
+   - "A biblioteca tem uma cafeteria?" (fora do corpus -> cai no threshold)
+
+# Saída e Verificação
+- Gere main.py.
+- O código deve ser funcional e pronto para execução
+```
+</WindowMockup>
+
+---
+layout: default
 ---
 
 # Hands-on

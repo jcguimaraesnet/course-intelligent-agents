@@ -1351,6 +1351,50 @@ Comprei o ingresso errado, consigo o dinheiro de volta?
 
 ---
 layout: default
+layoutClass: gap-8
+---
+
+# Live coding: codificação assistida por IA
+
+#### **Prompt para gerar o assistente de triagem (handoff entre agentes)**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um assistente de triagem que encaminha o cliente para um
+especialista em compras ou em reembolsos de ingressos.
+
+# Contexto
+1. Crie "purchase.md" (política de compra) e "refund.md" (política de
+   reembolso), cada um com alguns tópicos curtos.
+2. Em "main.py", use o OpenAI Agents SDK, assíncrono, lendo o ".env";
+   configure `set_tracing_disabled(True)`.
+3. Use um dataclass Policies e `RunContextWrapper` para injetar a base de
+   conhecimento de cada agente dinamicamente (instructions como função).
+4. Use `OpenAIChatCompletionsModel` para permitir provedores diferentes
+   por agente (ex.: um provedor para a triagem, outro para os especialistas).
+5. Crie um agente Triagem que usa `handoff` para transferir a conversa ao
+   agente Compras ou ao agente Reembolsos conforme a dúvida.
+6. Execute em streaming com efeito de digitação (imprima os deltas com
+   `end="", flush=True`) e capture o evento de transferência de agente.
+7. Demonstre com perguntas de usuário definidas no script:
+   - "Posso parcelar a compra no cartão?" (handoff -> Compras)
+   - "Comprei o ingresso errado, consigo reembolso?" (handoff -> Reembolsos)
+
+# Saída e Verificação
+- Gere purchase.md, refund.md e main.py.
+- O código deve ser funcional e pronto para execução
+```
+</WindowMockup>
+
+---
+layout: default
 ---
 
 # Hands-on

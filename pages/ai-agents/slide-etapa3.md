@@ -667,6 +667,51 @@ Qual a previsão do tempo para amanhã?
 
 ---
 layout: default
+layoutClass: gap-8
+---
+
+# Live coding: codificação assistida por IA
+
+#### **Prompt para gerar o assistente de ingressos (FAQ + saída estruturada)**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um assistente virtual que responde dúvidas sobre compra de
+ingressos a partir de uma FAQ, com saída estruturada e escopo restrito.
+
+# Contexto
+1. Crie um "faq.md" com ao menos 10 perguntas e respostas sobre compra
+   e uso de ingressos (pagamento, reembolso, meia-entrada, etc.).
+2. Em "prompts.py", defina um SYSTEM_PROMPT com papel, instruções, a
+   base de conhecimento (a FAQ) e o formato de saída.
+3. Em "main.py", use o OpenAI Agents SDK (`Agent` e `Runner`), assíncrono,
+   lendo o ".env"; configure `set_default_openai_api("chat_completions")`
+   e `set_tracing_disabled(True)`.
+4. Use `output_type` com um dataclass de saída estruturada: resposta (str),
+   nivel_de_dificuldade ("facil"/"media"/"dificil") e pergunta_na_base (bool).
+5. Restrinja o escopo: responda apenas sobre ingressos usando SOMENTE a
+   FAQ; se for do negócio mas fora da base, dê uma resposta genérica
+   padrão; se for de outro domínio, recuse educadamente.
+6. Demonstre com perguntas de usuário definidas no script:
+   - "Quais são as formas de pagamento aceitas?" (dentro da base)
+   - "Qual o valor do ingresso da final?" (no negócio, fora da base)
+   - "Qual a previsão do tempo amanhã?" (fora de escopo -> recusa)
+
+# Saída e Verificação
+- Gere faq.md, prompts.py e main.py.
+- O código deve ser funcional e pronto para execução
+```
+</WindowMockup>
+
+---
+layout: default
 ---
 
 # Hands-on

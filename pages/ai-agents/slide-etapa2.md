@@ -1455,7 +1455,7 @@ source: https://github.com/linshenkx/prompt-optimizer
 
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
 
-```md {*}{maxHeight:'280px'}
+```md {*}{maxHeight:'290px'}
 # Papel
 Você é um engenheiro de IA especialista em sistemas agênticos.
 

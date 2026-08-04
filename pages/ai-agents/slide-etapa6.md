@@ -756,6 +756,50 @@ INPUTS DE TESTE (digite no console)
 
 ---
 layout: default
+layoutClass: gap-8
+---
+
+# Live coding: codificação assistida por IA
+
+#### **Prompt para gerar o assistente bibliotecário (saída tipada com Pydantic)**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um assistente bibliotecário que retorna um livro e seu
+histórico de empréstimos como saída tipada (Pydantic aninhado).
+
+# Contexto
+1. Em "seed_faker.py", gere um "livros.json" com 5 livros usando Faker
+   (locale "pt_BR") com SEED FIXA (`Faker.seed(42)` e `random.seed(42)`),
+   salvando com `json.dump(..., ensure_ascii=False, indent=2)`. Cada livro
+   tem title, author, year e uma lista "loans" (borrower, loan_date, returned).
+2. Em "main.py", defina dois modelos Pydantic aninhados: `Loan` (borrower,
+   loan_date, returned) e `Book` (title, author, year, loans: list[Loan]).
+3. Use o OpenAI Agents SDK, assíncrono, lendo o ".env"; configure
+   `set_default_openai_api("chat_completions")` e `set_tracing_disabled(True)`.
+4. Crie uma `@function_tool` "buscar_livro" com type hints e docstring que
+   lê o "livros.json" e retorna o livro pelo título (ValueError se não achar).
+5. Crie um agente Bibliotecário com `output_type=Book`, para a resposta vir
+   validada como objeto tipado (com a lista de Loan aninhada).
+6. Demonstre com uma pergunta de usuário definida no script:
+   - "Retorne o livro <titulo> com seu histórico de empréstimos" (use um
+     título real presente no livros.json gerado)
+
+# Saída e Verificação
+- Gere seed_faker.py, livros.json e main.py.
+- O código deve ser funcional e pronto para execução
+```
+</WindowMockup>
+
+---
+layout: default
 ---
 
 # Hands-on

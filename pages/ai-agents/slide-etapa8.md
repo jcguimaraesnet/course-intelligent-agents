@@ -336,7 +336,7 @@ layoutClass: gap-8
 
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
 
-```md {*}{maxHeight:'320px'}
+```md {*}{maxHeight:'290px'}
 # Papel
 Você é um engenheiro de IA especialista em sistemas agênticos.
 
