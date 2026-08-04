@@ -59,6 +59,35 @@ Uvi -- Response --> Req
 ---
 layout: two-cols-header
 layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: FastAPI
+source: https://github.com/fastapi/fastapi
+---
+
+# FastAPI: documentação automática
+
+#### **O FastAPI gera a documentação da API automaticamente no padrão OpenAPI/Swagger**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-18px w-full self-start [&_ul]:my-1 [&_li]:mb-4">
+
+- É possível acessar a página de documentação gerada automaticamente acessando a rota `http://localhost:8000/docs`
+- Na página de documentação do Swagger é possível enviar requisições à sua API para **testar rapidamente um endpoint**.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="doc-open-api.png" class="w-full max-w-[350px] rounded-lg mt-[8px]" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 sourceLabel: FastAPI
 source: https://github.com/fastapi/fastapi
 ---
