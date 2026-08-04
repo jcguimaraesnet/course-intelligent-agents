@@ -1298,73 +1298,12 @@ para o gpt 5.6 terra no arquivo `@.env`
 
 
 ---
-layout: default
-layoutClass: gap-8
-sourceLabel: Prompt Optimizer
-source: https://github.com/linshenkx/prompt-optimizer
----
-
-# Codificação assistida por IA - parte 3
-
-#### **Usando o agente de codificação para gerar código**
-
-<div class="h-7" />
-
-<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
-
-```md {*}{maxHeight:'280px'}
-# Tarefa
-Você deve desenvolver um script Python que atenda aos seguintes requisitos:
-
-# Requisitos:
-1. O script deve se chamar "main.py"
-2. Utilize o OpenAI Agents SDK, especificamente as classes `Agent` e `Runner`
-3. Crie um agente com a função de engenheiro de software
-4. O prompt do usuário passado ao `Runner` deve perguntar "O que é injeção de dependência?"
-5. Utilize programação assíncrona
-6. Variáveis de ambientes devem ser lidas do arquivo .env
-7. Ao final do script, imprima a resposta do agente no console
-
-# Validações
-- O código deve ser funcional e pronto para execução
-
-# Saída
-- Desenvolva o código python no arquivo @main.py
-- Coloque o prompt em um novo arquivo chamado prompt.py
-```
-</WindowMockup>
-
-<!--
-# 1 - para gerar código correto, é preciso entender os conceitos previamente
-
-# 2 - para gerar código correto, é preciso validar a geração do código (human-in-the-loop).
-
-# 3 - use o prompt menos sofisticado abaixo e reformule pelo prompt generator do claude
-
-`https://platform.claude.com/workbench/`
-`https://github.com/linshenkx/prompt-optimizer`
-
-```
-Escreva num script Python que use o SDK Agents da OpenAI, usando as classes Agent e Runner, onde o agente tem um papel de engenheiro de software e o user prompt usado no Runner é de uma pergunta sobre o que é injeção de dependência. 
-
-Ao final do script deve ser impresso a resposta da pergunta sobre injeção de dependência. Gere um script que use programação assíncrona. 
-
-Faça tudo isso no arquivo main.py
-```
-
-
-
-
--->
-
-
----
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
-# Codificação assistida por IA - parte 4
+# Codificação assistida por IA - parte 3
 #### **Codificação clássica e assistida por IA em coexistência**
 
 ::left::
@@ -1397,7 +1336,9 @@ layout: section
 ---
 
 ## Live Coding
-🤖 **Agente:** um atendente de sorveteria que conversa, lembra do que você disse e mostra o custo de cada turno
+🤖 **Agente:** um atendente de sorveteria que conversa, lembra do que você disse, e criativo.
+##### **1. Faça uma versão com _OpenAI SDK_**
+##### **1. Faça uma versão com _OpenAI Agents SDK_**
 
 <!--
 Cobre toda a Etapa 2 sem tocar na Responses API: .env + provedor gratuito, chat_completions,
@@ -1498,6 +1439,74 @@ Dentro do loop, logo após imprimir a resposta:
 >>> É o histórico inteiro sendo reenviado — prova ao vivo do slide 41.
 >>> E amarra o slide 48: o max_tokens segura o output, mas contra o input crescente não faz nada.
 -->
+
+---
+layout: default
+layoutClass: gap-8
+sourceLabel: Prompt Optimizer
+source: https://github.com/linshenkx/prompt-optimizer
+---
+
+# Codificação assistida por IA - parte 4
+
+#### **Live coding: usando o agente de codificação para gerar código**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'280px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um atendente de sorveteria que conversa, lembra do que foi
+dito e responde de forma criativa, em duas versões equivalentes.
+
+# Contexto
+1. Gere dois scripts equivalentes: "main-openai.py" (usando o OpenAI SDK)
+   e "main-agents.py" (usando o OpenAI Agents SDK).
+2. Em ambos, o agente é um atendente de sorveteria, simpático e direto,
+   com programação assíncrona e variáveis lidas do ".env".
+3. Na versão Agents SDK, configure `set_default_openai_api("chat_completions")`
+   e `set_tracing_disabled(True)` (modelo não-OpenAI).
+4. Para respostas criativas, use temperatura alta (ex.: `temperature=1.2`).
+5. Mantenha um histórico de mensagens (roles user/assistant) que é
+   reenviado a cada nova pergunta, dando memória à conversa.
+6. Faça duas perguntas de usuário definidas no script:
+   - "Quero algo gelado com chocolate, o que você tem?" (inicial)
+   - "E qual é o mais doce?" (curta, depende do contexto anterior)
+7. Ao final, imprima no console a resposta do agente para cada pergunta.
+
+# Saída e Verificação
+- Gere main-openai.py e main-agents.py.
+- O código deve ser funcional e pronto para execução
+```
+</WindowMockup>
+
+<!--
+# 1 - para gerar código correto, é preciso entender os conceitos previamente
+
+# 2 - para gerar código correto, é preciso validar a geração do código (human-in-the-loop).
+
+# 3 - use o prompt menos sofisticado abaixo e reformule pelo prompt generator do claude
+
+`https://platform.claude.com/workbench/`
+`https://github.com/linshenkx/prompt-optimizer`
+
+```
+Escreva num script Python que use o SDK Agents da OpenAI, usando as classes Agent e Runner, onde o agente tem um papel de engenheiro de software e o user prompt usado no Runner é de uma pergunta sobre o que é injeção de dependência. 
+
+Ao final do script deve ser impresso a resposta da pergunta sobre injeção de dependência. Gere um script que use programação assíncrona. 
+
+Faça tudo isso no arquivo main.py
+```
+
+
+
+
+-->
+
 
 ---
 layout: default
