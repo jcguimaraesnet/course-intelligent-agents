@@ -15,7 +15,7 @@ source: https://github.com/fastapi/fastapi
 
 # FastAPI: um framework para Web API
 
-#### **FastAPI é um dos frameworks mais usados para construir Web API em Python**
+#### **FastAPI é um dos frameworks mais usados para construir Web API REST em Python**
 
 ::left::
 
@@ -131,6 +131,60 @@ def indexing_controller(text: str):
 
 > [!NOTE]
 > Cada função decorada expõe um **endpoint** (url HTTP) na internet através de verbos (`GET`, `POST`).
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: FastAPI
+source: https://github.com/fastapi/fastapi
+---
+
+# FastAPI: validação Pydantic
+
+#### **FastAPI permite usar Pydantic, para validar dados em formato limpo e conhecido**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {4,6-8,10-12,16-26|all}{maxHeight:'320px',at:+1}
+# uv add "fastapi[standard]" uvicorn pydantic
+# uv run fastapi dev
+
+from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+class MessageRequest(BaseModel):
+    systemPrompt: str = Field(
+        min_length=1, max_length=100, description="Instrução do sistema"
+    )
+    userPrompt: str = Field(
+        min_length=1, max_length=100, description="Mensagem do usuário"
+    )
+
+class MessageResponse(BaseModel):
+    status: str
+    messages: list[dict]
+
+app = FastAPI()
+
+@app.post("/agent/chat")
+def chat_controller(req: MessageRequest) -> MessageResponse:
+    return MessageResponse(
+        status="success",
+        messages=[
+            {"role": "system", "content": req.systemPrompt},
+            {"role": "user", "content": req.userPrompt},
+            {"role": "assistant", "content": "Resposta do assistente."},
+        ]
+    )
+```
+
+::right::
+
+> [!NOTE]
+> O FastAPI integra-se ao **Pydantic** para validar automaticamente os dados recebidos em chamadas `POST`, garantindo tipos e campos obrigatórios preenchidos.
+
 
 <!--
 
