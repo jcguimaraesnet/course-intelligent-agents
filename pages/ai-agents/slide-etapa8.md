@@ -330,7 +330,7 @@ layoutClass: gap-8
 
 # Live coding: codificação assistida por IA
 
-#### **Prompt para gerar o assistente de RH**
+#### **Prompt para gerar o exercício proposto no live coding**
 
 <div class="h-7" />
 
