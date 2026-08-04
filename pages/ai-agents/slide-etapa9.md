@@ -55,3 +55,50 @@ Uvi -- Response --> Req
 </Transform>
 
 </div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: FastAPI
+source: https://github.com/fastapi/fastapi
+---
+
+# FastAPI: um exemplo simples
+
+#### **O FastAPI permite criar rotas de Web API facilmente com decoradores**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {1-2,6,8-9,13-14,22-23|all}{maxHeight:'320px',at:+1}
+# uv add "fastapi[standard]" uvicorn
+# uv run fastapi dev
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def root_controller():
+    return {"status": "healthy"}
+
+@app.get("/agent/chat")
+def chat_controller(prompt: str):
+    return {
+        "messages": [
+            {"role": "system", "content": "Você é um assistente"},
+            {"role": "user", "content": prompt},
+            {"role": "assistant", "content": "Resposta do assistente."},
+        ]
+    }
+
+@app.post("/agent/indexing")
+def indexing_controller(text: str):
+    return {"status": "Texto indexado com sucesso"}
+```
+
+::right::
+
+> [!NOTE]
+> Cada função decorada expõe um **endpoint** (url HTTP) na internet através de verbos (`GET`, `POST`).
