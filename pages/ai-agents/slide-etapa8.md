@@ -276,3 +276,99 @@ if __name__ == "__main__":
 ## `zip(chunks, scores)` — junta cada chunk ao seu score correspondente, par a par (chunk[0] com score[0], chunk[1] com score[1]...), permitindo iterar sobre os dois ao mesmo tempo no `for` e imprimir texto + similaridade.
 
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Agente integrador: memória e conhecimento
+
+#### **_No cenário de negócio abaixo, que parte do quadrante resolve cada problema?_**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-left w-full self-start text-18px [&_p]:mb-4">
+
+**Cenário de negócio:**
+
+Um assistente virtual de RH é disponibilizado a todos os funcionários de uma empresa. Os funcionários devem ser capazes de consultar seu histórico de férias, além de políticas de férias. O assistente deve responder contextualmente, além de preservar e retomar conversas antigas.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="agent-memory-knowledge-pattern.png" class="w-full max-w-[380px] rounded-lg mt-[30px]" />
+</div>
+
+<!--
+## pergunta 1: quem é o conhecimento interno? como ele foi usado?
+## pergunta 2: quem é o conhecimento externo? 
+## pergunta 3: o conhecimento externo pode se apresentar de duas formas, quais?
+-->
+
+---
+layout: section
+---
+
+## Live coding
+🧑‍💼 **Agente:** assistente de RH que integra memória e conhecimento externo (RAG).
+
+##### **1. RAG estruturado (JSON) — consulta o histórico de férias**
+##### **2. RAG não estruturado — recupera trechos das políticas de férias (markdown)**
+##### **3. Chat contextual — entende perguntas de acompanhamento no mesmo diálogo**
+##### **4. SQLiteSession — persiste e retoma conversas antigas entre sessões**
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Live coding: codificação assistida por IA
+
+#### **Prompt para gerar o assistente de RH**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'320px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um assistente de RH de férias em Python que combine memória
+de conversa e recuperação semântica (RAG), usando o OpenAI Agents SDK.
+
+# Contexto
+1. Script principal "main.py" com as classes `Agent` e `Runner`,
+   em programação assíncrona; variáveis de ambiente lidas do ".env".
+2. Gere um "ferias.json" com o HISTÓRICO DE FÉRIAS de 5 funcionários,
+   usando Faker (locale "pt_BR") com SEED FIXA (`Faker.seed(42)` e
+   `random.seed(42)`) e salvando com
+   `json.dump(..., ensure_ascii=False, indent=2)`. Cada registro tem
+   "name" e uma lista de períodos gozados (data_inicio, data_fim, dias).
+3. Crie um "politicas.md" com 5 parágrafos apenas sobre a política
+   de férias da empresa.
+4. Tool 1 (RAG estruturado): @function_tool que consulta o
+   "ferias.json" e retorna o histórico de férias de um funcionário.
+5. Tool 2 (RAG não estruturado): indexe os parágrafos de
+   "politicas.md" como embeddings e recupere o mais relevante.
+6. Persista e retome a conversa com SQLiteSession (arquivo em disco).
+7. Chat contextual: loop que aceita perguntas de acompanhamento
+   mantendo o contexto do diálogo.
+8. Demonstre o assistente com perguntas de usuário definidas no
+   próprio script, cada uma exercitando um recurso:
+   - "Quando foram minhas últimas férias?" -> aciona a Tool 1 (JSON).
+   - "Qual a antecedência mínima para solicitar férias?" -> Tool 2 (md).
+   - "E para fracionar?" -> usa o histórico da sessão (contexto).
+
+# Saída e Verificação
+- Gere main.py, ferias.json e politicas.md.
+- O código deve ser totalmente funcional e compilável.
+```
+</WindowMockup>
