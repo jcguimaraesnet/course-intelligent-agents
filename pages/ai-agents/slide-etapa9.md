@@ -131,3 +131,13 @@ def indexing_controller(text: str):
 
 > [!NOTE]
 > Cada função decorada expõe um **endpoint** (url HTTP) na internet através de verbos (`GET`, `POST`).
+
+<!--
+
+## na resposta da Swagger, é devolvido um curl - testar o curl
+
+## na resposta da Swagger, é devolvido a URL para testar o get direto no navegador
+
+## testar a rota root com healthy check
+
+-->
