@@ -1,6 +1,6 @@
 ---
 theme: dracula
-title: "Agentes com Python"
+title: "Curso Agentes de IA"
 info: |
   Fundamentos de Agentes com Python e APIs
   Desenvolvimento de Agentes Inteligentes
@@ -184,47 +184,47 @@ class: flex items-center justify-center
 </div>
 
 ---
-src: ./pages/ai-agents/slide-etapa1.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa1.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa2.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa2.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa3.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa3.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa4.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa4.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa5.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa5.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa6.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa6.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa7.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa7.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa8.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa8.md # This slide only contains a frontmatter
 ---
 
 
 ---
-src: ./pages/ai-agents/slide-etapa9.md  # This slide only contains a frontmatter
+src: ./pages/ai-agents/slide-etapa9.md # This slide only contains a frontmatter
 ---
 
 
