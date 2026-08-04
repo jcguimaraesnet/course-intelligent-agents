@@ -106,3 +106,162 @@ layout: default
 | **Por tópico ou seção** | Divie o documento com base em suas seções ou parágrafos (quando o documentos está estruturado dessa forma). |
 
 </div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# RAG: chunk de tamanho fixo
+
+#### **Um exemplo de documento com chunk de tamanho fixo**
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-4">
+
+<div class="h-5" />
+
+- É a abordagem mais simples, mas às vezes pode **fragmentar informações** que, idealmente, deveriam ser mantidas juntas (coesão semântica).
+- No exemplo ao lado, um documento (constituição do Reino Unido), onde **cada cor é um chunk** de tamanho fixo, abrangendo parte de parágrafos.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+    <AssetImg src="chunk-fixed-sizing.png" class="w-full max-w-[420px] rounded-lg" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Text Splitters
+source: https://python.langchain.com/docs/how_to/character_text_splitter/
+---
+
+# RAG: chunk por parágrafo
+
+#### **Usando o pacote do langchain para fazer chunk por parágrafo, tamanho máximo e overlap**
+
+<div class="h-2" />
+
+::left::
+
+```python [chunking.py] {6-7|all}{at:+1}
+# uv add langchain-text-splitters
+from langchain_text_splitters import (
+    CharacterTextSplitter)
+
+splitter = CharacterTextSplitter(
+    separator=r"\n\s*\n",
+    is_separator_regex=True,
+    chunk_size=500,
+)
+chunks = splitter.split_text(texto)
+```
+
+::right::
+
+> [!IMPORTANT]
+> O **CharacterTextSplitter** corta o texto em **parágrafos** (regex `\n\s*\n`) e os aglutina em chunks de **até 500 caracteres** (`chunk_size`).
+> 
+> `is_separator_regex=True` faz o separador ser interpretado como **expressão regular** — aqui, "uma linha em branco entre parágrafos".
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Tools
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# RAG: exemplo com chunk
+
+#### **Exemplo abaixo com sistema RAG com ingestão (chunk) e recuperação**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {21,31,34,67-68|all}{maxHeight:'320px',at:+1}
+# uv add numpy
+# uv add python-dotenv
+# uv add datasets
+# uv add sentence-transformers
+# uv add langchain-text-splitters
+# uv add openai-agents
+
+import asyncio
+import numpy as np
+from dotenv import load_dotenv
+from datasets import load_dataset
+from sentence_transformers import SentenceTransformer
+from langchain_text_splitters import CharacterTextSplitter
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+
+# carrega o modelo de embeddings local (roda em CPU)
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+# carrega uma notícia pequena do dataset (Hugging Face)
+ds = load_dataset("iara-project/news-articles-ptbr-dataset",
+                  split="train")
+texto = ds[0]["text"]
+
+# chunk pequeno: chunk_size baixo faz cada frase virar um documento
+splitter = CharacterTextSplitter(
+    separator=r"\. ",
+    is_separator_regex=True,
+    chunk_size=200,
+)
+chunks = splitter.split_text(texto)
+
+# fluxo de indexação dos chunks (frases) em embeddings
+database_vector = model.encode(chunks, normalize_embeddings=True)
+
+# imprime cada frase indexada
+for i, doc in enumerate(chunks):
+    print(f"[{i}] {doc}")
+
+@function_tool
+def buscar_contexto(pergunta: str) -> str:
+    """Recupera o trecho mais relevante do corpus para a pergunta."""
+    # gera o embedding da pergunta
+    query = model.encode([pergunta], normalize_embeddings=True)[0]
+    # similaridade de cosseno entre a pergunta e cada frase
+    scores = database_vector @ query
+    # percorre cada frase com seu score
+    for doc, score in zip(chunks, scores):
+        # imprime o score e o texto (apenas para depuração)
+        print(f"{score:.3f}  {doc}")
+    # retorna a frase de maior similaridade
+    return chunks[int(np.argmax(scores))]
+
+rag_agent = Agent(
+    name="Assistente RAG",
+    instructions=("Use a ferramenta buscar_contexto para recuperar "
+                  "informação e responda apenas com base nela."),
+    tools=[buscar_contexto],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    result = await Runner.run(starting_agent=rag_agent,
+                              input="Em que mês Iran Ferreira, "
+                "o Luva de Pedreiro, anunciou que seria pai?")
+    print(f"Resposta: {result.final_output}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!IMPORTANT]
+> O documento é uma **notícia fatiada em frases** (chunks): cada frase vira chuncks na forma de embeddings (vetores).
+> 
+> Na pergunta, o RAG recupera **a frase mais parecida** com a pergunta e o LLM responde com base apenas nela.
