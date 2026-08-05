@@ -493,3 +493,65 @@ uv run ruff check --fix .
 ## Formatar todo o código automaticamente
 uv run ruff format .
 -->
+
+---
+layout: section
+---
+
+## Live coding
+🤖 **Agente** com três Web APIs: uma rota POST, GET (status) e GET (resposta).
+
+##### **1. Web API assíncrona — endpoint `async def` que recebe a pergunta do usuário via POST**
+##### **2. Modelos Pydantic — validação do request e response com `BaseModel` e `Field`**
+##### **3. BackgroundTasks — agente com RAG sobre políticas de férias processa a pergunta em segundo plano**
+##### **4. Polling — cliente consulta o status e obtém a resposta quando concluída**
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Live coding: codificação assistida por IA
+
+#### **Prompt para gerar o exercício proposto no live coding**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos e Web APIs.
+
+# Tarefa
+Desenvolva uma Web API assíncrona em Python com FastAPI que exponha
+um agente de RH com RAG sobre políticas de férias através de três endpoints REST.
+
+# Contexto
+1. Script principal "main.py" com FastAPI e Uvicorn, usando `async def`
+   em todos os endpoints; variáveis de ambiente lidas do ".env".
+2. Crie um "politicas.md" com 5 parágrafos apenas sobre a política
+   de férias da empresa. Indexe os parágrafos como embeddings em memória
+   usando SentenceTransformer no startup da aplicação.
+3. Modelos Pydantic com `BaseModel` e `Field(description=...)` para
+   validar request e response de todos os endpoints.
+4. Endpoint 1 (POST /agent/ask): recebe a pergunta do usuário no body,
+   registra a tarefa como "pendente", adiciona ao `BackgroundTasks`
+   e retorna imediatamente o `task_id` com status 202 Accepted.
+5. Endpoint 2 (GET /agent/status/{task_id}): retorna o status atual
+   da tarefa ("pendente", "processando" ou "concluida").
+6. Endpoint 3 (GET /agent/result/{task_id}): retorna a resposta
+   gerada pelo agente quando a tarefa estiver concluída.
+7. A função de background deve: recuperar o chunk mais similar via
+   similaridade de cosseno, montar o prompt com o contexto e invocar
+   o agente (OpenAI Agents SDK com `Runner.run`).
+8. Crie um "client.py" com httpx que faz POST, polling no status
+   a cada 5 segundos e exibe a resposta final.
+
+# Saída e Verificação
+- Gere main.py, politicas.md e client.py.
+- O código deve ser totalmente funcional e compilável.
+- Siga as convenções do PEP 8.
+```
+</WindowMockup>
+
