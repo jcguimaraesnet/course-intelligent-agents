@@ -563,7 +563,7 @@ layout: default
 
 <br/>
 
-🛠️ &nbsp;**Exercício \#1:** Crie uma Web API com FastAPI contendo rotas POST e GET com modelos Pydantic.
+🛠️ &nbsp;**Exercício \#1:** Crie uma Web API com FastAPI com rotas POST e GET com modelos Pydantic.
 
 🛠️ &nbsp;**Exercício \#2:** Adicione uma tarefa em segundo plano com BackgroundTasks e um endpoint de status.
 
@@ -573,10 +573,10 @@ layout: default
 
 <br/>
 
-- [ ] valide request e response com `BaseModel` e `Field(description=...)`
-- [ ] use `status_code=status.HTTP_202_ACCEPTED` no POST de tarefas assíncronas
-- [ ] execute o agente com `Runner.run` dentro da função de background
-- [ ] faça polling com `httpx.AsyncClient` a cada 5 segundos no client.py
+- [ ] valide request e response usando modelos Pydantic
+- [ ] use status code 202 na Web API de POST
+- [ ] execute o agente na tarefa de segundo plano
+- [ ] faça polling com a lib `httpx.AsyncClient` a cada 5 segundos
 
 <br/>
 
@@ -597,5 +597,12 @@ dentro da função de background, recuperando o chunk mais relevante.
 Crie um client.py que faz POST para iniciar a tarefa, consulta o
 status a cada 5 segundos e exibe a resposta final quando concluída.
 -->
+
+---
+layout: section
+---
+
+# FIM
+
 
 
