@@ -326,3 +326,70 @@ def sync_endpoint():
 > Em **APIs assíncronas**, quando o servidor encontra um `await`, o servidor libera a thread para atender outras requisições enquanto aguarda a resposta I/O.
 > 
 > Use Web APIs assíncronas nos cenários de código com `await` (chamada a outras Web APIs e LLMs, banco de dados, arquivos, etc).
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Background Tasks
+source: https://fastapi.tiangolo.com/tutorial/background-tasks/
+---
+
+# FastAPI: Tarefas em segundo plano
+
+#### **FastAPI oferece a classe BackgroundTasks para executar funções demoradas**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {32|all}{maxHeight:'320px',at:+1}
+import asyncio
+import time
+import uuid
+from fastapi import BackgroundTasks, FastAPI
+
+app = FastAPI()
+
+# Simulando um banco de dados para guardar o status das tarefas
+tarefas_db = {}
+
+# 1. A função de background que atualiza o status
+def processar_relatorio(task_id: str):
+    # Atualiza o status para "processando"
+    tarefas_db[task_id] = "processando"
+
+    # Simula um trabalho demorado
+    time.sleep(30)
+
+    # Atualiza o status para "concluida"
+    tarefas_db[task_id] = "concluida"
+
+# 2. Endpoint que inicia a tarefa e devolve um ID
+@app.post("/gerar-relatorio")
+async def iniciar_relatorio(background_tasks: BackgroundTasks):
+    # Gera um ID único para a tarefa
+    task_id = str(uuid.uuid4())
+
+    # Registra a tarefa como pendente no banco
+    tarefas_db[task_id] = "pendente"
+
+    # Adiciona a tarefa ao background passando o ID
+    background_tasks.add_task(processar_relatorio, task_id)
+
+    # Devolve o ID imediatamente para o cliente
+    return {"task_id": task_id, "mensagem": "Relatório iniciado."}
+
+# 3. Endpoint de polling para o cliente consultar o status
+@app.get("/status/{task_id}")
+async def verificar_status(task_id: str):
+    status = tarefas_db.get(task_id)
+    return {"task_id": task_id, "status": status}
+```
+
+::right::
+
+> [!NOTE]
+> Uma instância de **`BackgroundTasks`** é injetada automaticamente como parâmetro no endpoint.
+> 
+> O método `add_task()` adiciona a função a ser executada em segundo plano imediatamente após o envio da resposta HTTP ao cliente.
+
