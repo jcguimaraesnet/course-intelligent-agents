@@ -555,3 +555,47 @@ um agente de RH com RAG sobre políticas de férias através de três endpoints 
 ```
 </WindowMockup>
 
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie uma Web API com FastAPI contendo rotas POST e GET com modelos Pydantic.
+
+🛠️ &nbsp;**Exercício \#2:** Adicione uma tarefa em segundo plano com BackgroundTasks e um endpoint de status.
+
+🛠️ &nbsp;**Exercício \#3:** Integre um agente com RAG ao BackgroundTasks para processar perguntas.
+
+🛠️ &nbsp;**Exercício \#4:** Crie um cliente com httpx que faça POST e polling até obter a resposta.
+
+<br/>
+
+- [ ] valide request e response com `BaseModel` e `Field(description=...)`
+- [ ] use `status_code=status.HTTP_202_ACCEPTED` no POST de tarefas assíncronas
+- [ ] execute o agente com `Runner.run` dentro da função de background
+- [ ] faça polling com `httpx.AsyncClient` a cada 5 segundos no client.py
+
+<br/>
+
+<!--
+# Exercício #1 — Web API com Pydantic
+Crie um main.py com FastAPI, defina modelos Pydantic para request e
+response e implemente rotas POST e GET com validação automática.
+
+# Exercício #2 — BackgroundTasks
+Adicione um endpoint POST que registra uma tarefa em BackgroundTasks
+e um endpoint GET /status/{task_id} para consultar o andamento.
+
+# Exercício #3 — Agente com RAG
+Integre um agente (OpenAI Agents SDK) com RAG sobre politicas.md
+dentro da função de background, recuperando o chunk mais relevante.
+
+# Exercício #4 — Cliente httpx
+Crie um client.py que faz POST para iniciar a tarefa, consulta o
+status a cada 5 segundos e exibe a resposta final quando concluída.
+-->
+
+
