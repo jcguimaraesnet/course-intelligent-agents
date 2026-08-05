@@ -372,3 +372,46 @@ de conversa e recuperação semântica (RAG), usando o OpenAI Agents SDK.
 - O código deve ser totalmente funcional e compilável.
 ```
 </WindowMockup>
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um agente com RAG (dado estruturado em qualquer domínio).
+
+🛠️ &nbsp;**Exercício \#2:** Crie um documento com 10 parágrafos sobre qualquer domínio.
+
+🛠️ &nbsp;**Exercício \#3:** Crie os embeddings do documento em fragmentos (chunks).
+
+🛠️ &nbsp;**Exercício \#4:** Implemente RAG sobre os chunks no agente do primeiro exercício.
+
+<br/>
+
+- [ ] use @function_tool para consultar o dado estruturado
+- [ ] fragmente o documento em parágrafos antes de gerar embeddings
+- [ ] use outra @function_tool para recuperar o chunk mais relevante
+- [ ] persista a sessão de conversa com SQLiteSession
+
+<br/>
+
+<!--
+# Exercício #1 — Agente com RAG estruturado
+Crie um agente usando o OpenAI Agents SDK com uma tool que consulta
+um arquivo JSON (dado estruturado) em qualquer domínio de sua escolha.
+
+# Exercício #2 — Documento de domínio
+Crie um arquivo .md com 10 parágrafos descrevendo regras, políticas
+ou informações sobre o domínio escolhido no exercício anterior.
+
+# Exercício #3 — Embeddings dos chunks
+Fragmente o documento em parágrafos (chunks), gere embeddings de cada
+um com SentenceTransformer e guarde os vetores em memória.
+
+# Exercício #4 — RAG no agente
+Adicione uma segunda tool ao agente que recupera o chunk mais similar
+à pergunta usando similaridade de cosseno e devolve como contexto.
+-->
