@@ -85,6 +85,16 @@ source: https://github.com/fastapi/fastapi
     <AssetImg src="doc-open-api.png" class="w-full max-w-[350px] rounded-lg mt-[8px]" />
 </div>
 
+<!--
+
+## na resposta da Swagger, é devolvido um curl - testar o curl
+
+## na resposta da Swagger, é devolvido a URL para testar o get direto no navegador
+
+## testar a rota root com healthy check
+
+-->
+
 ---
 layout: two-cols-header
 layoutClass: gap-8
@@ -274,15 +284,45 @@ layout: default
 
 </Transform>
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: FastAPI
+source: https://github.com/fastapi/fastapi
+---
 
+# FastAPI: Web APIs síncronas e assíncronas
 
+#### **Há uma diferença fundamental de execução em APIs síncronas e assíncronas no Uvicorn**
 
-<!--
+<div class="h-2" />
 
-## na resposta da Swagger, é devolvido um curl - testar o curl
+::left::
 
-## na resposta da Swagger, é devolvido a URL para testar o get direto no navegador
+```python [main.py] {8-11,13-16|all}{maxHeight:'320px',at:+1}
+import asyncio
+import time
 
-## testar a rota root com healthy check
+from fastapi import FastAPI
 
--->
+app = FastAPI()
+
+# 1. ROTA ASSÍNCRONA: Libera a thread enquanto aguarda o I/O
+@app.get("/async-endpoint")
+async def async_endpoint():
+    await asyncio.sleep(2)  # Não-bloqueante
+    return {"message": "Executado assincronamente."}
+
+# 2. ROTA SÍNCRONA: Bloqueia a thread até finalizar
+@app.get("/sync-endpoint")
+def sync_endpoint():
+    time.sleep(2)  # Bloqueante
+    return {"message": "Executado de forma síncrona."}
+```
+
+::right::
+
+> [!NOTE]
+> Em **APIs assíncronas**, quando o servidor encontra um `await`, o servidor libera a thread para atender outras requisições enquanto aguarda a resposta I/O.
+> 
+> Use Web APIs assíncronas nos cenários de código com `await` (chamada a outras Web APIs, banco de dados, arquivos, etc).
