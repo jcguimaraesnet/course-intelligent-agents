@@ -393,3 +393,103 @@ async def verificar_status(task_id: str):
 > 
 > O método `add_task()` adiciona a função a ser executada em segundo plano imediatamente após o envio da resposta HTTP ao cliente.
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: HTTPX
+source: https://www.python-httpx.org/
+---
+
+# App cliente: exemplo simples usando httpx
+
+#### **HTTPX é um cliente HTTP assíncrono moderno para Python recomendado para consumir Web APIs**
+
+<div class="h-2" />
+
+::left::
+
+```python [client.py] {1,3,10,13,19-25|all}{maxHeight:'320px',at:+1}
+# uv add httpx
+import asyncio
+import httpx
+
+BASE_URL = "http://localhost:8000"
+
+async def main():
+    async with httpx.AsyncClient() as client:
+        # 1. Solicita a geração do relatório (POST)
+        response = await client.post(f"{BASE_URL}/gerar-relatorio")
+        data = response.json()
+        task_id = data["task_id"]
+        print(f"Relatório iniciado. ID: {task_id}")
+
+        # 2. Polling: consulta o status a cada 5 segundos
+        while True:
+            res = await client.get(f"{BASE_URL}/status/{task_id}")
+            status_data = res.json()
+            current_status = status_data.get("status")
+            print(f"Status atual: {current_status}")
+
+            if current_status == "concluida":
+                print("Relatório gerado com sucesso!")
+                break
+
+            await asyncio.sleep(5)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> A biblioteca **HTTPX** oferece uma API totalmente assíncrona (`httpx.AsyncClient`), sendo o cliente HTTP ideal em Python para integrar Web APIs e microsserviços.
+
+---
+layout: default
+sourceLabel: PEP 8
+source: https://peps.python.org/pep-0008/
+---
+
+# PEP 8: Python Enhancement Proposal 8
+
+#### **PEP 8 é o guia de estilo oficial para código Python criado em 2001**
+
+<br/>
+
+<div class="[&_table]:w-full text-14px leading-tight [&_td]:py-2 [&_th]:py-3">
+
+| Regra | Descrição |
+| --- | --- |
+| `snake_case` | Nomeação de variáveis e funções em minúsculas separadas por underline (`processar_relatorio`). |
+| `PascalCase` | Nomeação de classes com a primeira letra de cada palavra maiúscula (`BackgroundTasks`). |
+| `Constantes` | Nomeação de valores constantes em maiúsculas separadas por underline (ex: `BASE_URL`). |
+| `Indentação` | Uso obrigatório de 4 espaços por nível de bloco de código (nunca misturar com TABs). |
+| `Imports` | Agrupados no topo do arquivo em 3 blocos: biblioteca padrão, terceiros e código local. |
+| `Linhas` | Tamanho máximo recomendado de 79 a 88 caracteres por linha para manter a legibilidade. |
+
+</div>
+
+<div class="h-2" />
+
+<Transform :scale="0.8" origin="left bottom">
+
+> [!NOTE]
+> Ferramentas modernas como o **Ruff** (linter e formatador extremamente rápido escrito em Rust) checam e aplicam as regras do PEP 8 automaticamente no seu código Python.
+
+</Transform>
+
+
+<!--
+## Instalação no projeto:
+uv add --dev ruff
+
+## Verificar problemas e violações de regras (Linter):
+uv run ruff check .
+
+## Corrigir problemas automaticamente:
+uv run ruff check --fix .
+
+## Formatar todo o código automaticamente
+uv run ruff format .
+-->
