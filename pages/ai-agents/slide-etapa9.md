@@ -325,4 +325,4 @@ def sync_endpoint():
 > [!NOTE]
 > Em **APIs assíncronas**, quando o servidor encontra um `await`, o servidor libera a thread para atender outras requisições enquanto aguarda a resposta I/O.
 > 
-> Use Web APIs assíncronas nos cenários de código com `await` (chamada a outras Web APIs, banco de dados, arquivos, etc).
+> Use Web APIs assíncronas nos cenários de código com `await` (chamada a outras Web APIs e LLMs, banco de dados, arquivos, etc).
