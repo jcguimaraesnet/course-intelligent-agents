@@ -163,8 +163,8 @@ class MessageRequest(BaseModel):
     )
 
 class MessageResponse(BaseModel):
-    status: str
-    messages: list[dict]
+    status: str = Field(description="Status do processamento")
+    messages: list[dict] = Field(description="Histórico de mensagens")
 
 app = FastAPI()
 
@@ -184,6 +184,97 @@ def chat_controller(req: MessageRequest) -> MessageResponse:
 
 > [!NOTE]
 > O FastAPI integra-se ao **Pydantic** para validar automaticamente os dados recebidos em chamadas `POST`, garantindo tipos e campos obrigatórios preenchidos.
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: FastAPI
+source: https://github.com/fastapi/fastapi
+---
+
+# FastAPI: configurações adicionais em APIs
+
+#### **Parâmetros de rotas, corpo da requisição e status code são configs em uma Web API**
+
+<div class="h-2" />
+
+::left::
+
+```python [main.py] {4,7-9,11-14,18,20-25,27,29-33|all}{maxHeight:'320px',at:+1}
+# uv add "fastapi[standard]" uvicorn pydantic
+# uv run fastapi dev
+
+from fastapi import FastAPI, status
+from pydantic import BaseModel, Field
+
+class DocumentRequest(BaseModel):
+    title: str = Field(
+        min_length=1, max_length=100, description="Título do documento"
+    )
+    text: str = Field(min_length=1, description="Conteúdo do documento")
+
+class DocumentResponse(BaseModel):
+    doc_id: str = Field(description="Identificador único do documento")
+    status: str = Field(description="Status do processamento de indexação")
+    title: str = Field(description="Título do documento")
+
+app = FastAPI()
+
+@app.post("/agent/indexing", status_code=status.HTTP_201_CREATED)
+def index_document(req: DocumentRequest) -> DocumentResponse:
+    return DocumentResponse(
+        doc_id="doc-123",
+        status="Documento indexado com sucesso",
+        title=req.title
+    )
+
+@app.get("/agent/indexing/{doc_id}")
+def get_document(doc_id: str) -> DocumentResponse:
+    return DocumentResponse(
+        doc_id=doc_id,
+        status="Documento encontrado",
+        title="Título do documento indexado"
+    )
+```
+
+::right::
+
+> [!NOTE]
+> O FastAPI assume **200 OK** como o status code padrão de sucesso para todas as rotas onde o `status_code` não é declarado explicitamente.
+
+---
+layout: default
+---
+
+# FastAPI: padrão REST para Web API
+
+#### **REST padroniza a comunicação em Web APIs de como usar verbos e status code**
+
+<br/>
+
+<div class="[&_table]:w-full text-14px leading-tight [&_td]:py-2 [&_th]:py-3">
+
+| Status code | Status description | Explicação |
+| --- | --- | --- |
+| 200 | OK | Requisição processada com sucesso |
+| 201 | Created | Recurso criado com sucesso no servidor |
+| 202 | Accepted | Requisição aceita para processamento assíncrono em segundo plano |
+| 400 | Bad Request | Requisição inválida ou malformada enviada pelo cliente |
+| 404 | Not Found | O recurso solicitado não foi encontrado no servidor |
+| 422 | Unprocessable Entity | Erro de validação nos dados ou formato do payload (padrão Pydantic/FastAPI) |
+
+</div>
+
+<div class="h-2" />
+
+<Transform :scale="0.8" origin="left bottom">
+
+> [!NOTE]
+> A convenção do padrão REST recomenda retornar **202 Accepted** ao aceitar tarefas de longa duração para processamento em segundo plano (em vez do genérico 200 OK ou 201 Created).
+
+</Transform>
+
+
 
 
 <!--
