@@ -403,7 +403,7 @@ layout: section
 | 4 | Arquitetura inicial |
 | 5 | Agente Python funcional |
 | 6 | Prompts documentados |
-| 7 | Saída JSON |
+| 7 | Saída/Resultados/Prints |
 | 8 | Entrega (PDF, repo, vídeo e ZIP no Moodle) |
 
 </div>
