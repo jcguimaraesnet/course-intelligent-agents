@@ -1,12 +1,12 @@
 ---
 layout: section
-routeAlias: etapa1-2
+routeAlias: etapa1-1
 ---
 
-## **Etapa 1.2 - Tema Relacionado:**
+## **Etapa 1.1 - Tema Relacionado**
 <br/>
 
-### Diagrama de Arquitetura Inicial
+### Diagrama Arquitetura e MCP
 
 ---
 layout: two-cols-header

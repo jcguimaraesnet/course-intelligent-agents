@@ -30,8 +30,9 @@ routeAlias: ementa
 
 # Ementa do projeto
 
-- **Etapa 1** — <Link to="etapa1" title="Visão Geral do Projeto"/>
-- **Etapa 1.2** — <Link to="etapa1-2" title="Etapa 1.2 - Tema Relacionado"/>
+- **Etapa 1.0** — <Link to="etapa1-0" title="Etapa 1.0 - Visão Geral do Projeto e TP1"/>
+- **Etapa 1.1** — <Link to="etapa1-1" title="Etapa 1.1 - Tema Relacionado (Diagrama Arquitetura e MCP)"/>
+- **Etapa 1.2** — <Link to="etapa1-2" title="Etapa 1.2 - Tema Relacionado (Harness Engineering e Claude Code)"/>
 - **Etapa 2** — <Link to="etapa2" title="Ferramentas, Raciocínio e Memória"/>
 - **Etapa 3** — <Link to="etapa3" title="Exposição via FastAPI"/>
 - **Etapa 4** — <Link to="etapa4" title="Operacionalização com MCP"/>
@@ -42,21 +43,25 @@ Ementa do projeto — visão geral das 5 etapas.
 -->
 
 ---
-src: ./pages/block-project/slide-etapa1_0.md
+src: ./pages/block-project/slide-etapa1-0.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1_2.md
+src: ./pages/block-project/slide-etapa1-1.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa3.md
+src: ./pages/block-project/slide-etapa1-2.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa4.md
+src: ./pages/block-project/slide-etapa3-0.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa5.md
+src: ./pages/block-project/slide-etapa4-0.md
+---
+
+---
+src: ./pages/block-project/slide-etapa5-0.md
 ---

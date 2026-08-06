@@ -1,9 +1,13 @@
 ---
 layout: section
-routeAlias: etapa1
+routeAlias: etapa1-0
 ---
 
-## **Etapa 1.1:** Visão Geral do Projeto
+## **Etapa 1**
+
+<br/>
+
+### Visão Geral do Projeto e TP1
 
 ---
 
