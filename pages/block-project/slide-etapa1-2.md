@@ -12,6 +12,8 @@ routeAlias: etapa1-2
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel:
+source: https://zhanghandong.github.io/harness-engineering-from-cc-to-ai-coding/en/
 ---
 
 # Harness Engineering
@@ -26,7 +28,8 @@ class: flex items-center justify-center
 
 - Um cavalo é veloz e forte, mas sem rédeas, corre sem rumo.
 - O modelo de IA é o cavalo, com muita capacidade bruta, mas sozinho não se governa.
-- O harness é o conjunto de regras, limites e direções que evitam que LLMs alucinem ou fuja do objetivo.
+- O modelo é o motor. O harness é o carro.
+- O harness é o conjunto de regras, limites e direções no agente que evitam que LLMs alucinem ou fuja do objetivo.
 
 </div>
 
@@ -66,3 +69,31 @@ _Se você não é o modelo, você é o Harness._ Um harness é todo o código, c
 
 
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# O harness é mais importante que o modelo?
+
+#### **Alguns experimentos têm provado que o harness é mais importante que o modelo**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-18px w-full self-start [&_ul]:my-1 [&_li]:mb-4">
+
+- O ranking do Terminal Bench 2.0 evidencia que **um mesmo LLM** pode ter pontuações muito distintas **em harness diferentes**.
+- A LangChain melhorou um agente de codificação do top 30 para o top 5 no Terminal Bench 2.0 **apenas alterando o harness**, mantendo **o mesmo modelo**.
+- O harness do **Claude Code** e **Codex** são os dois harness mais avançados do mundo.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="terminal-bench.png" class="w-full max-w-[350px] rounded-lg mt-[40px]" />
+</div>
