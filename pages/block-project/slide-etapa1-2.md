@@ -164,3 +164,39 @@ source: https://9router.dev
 <div class="h-full flex items-start justify-center">
     <AssetImg src="9router.jpg" class="w-full max-w-[350px] rounded-lg mt-[40px]" />
 </div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+source: http://localhost:20128
+sourceLabel: 9Router
+---
+
+# 9Router - configuração
+
+#### **O 9Router pode ser instalado usando os gerenciadores npm ou pnpm**
+
+::left::
+
+> [!TIP]
+> Verifique se você tem o npm ou pnpm instalado usando o comando `npm --version` ou `pnpm --version` 
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt" codeblock>
+
+```md
+pnpm install -g 9router
+
+9router
+
+# acessar http://localhost:20128/login
+
+# 1 - criar api key
+
+# 2 - Menu Provedores -> provedor Antigravity
+
+# 3 - Menu Ferramentas CLI -> Claude Code (para usar 9router)
+```
+</WindowMockup>
