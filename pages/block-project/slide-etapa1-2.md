@@ -145,17 +145,17 @@ source: https://9router.dev
 
 # 9Router
 
-#### **O 9Router é um roteador que conectar seu harness a mais de 60 provedores de IA**
+#### **O 9Router permite usar o melhor harness (Claude Code) com vários LLMs**
 
-<div class="h-2" />
+<div class="h-0" />
 
 ::left::
 
-<div class="text-18px w-full self-start [&_ul]:my-10 [&_li]:mb-4">
+<div class="text-18px w-full self-start [&_ul]:my-8 [&_li]:mb-4">
 
+- É um roteador que conecta seu harness (agente de codificação) com mais de 60 provedores de LLM, inclusive gratuitos
 - Compatível com a maioria dos agentes de codificação (Copilot, Claude Code, Codex, Cursor, etc)
-- Faz o roteamento do agente de codificação para mais de 60 provedores de IA
-- Mais de 24 mil estrelas no github
+- Mais de 24 mil estrelas no Github
 
 </div>
 
