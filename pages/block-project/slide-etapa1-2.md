@@ -134,3 +134,33 @@ source: https://claude.com/product/claude-code
 
 ## instalar a extensão do Claude Code via marketplace do Antigravity
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: 9Router
+source: https://9router.dev
+---
+
+# 9Router
+
+#### **O 9Router é um roteador que conectar seu harness a mais de 60 provedores de IA**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-18px w-full self-start [&_ul]:my-10 [&_li]:mb-4">
+
+- Compatível com a maioria dos agentes de codificação (Copilot, Claude Code, Codex, Cursor, etc)
+- Faz o roteamento do agente de codificação para mais de 60 provedores de IA
+- Mais de 24 mil estrelas no github
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="9router.jpg" class="w-full max-w-[350px] rounded-lg mt-[40px]" />
+</div>
