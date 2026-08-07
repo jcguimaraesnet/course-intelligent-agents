@@ -74,6 +74,8 @@ _Se você não é o modelo, você é o Harness._ Um harness é todo o código, c
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: Terminal bench 2
+source: https://www.tbench.ai/leaderboard/terminal-bench/2.1
 ---
 
 # O harness é mais importante que o modelo?
