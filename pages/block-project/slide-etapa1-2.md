@@ -103,3 +103,34 @@ source: https://www.tbench.ai/leaderboard/terminal-bench/2.1
 <div class="h-full flex items-start justify-center">
     <AssetImg src="terminal-bench.png" class="w-full max-w-[350px] rounded-lg mt-[40px]" />
 </div>
+
+
+<!--
+## O TerminalBench-2 avalia agentes de IA em 89 tarefas complexas em ambiente de linha de comando (CLI).
+
+## existe também o índice geral artificial anallysis para área de agentes
+
+-->
+
+---
+sourceLabel: Claude Code
+source: https://claude.com/product/claude-code
+---
+
+# Claude Code
+
+#### **O Claude Code existe via CLI, _IDE Extension_, Claude Desktop, Claude Mobile, Claude.ai**
+
+<div class="h-3" />
+
+<Transform :scale="0.85" origin="center">
+    <AssetImg
+    src="claude-code.png"
+    class="rounded-lg border-0 border-white"
+    />
+</Transform>
+
+<!--
+
+## instalar a extensão do Claude Code via marketplace do Antigravity
+-->
