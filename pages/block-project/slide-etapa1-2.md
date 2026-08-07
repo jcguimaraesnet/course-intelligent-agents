@@ -200,3 +200,40 @@ pnpm install -g 9router
 # 3 - Menu Ferramentas CLI -> Claude Code (para usar 9router)
 ```
 </WindowMockup>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+source: https://code.claude.com/docs/en/memory#claude-md-files
+sourceLabel: Claude.md
+---
+
+# Sobre o CLAUDE.md
+
+#### **O arquivo CLAUDE.md permite definir regras, preferências e contextos do seu projeto**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-16px w-full self-start [&_ul]:my-2 [&_li]:mb-4">
+
+- É análogo aos arquivos **GEMINI.md** (Antigravity) e **AGENTS.md** (Codex) na raiz do projeto ou por subdiretórios
+- É carregado no início de cada sessão (nova conversa)
+- Pode conter convenções de código, regras de projeto, instruções de build/test, arquitetura, bibliotecas preferidas, restrições, etc
+- Não é indicado que tenha muitas linhas, e pode ser usado como índice para outros arquivos
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="claude-md.png" class="w-full max-w-[350px] rounded-lg mt-[40px]" />
+</div>
+
+<!--
+
+## dar o exemplo de verificação no CLAUDE.md usando check de compilação usando `uvx ruff check main.py`
+
+-->
