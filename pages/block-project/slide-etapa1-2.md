@@ -41,15 +41,19 @@ source: https://zhanghandong.github.io/harness-engineering-from-cc-to-ai-coding/
 
 <!--
 
-## o modelo é o motor, e o harness é o carro.
-
 ## Um arnês (ou arreio) é um equipamento de fixação com tiras ou cintas que se prendem ao corpo de pessoas, animais ou objetos para garantir segurança, tração ou suporte em diversas atividades.
+
+## Handong realizou uma análise detalhada do código do Claude Code vazado e trouxe uma visão detalhada de como funciona o harness do Claude Code em https://ccunpacked.dev/
+
+## Handong defende que linguagens com sistemas de tipos fortes e compilador rigoroso como o Rust oferecem a "malha de verificação" (feedback loop) ideal para validar o código gerado por LLMs.
 
 -->
 
 ---
 layout: quote-image
 image: /agent-harness.png
+sourceLabel: LangChain
+source: https://www.langchain.com/blog/the-anatomy-of-an-agent-harness
 ---
 
 ::title::
