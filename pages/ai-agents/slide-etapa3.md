@@ -257,12 +257,16 @@ class: flex items-center justify-center
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
 
 ```md
+# Persona
 # Você é um especialista em ...
 
+# Task
 # Sua tarefa é ...
 
+# Context
 # Considere a informação abaixo ...
 
+# Format
 # Retorne no formato JSON abaixo ...
 ```
 

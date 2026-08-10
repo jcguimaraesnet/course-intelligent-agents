@@ -187,19 +187,19 @@ sourceLabel: 9Router
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt" codeblock>
 
 ```md
-
 # 1 - instalar Claude Code Extension (Antigravity)
+# 2 - instalar o node e claude CLI
+# node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+source ~/.bashrc
+nvm install --lts
+npm install -g @anthropic-ai/claude-code
 
 # 2 - pnpm install -g 9router
-
 # 3 - 9router
-
 # 4 - http://localhost:20128
-
 # 5 - criar api key
-
 # 6 - Menu Provedores -> provedor Antigravity
-
 # 7 - Menu Ferramentas CLI -> Claude Code (para usar 9router)
 ```
 </WindowMockup>
