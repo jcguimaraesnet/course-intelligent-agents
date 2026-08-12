@@ -99,37 +99,24 @@ image: /pessoas-apresentacao.jpg
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
-sourceLabel: playlist
-source: https://learning.oreilly.com/playlists/28c7e41a-c907-4940-8353-15994ad0d830
 ---
 
 # Bibliografia do curso
 
 ::left::
 
-<AssetImg src="book-building-agents-with-openai-sdk.jpg" class="rounded-lg h-70" />
+<div class="flex flex-col items-center gap-4">
+  <AssetImg src="n8n-oreilly.png" class="rounded-lg h-70" />
+  <a href="https://docs.n8n.io" target="_blank">docs.n8n.io</a>
+</div>
 
 ::right::
 
-<AssetImg src="book-an-illustrtated-guide.jpg" class="rounded-lg h-70" />
+<div class="flex flex-col items-center gap-4">
+  <AssetImg src="playlist-youtube-n8n.png" class="rounded-lg h-70" />
+  <a href="https://www.youtube.com/playlist?list=PLlET0GsrLUL5bxmx5c1H1Ms_OtOPYZIEG" target="_blank">youtube.com/playlist</a>
+</div>
 
----
-layout: two-cols-header
-layoutClass: gap-8
-class: flex items-center justify-center
-sourceLabel: playlist
-source: https://learning.oreilly.com/playlists/28c7e41a-c907-4940-8353-15994ad0d830
----
-
-# Bibliografia do curso
-
-::left::
-
-<AssetImg src="book-generative-ai-in-action.jpg" class="rounded-lg h-70" />
-
-::right::
-
-<AssetImg src="book-beginning-chatgpt-for-python.jpg" class="rounded-lg h-70" />
 
 
 ---
@@ -144,14 +131,14 @@ class: flex items-center justify-center
 
 <div class="flex flex-col items-center gap-4">
   <teenyicons-doc-outline class="text-7xl text-cyan-400" />
-  <a href="https://openai.github.io/openai-agents-python/" target="_blank">openai.github.io/openai-agents-python</a>
+  <a href="https://docs.n8n.io" target="_blank">docs.n8n.io</a>
 </div>
 
 ::right::
 
 <div class="flex flex-col items-center gap-4">
   <teenyicons-doc-outline class="text-7xl text-cyan-400" />
-  <a href="https://antigravity.google/docs/ide/overview" target="_blank">antigravity.google/docs/ide/overview</a>
+  <a href="https://n8n.io/workflows/" target="_blank">n8n.io/workflows</a>
 </div>
 
 ---
