@@ -722,11 +722,11 @@ layout: default
 
 <br/>
 
-🤖 &nbsp;**Exercício \#1:** Assistente virtual para outro cenário de negócio.
+🤖 &nbsp;**Exercício \#1:** Assistente virtual com saída estruturada (outro cenário de negócio).
 
-🤖 &nbsp;**Exercício \#2:** Assistente virtual com duas bases de conhecimento (condicional).
+🤖 &nbsp;**Exercício \#2:** Assistente virtual com uma base de conhecimento (outro cenário de negócio).
 
-🤖 &nbsp;**Exercício \#3:** Assistente virtual com seção de exemplos enriquecida (categorização).
+🤖 &nbsp;**Exercício \#3:** Assistente virtual com duas bases de conhecimento (condicional).
 
 🤖 &nbsp;**Exercício \#4:** Assistente virtual de nutrição que sugere almoço saudável (ingrediente e gramas).
 

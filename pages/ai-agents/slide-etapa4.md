@@ -23,8 +23,8 @@ source: https://openai.github.io/openai-agents-python
 
 | Conceito | O que é |
 |---|---|
-| **Agent** | Um LLM com nome, instruções, ferramentas e possíveis _handoffs_ — o agente em si. |
-| **Runner** | Motor de execução: roda o loop de raciocínio, faz _retries_ e impõe limites de segurança. |
+| **Agent** | Reune as definições básicas do agente como o identificador, instruções, modelo LLM — o agente em si. |
+| **Runner** | Motor de execução do agente, que fornece entrada ao agente e retorna com resposta final |
 | **Tools** | Funções Python (ou APIs/agentes) que o modelo descobre e invoca quando necessário. |
 | **Handoffs** | Delegação de controle e do contexto de um agente para outro (fluxos multiagente). |
 | **Guardrails** | Checagens de política em cada passo, mantendo saídas e chamadas dentro das regras. |
