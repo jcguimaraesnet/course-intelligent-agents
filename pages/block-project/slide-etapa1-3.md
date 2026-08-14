@@ -162,3 +162,33 @@ Os três especialistas concordam que a bola está no quarto.
 
 
 ::
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: PromptChainer
+source: https://arxiv.org/html/2203.06566v1
+---
+
+# Prompt Chaining
+
+#### **Pesquisadores do Google estabeleceram o Prompt Chaining como um padrão de design**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-16px w-full self-start [&_ul]:my-0 [&_li]:mb-4">
+
+- A ideia do Prompt Chaining é dividir uma tarefa complexa em subtarefas, onde cada subtarefa é resolvido por um prompt
+- A mecânica central é usar o **output (resposta)** gerado por um prompt como o **input para o prompt subsequente**
+- O Prompt Chaining emergiu na industria, mas foi a academia que comprovou que pipelines de prompts reduzem alucinações e aumentam a confiabilidade dos modelos.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="prompt-chaining.png" class="w-full max-w-[250px] rounded-lg mt-[0px]" />
+</div>
