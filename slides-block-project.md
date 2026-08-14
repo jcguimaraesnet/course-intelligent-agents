@@ -35,6 +35,7 @@ routeAlias: ementa
 - **Etapa 1.0** — <Link to="etapa1-0" title="Etapa 1.0 - Visão Geral do Projeto e TP1"/>
 - **Etapa 1.1** — <Link to="etapa1-1" title="Etapa 1.1 - Tema Relacionado (Diagrama Arquitetura e MCP)"/>
 - **Etapa 1.2** — <Link to="etapa1-2" title="Etapa 1.2 - Tema Relacionado (Harness Engineering e Claude Code)"/>
+- **Etapa 1.3** — <Link to="etapa1-3" title="Etapa 1.3 - Tema Relacionado (Prompt Engineering e Evals)"/>
 - **Etapa 2** — <Link to="etapa2" title="Ferramentas, Raciocínio e Memória"/>
 - **Etapa 3** — <Link to="etapa3" title="Exposição via FastAPI"/>
 - **Etapa 4** — <Link to="etapa4" title="Operacionalização com MCP"/>
@@ -54,6 +55,10 @@ src: ./pages/block-project/slide-etapa1-1.md
 
 ---
 src: ./pages/block-project/slide-etapa1-2.md
+---
+
+---
+src: ./pages/block-project/slide-etapa1-3.md
 ---
 
 ---
