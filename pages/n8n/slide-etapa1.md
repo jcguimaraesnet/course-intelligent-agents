@@ -24,18 +24,18 @@ image: /n8n.mp4
 
 ---
 layout: quote-image-without-quotation-marks
-image: /n8n-sample-intro.svg
+image: /n8n-integracao.png
 ---
 
 ::title::
 
-# O que é o n8n?
+# Integrações do n8n
 
 ::default::
 
 <div class="h-15" />
 
-"O n8n é uma **plataforma de automação** de fluxos de trabalho (_workflow_) que combina de forma única recursos de IA com automação de processos de negócio, com flexibilidade de _uso de código_ e a rapidez do _no-code_."
+Com mais de **1300 integrações disponíveis**, o n8n se destaca pela flexibilidade e adaptabilidade, permitindo que você configure automações sob medida.
 
 
 &nbsp;
