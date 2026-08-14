@@ -192,3 +192,58 @@ source: https://arxiv.org/html/2203.06566v1
 <div class="h-full flex items-start justify-center">
     <AssetImg src="prompt-chaining.png" class="w-full max-w-[250px] rounded-lg mt-[0px]" />
 </div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Least-to-Most Prompting Enables Complex Reasoning in Large Language Models
+source: https://arxiv.org/abs/2205.10625
+---
+
+# Least-to-Most Prompting
+
+#### **A técnica funciona em duas etapas obrigatórias: decomposição e a resolução sequencial**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-16px w-full self-start [&_ul]:my-0 [&_li]:mb-4">
+
+- A ideia principal é quebrar a tarefa principal em uma **série de subproblemas menores**, resolvendo um de cada vez
+- No primeiro estágio, a tarefa complexa é **dividida em tarefas intermediárias**
+- No segundo estágio, as subtarefas são resolvidas em **ordem sequencial**
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center">
+
+<div class="h-0" />
+
+<Transform :scale="0.85" origin="top">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A@{ shape: rounded, label: "Tarefa Complexa" }
+    B@{ shape: rounded, label: "1. Decomposição" }
+    C@{ shape: rounded, label: "Subtarefa 1" }
+    D@{ shape: rounded, label: "Subtarefa 2" }
+    E@{ shape: rounded, label: "Subtarefa 3" }
+    F@{ shape: rounded, label: "2. Resolução Sequencial" }
+    G@{ shape: rounded, label: "Resposta Final" }
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+    C -->|output 1| F
+    D -->|output 2| F
+    E -->|output 3| F
+    F --> G
+```
+
+</Transform>
+
+</div>
