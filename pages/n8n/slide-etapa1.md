@@ -29,7 +29,7 @@ image: /n8n-integracao.png
 
 ::title::
 
-# Integrações do n8n
+# n8n e um ecosistema de integrações
 
 ::default::
 
@@ -37,5 +37,23 @@ image: /n8n-integracao.png
 
 Com mais de **1300 integrações disponíveis**, o n8n se destaca pela flexibilidade e adaptabilidade, permitindo que você configure automações sob medida.
 
+
+&nbsp;
+
+
+---
+layout: quote-image
+image: /n8n-sample-intro.svg
+---
+
+::title::
+
+# n8n e uma interface intuitiva
+
+::default::
+
+<div class="h-15" />
+
+Com uma **interface visual** de arrastar e soltar (drag and drop), o n8n se destaca pela facilidade de uso, mesmo para **profissionais sem experiências em programação**. 
 
 &nbsp;
