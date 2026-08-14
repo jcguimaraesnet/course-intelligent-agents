@@ -6,7 +6,7 @@ routeAlias: etapa1-3
 ## Etapa 1.3 - Tema Relacionado
 <br/>
 
-### **Prompting Engineering e Evals**
+### **Prompt Engineering e Evals**
 
 
 ---
@@ -19,7 +19,7 @@ source: https://arxiv.org/abs/2201.11903v6
 
 # Chain of Thought (CoT)
 
-#### **CoT foi apresentado primeiramente por pesquisadores do Google**
+#### **CoT foi apresentado por pesquisadores Google e sua pesquisa tem mais de 37k citações**
 
 <div class="h-2" />
 
@@ -27,7 +27,7 @@ source: https://arxiv.org/abs/2201.11903v6
 
 <div class="text-18px w-full self-start [&_ul]:my-0 [&_li]:mb-4">
 
-- O CoT é apresentado como uma técnica para **estimular LLMs** em realizar raciocínio complexo por meio de **etapas intermediárias** de raciocínio
+- O CoT é apresentado como **uma técnica** para **aprimorar o raciocínio** em modelos de linguagem
 - A técnica consiste em fornecer **cadeias de pensamento** como exemplos no prompt
 - Eles **evidenciaram** que o CoT  **melhora o desempenho** em tarefas matemáticas, raciocínio lógico e resposta a perguntas
 
@@ -38,3 +38,23 @@ source: https://arxiv.org/abs/2201.11903v6
 <div class="h-full flex items-start justify-center">
     <AssetImg src="chain-of-thought.png" class="w-full max-w-[320px] rounded-lg mt-[0px]" />
 </div>
+
+---
+layout: two-cols-header
+sourceLabel: Chain-of-Thought Prompting
+source: https://promptingguide.ai/techniques/cot
+---
+
+# Chain-of-Thought: exemplo
+
+#### **Uso de CoT (a direita) para instruir LLM em mostrar raciocínio e resposta final em Q&A**
+
+<div class="h-10" />
+
+<Transform :scale="0.70" origin="top">
+    <AssetImg
+    src="chain-of-thought-paper-image.png"
+    class="rounded-lg border-0 border-white"
+    />
+</Transform>
+
