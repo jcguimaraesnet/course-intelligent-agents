@@ -1,12 +1,14 @@
 ---
 layout: section
 routeAlias: etapa1-3
+sourceLabel: Prompting Guide
+source: https://www.promptingguide.ai/pt
 ---
 
 ## Etapa 1.3 - Tema Relacionado
 <br/>
 
-### **Prompt Engineering e Evals**
+### **Prompt Engineering**
 
 
 ---
