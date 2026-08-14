@@ -57,3 +57,39 @@ image: /n8n-sample-intro.svg
 Com uma **interface visual** de arrastar e soltar (drag and drop), o n8n se destaca pela facilidade de uso, mesmo para **profissionais sem experiências em programação**. 
 
 &nbsp;
+
+
+---
+layout: quote-image-without-quotation-marks
+image: /n8n-code.png
+---
+
+::title::
+
+# n8n e a flexibilidade do código
+
+::default::
+
+<div class="h-15" />
+
+O n8n permite **adicionar blocos de código** (javascript ou python) para manipular dados, criar condições ou **executar lógica complexa** dentro do próprio fluxo.
+
+&nbsp;
+
+---
+layout: quote-image-without-quotation-marks
+image: /n8n-open-source.png
+---
+
+::title::
+
+# n8n: código aberto, gratuito e autohospedado
+
+::default::
+
+<div class="h-15" />
+
+O n8n é **open source**, permite ser **usado comercialmente** de forma **gratuita**, e pode ser executado **localmente** ou na **nuvem oficial** (n8n Cloud). 
+
+&nbsp;
+
