@@ -15,6 +15,7 @@ contextMenu: false
 highlighter: shiki
 lineNumbers: true
 transition: fade-out
+comark: true
 layout: cover
 footer: false
 presenter: true
