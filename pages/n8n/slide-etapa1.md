@@ -42,7 +42,7 @@ Com mais de **1300 integrações disponíveis**, o n8n se destaca pela flexibili
 
 
 ---
-layout: quote-image
+layout: quote-image-without-quotation-marks
 image: /n8n-sample-intro.svg
 ---
 
