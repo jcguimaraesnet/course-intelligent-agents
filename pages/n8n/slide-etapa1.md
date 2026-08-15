@@ -150,3 +150,68 @@ source: https://n8n.io/vs
 </div>
 
 
+---
+layout: section
+---
+
+## Instalação e configuração de **ambiente**
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: WSL
+source: https://learn.microsoft.com/windows/wsl/
+---
+
+# Windows Subsystem for Linux (WSL)
+
+#### **Linux e mac oferecem ambientes de desenvolvimento rápidos e o WSL também**
+
+::left::
+
+<div class="text-left w-full [&_li]:mb-5">
+
+- **Experência semelhante com linux/mac** — WSL usa shell bash para linha de comando.
+- **Ambiente rápido e leve** — Sistema de arquivo baseado em linux rápido e leve.
+- **Integração com o Windows** — arquivos, terminal e o editor (VS Code/Antigravity) acessam o WSL.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-center justify-center">
+    <AssetImg src="wsl.jpg" class="w-full max-w-[440px] rounded-lg" />
+</div>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Docker
+source: https://docs.docker.com
+---
+
+# Docker
+
+#### **Plataforma de conteinerização para padronizar e isolar ambientes**
+
+::left::
+
+<div class="text-left w-full [&_li]:mb-5">
+
+- **Ambiente padronizado** — executa o n8n e dependências de forma idêntica em qualquer máquina.
+- **Isolamento e controle** — sem conflitos de portas, versões ou pacotes com o sistema host.
+- **Pronto para produção** — facilidade de deploy em qualquer lugar e persistência de dados via volumes.
+
+</div>
+
+::right::
+
+<Transform :scale="0.9" origin="center">
+    <AssetImg
+    src="docker.png"
+    class="rounded-lg"
+    />
+</Transform>
