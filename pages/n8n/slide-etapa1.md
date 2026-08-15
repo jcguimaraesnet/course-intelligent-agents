@@ -96,6 +96,8 @@ O n8n é **open source**, permite ser **usado comercialmente** de forma **gratui
 ---
 layout: default
 layoutClass: gap-8
+sourceLabel: n8n alternatives
+source: https://n8n.io/vs
 ---
 
 # Ferramentas de automação
