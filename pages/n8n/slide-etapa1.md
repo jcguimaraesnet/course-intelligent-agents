@@ -94,6 +94,25 @@ O n8n é **open source**, permite ser **usado comercialmente** de forma **gratui
 &nbsp;
 
 ---
+layout: quote-image-without-quotation-marks
+image: /n8n-popularity.png
+sourceLabel: JavaScript Rising Stars
+source: https://risingstars.js.org/2025/en
+---
+
+::title::
+
+# n8n: popularidade em crescimento
+
+::default::
+
+<div class="h-15" />
+
+O n8n é um dos projetos de maior crescimento no **GitHub (+200k)**, tendo **alcançado mais de 100 mil estrelas em um único ano (2025)**, liderando o reconhecido ranking JS Rising Stars na categoria geral.
+
+&nbsp;
+
+---
 layout: default
 layoutClass: gap-8
 sourceLabel: n8n alternatives
