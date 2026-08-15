@@ -104,12 +104,12 @@ source: https://n8n.io/vs
 
 <div class="text-sm leading-tight [&_td]:py-2.5 [&_th]:py-5.5 [&_td]:px-2 [&_th]:px-2">
 
-| **Ferramenta** | **Ano** | **Licença** | **Hospedagem** | **Low-Code** | **Suporte Código** |
-| --- | --- | --- | --- | --- | --- |
-| Zapier | 2011 | SaaS | Cloud | Sim | Sim (Javascript) |
-| Make (Integromat) | 2016 | SaaS | Cloud | Sim | Sim (limitado) |
-| MS Power Automate | 2016 | SaaS | Cloud | Sim | Sim (expressões, Azure Functions) |
-| **n8n** | 2019 | Gratuito <br/>(self-host) | Self-host<br/>Cloud | Sim | Sim (Javascript/Python) |
+| **Rank** | **Ferramenta** | **Ano** | **Licença** | **Hospedagem** | **Low-Code** | **Suporte Código** |
+| --- | --- | --- | --- | --- | --- | --- |
+| #1 | Zapier | 2011 | SaaS | Cloud | Sim | Sim (Javascript) |
+| #2 | Make (Integromat) | 2016 | SaaS | Cloud | Sim | Sim (limitado) |
+| #3 | MS Power Automate | 2016 | SaaS | Cloud | Sim | Sim (expressões, Azure Functions) |
+| #4 | **n8n** | 2019 | Gratuito <br/>(self-host) | Self-host<br/>Cloud | Sim | Sim (Javascript/Python) |
 
 </div>
 
