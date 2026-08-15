@@ -113,6 +113,23 @@ O n8n é um dos projetos de maior crescimento no **GitHub (+200k)**, tendo **alc
 &nbsp;
 
 ---
+layout: quote-image-without-quotation-marks
+image: /n8n-ia.png
+---
+
+::title::
+
+# Agentes de IA com n8n
+
+::default::
+
+<div class="h-15" />
+
+O n8n permite **criar sistemas agênticos** de inteligência artificial, com possibilidade de **conectar com diversos LLMs**, combinando com aprovação humana.
+
+&nbsp;
+
+---
 layout: default
 layoutClass: gap-8
 sourceLabel: n8n alternatives
