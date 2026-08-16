@@ -318,3 +318,10 @@ docker run -d \
 > O volume **`n8n_data`** garante a persistência dos seus fluxos e dados mesmo se o container for removido.
 > 
 > Configure seu usuário e senha e o pedido de licença free
+
+---
+layout: section
+---
+
+## Meu primeiro **workflow** n8n
+**Implementação de um fluxo básico**
