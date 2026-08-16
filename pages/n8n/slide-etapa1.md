@@ -215,3 +215,43 @@ source: https://docs.docker.com
     class="rounded-lg"
     />
 </Transform>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Install Docker Engine
+source: https://docs.docker.com/engine/install/ubuntu
+---
+
+# Instalação docker no WSL
+
+#### **Existem várias maneiras de instalar o docker no WSL**
+
+<br/>
+
+::left::
+
+```sh [via apt]
+# baixa o catálogo de pacotes mais recente
+sudo apt-get update
+# instala o docker
+sudo apt install -y docker.io
+# concede permissão para rodar sem 'sudo'
+sudo usermod -aG docker $USER
+# atualizar o grupo na sessão atual
+newgrp docker
+# inicia o serviço do Docker
+sudo service docker start
+# baixa a imagem de teste e faz o teste
+docker run hello-world
+```
+
+::right::
+
+> [!NOTE]
+> Após a instalação, reinicie o WSL e teste novamente o docker:
+> ```sh
+> wsl --shutdown
+> wsl
+> docker run hello-world
+> ```
