@@ -255,3 +255,66 @@ docker run hello-world
 > wsl
 > docker run hello-world
 > ```
+
+---
+layout: default
+sourceLabel: Docker CLI Reference
+source: https://docs.docker.com/engine/reference/commandline/cli
+---
+
+# Principais comandos do docker
+
+#### **Existem muitos comandos do docker, mas alguns poucos são os mais usados**
+
+<br/>
+
+<div class="[&_table]:w-full text-16px">
+
+| Comando | Descrição |
+| --- | --- |
+| `docker ps -a` | Lista todos os containers no sistema (em execução e parados) |
+| `docker restart <id>` | Reinicia a execução de um container específico |
+| `docker volume ls` | Lista todos os volumes de dados criados localmente |
+| `docker volume create` | Cria um novo volume persistente para ser usado por containers |
+| `docker pull docker.n8n.io/n8nio/n8n` | Baixa a imagem oficial mais recente do n8n para o ambiente local |
+
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: n8n Docker Setup
+source: https://docs.n8n.io/hosting/installation/docker/
+---
+
+# Instalação do n8n usando docker
+
+#### **Essa é uma forma simples de instalar o n8n com docker**
+
+<br/>
+
+::left::
+
+```sh [Docker Run]
+# Criar volume persistente para salvar workflows e credenciais
+docker volume create n8n_data
+
+# Executar o container do n8n
+docker run -d \
+ --name n8n \
+ -p 5678:5678 \
+ -e GENERIC_TIMEZONE="America/Sao_Paulo" \
+ -e TZ="America/Sao_Paulo" \
+ -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true \
+ -v n8n_data:/home/node/.n8n \
+ docker.n8n.io/n8nio/n8n
+```
+
+::right::
+
+> [!NOTE]
+> Após executar o comando, o n8n estará acessível no navegador em **`http://localhost:5678`**.
+>
+> O volume **`n8n_data`** garante a persistência dos seus fluxos e dados mesmo se o container for removido.
+> 
+> Configure seu usuário e senha e o pedido de licença free
