@@ -283,8 +283,8 @@ source: https://docs.docker.com/engine/reference/commandline/cli
 ---
 layout: two-cols-header
 layoutClass: gap-8
-sourceLabel: n8n Docker Setup
-source: https://docs.n8n.io/hosting/installation/docker/
+sourceLabel: n8n Docker
+source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 ---
 
 # Instalação do n8n usando docker
