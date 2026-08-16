@@ -273,10 +273,10 @@ source: https://docs.docker.com/engine/reference/commandline/cli
 | Comando | Descrição |
 | --- | --- |
 | `docker ps -a` | Lista todos os containers no sistema (em execução e parados) |
-| `docker restart <id>` | Reinicia a execução de um container específico |
+| `docker start <id>` | Reinicia a execução de um container específico |
 | `docker volume ls` | Lista todos os volumes de dados criados localmente |
 | `docker volume create` | Cria um novo volume persistente para ser usado por containers |
-| `docker pull docker.n8n.io/n8nio/n8n` | Baixa a imagem oficial mais recente do n8n para o ambiente local |
+| `docker pull docker.n8n.io/n8nio/n8n` | Atualiza a imagem oficial mais recente do n8n para o ambiente local |
 
 </div>
 
