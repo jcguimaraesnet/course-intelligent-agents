@@ -1373,17 +1373,21 @@ especialista em compras ou em reembolsos de ingressos.
 # Contexto
 1. Crie "purchase.md" (política de compra) e "refund.md" (política de
    reembolso), cada um com alguns tópicos curtos.
-2. Em "main.py", use o OpenAI Agents SDK, assíncrono, lendo o ".env";
-   configure `set_tracing_disabled(True)`.
-3. Use um dataclass Policies e `RunContextWrapper` para injetar a base de
+2. Em "main.py", use o OpenAI Agents SDK (`Agent` e `Runner`), assíncrono,
+   lendo o ".env"; 
+3. Use os métodos `set_default_openai_api("chat_completions")` e 
+   `set_tracing_disabled(True)` do Agents SDK da OpenAI.
+4. Use um dataclass Policies e `RunContextWrapper` para injetar a base de
    conhecimento de cada agente dinamicamente (instructions como função).
-4. Use `OpenAIChatCompletionsModel` para permitir provedores diferentes
+5. Use `OpenAIChatCompletionsModel` para permitir provedores diferentes
    por agente (ex.: um provedor para a triagem, outro para os especialistas).
-5. Crie um agente Triagem que usa `handoff` para transferir a conversa ao
+6. Crie um agente Triagem que usa `handoff` para transferir a conversa ao
    agente Compras ou ao agente Reembolsos conforme a dúvida.
-6. Execute em streaming com efeito de digitação (imprima os deltas com
+7. Use a constante `RECOMMENDED_PROMPT_PREFIX` do Agents SDK da OpenAI nas
+   instruções dos agentes para orientar o mecanismo de handoff.
+8. Execute em streaming com efeito de digitação (imprima os deltas com
    `end="", flush=True`) e capture o evento de transferência de agente.
-7. Demonstre com perguntas de usuário definidas no script:
+9. Demonstre com perguntas de usuário definidas no script:
    - "Posso parcelar a compra no cartão?" (handoff -> Compras)
    - "Comprei o ingresso errado, consigo reembolso?" (handoff -> Reembolsos)
 
