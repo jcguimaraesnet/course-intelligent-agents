@@ -78,7 +78,7 @@ O n8n permite **adicionar blocos de código** (javascript ou python) para manipu
 
 ---
 layout: quote-image-without-quotation-marks
-image: /n8n-open-source.png
+image: /n8n/deployment-type.png
 ---
 
 ::title::
@@ -325,3 +325,5 @@ layout: section
 
 ## Meu primeiro **workflow** n8n
 **Implementação de um fluxo básico**
+
+
