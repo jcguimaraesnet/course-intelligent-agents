@@ -327,3 +327,32 @@ layout: section
 **Implementação de um fluxo básico**
 
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Principais componentes do n8n
+#### **Principais elementos para construção de automações no n8n**
+
+<div class="h-8" />
+
+::left::
+
+<div class="[&_table]:w-full text-sm mt-10">
+
+| **Componente** | **Descrição** |
+| --- | --- |
+| _Workflow_ | Fluxo de trabalho é uma coleção de nós conectados para automatizar um processo. |
+| _Nodes_ | Nós são os principais componentes de um fluxo de trabalho |
+| _Connection_ | Uma conexão estabelece um vínculo entre nós para rotear dados pelo fluxo de trabalho. |
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+    <AssetImg src="n8n/n8n-workflow.png" class="rounded-lg w-full max-w-[380px]" />
+</div>
+
