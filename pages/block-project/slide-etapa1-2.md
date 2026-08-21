@@ -221,8 +221,8 @@ sourceLabel: 9Router
 <div class="text-16px w-full self-start [&_ul]:my-2 [&_li]:mb-4">
 
 - O 9Router expõe uma API compatível com o formato **ChatCompletions API** da OpenAI
-- As variáveis `OPENAI_DEFAULT_MODEL` precisa ser passada como parâmetro
 - É necessário usar as classes `OpenAIChatCompletionsModel` e `AsyncOpenAI` porque o Agents SDK não reconhece o padrão `ag/` como prefixo válido de modelos.
+- A variável `OPENAI_DEFAULT_MODEL` precisa ser passada como parâmetro
 
 </div>
 
