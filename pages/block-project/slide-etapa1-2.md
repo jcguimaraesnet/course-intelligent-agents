@@ -220,9 +220,9 @@ sourceLabel: 9Router
 
 <div class="text-16px w-full self-start [&_ul]:my-2 [&_li]:mb-4">
 
-- O 9Router expõe uma API compatível com o formato **OpenAI**
-- As variáveis `OPENAI_BASE_URL` e `OPENAI_API_KEY` são lidas automaticamente pelos SDKs
-- A variável `OPENAI_MODEL` (ou `MODEL`) define o modelo padrão a ser utilizado
+- O 9Router expõe uma API compatível com o formato **ChatCompletions API** da OpenAI
+- As variáveis `OPENAI_DEFAULT_MODEL` precisa ser passada como parâmetro
+- É necessário usar as classes `OpenAIChatCompletionsModel` e `AsyncOpenAI` porque o Agents SDK não reconhece o padrão `ag/` como prefixo válido de modelos.
 
 </div>
 
@@ -236,6 +236,52 @@ OPENAI_API_KEY="9r-sk-live-1234567890abcdef"
 OPENAI_MODEL="ag/gemini-3.7-flash-high"
 ```
 </WindowMockup>
+
+<!--
+## é necessário usar as classes `OpenAIChatCompletionsModel` e `AsyncOpenAI` porque o SDK de agentes não reconhece o padrão "ag/" como prefixo válido
+
+```
+import asyncio
+import os
+from agents import (
+    Agent, Runner, set_default_openai_api,
+    set_tracing_disabled,
+)
+from agents.models.openai_chatcompletions import OpenAIChatCompletionsModel
+from dotenv import load_dotenv
+from openai import AsyncOpenAI
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+
+    client = AsyncOpenAI()
+    model = OpenAIChatCompletionsModel(
+        model=os.getenv("OPENAI_DEFAULT_MODEL", "ag/gemini-3.7-flash-high"),
+        openai_client=client
+    )
+
+    agent = Agent(
+        name="Software Engineer Agent",
+        instructions="""Você é especialista em engenharia
+            de software.""",
+        model=model,
+    )
+
+    result = await Runner.run(
+        starting_agent=agent,
+        input="""
+            Quais são os tipos de padrões
+            de projetos usados em programação?
+        """)
+    print(result.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+-->
 
 ---
 layout: two-cols-header
