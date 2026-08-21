@@ -208,6 +208,39 @@ npm install -g @anthropic-ai/claude-code
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+source: http://localhost:20128
+sourceLabel: 9Router
+---
+
+# 9Router - arquivo .env
+
+#### **O 9Router também pode ser usado como "provedor" proxy de LLM nos agentes**
+
+::left::
+
+<div class="text-16px w-full self-start [&_ul]:my-2 [&_li]:mb-4">
+
+- O 9Router expõe uma API compatível com o formato **OpenAI**
+- As variáveis `OPENAI_BASE_URL` e `OPENAI_API_KEY` são lidas automaticamente pelos SDKs
+- A variável `OPENAI_MODEL` (ou `MODEL`) define o modelo padrão a ser utilizado
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title=".env" codeblock>
+
+```bash
+OPENAI_BASE_URL="http://localhost:20128/v1"
+OPENAI_API_KEY="9r-sk-live-1234567890abcdef"
+OPENAI_MODEL="ag/gemini-3.7-flash-high"
+```
+</WindowMockup>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 source: https://code.claude.com/docs/en/memory#claude-md-files
 sourceLabel: Claude.md
 ---
