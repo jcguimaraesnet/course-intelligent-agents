@@ -248,3 +248,176 @@ configuração de parâmetros do modelo via painel de settings.
   `uv add chainlit openai-agents python-dotenv`.
 ```
 </WindowMockup>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: python-telegram-bot
+source: https://github.com/python-telegram-bot/python-telegram-bot
+---
+
+# Telegram como chatbot
+
+#### **O telegram é conhecido por ser uma plataforma fácil de integrar**
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-3 [&_li]:mb-4">
+
+- Abra o Telegram e pesquise por **@BotFather**
+- Envie o comando `/newbot` para iniciar a criação
+- Escolha um **nome** e um **username** único (terminado em `bot`)
+- Copie o **Token de Acesso HTTP API** gerado
+- Adicione a variável `TELEGRAM_TOKEN` no arquivo `.env`
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center w-full">
+
+<Transform :scale="0.70" origin="top">
+
+```mermaid {theme: 'dark'}
+---
+config:
+  theme: dark
+---
+flowchart TD
+User["Usuário"]
+Tg["Telegram"]
+PTB["python-telegram-bot"]
+Runner["Runner.run(agent)"]
+
+User -- Mensagem --> Tg
+Tg -- Webhook / Polling --> PTB
+PTB -- Executa --> Runner
+Runner -- Resposta --> PTB
+PTB -- Envia --> Tg
+Tg -- Mensagem --> User
+```
+
+</Transform>
+
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: python-telegram-bot Docs
+source: https://docs.python-telegram-bot.org/
+---
+
+# Exemplo usando python-telegram-bot
+
+#### **Integrando o agente do OpenAI Agents SDK com bot do Telegram**
+
+::left::
+
+```python [Telegram + OpenAI Agents SDK]{maxHeight:'320px'}
+import os
+from dotenv import load_dotenv
+from telegram import Update
+from telegram.ext import (
+    ApplicationBuilder,
+    MessageHandler,
+    filters,
+)
+from agents import (
+    Agent, Runner, set_default_openai_api,
+    set_tracing_disabled,
+)
+
+load_dotenv()
+set_default_openai_api("chat_completions")
+set_tracing_disabled(True)
+
+agent = Agent(
+    name="Professor",
+    instructions="Você é um professor de história."
+)
+
+async def responder(update: Update, context):
+    print(f"Usuário: {update.message.text}")
+    result = await Runner.run(
+        agent, update.message.text
+    )
+    print(f"Agente: {result.final_output}\n")
+    await update.message.reply_text(
+        result.final_output
+    )
+
+app = (
+    ApplicationBuilder()
+    .token(os.getenv("TELEGRAM_TOKEN"))
+    .build()
+)
+app.add_handler(
+    MessageHandler(filters.TEXT, responder)
+)
+app.run_polling()
+```
+
+::right::
+
+```bash [instalar dependências]
+uv add python-telegram-bot openai-agents python-dotenv
+```
+
+<div class="h-4" />
+
+```bash [executar o bot]
+uv run main.py
+```
+
+<div class="h-4" />
+
+> [!NOTE]
+> O `python-telegram-bot` gerencia o ciclo de polling e passa o texto da mensagem recebida diretamente para o `Runner.run`.
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Telegram: codificação assistida por IA
+
+#### **Prompt para gerar um bot do Telegram com agente**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos.
+
+# Tarefa
+Desenvolva um chatbot em Python integrado ao Telegram,
+com um agente criado com o OpenAI Agents SDK.
+
+# Contexto
+1. Script principal "main.py"; variáveis de ambiente lidas
+   do ".env" via python-dotenv (`TELEGRAM_TOKEN`).
+2. Configure o SDK para usar a API de chat completions:
+   `set_default_openai_api("chat_completions")` e
+   `set_tracing_disabled(True)`.
+3. Crie um `Agent` com nome e instruções de um especialista
+   de sua escolha.
+4. Implemente a função de handler `async def responder(update: Update, context)`:
+   - Imprima no console o texto da mensagem do usuário.
+   - Execute o agente passando o texto com `Runner.run(agent, update.message.text)`.
+   - Imprima no console a resposta do agente.
+   - Envie a resposta ao usuário via `await update.message.reply_text(result.final_output)`.
+5. Inicialize a aplicação com `ApplicationBuilder().token(...).build()`,
+   adicione o handler `MessageHandler(filters.TEXT, responder)` e
+   inicie o bot com `app.run_polling()`.
+
+# Saída e Verificação
+- Gere apenas o arquivo main.py.
+- O código deve ser totalmente funcional e executável com
+  `uv run main.py` após `uv add python-telegram-bot openai-agents python-dotenv`.
+```
+</WindowMockup>
+
