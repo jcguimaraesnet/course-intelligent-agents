@@ -336,11 +336,10 @@ class: flex items-center justify-center
 # Principais componentes do n8n
 #### **Principais elementos para construção de automações no n8n**
 
-<div class="h-8" />
 
 ::left::
 
-<div class="[&_table]:w-full text-sm mt-10">
+<div class="[&_table]:w-full text-sm mt-0">
 
 | **Componente** | **Descrição** |
 | --- | --- |
@@ -356,3 +355,29 @@ class: flex items-center justify-center
     <AssetImg src="n8n/n8n-workflow.png" class="rounded-lg w-full max-w-[380px]" />
 </div>
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Tipos de nós (node)
+#### **Fundamentalmente, há dois tipos de nós: triggers e actions**
+
+
+::left::
+
+<div class="[&_table]:w-full text-sm mt-0">
+
+| **Tipo** | **Descrição** |
+| --- | --- |
+| _Triggers_ | iniciam um fluxo de trabalho em resposta a eventos ou condições específicas. |
+| _Actions_ | representam tarefas como manipular dados, executar operações, acionar eventos, etc. |
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+    <AssetImg src="n8n/node.png" class="rounded-lg w-full max-w-[280px]" />
+</div>
