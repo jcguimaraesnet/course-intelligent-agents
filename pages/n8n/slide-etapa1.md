@@ -389,6 +389,40 @@ layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
+# Fluxo conceitual de um Workflow do n8n
+#### **Embora todo workflow deva ter uma saída, não existe uma categoria de nós de saída**
+
+
+::left::
+
+<div class="[&_table]:w-full text-sm mt-0">
+
+| **Posição no fluxo** | **Tipo no n8n** | **Exemplo** |
+| --- | --- | --- |
+| Entrada | _Trigger_ | Gmail Trigger, Webhook, Schedule |
+| Processamento | _Action_ | Code, IF, Switch, Set |
+| Saída | _Action_ | Send Email, Slack, Google Sheets |
+
+</div>
+
+::right::
+
+<Transform :scale="0.8" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A["🟢 Entrada\n(Trigger)"] --> B["⚙️ Processamento\n(Action)"] --> C["📤 Saída\n(Action)"]
+```
+
+</Transform>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
 # Core nodes, App nodes e Community nodes
 #### **Os `nós` também podem ser categorizados como: _interno_, de _aplicativo_ e _comunitário_**
 
