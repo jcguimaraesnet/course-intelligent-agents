@@ -437,3 +437,26 @@ class: flex items-center justify-center
 <div class="flex items-center justify-center h-full">
     <AssetImg src="n8n/trigger-list-types.png" class="rounded-lg w-full max-w-[190px]" />
 </div>
+
+---
+
+# Core triggers (gatilhos internos)
+
+#### **Abaixo uma listagem dos principais gatilhos internos do n8n**
+
+<div class="h-5" />
+
+<div class="[&_table]:w-full text-xs">
+
+| **Gatilho** | **Descrição** |
+| --- | --- |
+| _Trigger Manually_ | executa o workflow sob demanda, bom para testes iniciais. |
+| _Webhook_ | dispara ao receber uma requisição HTTP externa (GET, POST, etc.). |
+| _Schedule_ | executa automaticamente em intervalos definidos (cron ou tempo fixo). |
+| _Form Submission_ | dispara quando um formulário gerado pelo n8n é preenchido e enviado. |
+| _Another Workflow_ | acionado por outro workflow, permitindo composição modular de fluxos. |
+| _Chat Received_ | dispara ao receber uma mensagem de chat (usado em agentes de IA). |
+| _Error Trigger_ | executa quando outro workflow falha, permitindo tratamento de erros. |
+| _n8n Trigger_ | reage a eventos internos do n8n (ex.: workflow ativado, atualizado). |
+
+</div>
