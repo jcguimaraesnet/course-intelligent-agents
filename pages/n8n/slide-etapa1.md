@@ -386,7 +386,7 @@ class: flex items-center justify-center
 ---
 layout: two-cols-header
 layoutClass: gap-8
-class: flex items-center justify-center
+class: flex items-start justify-center
 ---
 
 # Fluxo conceitual de um Workflow do n8n
@@ -395,13 +395,13 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="[&_table]:w-full text-sm mt-0">
+<div class="[&_table]:w-full text-sm mt-18 [&_td]:whitespace-nowrap [&_th]:whitespace-nowrap">
 
-| **Posição no fluxo** | **Tipo no n8n** | **Exemplo** |
-| --- | --- | --- |
-| Entrada | _Trigger_ | Gmail Trigger, Webhook, Schedule |
-| Processamento | _Action_ | Code, IF, Switch, Set |
-| Saída | _Action_ | Send Email, Slack, Google Sheets |
+| **Posição no fluxo** | **Tipo do nó** | **Conceito** |
+| --- | :---: | --- |
+| Entrada | _Trigger_ | Responsável pelo disparo do fluxo  |
+| Processamento | `Action` | Processa os dados no fluxo |
+| Saída | `Action` | Finaliza o fluxo com um resultado final |
 
 </div>
 
