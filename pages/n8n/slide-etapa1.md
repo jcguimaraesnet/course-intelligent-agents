@@ -371,7 +371,7 @@ class: flex items-center justify-center
 
 | **Tipo** | **Descrição** |
 | --- | --- |
-| _Triggers_ | iniciam um fluxo de trabalho em resposta a eventos ou condições específicas. |
+| _Triggers_ | iniciam um **workflow** em resposta a eventos ou condições específicas. |
 | _Actions_ | representam tarefas como manipular dados, executar operações, acionar eventos, etc. |
 
 </div>
@@ -380,4 +380,60 @@ class: flex items-center justify-center
 
 <div class="flex items-center justify-center h-full">
     <AssetImg src="n8n/node.png" class="rounded-lg w-full max-w-[280px]" />
+</div>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Core nodes, App nodes e Community nodes
+#### **Os `nós` também podem ser categorizados como: _principal_, de _aplicativo_ e _comunitário_**
+
+
+::left::
+
+<div class="[&_table]:w-full text-sm mt-0">
+
+| **Tipo** | **Descrição** |
+| --- | --- |
+| _Core_ | **nós nativos** de controle de fluxo, gatilhos internos e manipulação de dados. |
+| _App_ | nós de integrações com serviços e **aplicativos externos** (ex.: Slack, Gmail, OpenAI). |
+| _Community_ | nós personalizados e compartilhados pela comunidade (**instalável** no n8n). |
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+    <AssetImg src="n8n/node-core-app.png" class="rounded-lg w-full max-w-[320px]" />
+</div>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Triggers (gatilhos)
+#### **Os gatilhos podem ser divididos em dois grandes grupos: internos (core) e de aplicativo**
+
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-4">
+
+- Todo workflow _exige pelo menos um gatilho_ para funcionar e ser executado
+- Os **gatilhos internos** _não dependem_ de um serviço ou aplicativo específico, e podem ser usados de forma genérica
+- Existem centenas de **gatilhos de aplicativos**, os quais _dependem de um serviço_ específico (API da empresa) pra funcionar
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+    <AssetImg src="n8n/trigger-list-types.png" class="rounded-lg w-full max-w-[190px]" />
 </div>
