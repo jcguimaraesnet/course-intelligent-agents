@@ -367,7 +367,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="[&_table]:w-full text-sm mt-0">
+<div class="[&_table]:w-full text-base mt-0">
 
 | **Tipo** | **Descrição** |
 | --- | --- |
@@ -390,7 +390,7 @@ class: flex items-center justify-center
 ---
 
 # Core nodes, App nodes e Community nodes
-#### **Os `nós` também podem ser categorizados como: _principal_, de _aplicativo_ e _comunitário_**
+#### **Os `nós` também podem ser categorizados como: _interno_, de _aplicativo_ e _comunitário_**
 
 
 ::left::
@@ -424,7 +424,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-4">
+<div class="text-base w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
 - Todo workflow _exige pelo menos um gatilho_ para funcionar e ser executado
 - Os **gatilhos internos** _não dependem_ de um serviço ou aplicativo específico, e podem ser usados de forma genérica
@@ -459,4 +459,49 @@ class: flex items-center justify-center
 | _Error Trigger_ | executa quando outro workflow falha, permitindo tratamento de erros. |
 | _n8n Trigger_ | reage a eventos internos do n8n (ex.: workflow ativado, atualizado). |
 
+</div>
+
+---
+
+# App triggers (gatilhos de aplicativo)
+
+#### **Abaixo uma listagem dos gatilhos de aplicativo mais populares do n8n**
+
+<div class="h-8" />
+
+<div class="[&_table]:w-full text-sm">
+
+| **Gatilho** | **Descrição** |
+| --- | --- |
+| _Gmail Trigger_ | dispara ao receber, enviar ou atualizar um e-mail no Gmail. |
+| _Slack Trigger_ | dispara ao receber uma mensagem, reação ou evento em um canal do Slack. |
+| _Google Sheets Trigger_ | dispara quando uma linha é adicionada ou atualizada em uma planilha. |
+| _Telegram Trigger_ | dispara ao receber uma mensagem ou comando em um bot do Telegram. |
+| _GitHub Trigger_ | dispara em eventos de repositório como push, pull request ou issue. |
+
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Diferença entre Gatilhos de Polling e de Webhook
+#### **Os gatilhos internos e de aplicativo podem operar de duas formas**
+
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- Gatilhos baseados em **webhooks** — o evento é recebido instantaneamente, comum em sistemas mais modernos, favorecendo automações com reatividade e sem delay. Ex: _Telegram Trigger_.
+- Gatilhos baseados em **polling** — realiza uma consulta periódica que verifica a cada X minutos se há alguma novidade no serviço externo. Ex: _Gmail Trigger_.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+    <AssetImg src="n8n/n8n-gmail-telegram-webhook-polling.png" class="rounded-lg w-full max-w-[220px]" />
 </div>
