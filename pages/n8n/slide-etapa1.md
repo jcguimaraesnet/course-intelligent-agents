@@ -560,5 +560,17 @@ class: flex items-center justify-center
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <AssetImg src="n8n/nodes/manual-trigger.svg" class="w-48 h-48" />
+  <N8nNode
+    icon-src="n8n/nodes/manual-trigger.svg"
+    label="Trigger Manually"
+    type="trigger"
+    :scale="1.4"
+  />
 </div>
+
+<!--
+## notes slides
+
+### Também pode ser usados os botões `Execute step` e `Test this trigger`
+### só pode ter apenas um gatilho manual por workflow
+-->
