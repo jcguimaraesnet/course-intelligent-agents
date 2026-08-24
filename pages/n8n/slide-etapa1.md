@@ -634,3 +634,75 @@ class: flex items-center justify-center
 ### Utiliza o fuso horário (timezone) configurado na instância do n8n ou no próprio workflow
 ### Permite alternar facilmente entre modo visual (intervalos simples) e expressões Cron avançadas
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Trigger webhook (gatilho webhook)
+#### **Execução em tempo real disparada por requisições HTTP externas**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-20 [&_li]:mb-6">
+
+- Expõe uma **URL de endpoint HTTP** (GET, POST, etc.) que recebe dados em tempo real e inicia o fluxo instantaneamente
+- Captura payloads em formato **JSON, formulários ou arquivos binários** enviados por serviços de terceiros
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/webhook.svg"
+    label="Webhook"
+    type="trigger"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Fornece duas URLs: Test URL (para testes manuais na interface) e Production URL (para fluxo ativo)
+### Pode responder imediatamente ou aguardar o processamento com o nó `Respond to Webhook`
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Data table (action node)
+#### **Armazenamento e consulta interna de dados tabulares dentro do próprio n8n**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-20 [&_li]:mb-6">
+
+- Permite **armazenar, consultar, atualizar e deletar** registros estruturados sem precisar de um banco de dados externo
+- Embora as tabelas sejam visíveis no n8n, os dados são gravados em um **banco de dados interno da instância do n8n** (SQLite por padrão).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/data-table.svg"
+    label="Data Table"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### As tabelas criadas no n8n possuem tipagem de colunas (text, number, boolean, date)
+### Os dados persistem na base interna da instância do n8n e podem ser compartilhados entre diferentes workflows
+-->
