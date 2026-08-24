@@ -136,6 +136,25 @@ source: https://claude.com/product/claude-code
 -->
 
 ---
+
+# Servidor proxy para rotear assinaturas de LLM/IA
+
+#### **Os projetos abaixo permitem rotear subscriptions de LLM para agentes de codificação.**
+
+<br/>
+
+<div class="[&_table]:w-full text-xs">
+
+| Projeto | ⭐&nbsp;GitHub | Facilidade | Foco principal |
+| --- | --- | --- | --- |
+| [CLIProxyAPI](https://github.com/CLIProxyAPI/CLIProxyAPI) | 48,5k | ⭐⭐⭐⭐ | Proxy e roteador de CLI para gerenciar e balancear múltiplos provedores de IA |
+| [OmniRoute](https://github.com/omniroute/omniroute) | ~54k | ⭐⭐⭐⭐ | Roteamento universal e balanceamento de carga de subscriptions e múltiplos LLMs |
+| [Claude Code Router](https://github.com/claude-code-router/claude-code-router) | ~36,7k | ⭐⭐⭐⭐⭐ | Proxy focado em rotear requisições do Claude Code CLI para qualquer provedor de IA |
+| [9Router](https://9router.dev) | 26,7k | ⭐⭐⭐⭐⭐ | Interface local e proxy para conectar Claude Code, Cursor e outros a +60 provedores |
+
+</div>
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
