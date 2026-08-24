@@ -1343,7 +1343,7 @@ layout: section
 <!--
 Cobre toda a Etapa 2 sem tocar na Responses API: .env + provedor gratuito, chat_completions,
 tracing desligado, instructions (role system), roles user/assistant, histórico, loop multi-turno,
-ModelSettings (temperature/max_tokens) e usage.
+ModelSettings (temperature/max_tokens).
 
 =================================================================
 PARTE 0 — o .env (mostrar antes de escrever qualquer código)
@@ -1426,18 +1426,6 @@ agent = Agent(
 
 >>> Peça "me surpreenda com uma combinação" duas vezes: respostas diferentes.
 >>> Baixe para temperature=0.0 e repita: sai igual. É o slide da temperatura, ao vivo.
-
-=================================================================
-PARTE 5 — o custo (o fecho da aula)
-
-Dentro do loop, logo após imprimir a resposta:
-
-        u = result.context_wrapper.usage
-        print(f"[input={u.input_tokens} output={u.output_tokens} total={u.total_tokens}]")
-
->>> Rode 4 ou 5 turnos e aponte o INPUT CRESCENDO a cada turno.
->>> É o histórico inteiro sendo reenviado — prova ao vivo do slide 41.
->>> E amarra o slide 48: o max_tokens segura o output, mas contra o input crescente não faz nada.
 -->
 
 ---
