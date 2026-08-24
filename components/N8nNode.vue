@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
   >
     <!-- Card do Nó n8n -->
     <div
-      class="relative flex items-center justify-center bg-white hover:bg-gray-50 transition-colors shadow-lg border border-gray-200"
+      class="relative flex items-center justify-center bg-white hover:bg-gray-50 transition-colors shadow-lg border-2 border-gray-400"
       :class="[
         type === 'trigger'
           ? 'w-24 h-24 rounded-l-[3rem] rounded-r-xl'
@@ -34,9 +34,15 @@ const props = withDefaults(defineProps<Props>(), {
     >
       <!-- Output Handle (lado direito) -->
       <div
-        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-gray-300 rounded-full flex items-center justify-center group-hover:border-[#ff6d5a] transition-colors shadow-sm"
+        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border border-gray-600 rounded-full group-hover:border-[#ff6d5a] transition-colors shadow-sm flex items-center"
       >
-        <div class="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+        <!-- Linha horizontal saindo do conector -->
+        <div class="absolute left-full top-1/2 -translate-y-1/2 w-[50px] h-[2px] bg-gray-400 pointer-events-none">
+          <!-- Quadrado no extremo direito da reta -->
+          <div class="absolute left-full top-1/2 -translate-y-1/2 w-4 h-4 bg-gray-400 border border-gray-600 rounded-sm shadow-sm flex items-center justify-center text-gray-800 text-xs font-bold leading-none select-none">
+            +
+          </div>
+        </div>
       </div>
 
       <!-- Ícone Central -->
