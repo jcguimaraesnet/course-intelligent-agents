@@ -706,3 +706,45 @@ class: flex items-center justify-center
 ### As tabelas criadas no n8n possuem tipagem de colunas (text, number, boolean, date)
 ### Os dados persistem na base interna da instância do n8n e podem ser compartilhados entre diferentes workflows
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Sort e Limit (action nodes)
+#### **Organização e restrição da quantidade de itens que trafegam no fluxo**
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+
+- **Sort** — reorganiza a lista de itens em ordem crescente ou decrescente com base em um ou mais campos (número, texto ou data).
+- **Limit** — restringe o volume de itens processados, mantendo apenas os primeiros ou últimos _N_ registros da lista recebida.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center gap-1 h-full mt-5">
+  <N8nNode
+    icon-src="n8n/nodes/sort.svg"
+    label="Sort"
+    type="action"
+    scale="0.8"
+  />
+  <N8nNode
+    icon-src="n8n/nodes/limit.svg"
+    label="Limit"
+    type="action"
+    scale="0.8"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O padrão clássico é encadear Sort + Limit para obter os Top N itens (ex: 5 clientes mais recentes ou 10 maiores pedidos)
+### O nó Limit também permite descartar itens (Keep/Drop) e definir paginação/offset
+-->
