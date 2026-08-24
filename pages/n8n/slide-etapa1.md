@@ -598,3 +598,39 @@ class: flex items-center justify-center
 ### Também pode ser usados os botões `Execute step` e `Test this trigger`
 ### só pode ter apenas um gatilho manual por workflow
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Trigger schedule (gatilho agendado)
+#### **Execução automática em intervalos regulares ou horários programados**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-20 [&_li]:mb-6">
+
+- Executa workflows em **frequências definidas** (a cada X minutos/horas, diariamente, semanalmente ou via expressão Cron).
+- Ideal para **tarefas de polling** como sincronização de dados, rotinas de backup e envio de relatórios, etc.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/schedule-trigger.svg"
+    label="Schedule Trigger"
+    type="trigger"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Utiliza o fuso horário (timezone) configurado na instância do n8n ou no próprio workflow
+### Permite alternar facilmente entre modo visual (intervalos simples) e expressões Cron avançadas
+-->
