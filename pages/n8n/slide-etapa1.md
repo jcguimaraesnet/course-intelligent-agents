@@ -784,3 +784,23 @@ class: flex items-center justify-center
 ### Anteriormente chamado apenas de `Set`, foi renomeado para `Edit Fields (Set)` para facilitar a identificação de sua função
 ### A opção `Include Other Input Fields` controla se os campos não mapeados são mantidos ou descartados na saída
 -->
+
+---
+
+# Expressões comuns no Edit Fields (Set)
+
+#### **As expressões `{{ }}` permitem o uso de JavaScript para manipular os dados**
+
+<div class="h-6" />
+
+<div class="[&_table]:w-full text-xs">
+
+| **Operação** | **Expressão n8n** | **Descrição** |
+| --- | --- | --- |
+| _Acesso Direto_ | `{{ $json.email }}` | Acessa diretamente a propriedade `email` do item atual |
+| _Referência a Outro Nó_ | `{{ $('Webhook').item.json.body.id }}` | Busca um campo específico retornado na saída de outro nó do fluxo |
+| _Tratamento de Texto_ | `{{ $json.email.toLowerCase().trim() }}` | Aplica métodos JS para normalizar texto (minúsculas e sem espaços extras) |
+| _Condicional (Ternário)_ | `{{ $json.status === 'S' ? 'P' : 'C' }}` | Retorna valores distintos baseados em uma condição lógica |
+| _Valor Padrão (Fallback)_ | `{{ $json.telefone \|\| 'Não informado' }}` | Define um valor alternativo caso o campo esteja nulo, indefinido ou vazio |
+
+</div>
