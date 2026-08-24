@@ -147,10 +147,10 @@ source: https://claude.com/product/claude-code
 
 | Projeto | ⭐&nbsp;GitHub | Facilidade | Foco principal |
 | --- | --- | --- | --- |
-| [CLIProxyAPI](https://github.com/CLIProxyAPI/CLIProxyAPI) | 48,5k | ⭐⭐⭐⭐ | Proxy e roteador de CLI para gerenciar e balancear múltiplos provedores de IA |
-| [OmniRoute](https://github.com/omniroute/omniroute) | ~54k | ⭐⭐⭐⭐ | Roteamento universal e balanceamento de carga de subscriptions e múltiplos LLMs |
-| [Claude Code Router](https://github.com/claude-code-router/claude-code-router) | ~36,7k | ⭐⭐⭐⭐⭐ | Proxy focado em rotear requisições do Claude Code CLI para qualquer provedor de IA |
-| [9Router](https://9router.dev) | 26,7k | ⭐⭐⭐⭐⭐ | Interface local e proxy para conectar Claude Code, Cursor e outros a +60 provedores |
+| [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) | 48,5k | ⭐⭐⭐⭐ | Proxy e roteador de CLI para gerenciar e balancear múltiplos provedores de IA |
+| [OmniRoute](https://github.com/diegosouzapw/OmniRoute) | ~54k | ⭐⭐⭐⭐ | Roteamento universal e balanceamento de carga de subscriptions e múltiplos LLMs |
+| [Claude Code Router](https://github.com/musistudio/claude-code-router) | ~36,7k | ⭐⭐⭐⭐⭐ | Proxy focado em rotear requisições do Claude Code CLI para qualquer provedor de IA |
+| [9Router](https://github.com/decolua/9router) | 26,7k | ⭐⭐⭐⭐⭐ | Interface local e proxy para conectar Claude Code, Cursor e outros a +60 provedores |
 
 </div>
 
