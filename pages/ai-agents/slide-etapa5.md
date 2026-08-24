@@ -898,6 +898,55 @@ if __name__ == "__main__":
 -->
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: json gpt-4o
+source: openrouter.ai/api/v1/model/openai/gpt-4o
+---
+
+# Cada LLM suporta parâmetros diferentes
+#### **Sempre verifique se o LLM suporta ferramentas**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O **OpenRouter** fornece uma API que permite verificar rapidamente se um modelo suporta ferramentas e outros parâmetros
+- O parâmetro **`tools`** indica que o modelo suporta receber uma lista (catálogo) de ferramentas
+- O parâmetro **`tool_choice`** indica que o modelo suporta forçar o uso de uma ferramenta existente no catálogo
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="openrouter.ai/api/v1/model/openai/gpt-4o" codeblock>
+
+```json {14-15}{maxHeight:'280px'}
+{
+  "data": {
+    "id": "openai/gpt-4o",
+    "canonical_slug": "openai/gpt-4o",
+    "hugging_face_id": null,
+    "name": "OpenAI: GPT-4o",
+    "created": 1715558400
+  },
+  "supported_parameters": [
+    "frequency_penalty",
+    "response_format",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools"
+  ]
+}
+```
+</WindowMockup>
+
+
+
+---
 layout: section
 ---
 
