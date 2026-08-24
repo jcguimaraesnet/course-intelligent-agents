@@ -620,6 +620,54 @@ if __name__ == "__main__":
 -->
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: json gpt-4o
+source: openrouter.ai/api/v1/model/openai/gpt-4o
+---
+
+# Cada LLM suporta parâmetros diferentes
+#### **Sempre verifique se o LLM suporta saídas formatadas e saídas estruturadas**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O **OpenRouter** fornece uma API que permite verificar rapidamente se um modelo suporta **saídas estruturadas**
+- O parâmetro **`response_format`** indica que o modelo suporta retornar um JSON **sintaticamente válido** (apenas)
+- O parâmetro **`structured_outputs`** indica que o modelo suporta retornar um JSON **totalmente aderente** ao schema JSON fornecido
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="openrouter.ai/api/v1/model/openai/gpt-4o" codeblock>
+
+```json {11-12}{maxHeight:'280px'}
+{
+  "data": {
+    "id": "openai/gpt-4o",
+    "canonical_slug": "openai/gpt-4o",
+    "hugging_face_id": null,
+    "name": "OpenAI: GPT-4o",
+    "created": 1715558400
+  },
+  "supported_parameters": [
+    "frequency_penalty",
+    "response_format",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools"
+  ]
+}
+```
+</WindowMockup>
+
+
+---
 layout: section
 ---
 
