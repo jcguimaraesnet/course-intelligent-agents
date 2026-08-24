@@ -362,7 +362,7 @@ class: flex items-center justify-center
 ---
 
 # Tipos de nós (node)
-#### **Fundamentalmente, há dois tipos de nós: triggers e actions**
+#### **Há dois tipos de nós: triggers e actions**
 
 
 ::left::
@@ -378,8 +378,19 @@ class: flex items-center justify-center
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-    <AssetImg src="n8n/node.png" class="rounded-lg w-full max-w-[280px]" />
+<div class="flex items-center justify-center gap-14 h-full">
+  <N8nNode
+    icon-src="n8n/nodes/manual-trigger.svg"
+    label="Trigger manually"
+    subtitle="(Trigger Node)"
+    type="trigger"
+  />
+  <N8nNode
+    icon-src="n8n/nodes/date-and-time.svg"
+    label="Current Date"
+    subtitle="(Action Node)"
+    type="action"
+  />
 </div>
 
 
