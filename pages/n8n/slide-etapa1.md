@@ -748,3 +748,39 @@ class: flex items-center justify-center
 ### O padrão clássico é encadear Sort + Limit para obter os Top N itens (ex: 5 clientes mais recentes ou 10 maiores pedidos)
 ### O nó Limit também permite descartar itens (Keep/Drop) e definir paginação/offset
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Edit fields [Set] (action node)
+#### **Criação, transformação e mapeamento de campos e estruturas de dados**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- Permite **adicionar novos campos, modificar valores existentes ou remover propriedades** do payload JSON.
+- Suporta **expressões dinâmicas do n8n** (`{{ }}`) para combinar dados de nós anteriores e transformar tipos (texto, número, booleano, data, objeto e array).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/edit-fields.svg"
+    label="Edit Fields (Set)"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Anteriormente chamado apenas de `Set`, foi renomeado para `Edit Fields (Set)` para facilitar a identificação de sua função
+### A opção `Include Other Input Fields` controla se os campos não mapeados são mantidos ou descartados na saída
+-->
