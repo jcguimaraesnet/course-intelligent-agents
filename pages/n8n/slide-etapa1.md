@@ -682,7 +682,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-20 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-12 [&_li]:mb-6">
 
 - Permite **armazenar, consultar, atualizar e deletar** registros estruturados sem precisar de um banco de dados externo
 - Embora as tabelas sejam visíveis no n8n, os dados são gravados em um **banco de dados interno da instância do n8n** (SQLite por padrão).
