@@ -901,7 +901,7 @@ if __name__ == "__main__":
 layout: two-cols-header
 layoutClass: gap-8
 sourceLabel: json gpt-4o
-source: openrouter.ai/api/v1/model/openai/gpt-4o
+source: https://openrouter.ai/api/v1/model/openai/gpt-4o
 ---
 
 # Cada LLM suporta parâmetros diferentes
