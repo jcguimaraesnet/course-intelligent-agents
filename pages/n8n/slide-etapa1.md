@@ -400,7 +400,7 @@ class: flex items-start justify-center
 | **Posição no fluxo** | **Tipo do nó** | **Conceito** |
 | --- | :---: | --- |
 | Entrada | _Trigger_ | Responsável pelo disparo do fluxo  |
-| Processamento | `Action` | Processa os dados no fluxo |
+| Processamento (**ou função**) | `Action` | Processa os dados no fluxo |
 | Saída | `Action` | Finaliza o fluxo com um resultado final |
 
 </div>
@@ -453,16 +453,15 @@ class: flex items-center justify-center
 ---
 
 # Triggers (gatilhos)
-#### **Os gatilhos podem ser divididos em dois grandes grupos: internos (core) e de aplicativo**
+#### **Todo workflow _exige pelo menos um gatilho_ para funcionar e ser executado**
 
 
 ::left::
 
-<div class="text-base w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+<div class="text-base w-full self-start [&_ul]:my-15 [&_li]:mb-6">
 
-- Todo workflow _exige pelo menos um gatilho_ para funcionar e ser executado
-- Os **gatilhos internos** _não dependem_ de um serviço ou aplicativo específico, e podem ser usados de forma genérica
-- Existem centenas de **gatilhos de aplicativos**, os quais _dependem de um serviço_ específico (API da empresa) pra funcionar
+- Existem os **gatilhos internos**, os quais _não dependem_ de um serviço ou aplicativo específico, e podem ser usados de forma genérica.
+- Existem os **gatilhos de aplicativos**, os quais _dependem de um serviço_ específico (API da empresa: Google Gmail, Telegram, etc) pra funcionar.
 
 </div>
 
@@ -538,4 +537,28 @@ class: flex items-center justify-center
 
 <div class="flex items-center justify-center h-full">
     <AssetImg src="n8n/n8n-gmail-telegram-webhook-polling.png" class="rounded-lg w-full max-w-[220px]" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Trigger manually (gatilho manual)
+#### **Ideal para a fase de desenvolvimento e testes rápidos de novos fluxos**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-20 [&_li]:mb-6">
+
+- Dispara o workflow **manualmente** pelo botão _Execute workflow_ no editor
+- Não recebe entrada externa de dados, iniciando o fluxo com dados definidos nos nós seguintes
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/nodes/manual-trigger.svg" class="w-48 h-48" />
 </div>
