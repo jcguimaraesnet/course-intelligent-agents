@@ -535,8 +535,21 @@ class: flex items-center justify-center
 
 ::right::
 
-<div class="flex items-center justify-center h-full">
-    <AssetImg src="n8n/n8n-gmail-telegram-webhook-polling.png" class="rounded-lg w-full max-w-[220px]" />
+<div class="flex flex-col items-center justify-center gap-1 h-full mt-5">
+  <N8nNode
+    icon-src="n8n/nodes/telegram.svg"
+    label="Telegram Trigger"
+    subtitle="(webhook)"
+    type="trigger"
+    scale="0.8"
+  />
+  <N8nNode
+    icon-src="n8n/nodes/gmail.svg"
+    label="Gmail Trigger"
+    subtitle="(polling)"
+    type="trigger"
+    scale="0.8"
+  />
 </div>
 
 ---
@@ -564,7 +577,7 @@ class: flex items-center justify-center
     icon-src="n8n/nodes/manual-trigger.svg"
     label="Trigger Manually"
     type="trigger"
-    :scale="1.4"
+    scale="1.4"
   />
 </div>
 
