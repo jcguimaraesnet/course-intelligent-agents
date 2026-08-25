@@ -675,6 +675,37 @@ layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
+# Testando Webhooks com Postman
+#### **Envio e validação de payloads HTTP para os endpoints do n8n**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-16 [&_li]:mb-6">
+
+- Permite simular requisições externas enviando **métodos (POST, GET), headers e corpo JSON** diretamente para a URL do webhook do n8n
+- Facilita o teste interativo usando a **Test URL** para capturar e inspecionar a estrutura exata dos dados recebidos no fluxo
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="postman.svg" class="w-48 h-48 drop-shadow-md" />
+</div>
+
+<!--
+## notes slides
+
+### Use a Test URL ao clicar em "Listen for test event" no n8n antes de disparar pelo Postman
+### Ao ativar o workflow em produção, alterne a URL da requisição no Postman para a Production URL
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
 # Data table (action node)
 #### **Armazenamento e consulta interna de dados tabulares dentro do próprio n8n**
 
