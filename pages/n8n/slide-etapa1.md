@@ -885,11 +885,11 @@ layout: section
 ## Live coding
 ⚙️ **Dois workflows práticos:** manipulação e transformação de dados de produtos.
 
-##### **1. Exportação ordenada de produtos** — buscar produtos cadastrados em uma tabela (produto e valor), ordenar do mais caro para o mais barato e salvar o arquivo JSON.
+##### **1. Gerar arquivo de exportação ordenado de produtos** — buscar produtos cadastrados em uma tabela (produto e valor), ordenar do mais caro para o mais barato e salvar o arquivo JSON.
 
 <br/>
 
-##### **2. Consulta de ofertas via integração** — receber uma solicitação de pedido externo (produto e valor), converter texto para minúsculo (produto), aplicar desconto (valor) e salvar o resultado em JSON.
+##### **2. Aplicar descontos a pedidos de compra** — receber uma solicitação de pedido externo (produto e valor), converter texto para minúsculo (produto), aplicar desconto (valor) e salvar o resultado em JSON.
 
 ---
 layout: default
