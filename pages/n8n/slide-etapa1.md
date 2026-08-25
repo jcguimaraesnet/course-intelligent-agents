@@ -877,3 +877,16 @@ class: flex items-center justify-center
 ### O n8n diferencia dados tabulares estruturados (JSON) de dados binários brutos (binary data)
 ### Para gravar arquivos no Docker, é necessário mapear o volume de arquivos (ex: `-v ~/.n8n-files:/home/node/.n8n-files`)
 -->
+
+---
+layout: section
+---
+
+## Live coding
+⚙️ **Dois workflows práticos:** manipulação e transformação de dados de produtos.
+
+##### **1. Exportação ordenada de produtos** — buscar produtos cadastrados em uma tabela (produto e valor), ordenar do mais caro para o mais barato e salvar o arquivo JSON.
+
+<br/>
+
+##### **2. Consulta de ofertas via integração** — receber uma solicitação de pedido externo (produto e valor), converter texto para minúsculo (produto), aplicar desconto (valor) e salvar o resultado em JSON.
