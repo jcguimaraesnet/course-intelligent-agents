@@ -890,3 +890,46 @@ layout: section
 <br/>
 
 ##### **2. Consulta de ofertas via integração** — receber uma solicitação de pedido externo (produto e valor), converter texto para minúsculo (produto), aplicar desconto (valor) e salvar o resultado em JSON.
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um fluxo manual que consulta uma Data Table de clientes e ordena por nome.
+
+🛠️ &nbsp;**Exercício \#2:** Crie um fluxo manual que busca itens na Data Table e limita aos 3 primeiros registros.
+
+🛠️ &nbsp;**Exercício \#3:** Crie um fluxo manual que transforma dados com expressões no Edit Fields (Set).
+
+🛠️ &nbsp;**Exercício \#4:** Crie um fluxo com Webhook que recebe dados via Postman e salva em disco no formato JSON.
+
+<br/>
+
+- [ ] &nbsp;teste o envio do payload com o Postman na Test URL do webhook
+- [ ] &nbsp;armazene e consulte registros estruturados no nó Data Table
+- [ ] &nbsp;ordene e filtre listas usando os nós Sort e Limit
+- [ ] &nbsp;salve arquivos no disco garantindo o caminho `/home/node/.n8n-files/<nome-arquivo>`
+
+<br/>
+
+<!--
+# Exercício #1 — Consulta e Ordenação na Data Table
+Crie um workflow manual que lê dados de clientes em uma Data Table
+e aplica ordenação alfabética com o nó Sort.
+
+# Exercício #2 — Paginação/Top N com Limit
+Crie um workflow manual com Data Table e limite a saída
+aos 3 primeiros registros com o nó Limit.
+
+# Exercício #3 — Transformação com Edit Fields (Set)
+Crie um workflow manual e use o nó Edit Fields (Set) para manipular
+strings, realizar operações numéricas e criar novos campos.
+
+# Exercício #4 — Recepção via Webhook e Postman
+Configure um Webhook Trigger (POST), teste o recebimento de JSON via Postman,
+converta em arquivo (Convert to File) e grave em /home/node/.n8n-files/.
+-->
