@@ -140,6 +140,46 @@ class: flex items-center justify-center
 -->
 
 ---
+layout: default
+---
+
+# Entendendo os itens individuais do n8n
+#### **Se a tabela tem 10 registros, quantos e-mails serão enviados?**
+
+<div class="h-[calc(100%-80px)] flex items-center justify-center -translate-x-6">
+  <div class="flex items-center justify-center gap-[85px]">
+    <N8nNode
+      icon-src="n8n/nodes/manual-trigger.svg"
+      label="Trigger"
+      subtitle="Trigger Manually"
+      type="trigger"
+      scale="1.1"
+    />
+    <N8nNode
+      icon-src="n8n/nodes/data-table.svg"
+      label="Get Rows"
+      subtitle="Data Table"
+      type="action"
+      scale="1.1"
+    />
+    <N8nNode
+      icon-src="n8n/nodes/gmail.svg"
+      label="Send a message"
+      subtitle="Gmail"
+      type="action"
+      scale="1.1"
+    />
+  </div>
+</div>
+
+<!--
+## notes slides
+
+### Resposta: 10 e-mails! No n8n, cada item de entrada faz o nó subsequente rodar uma vez para cada item (loop implícito).
+### Se o objetivo for enviar apenas 1 e-mail com a lista dos 10 itens, é necessário usar o nó Aggregate antes do Gmail.
+-->
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
