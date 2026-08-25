@@ -802,3 +802,47 @@ class: flex items-center justify-center
 | _Valor Padrão (Fallback)_ | `{{ $json.telefone \|\| 'Não informado' }}` | Define um valor alternativo caso o campo esteja nulo, indefinido ou vazio |
 
 </div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Convert to File e Read/Write Files (action nodes)
+#### **Conversão em memória e manipulação de arquivos físicos no sistema de arquivos**
+
+::left::
+
+<div class="text-15px w-full self-start [&_ul]:my-6 [&_li]:mb-4">
+
+- **Convert to/from File** — converte dados JSON em objetos binários em memória (CSV, XLSX, PDF, texto) ou vice-versa, sem gravar no disco.
+- **Read/Write Files from Disk** — lê e grava arquivos físicos no sistema de arquivos local da máquina ou container Docker.
+- **Importante:** o nó _Read/Write Files from Disk_ nem sempre aparece nas sugestões rápidas e o caminho de leitura/escrita configurado deve ser **`/home/node/.n8n-files/<nome-arquivo>`**
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center gap-1 h-full mt-5">
+  <N8nNode
+    icon-src="n8n/nodes/convert-to-file.svg"
+    label="Convert to/from File"
+    type="action"
+    scale="0.8"
+  />
+  <N8nNode
+    icon-src="n8n/nodes/read-write-files-from-disk.svg"
+    label="Read/Write Files from Disk"
+    type="action"
+    scale="0.8"
+  />
+</div>
+
+
+<!--
+## notes slides
+
+### O n8n diferencia dados tabulares estruturados (JSON) de dados binários brutos (binary data)
+### Para gravar arquivos no Docker, é necessário mapear o volume de arquivos (ex: `-v ~/.n8n-files:/home/node/.n8n-files`)
+-->
