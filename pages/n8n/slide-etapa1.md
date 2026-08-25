@@ -289,33 +289,31 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 
 # Instalação do n8n usando docker
 
-#### **Essa é uma forma simples de instalar o n8n com docker**
+#### **Após a instalação, o n8n estará acessível no navegador em `http://localhost:5678`**
 
 <br/>
 
 ::left::
 
 ```sh [Docker Run]
-# Criar volume persistente para salvar workflows e credenciais
-docker volume create n8n_data
-
 # Executar o container do n8n
+mkdir -p ~/.n8n ~/.n8n-files && \
 docker run -d \
- --name n8n \
- -p 5678:5678 \
- -e GENERIC_TIMEZONE="America/Sao_Paulo" \
- -e TZ="America/Sao_Paulo" \
- -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true \
- -v n8n_data:/home/node/.n8n \
- docker.n8n.io/n8nio/n8n
+  --name n8n \
+  -p 5678:5678 \
+  -e GENERIC_TIMEZONE="America/Sao_Paulo" \
+  -e TZ="America/Sao_Paulo" \
+  -v ~/.n8n:/home/node/.n8n \
+  -v ~/.n8n-files:/home/node/.n8n-files \
+  docker.n8n.io/n8nio/n8n
 ```
 
 ::right::
 
 > [!NOTE]
-> Após executar o comando, o n8n estará acessível no navegador em **`http://localhost:5678`**.
->
-> O volume **`n8n_data`** garante a persistência dos seus fluxos e dados mesmo se o container for removido.
+> A pasta **.n8n** é o padrão usado pelo n8n para confis, SQLite, credenciais, etc.
+> 
+> A pasta **.n8n-files** é o padrão usado pelo n8n para gravar e ler arquivos de dados.
 > 
 > Configure seu usuário e senha e o pedido de licença free
 
