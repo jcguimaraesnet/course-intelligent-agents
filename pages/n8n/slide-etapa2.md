@@ -57,7 +57,7 @@ class: flex items-center justify-center
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <AssetImg src="n8n/execution-panel.png" class="rounded-lg shadow-md max-w-[200px]" />
+  <AssetImg src="n8n/execution-panel.png" class="rounded-lg shadow-md max-w-[400px]" />
 </div>
 
 <!--
