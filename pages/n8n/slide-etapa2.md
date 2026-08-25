@@ -67,3 +67,39 @@ class: flex items-center justify-center
 ### Você pode reexecutar (retry) execuções com falha diretamente a partir do painel de histórico
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# If node (action node)
+#### **O nó If permite criar roteamento condicional de dados em um workflow**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- Avalia condições lógicas (igualdade, comparações numéricas, texto, existência) dividindo o fluxo em duas saídas: **true** e **false**.
+- Suporta **múltiplas condições combinadas** com operadores lógicos (_AND / OR_) para validar regras complexas sobre o payload de entrada.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/if.svg"
+    label="If"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Cada item recebido é avaliado individualmente, podendo rotear itens da mesma lista para saídas diferentes
+### O nó If possui duas saídas de conexão: a superior representa a condição verdadeira (true) e a inferior a falsa (false)
+-->
+
