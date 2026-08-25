@@ -90,7 +90,7 @@ class: flex items-center justify-center
 <div class="flex items-center justify-center h-full">
   <N8nNode
     icon-src="n8n/nodes/if.svg"
-    label="If"
+    label="If Node"
     type="action"
     scale="1.4"
   />
@@ -101,5 +101,41 @@ class: flex items-center justify-center
 
 ### Cada item recebido é avaliado individualmente, podendo rotear itens da mesma lista para saídas diferentes
 ### O nó If possui duas saídas de conexão: a superior representa a condição verdadeira (true) e a inferior a falsa (false)
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# HTTP (action node)
+#### **O nó HTTP permite fazer requisições a Web APIs de qualquer serviço web**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- Envia requisições HTTP (**GET, POST, PUT, DELETE, PATCH**) para qualquer API externa com headers, query params e body JSON.
+- Suporta diversos tipos de **autenticação** (Bearer Token, OAuth2, API Key, Basic) e encaminha as respostas como saída para o próximo nó do fluxo.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/http-request.svg"
+    label="HTTP Request"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Permite configurar paginação automática e controle de erros HTTP (ex: ignorar 404/500 ou tentar novamente)
+### Pode enviar e receber tanto dados JSON tabulares quanto arquivos binários (imagens, PDFs, áudio)
 -->
 
