@@ -146,7 +146,7 @@ class: flex items-center justify-center
 ---
 
 # Aggregate (action node)
-#### **Agrupamento de múltiplos itens individuais em uma única lista ou objeto consolidado**
+#### **O nó Aggregate permite agrupar itens individuais em um único item (lote)**
 
 ::left::
 
