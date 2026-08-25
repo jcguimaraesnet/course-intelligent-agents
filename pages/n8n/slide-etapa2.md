@@ -139,3 +139,39 @@ class: flex items-center justify-center
 ### Pode enviar e receber tanto dados JSON tabulares quanto arquivos binários (imagens, PDFs, áudio)
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Usando trigger agendado para polling
+#### **O trigger de agendamento premite criar workflows com polling, para tarefas recorrentes**
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- O **Schedule Trigger** dispara o workflow em intervalos recorrentes, úteis para busca periódica de novos registros.
+- **Não existe gatilho de polling**, mas o gatilho de agendamento permite criar workflows com polling.
+- O polling é **ideal para integrar sistemas legados**, que não possuem capacidade de notificação em tempo real.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+<Transform :scale="0.65" origin="center top">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A["⏱️ Schedule Trigger"] --> B["📋 Get Rows Table"]
+    B --> C["✏️ Edit Fields (Discount)"]
+    C --> D["💾 Update Rows Table"]
+    D --> E["📤 Export JSON"]
+```
+
+</Transform>
+</div>
+
+
