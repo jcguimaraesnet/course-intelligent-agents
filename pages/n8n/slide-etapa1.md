@@ -315,7 +315,7 @@ docker run -d \
 > 
 > A pasta **.n8n-files** é o padrão usado pelo n8n para gravar e ler arquivos de dados.
 > 
-> Configure seu usuário e senha e o pedido de licença free
+> **No primeiro login**, configure seu usuário e senha e o pedido de licença free
 
 ---
 layout: section
