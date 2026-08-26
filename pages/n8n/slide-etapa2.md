@@ -786,6 +786,52 @@ layoutClass: gap-8
 ### Permite manter repositórios de workflows reutilizáveis e agnósticos de ambiente
 -->
 
+---
+layout: default
+---
+
+# Live coding
+#### **Workflow para ordem de compra de bitcoin, disparado quando preço-alvo baixa**
+
+<div class="h-[calc(100%-60px)] flex flex-col justify-between">
+  <div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    A["⏱️ Schedule<br/>Trigger"] --> B["📋 Data Table<br/>(Ordens)"]
+    B --> C["🌐 HTTP<br/>(Preço BTC)"]
+    C --> D{"🔀 If <br/>(Preço <= Alvo)"}
+    
+    D -- "true" --> E["📄 Convert to<br/> File"]
+    E --> F["💾 Read/Write Files (Salvar JSON)"]
+    
+    D -- "false" --> G["📦 Aggregate"]
+    G --> H["✏️ Edit Fields <br/>(Ajustar Status)"]
+    H --> I["📋 Data Table <br/>(Atualizar Ordens)"]
+```
+
+</Transform>
+
+  </div>
+  
+  <div class="text-base w-full">
+
+> [!NOTE]
+> **Enunciado:** Consultar ordens de compra e cotação do BTC via polling agendado. Se o preço atingir o alvo, salvar a ordem executada em JSON; caso contrário, agregar as ordens pendentes e atualizar seus status na tabela.
+
+  </div>
+</div>
+
+<!--
+## notes slides
+
+### Demonstra na prática o uso conjunto de polling com Schedule Trigger, chamadas HTTP, ramificação condicional com If e manipulação em lote com Aggregate
+### Mostra os dois fluxos de saída (true e false) com ações distintas: gravação em disco e atualização de tabela
+-->
+
+
 
 
 
