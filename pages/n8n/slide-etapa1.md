@@ -376,11 +376,12 @@ class: flex items-center justify-center
 
 ::right::
 
-<div class="flex items-center justify-center gap-14 h-full">
+<div class="flex items-center justify-center gap-15 h-full">
   <N8nNode
     icon-src="n8n/nodes/manual-trigger.svg"
     label="Trigger manually"
     subtitle="(Trigger Node)"
+    connector="arrow"
     type="trigger"
   />
   <N8nNode

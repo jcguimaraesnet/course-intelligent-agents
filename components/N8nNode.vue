@@ -7,6 +7,8 @@ interface Props {
   subtitle?: string
   type?: 'trigger' | 'action' | 'default'
   scale?: number | string
+  connector?: 'plus' | 'arrow' | 'none'
+  arrow?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -15,6 +17,8 @@ const props = withDefaults(defineProps<Props>(), {
   subtitle: undefined,
   type: 'trigger',
   scale: 1,
+  connector: 'plus',
+  arrow: false,
 })
 </script>
 
@@ -34,12 +38,27 @@ const props = withDefaults(defineProps<Props>(), {
     >
       <!-- Output Handle (lado direito) -->
       <div
+        v-if="connector !== 'none'"
         class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border border-gray-600 rounded-full group-hover:border-[#ff6d5a] transition-colors shadow-sm flex items-center"
       >
         <!-- Linha horizontal saindo do conector -->
         <div class="absolute left-full top-1/2 -translate-y-1/2 w-[50px] h-[2px] bg-gray-400 pointer-events-none">
-          <!-- Quadrado no extremo direito da reta -->
-          <div class="absolute left-full top-1/2 -translate-y-1/2 w-4 h-4 bg-gray-400 border border-gray-600 rounded-sm shadow-sm flex items-center justify-center text-gray-800 text-xs font-bold leading-none select-none">
+          <!-- Seta ou Quadrado com '+' no extremo direito da reta -->
+          <!-- Seta -->
+          <div
+            v-if="arrow || connector === 'arrow'"
+            class="absolute left-full top-1/2 -translate-y-1/2 -translate-x-[2px] flex items-center justify-center text-gray-400 select-none"
+          >
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+              <path d="M5 3l14 9-14 9V3z" />
+            </svg>
+          </div>
+
+          <!-- Quadrado com '+' (padrão) -->
+          <div
+            v-else
+            class="absolute left-full top-1/2 -translate-y-1/2 w-4 h-4 bg-gray-400 border border-gray-600 rounded-sm shadow-sm flex items-center justify-center text-gray-800 text-xs font-bold leading-none select-none"
+          >
             +
           </div>
         </div>

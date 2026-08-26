@@ -147,12 +147,13 @@ layout: default
 #### **Se a tabela tem 10 registros, quantos e-mails serão enviados?**
 
 <div class="h-[calc(100%-80px)] flex items-center justify-center -translate-x-6">
-  <div class="flex items-center justify-center gap-[85px]">
+  <div class="flex items-center justify-center gap-21">
     <N8nNode
       icon-src="n8n/nodes/manual-trigger.svg"
       label="Trigger"
       subtitle="Trigger Manually"
       type="trigger"
+      connector="arrow"
       scale="1.1"
     />
     <N8nNode
@@ -160,6 +161,57 @@ layout: default
       label="Get Rows"
       subtitle="Data Table"
       type="action"
+      connector="arrow"
+      scale="1.1"
+    />
+    <N8nNode
+      icon-src="n8n/nodes/gmail.svg"
+      label="Send a message"
+      subtitle="Gmail"
+      type="action"
+      scale="1.1"
+    />
+  </div>
+</div>
+
+<!--
+## notes slides
+
+### Resposta: 10 e-mails! No n8n, cada item de entrada faz o nó subsequente rodar uma vez para cada item (loop implícito).
+### Se o objetivo for enviar apenas 1 e-mail com a lista dos 10 itens, é necessário usar o nó Aggregate antes do Gmail.
+-->
+
+---
+layout: default
+---
+
+# Nó Aggregate para agrupar itens individuais
+#### **O nó Aggregate é útil para agrupar itens individuais em um único lote**
+
+<div class="h-[calc(100%-80px)] flex items-center justify-center -translate-x-6">
+  <div class="flex items-center justify-center gap-21">
+    <N8nNode
+      icon-src="n8n/nodes/manual-trigger.svg"
+      label="Trigger"
+      subtitle="Trigger Manually"
+      type="trigger"
+      connector="arrow"
+      scale="1.1"
+    />
+    <N8nNode
+      icon-src="n8n/nodes/data-table.svg"
+      label="Get Rows"
+      subtitle="Data Table"
+      type="action"
+      connector="arrow"
+      scale="1.1"
+    />
+    <N8nNode
+      icon-src="n8n/nodes/aggregate.svg"
+      label="Group Data"
+      subtitle="Aggregate"
+      type="action"
+      connector="arrow"
       scale="1.1"
     />
     <N8nNode
