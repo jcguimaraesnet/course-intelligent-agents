@@ -952,7 +952,7 @@ source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 layout: default
 ---
 
-# Codificação assistida por IA - Live coding
+# Codificação assistida por IA - Live coding (1)
 #### **Workflow para ordem de compra de bitcoin, disparado quando o preço-alvo diminui**
 
 <div class="h-[calc(100%-80px)] flex flex-col justify-between">
@@ -991,6 +991,51 @@ flowchart LR
 
 ### Demonstra na prática o uso conjunto de polling com Schedule Trigger, chamadas HTTP, ramificação condicional com If e manipulação em lote com Aggregate
 ### Mostra os dois fluxos de saída (true e false) com ações distintas: gravação em disco e atualização de tabela
+-->
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Codificação assistida por IA - Live coding (2)
+#### **Live coding: usando o agente de codificação para construir workflows no n8n**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de automação especialista em n8n e construção de workflows.
+
+# Tarefa
+Crie um workflow no n8n-infnet que automatize ordens de compra de bitcoin disparadas quando o preço-alvo for atingido.
+
+# Contexto
+1. Use o nó Schedule Trigger para agendar a verificação periódica.
+2. Consulte as ordens pendentes em uma Data Table (tabela Ordens).
+3. Faça uma chamada HTTP para buscar a cotação atual do Bitcoin.
+4. Use o nó If para comparar se o preço atual do BTC é menor ou igual ao preço-alvo da ordem.
+5. Na ramificação True (preço atingiu o alvo):
+   - Converta os dados da ordem para arquivo com o nó Convert to File.
+   - Salve a ordem executada em disco com o nó Read/Write Files.
+6. Na ramificação False (preço ainda não atingiu o alvo):
+   - Agrupe os itens das ordens com o nó Aggregate.
+   - Ajuste o status das ordens com o nó Edit Fields.
+   - Atualize a Data Table de Ordens com os novos status.
+
+# Saída e Verificação
+- Crie o workflow diretamente na instância n8n via MCP.
+- Certifique-se de que o workflow seja funcional e com nós conectados corretamente.
+```
+</WindowMockup>
+
+<!--
+## notes slides
+
+### 1 - para gerar workflows corretos, é preciso entender a função de cada nó previamente
+### 2 - para garantir o funcionamento correto, valide a estrutura e as conexões geradas pelo agente (human-in-the-loop)
 -->
 
 
