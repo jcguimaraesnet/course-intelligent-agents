@@ -393,5 +393,399 @@ class: flex items-center justify-center
 ### Ao importar em outra instância, certifique-se de remapear credenciais e recursos internos (como Data Tables e caminhos de arquivos locais)
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Ajustes pós exportação de Workflow (1)
+#### **Exportação e importação de workflows exige cuidado e ajustes no JSON exportado**
+
+<br/>
+
+::left::
+
+```json [workflow.json] {9,12}{maxHeight:'300px'}
+{
+  "name": "workflow-export-report",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "qn5qQ7",
+          "mode": "list",
+          "cachedResultName": "teste",
+          "cachedResultUrl": "/projects/60Olck/datatables/qn5qQ7"
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [-64, -80],
+      "id": "7466512f-7909-47ff-a490-cf906c575835",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [384, -80],
+      "id": "600fdfdd-d133-4b54-9abc-0d4684d9b265",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/home/node/.n8n-files/teste.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [608, -80],
+      "id": "559e92eb-2531-4403-a681-42178d467631",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-272, -80],
+      "id": "d3ac6284-22a3-47ad-ac7e-ee3dedee4a71",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            { "fieldToAggregate": "nome" },
+            { "fieldToAggregate": "idade" },
+            { "fieldToAggregate": "=" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [160, -80],
+      "id": "9e674c50-c3b6-49f8-bac9-d6ca4fa3adc6",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s)": {
+      "main": [[{ "node": "Aggregate", 
+                    "type": "main", "index": 0 }]]
+    },
+    "Convert to File": {
+      "main": [[{ "node": "Read/Write Files from Disk", 
+                "type": "main", "index": 0 }]]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [[{ "node": "Get row(s)", 
+                "type": "main", "index": 0 }]]
+    },
+    "Aggregate": {
+      "main": [[{ "node": "Convert to File", 
+      "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8144c7e8-964a-4514-bfbf-01c8769d9667",
+  "meta": {
+    "instanceId": "b4fa16778588d84c4894fdf26a1c6bb8"
+  },
+  "nodeGroups": [],
+  "id": "7rYKO97uchKhkWLa",
+  "tags": []
+}
+```
+
+::right::
+
+> [!CAUTION]
+> O identificador `value` e `cachedResultUrl` pertencem exclusivamente ao Data Table da instância origem.
+> 
+> **Ação necessária:** apagar os campos `value` e `cachedResultUrl`, e ajustá-lo depois de importar na nova instância n8n.
+
+<!--
+## notes slides
+
+### Data Tables e credenciais não são portadas automaticamente no JSON do workflow
+### Na nova instância, o nó apresentará aviso de recurso não encontrado até ser reconfigurado
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Ajustes pós exportação de Workflow (2)
+#### **Exportação e importação de workflows exige cuidado e ajustes no JSON exportado**
+
+<br/>
+
+::left::
+
+```json [workflow.json] {35}{maxHeight:'300px'}
+{
+  "name": "workflow-export-report",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "qn5qQ7",
+          "mode": "list",
+          "cachedResultName": "teste",
+          "cachedResultUrl": "/projects/60Olck/datatables/qn5qQ7"
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [-64, -80],
+      "id": "7466512f-7909-47ff-a490-cf906c575835",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [384, -80],
+      "id": "600fdfdd-d133-4b54-9abc-0d4684d9b265",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/home/node/.n8n-files/arquivo.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [608, -80],
+      "id": "559e92eb-2531-4403-a681-42178d467631",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-272, -80],
+      "id": "d3ac6284-22a3-47ad-ac7e-ee3dedee4a71",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            { "fieldToAggregate": "nome" },
+            { "fieldToAggregate": "idade" },
+            { "fieldToAggregate": "=" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [160, -80],
+      "id": "9e674c50-c3b6-49f8-bac9-d6ca4fa3adc6",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s)": {
+      "main": [[{ "node": "Aggregate", 
+                    "type": "main", "index": 0 }]]
+    },
+    "Convert to File": {
+      "main": [[{ "node": "Read/Write Files from Disk", 
+                "type": "main", "index": 0 }]]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [[{ "node": "Get row(s)", 
+                "type": "main", "index": 0 }]]
+    },
+    "Aggregate": {
+      "main": [[{ "node": "Convert to File", 
+      "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8144c7e8-964a-4514-bfbf-01c8769d9667",
+  "meta": {
+    "instanceId": "b4fa16778588d84c4894fdf26a1c6bb8"
+  },
+  "nodeGroups": [],
+  "id": "7rYKO97uchKhkWLa",
+  "tags": []
+}
+```
+
+::right::
+
+> [!CAUTION]
+> O caminho `/home/node/.n8n-files/arquivo.json` pode não existir na instância n8n onde será importado o workflow.
+> 
+> **Ação necessária:** verifique o caminho do nó **Read/Write Files** e adapte-o à estrutura de diretórios do ambiente de destino.
+
+<!--
+## notes slides
+
+### Em ambientes locais com npm o caminho costuma ser relativo ou absoluto no SO do usuário (ex: /tmp ou C:\)
+### Certifique-se de que o container tenha permissão de escrita na pasta mapeada
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Ajustes pós exportação de Workflow (3)
+#### **Exportação e importação de workflows exige cuidado e ajustes no JSON exportado**
+
+<br/>
+
+::left::
+
+```json [workflow.json] {95,97,100}{maxHeight:'300px'}
+{
+  "name": "workflow-export-report",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "qn5qQ7",
+          "mode": "list",
+          "cachedResultName": "teste",
+          "cachedResultUrl": "/projects/60Olck/datatables/qn5qQ7"
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [-64, -80],
+      "id": "7466512f-7909-47ff-a490-cf906c575835",
+      "name": "Get row(s)"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [384, -80],
+      "id": "600fdfdd-d133-4b54-9abc-0d4684d9b265",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/home/node/.n8n-files/arquivo.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [608, -80],
+      "id": "559e92eb-2531-4403-a681-42178d467631",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-272, -80],
+      "id": "d3ac6284-22a3-47ad-ac7e-ee3dedee4a71",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            { "fieldToAggregate": "nome" },
+            { "fieldToAggregate": "idade" },
+            { "fieldToAggregate": "=" }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [160, -80],
+      "id": "9e674c50-c3b6-49f8-bac9-d6ca4fa3adc6",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s)": {
+      "main": [[{ "node": "Aggregate", 
+                    "type": "main", "index": 0 }]]
+    },
+    "Convert to File": {
+      "main": [[{ "node": "Read/Write Files from Disk", 
+                "type": "main", "index": 0 }]]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [[{ "node": "Get row(s)", 
+                "type": "main", "index": 0 }]]
+    },
+    "Aggregate": {
+      "main": [[{ "node": "Convert to File", 
+      "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8144c7e8-964a-4514-bfbf-01c8769d9667",
+  "meta": {
+    "instanceId": "b4fa16778588d84c4894fdf26a1c6bb8"
+  },
+  "nodeGroups": [],
+  "id": "7rYKO97uchKhkWLa",
+  "tags": []
+}
+```
+
+::right::
+
+> [!CAUTION]
+> As propriedades `versionId`, `meta.instanceId` e `id` identificam exclusivamente o workflow na instância onde o workflow foi criado.
+> 
+> **Ação necessária:** ao versionar JSON exportado de workflows, é recomendado remover identificadores de instância.
+
+<!--
+## notes slides
+
+### A interface do n8n trata a duplicidade gerando novo ID, mas em pipelines automatizados de CI/CD esses metadados devem ser sanitizados
+### Permite manter repositórios de workflows reutilizáveis e agnósticos de ambiente
+-->
+
+
 
 
