@@ -787,13 +787,145 @@ layoutClass: gap-8
 -->
 
 ---
+layout: section
+---
+
+## Codificação assistida por IA
+**Usando o MCP do n8n em agentes de codificação para construir workflows**
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: n8n Docs
+source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
+---
+
+# Codificação assistida por IA - parte 1
+#### **Um servidor n8n fornece também um MCP para integração em agentes**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-4">
+
+- **Acesse as configurações do n8n:** no menu lateral esquerdo, vá em **Settings > MCP Server** para visualizar as opções do servidor de contexto de modelo nativo.
+- **Habilite o MCP de instância:** ative a opção **Enable MCP server**. O MCP fica ativado na URL `http://localhost:5678/mcp-server/http`
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/n8n-mcp-instance.png" class="rounded-lg shadow-md max-w-[340px]" />
+</div>
+
+<!--
+## notes slides
+
+### O servidor MCP do n8n permite que agentes de IA inspecionem documentação de nós, validem esquemas e manipulem workflows
+### A conexão via MCP facilita a prototipação e manutenção de nós diretamente pelo chat ou assistente de código
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: n8n Docs
+source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
+---
+
+# Codificação assistida por IA - parte 2
+#### **Existem dois modos de configurar a autenticação do MCP Server do n8n**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-4">
+
+- Na mesma tela de ativação do MCP, clique no botão **Connect your client**, depois escolha **API Key** para proteger o MCP Server do n8n.
+- Na aba **API Key**, regere o token e **copie a sugestão de configuração JSON** para colar na configuração do seu agentet de codificação (Antigravity, Claude, Codex).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/n8n-mcp-connect-client.png" class="rounded-lg shadow-md max-w-[220px]" />
+</div>
+
+<!--
+## notes slides
+
+### A autenticação com API Key garante que apenas clientes e agentes autorizados possam consultar esquemas e gerenciar workflows
+### O client MCP deve enviar o token de autenticação via header nas requisições HTTP para a URL do endpoint do n8n
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: n8n Docs
+source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
+---
+
+# Codificação assistida por IA - parte 3
+#### **Escolha o agente de codificação para conectar o MCP Server do n8n**
+
+::left::
+
+<div class="text-15px w-full self-start [&_ul]:my-5 [&_li]:mb-4">
+
+- **Abra o gerenciador de MCP do agente:** acione a tela de **MCP Manage** (no Antigravity) e configure o JSON no antigravity.
+- **Ajuste o atributo da URL de conexão:** note que o atributo `url` sugerido pelo n8n deve ser ajustado para `serverUrl` quando configurado no Antigravity.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full mt-2">
+
+```json [mcp.json]
+{
+  "mcpServers": {
+    "n8n-infnet": {
+      "serverUrl": "http://localhost:5678/mcp-server/http",
+      "headers": {
+        "Authorization": "Bearer <YOUR_TOKEN>",
+        "Content-Type": "application/json"
+      }
+    }
+  }
+}
+```
+
+</div>
+
+::bottom::
+<div class="w-full text-10px">
+
+
+> [!NOTE]
+> Para o claude code: `claude mcp add --transport http n8n-infnet <URL> --header "Authorization: Bearer <TOKEN>` e `claude mcp list`
+
+
+
+</div>
+
+<!--
+## notes slides
+
+### a linha de comando no claude code deve ser executado no WSL
+### sempre reinicie o VS Code/Antigravity quando estiver usando a extensão do Claude Code
+-->
+
+
+---
 layout: default
 ---
 
-# Live coding
-#### **Workflow para ordem de compra de bitcoin, disparado quando preço-alvo baixa**
+# Codificação assistida por IA - Live coding
+#### **Workflow para ordem de compra de bitcoin, disparado quando o preço-alvo diminui**
 
-<div class="h-[calc(100%-60px)] flex flex-col justify-between">
+<div class="h-[calc(100%-80px)] flex flex-col justify-between">
   <div class="flex-1 flex items-center justify-center">
 
 <Transform :scale="3" origin="center">
