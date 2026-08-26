@@ -877,6 +877,8 @@ class: flex items-center justify-center
 
 ### O n8n diferencia dados tabulares estruturados (JSON) de dados binários brutos (binary data)
 ### Para gravar arquivos no Docker, é necessário mapear o volume de arquivos (ex: `-v ~/.n8n-files:/home/node/.n8n-files`)
+### o pacote jq é o mais conhecido para visualizar arquivos json no console: `sudo apt  install jq`
+### para visualizar JSON identitado e colorido no console: jq . teste.json
 -->
 
 ---
