@@ -806,7 +806,7 @@ source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-4">
+<div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-4">
 
 - **Acesse as configurações do n8n:** no menu lateral esquerdo, vá em **Settings > MCP Server** para visualizar as opções do servidor de contexto de modelo nativo.
 - **Habilite o MCP de instância:** ative a opção **Enable MCP server**. O MCP fica ativado na URL `http://localhost:5678/mcp-server/http`
@@ -835,11 +835,44 @@ source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 ---
 
 # Codificação assistida por IA - parte 2
+#### **O MCP do n8n exibe ativação em duas etapas: nível de instancia e workflow**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-4">
+
+- **Habilite a permissão no workflow:** no menu superior do editor de workflow, acesse **Workflow settings** e ative a opção **Available via MCP**.
+- **Boas práticas de identificação:** mantenha **nomes claros e descrições detalhadas** no workflow, permitindo que os agentes compreendam a finalidade de cada automação.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/n8n-mcp-enable-workflow.png" class="rounded-lg shadow-md max-w-[340px]" />
+</div>
+
+<!--
+## notes slides
+
+### A permissão individual por workflow garante controle granular sobre quais fluxos ficam acessíveis para os agentes de codificação
+### Nomes e descrições bem estruturados ajudam o modelo de linguagem a selecionar o workflow correto durante a execução de ferramentas MCP
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: n8n Docs
+source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
+---
+
+# Codificação assistida por IA - parte 3
 #### **Existem dois modos de configurar a autenticação do MCP Server do n8n**
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-4">
+<div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-4">
 
 - Na mesma tela de ativação do MCP, clique no botão **Connect your client**, depois escolha **API Key** para proteger o MCP Server do n8n.
 - Na aba **API Key**, regere o token e **copie a sugestão de configuração JSON** para colar na configuração do seu agentet de codificação (Antigravity, Claude, Codex).
@@ -867,7 +900,7 @@ sourceLabel: n8n Docs
 source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 ---
 
-# Codificação assistida por IA - parte 3
+# Codificação assistida por IA - parte 4
 #### **Escolha o agente de codificação para conectar o MCP Server do n8n**
 
 ::left::
