@@ -468,7 +468,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-base w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-6">
 
 - Existem os **gatilhos internos**, os quais _não dependem_ de um serviço ou aplicativo específico, e podem ser usados de forma genérica.
 - Existem os **gatilhos de aplicativos**, os quais _dependem de um serviço_ específico (API da empresa: Google Gmail, Telegram, etc) pra funcionar.
@@ -478,7 +478,7 @@ class: flex items-center justify-center
 ::right::
 
 <div class="flex items-center justify-center h-full">
-    <AssetImg src="n8n/trigger-list-types.png" class="rounded-lg w-full max-w-[190px]" />
+    <AssetImg src="n8n/trigger-list-types.png" class="rounded-lg w-full max-w-[170px]" />
 </div>
 
 ---
@@ -536,7 +536,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-base w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+<div class="text-17px w-full self-start [&_ul]:my-10 [&_li]:mb-6">
 
 - Gatilhos baseados em **webhooks** — o evento é recebido instantaneamente, comum em sistemas mais modernos, favorecendo automações com reatividade e sem delay. Ex: _Telegram Trigger_.
 - Gatilhos baseados em **polling** — realiza uma consulta periódica que verifica a cada X minutos se há alguma novidade no serviço externo. Ex: _Gmail Trigger_.
@@ -609,7 +609,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-20 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-12 [&_li]:mb-6">
 
 - Executa workflows em **frequências definidas** (a cada X minutos/horas, diariamente, semanalmente ou via expressão Cron).
 - Ideal para **tarefas de polling** como sincronização de dados, rotinas de backup e envio de relatórios, etc.
@@ -645,7 +645,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-20 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
 
 - Expõe uma **URL de endpoint HTTP** (GET, POST, etc.) que recebe dados em tempo real e inicia o fluxo instantaneamente
 - Captura payloads em formato **JSON, formulários ou arquivos binários** enviados por serviços de terceiros
@@ -681,7 +681,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-16 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
 
 - Permite simular requisições externas enviando **métodos (POST, GET), headers e corpo JSON** diretamente para a URL do webhook do n8n
 - Facilita o teste interativo usando a **Test URL** para capturar e inspecionar a estrutura exata dos dados recebidos no fluxo
@@ -748,7 +748,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-base w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
 
 - **Sort** — reorganiza a lista de itens em ordem crescente ou decrescente com base em um ou mais campos (número, texto ou data).
 - **Limit** — restringe o volume de itens processados, mantendo apenas os primeiros ou últimos _N_ registros da lista recebida.
@@ -786,14 +786,15 @@ class: flex items-center justify-center
 ---
 
 # Edit fields [Set] (action node)
-#### **Criação, transformação e mapeamento de campos e estruturas de dados**
+#### **O Edit Fields permite adicionar, modificar e remover campos do JSON recebido**
 
 ::left::
 
 <div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
 
-- Permite **adicionar novos campos, modificar valores existentes ou remover propriedades** do payload JSON.
-- Suporta **expressões dinâmicas do n8n** (`{{ }}`) para combinar dados de nós anteriores e transformar tipos (texto, número, booleano, data, objeto e array).
+- Permite fazer **mapeamento campa a campo** da entrada para uma saída, com possibilidade **transformação dos dados**
+- Também suporta **expressões do n8n** (`{{ }}`) para combinar dados de nós anteriores e transformar tipos (texto, número, booleano, data, objeto e array).
+
 
 </div>
 
@@ -811,15 +812,17 @@ class: flex items-center justify-center
 <!--
 ## notes slides
 
-### Anteriormente chamado apenas de `Set`, foi renomeado para `Edit Fields (Set)` para facilitar a identificação de sua função
 ### A opção `Include Other Input Fields` controla se os campos não mapeados são mantidos ou descartados na saída
 -->
 
 ---
+sourceLabel: Expression Ref
+source: https://docs.n8n.io/build/work-with-data/transform-data/expression-reference
+---
 
 # Expressões comuns no Edit Fields (Set)
 
-#### **As expressões `{{ }}` permitem o uso de JavaScript para manipular os dados**
+#### **As expressões `{{ }}` permitem o uso de 'javascript' para manipular os dados**
 
 <div class="h-6" />
 

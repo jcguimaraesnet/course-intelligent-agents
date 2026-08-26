@@ -18,6 +18,8 @@ transition: fade-out
 layout: cover
 footer: false
 presenter: true
+addons:
+  - window-mockup
 ---
 
 # Automação de Fluxos com n8n

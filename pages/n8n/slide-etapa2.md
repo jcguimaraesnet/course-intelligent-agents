@@ -270,6 +270,59 @@ class: flex items-center justify-center
 ---
 layout: two-cols-header
 layoutClass: gap-8
+---
+
+# Aggregate (action node): antes e depois
+#### **O aggregate abaixo agrupa o JSON array de dois para um único elemento**
+
+<br/>
+
+::left::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="entrada: 2 itens" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "produto": "Camiseta",
+    "valor": 99.99,
+    "id": 1
+  },
+  {
+    "produto": "Bermuda",
+    "valor": 149.90,
+    "id": 2
+  }
+]
+```
+
+</WindowMockup>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="saída agregada: 1 item" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "produto": ["Camiseta", "Bermuda"],
+    "valor": [99.99, 149.90]
+  }
+]
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### Observe que na entrada temos 2 itens independentes; após o Aggregate temos 1 único item cujos campos viraram arrays com os valores agrupados
+### Isso permite que o próximo nó seja executado apenas 1 vez recebendo todo o lote de dados
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
