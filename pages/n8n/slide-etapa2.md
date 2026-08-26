@@ -841,8 +841,8 @@ source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 
 <div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-4">
 
-- **Habilite a permissão no workflow:** no menu superior do editor de workflow, acesse **Workflow settings** e ative a opção **Available via MCP**.
-- **Boas práticas de identificação:** mantenha **nomes claros e descrições detalhadas** no workflow, permitindo que os agentes compreendam a finalidade de cada automação.
+- **Habilite a permissão no workflow:** na listagem de workflows, no menu de configurações (tres pontinhos) e ative a opção **Enable MCP access**.
+- **Boas práticas de identificação:** dê bons nomes para os workflows e altere suas descrições para conter **uma descrição detalhada**.
 
 </div>
 
