@@ -355,4 +355,43 @@ flowchart TD
 </Transform>
 </div>
 
+<!--
+## notes slides
+
+### O polling periódico é uma solução eficaz para conectar bancos legados ou planilhas que não emitem eventos HTTP
+### Permite automatizar rotinas de ETL e sincronização de dados entre múltiplos sistemas
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Exportação e importação de Workflow
+#### **O n8n permite exportar e importar workflows entre instâncias diferentes**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- O n8n exporta o workflow no formato **JSON**, que reflete o "código" e a estrutura declarativa usada pelo n8n para orquestrar e executar o fluxo.
+- É útil para **backup, versionamento em Git, compartilhamento entre equipes** e migração rápida de fluxos entre ambientes de desenvolvimento e produção.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/workflow-export-import.png" class="rounded-lg shadow-md max-w-[340px]" />
+</div>
+
+<!--
+## notes slides
+
+### O JSON contém nós, conexões e parâmetros configurados no canvas
+### Ao importar em outra instância, certifique-se de remapear credenciais e recursos internos (como Data Tables e caminhos de arquivos locais)
+-->
+
+
 
