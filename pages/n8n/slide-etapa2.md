@@ -902,11 +902,8 @@ source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 ::bottom::
 <div class="w-full text-10px">
 
-
 > [!NOTE]
-> Para o claude code: `claude mcp add --transport http n8n-infnet <URL> --header "Authorization: Bearer <TOKEN>` e `claude mcp list`
-
-
+> Para o claude code: `claude mcp add -s user --transport http n8n-infnet <URL> --header "Authorization: Bearer <TOKEN>` e `claude mcp list`
 
 </div>
 
@@ -914,7 +911,7 @@ source: https://docs.n8n.io/connect/connect-to-n8n-mcp-server
 ## notes slides
 
 ### a linha de comando no claude code deve ser executado no WSL
-### sempre reinicie o VS Code/Antigravity quando estiver usando a extensão do Claude Code
+### abra um novo chat na extensão do Claude Code no VS Code/Antigravity para usar o novo MCP
 -->
 
 
