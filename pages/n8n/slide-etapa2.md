@@ -962,16 +962,16 @@ layout: default
 
 ```mermaid {theme: 'dark'}
 flowchart LR
-    A["⏱️ Schedule<br/>Trigger"] --> B["📋 Data Table<br/>(Ordens)"]
-    B --> C["🌐 HTTP<br/>(Preço BTC)"]
+    A["⏱️ Schedule<br/>Trigger"] --> B["🌐 HTTP<br/>(Preço BTC)"]
+    B --> C["📋 Data Table<br/>(Ordens)"]
     C --> D{"🔀 If <br/>(Preço <= Alvo)"}
     
-    D -- "true" --> E["📄 Convert to<br/> File"]
-    E --> F["💾 Read/Write Files (Salvar JSON)"]
+    D -- "true" --> E["✏️ Edit Fields <br/>(Ajustar Status)"]
+    E --> F["📋 Data Table <br/>(Atualizar Ordens)"]
     
     D -- "false" --> G["📦 Aggregate"]
-    G --> H["✏️ Edit Fields <br/>(Ajustar Status)"]
-    H --> I["📋 Data Table <br/>(Atualizar Ordens)"]
+    G --> H["📄 Convert to<br/> File"]
+    H --> I["💾 Read/Write Files (Salvar JSON)"]
 ```
 
 </Transform>
@@ -981,7 +981,7 @@ flowchart LR
   <div class="text-base w-full">
 
 > [!NOTE]
-> **Enunciado:** Consultar ordens de compra e cotação do BTC via polling agendado. Se o preço atingir o alvo, salvar a ordem executada em JSON; caso contrário, agregar as ordens pendentes e atualizar seus status na tabela.
+> **Enunciado:** Consultar ordens de compra e cotação do BTC via polling agendado. Se o preço atingir o alvo, atualizar o status da ordem na tabela; caso contrário, agregar as ordens pendentes e salvar o relatório em JSON.
 
   </div>
 </div>
@@ -1014,16 +1014,20 @@ Crie um workflow no n8n-infnet que automatize ordens de compra de bitcoin dispar
 
 # Contexto
 1. Use o nó Schedule Trigger para agendar a verificação periódica.
-2. Consulte as ordens pendentes em uma Data Table (tabela Ordens).
-3. Faça uma chamada HTTP para buscar a cotação atual do Bitcoin.
-4. Use o nó If para comparar se o preço atual do BTC é menor ou igual ao preço-alvo da ordem.
+2. Faça uma chamada HTTP para buscar a cotação atual do Bitcoin.
+3. Consulte as ordens pendentes em uma Data Table (tabela Ordens).
+4. Adicione o nó If sem condições (deixe a condição para ser configurada na UI) e adicione um nó Sticky Note ao lado com o lembrete/pendência de configurar a condição do nó If.
 5. Na ramificação True (preço atingiu o alvo):
-   - Converta os dados da ordem para arquivo com o nó Convert to File.
-   - Salve a ordem executada em disco com o nó Read/Write Files.
-6. Na ramificação False (preço ainda não atingiu o alvo):
-   - Agrupe os itens das ordens com o nó Aggregate.
    - Ajuste o status das ordens com o nó Edit Fields.
    - Atualize a Data Table de Ordens com os novos status.
+6. Na ramificação False (preço ainda não atingiu o alvo):
+   - Agrupe os itens das ordens com o nó Aggregate.
+   - Converta os dados da ordem para arquivo com o nó Convert to File.
+   - Salve o relatório de ordens executadas em disco com o nó Read/Write Files no caminho `/home/node/.n8n-files/report.json`.
+
+# Regras de Expressões e Boas Práticas
+- Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n (ex: `$('Cotacao BTC')`) para evitar barras e aspas escapadas (`\"`).
+- Não adicione condições no nó If via MCP; crie um nó Sticky Note indicando a pendência de configurar a condição do nó If pela UI.
 
 # Saída e Verificação
 - Crie o workflow diretamente na instância n8n via MCP.
