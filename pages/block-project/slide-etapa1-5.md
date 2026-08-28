@@ -141,5 +141,24 @@ flowchart LR
   </div>
 </div>
 
+---
+
+# Entregável 4: Descrição textual da arquitetura
+#### **Exemplo de descrição de arquitetura (resumido pra caber no slide)**
+
+<div class="h-3" />
+
+<div class="[&_table]:w-full text-10px">
+
+| **#** | **Componente** | **Descrição** |
+| --- | --- | --- |
+| - | Canal de comunicação (Telegram) | Interface de entrada onde o usuário envia perguntas e recebe as respostas finais do agente. |
+| 8 | Agente n8n (Classificador) | Classifica a pergunta do usuário entre dúvida conceitual (base de conhecimento) ou operacional (dados/pedidos). |
+| 1 | Agente 1 (Políticas e Dúvidas) | Agente especialista em conhecimento que responde regras, prazos e diretrizes consultando a base de políticas. |
+| 1 | Agente 2 (Operações e Pedidos) | Agente especialista em ação/ferramentas que consulta banco de dados/JSON e verifica o status dos pedidos. |
+| 7 | Merge n8n | Unifica as respostas dos dois agentes quando houver execução paralela antes de responder ao usuário. |
+
+</div>
+
 
 
