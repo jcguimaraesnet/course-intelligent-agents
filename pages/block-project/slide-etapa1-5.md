@@ -25,7 +25,7 @@ routeAlias: etapa1-5
 | 3 | Diagrama de arquitetura | Diagrama no formato de imagem com os 9 componentes |
 | 4 | Descrição textual da arquitetura | O que cada um dos 9 componentes devem fazer |
 | 5 | Exemplo do fluxo de dados  | Exemplo passo-a-passo da entrada do usuário passando por cada componente até o resultado final  |
-| 6 | Dado estruturado | Quais informações serão armazenadas/consultadas (banco de dados, JSON ou API)? |
+| 6 | Dado estruturado | Quais informações serão armazenadas/consultadas (banco de dados ou API)? |
 | 7 | Demais itens do TP2 | Todo o restante do enunciado do TP2 |
 
 </div>
@@ -155,7 +155,7 @@ flowchart LR
 | - | Canal de comunicação (Telegram) | Interface de entrada onde o usuário envia perguntas e recebe as respostas finais do agente. |
 | 8 | Agente n8n (Classificador) | Classifica a pergunta do usuário entre dúvida conceitual (base de conhecimento) ou operacional (dados/pedidos). |
 | 1 | Agente 1 (Políticas e Dúvidas) | Agente especialista em conhecimento que responde regras, prazos e diretrizes consultando a base de políticas. |
-| 1 | Agente 2 (Operações e Pedidos) | Agente especialista em ação/ferramentas que consulta banco de dados/JSON e verifica o status dos pedidos. |
+| 1 | Agente 2 (Operações e Pedidos) | Agente especialista em ação/ferramentas que consulta banco de dados/API e verifica o status dos pedidos. |
 | 7 | Merge n8n | Unifica as respostas dos dois agentes quando houver execução paralela antes de responder ao usuário. |
 
 </div>
@@ -178,6 +178,27 @@ flowchart LR
 | 5. n8n Merge | Merge & Consolidação | Combina as duas respostas e envia ao Telegram: prazo de 7 dias + status em análise. |
 
 </div>
+
+---
+
+# Entregável 6: Dado estruturado
+#### **Exemplo de modelo de dados estruturado (banco de dados ou API)**
+
+<div class="h-3" />
+
+<div class="[&_table]:w-full text-11px">
+
+| **Nome do Campo** | **Descrição** |
+| --- | --- |
+| `id_pedido` | Identificador único do pedido/compra (ex: `#9876`). |
+| `nome_cliente` | Nome completo do comprador associado à transação. |
+| `evento` | Nome do show, partida ou evento referente ao ingresso adquirido. |
+| `data_compra` | Data e horário em que o pedido foi emitido e confirmado. |
+| `valor_total` | Valor total pago em reais pelo ingresso e taxas de serviço. |
+| `status` | Situação atual do pedido (ex: `Aprovado`, `Em análise`, `Reembolsado`, `Cancelado`). |
+
+</div>
+
 
 
 
