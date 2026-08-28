@@ -149,3 +149,52 @@ source: https://docs.n8n.io/build/manage-workflows/view-change-history#view-work
 ### O histórico de versões ajuda a identificar regressões e reverter alterações indevidas de forma rápida
 ### Cada salvamento cria um registro imutável que pode ser visualizado ou restaurado como a versão atual
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: API REST n8n
+source: https://docs.n8n.io/connect/n8n-api/authentication
+---
+
+# API REST do n8n
+#### **O n8n fornece uma API REST completa para gerenciar e inspecionar workflows**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-15px w-full self-start [&_ul]:my-5 [&_li]:mb-3">
+
+- A API REST do n8n permite entre outras operações, **listar, criar, atualizar, ativar e consultar execuções** de workflows.
+- Para habilitar a API do n8n, é necessário criar a API KEY do n8n: **Settings > n8n API > Create an API key**. 
+- Todas as chamadas a API REST do n8n devem usar o token `X-N8N-API-KEY`.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Terminal" codeblock>
+
+```bash {*}{maxHeight:'260px'}
+curl -X 'GET' \
+  'http://localhost:5678/api/v1/workflows' \
+  -H 'accept: application/json' \
+  -H 'X-N8N-API-KEY: <your-api-key>' \
+  | jq '.data[] | {id, name, active, updatedAt}'
+```
+
+</WindowMockup>
+
+</div>
+
+<!--
+## notes slides
+
+### A API REST é essencial para pipelines de CI/CD, deploys automatizados e monitoramento externo de instâncias n8n
+### O cabeçalho X-N8N-API-KEY é obrigatório em todas as chamadas autenticadas aos endpoints administrativos da API
+### para instalar o pacote jq `sudo apt  install jq`
+-->
