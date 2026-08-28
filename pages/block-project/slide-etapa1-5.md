@@ -45,17 +45,20 @@ layout: default
 
 ```mermaid {theme: 'dark'}
 flowchart LR
-    UI["📱 Telegram<br/>Chatbot<br/>App Web"] --> Trigger["⚡ #9 Gatilho<br/>n8n"]
+    UI["📱 Telegram<br/>💬 Chatbot<br/>💻 App Web"] --> Trigger["⚡ #9 Gatilho<br/>n8n"]
     Trigger --> AgentN8N["🤖 #8 Agente<br/>n8n"]
 
     AgentN8N -->|"#5"| API1["🌐 #4 API /run<br/>🤖 #1 Agente 1<br/>🧠 #2 Memoria<br/>📚 #3 RAG"]
     API1 --> Loop1["🔁 Loop<br/>Polling"]
     Loop1 -->|"#5"| Status1["🌐 #4 /status"]
     Status1 -->|"pending"| Loop1
-    Status1 -->|"done"| Response["📤 Resposta<br/>Telegram"]
+    Status1 -->|"done"| Response["📤 Resposta<br/>Usuário"]
 
-    AgentN8N --> API2["🌐 #4 API /agent-tool<br/>🤖 #1 Agente 2<br/>🔧 #6 MCP/Tool"]
-    API2 --> Response
+    AgentN8N -->|"#5"| API2["🌐 #4 API /run<br/>🤖 #1 Agente 2<br/>🔧 #6 MCP/Tool"]
+    API2 --> Loop2["🔁 Loop<br/>Polling"]
+    Loop2 -->|"#5"| Status2["🌐 #4 /status"]
+    Status2 -->|"pending"| Loop2
+    Status2 -->|"done"| Response
 ```
 
 </Transform>
