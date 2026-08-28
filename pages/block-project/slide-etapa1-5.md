@@ -202,22 +202,43 @@ flowchart LR
 ---
 
 # Outros cenários de negócio
-#### **Ao escolher o tema, pense na pergunta do usuário e nos dados (estruturado e não estruturado)**
+#### **Pense na pergunta do usuário e nos dados (estruturado e não estruturado) do seu tema**
 
-<div class="h-3" />
+<div class="h-1" />
 
-<div class="[&_table]:w-full text-10px">
+<div class="[&_table]:w-full text-9px">
 
 | **Cenário de Negócio** | **Pergunta do Usuário** | **Dados (Estruturado vs. Não Estruturado)** |
 | --- | --- | --- |
 | **Portal de RH** | _"Quais as regras para licença-paternidade e quantos dias de férias ainda tenho de saldo?"_ | **Não estruturado:** Guia de benefícios/CLT (doc)<br/>**Estruturado:** Tabela de saldo de férias/colaborador (banco/API) |
 | **Clínica Médica** | _"Qual o preparo para o exame de sangue e tem horário livre amanhã com dr. Carlos?"_ | **Não estruturado:** Manual de instruções de preparo (doc)<br/>**Estruturado:** Agenda de consultas e horários vagos (banco/API) |
 | **Suporte de TI** | _"Como configurar a VPN no Linux e qual o status do meu chamado #4521?"_ | **Não estruturado:** Base de conhecimento / FAQ técnico (doc)<br/>**Estruturado:** Tabela de tickets e chamados de TI (banco/API) |
+| **Secretaria Acadêmica** | _"Qual o prazo para trancar matéria e tranque 'Banco de Dados' para mim?"_ | **Não estruturado:** Regimento e calendário acadêmico (doc)<br/>**Estruturado:** Tabela de matrículas e status de disciplina (banco/API) |
+| **Hotelaria / Turismo** | _"Qual o horário do café da manhã e estenda minha reserva #H-4321 por mais 1 dia?"_ | **Não estruturado:** Guia de serviços e regras do hotel (doc)<br/>**Estruturado:** Tabela de reservas e disponibilidade de quartos (banco/API) |
 
 </div>
 
+---
+layout: default
+---
 
+# Hands-on
 
+<br/>
 
+🛠️ &nbsp;**Exercício \#1:** Defina o gatilho de entrada n8n (canal/interface) para o seu tema.
 
+🛠️ &nbsp;**Exercício \#2:** Especifique a fonte estruturada (banco/API) e a não estruturada (documento).
 
+🛠️ &nbsp;**Exercício \#3:** Elabore o diagrama de arquitetura contendo os 9 componentes interligados.
+
+🛠️ &nbsp;**Exercício \#4:** Escreva a descrição textual detalhando o papel de cada um dos componentes.
+
+🛠️ &nbsp;**Exercício \#5:** Mapeie um exemplo de fluxo de dados com pergunta de dupla intenção.
+
+🛠️ &nbsp;**Exercício \#6:** Modele os campos e tipos do dado estruturado da sua aplicação.
+
+<br/>
+
+- [ ] &nbsp;Versione o entregável no seu projeto de bloco atual
+- [ ] &nbsp;Faça o seu TP2 normalmente, e entregue também os exercícios do 1 ao 6 no TP2
