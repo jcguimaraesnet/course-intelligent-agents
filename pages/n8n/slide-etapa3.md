@@ -83,3 +83,69 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.error
 ### O n8n suprime o Error Workflow em execuções manuais de teste porque o erro já é exibido na tela para o usuário
 ### erros forçados de exemplo: URL de HTTP errado. Nome de tabela errada. Diretório de Write file errado.
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Depuração
+source: https://docs.n8n.io/build/understand-workflows/understand-executions/debug-executions#load-data
+---
+
+# Depuração de workflows
+#### **O n8n permite depurar workflows executados com sucesso e com erro**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- O recurso de depuração de workflows pode ser encontrado na área de execuções, no botões **Copy to editor** (sucesso) ou **Debug in editor** (erro).
+- Ambos os botões abrem o workflow com **os dados da execução carregados nas entradas e saídas dos nós**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/workflow-debug.png" class="rounded-lg shadow-md max-w-[380px]" />
+</div>
+
+<!--
+## notes slides
+
+### A partir do histórico em Executions ou no botão 'Debug', o n8n carrega as entradas e saídas registradas na execução selecionada
+### Permite reexecutar nós individuais com os mesmos dados que causaram o erro em produção
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Histórico de versões
+source: https://docs.n8n.io/build/manage-workflows/view-change-history#view-workflow-history
+---
+
+# Histórico de versões de workflow
+#### **O n8n permite visualizar o histórico de alterações de workflow**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- O histórico de versões de um workflow pode ser acessado a partir das **configurações do workflow**, no item de menu **"History version"**.
+- Permite abrir versões anteriores (para comparar), inspecionar a estrutura de nós do passado, **restaurar** ou **clonar** uma versão de workflow qualquer.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/workflow-version-history.png" class="rounded-lg shadow-md max-w-[180px]" />
+</div>
+
+<!--
+## notes slides
+
+### O histórico de versões ajuda a identificar regressões e reverter alterações indevidas de forma rápida
+### Cada salvamento cria um registro imutável que pode ser visualizado ou restaurado como a versão atual
+-->
