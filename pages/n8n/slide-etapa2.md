@@ -366,6 +366,8 @@ flowchart TD
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: Export/Import n8n
+source: https://docs.n8n.io/build/manage-workflows/export-and-import#from-the-editor-ui-menu
 ---
 
 # Exportação e importação de Workflow
@@ -396,6 +398,8 @@ class: flex items-center justify-center
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: Export/Import n8n
+source: https://docs.n8n.io/build/manage-workflows/export-and-import#from-the-editor-ui-menu
 ---
 
 # Ajustes pós exportação de Workflow (1)
@@ -527,6 +531,8 @@ layoutClass: gap-8
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: Export/Import n8n
+source: https://docs.n8n.io/build/manage-workflows/export-and-import#from-the-editor-ui-menu
 ---
 
 # Ajustes pós exportação de Workflow (2)
@@ -658,6 +664,8 @@ layoutClass: gap-8
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: Export/Import n8n
+source: https://docs.n8n.io/build/manage-workflows/export-and-import#from-the-editor-ui-menu
 ---
 
 # Ajustes pós exportação de Workflow (3)
