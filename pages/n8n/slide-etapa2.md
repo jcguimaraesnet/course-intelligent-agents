@@ -1042,6 +1042,49 @@ Crie um workflow no n8n-infnet que automatize ordens de compra de bitcoin dispar
 ### 2 - para garantir o funcionamento correto, valide a estrutura e as conexões geradas pelo agente (human-in-the-loop)
 -->
 
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um fluxo com Webhook (produção) que consulta via HTTP e exporta em JSON.
+
+🛠️ &nbsp;**Exercício \#2:** Crie um fluxo com Webhook (produção) que avalia com If e salva em 2 Data Tables.
+
+🛠️ &nbsp;**Exercício \#3:** Crie um fluxo agendado com Table, Aggregate e exporta em JSON.
+
+🛠️ &nbsp;**Exercício \#4:** Crie um fluxo agendado com Table, Aggregate, Edit Fields (count) e exporta JSON.
+
+<br/>
+
+- [ ] &nbsp;ative o workflow e teste o envio do payload na Production URL do Webhook
+- [ ] &nbsp;valide as ramificações True e False do nó If gravando nas Data Tables
+- [ ] &nbsp;agrupe múltiplos itens com o nó Aggregate antes de gerar o arquivo
+- [ ] &nbsp;salve arquivos no disco garantindo o caminho `/home/node/.n8n-files/<nome-arquivo>`
+
+<br/>
+
+<!--
+# Exercício #1 — Webhook em Produção, Consulta HTTP e Exportação JSON
+Crie um workflow ativado em produção com Webhook, consulte uma API externa
+via HTTP Request e salve a resposta em arquivo JSON no disco.
+
+# Exercício #2 — Webhook em Produção, Ramificação If e Múltiplas Data Tables
+Receba eventos via Webhook em produção, filtre com o nó If e insira
+os registros nas Data Tables correspondentes aos ramos True e False.
+
+# Exercício #3 — Polling Agendado, Data Table, Agregação e Exportação
+Agende a execução com Schedule Trigger, leia registros na Data Table,
+agrupe os itens com o nó Aggregate e exporte o resultado em JSON.
+
+# Exercício #4 — Polling Agendado, Agregação, Transformação e Exportação
+Crie um fluxo com Schedule Trigger, leia a Data Table, agrupe com Aggregate,
+transforme os dados com Edit Fields e grave o arquivo JSON final em disco.
+-->
+
 
 
 
