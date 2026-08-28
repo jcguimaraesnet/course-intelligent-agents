@@ -30,8 +30,47 @@ routeAlias: etapa1-5
 
 </div>
 
+---
+layout: default
+---
+
+# Arquitetura do Projeto de Bloco
+#### **Diagrama da arquitetura do projeto de bloco (entrega mínima)**
+
+<div class="h-[calc(100%-80px)] flex flex-col justify-between">
+
+  <div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="2.5" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    UI["📱 Telegram<br/>Chatbot<br/>App Web"] --> Trigger["⚡ #9 Gatilho<br/>n8n"]
+    Trigger --> AgentN8N["🤖 #8 Agente<br/>n8n"]
+
+    AgentN8N -->|"#5 Request"| API1["🌐 #4 API /run"]
+    API1 --> Core1["🤖 #1 Agente 1<br/>🧠 #2 Memoria<br/>📚 #3 RAG"]
+
+    AgentN8N -->|"#5 Request"| API2["🌐 #4 /status"]
+    API2 --> Core2["🤖 #1 Agente 2"]
+```
+
+</Transform>
+
+  </div>
+  
+  <div class="text-xs w-full">
+
+> [!NOTE]
+> **Interface de comunicação:** Um componente de interface de comunicação (Telegram, Chatbot web via Gradio/Chainlit ou Aplicativo Web) deve ser adicionado à arquitetura/diagrama para atuar como ponto de contato com o usuário final e acionar o gatilho (#9) do workflow.
+
+  </div>
+</div>
 
 ---
+layout: default
+---
+
 # Projetos de Chatbots mais conhecidos
 
 #### **Todos os projetos se enquadram na categoria "Conversational AI Frameworks"**

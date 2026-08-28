@@ -63,9 +63,11 @@ src: ./pages/block-project/slide-etapa1-2.md
 ---
 src: ./pages/block-project/slide-etapa1-3.md
 ---
+
 ---
 src: ./pages/block-project/slide-etapa1-4.md
 ---
+
 ---
 src: ./pages/block-project/slide-etapa1-5.md
 ---
