@@ -199,6 +199,24 @@ flowchart LR
 
 </div>
 
+---
+
+# Outros cenários de negócio
+#### **Ao escolher o tema, pense na pergunta do usuário e nos dados (estruturado e não estruturado)**
+
+<div class="h-3" />
+
+<div class="[&_table]:w-full text-10px">
+
+| **Cenário de Negócio** | **Pergunta do Usuário** | **Dados (Estruturado vs. Não Estruturado)** |
+| --- | --- | --- |
+| **Portal de RH** | _"Quais as regras para licença-paternidade e quantos dias de férias ainda tenho de saldo?"_ | **Não estruturado:** Guia de benefícios/CLT (doc)<br/>**Estruturado:** Tabela de saldo de férias/colaborador (banco/API) |
+| **Clínica Médica** | _"Qual o preparo para o exame de sangue e tem horário livre amanhã com dr. Carlos?"_ | **Não estruturado:** Manual de instruções de preparo (doc)<br/>**Estruturado:** Agenda de consultas e horários vagos (banco/API) |
+| **Suporte de TI** | _"Como configurar a VPN no Linux e qual o status do meu chamado #4521?"_ | **Não estruturado:** Base de conhecimento / FAQ técnico (doc)<br/>**Estruturado:** Tabela de tickets e chamados de TI (banco/API) |
+
+</div>
+
+
 
 
 
