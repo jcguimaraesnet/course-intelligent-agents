@@ -160,5 +160,25 @@ flowchart LR
 
 </div>
 
+---
+
+# Entregável 5: Exemplo do fluxo de dados
+#### **Exemplo de fluxo de dados (resumido pra caber no slide)**
+
+<div class="h-3" />
+
+<div class="[&_table]:w-full text-10px">
+
+| **Etapa / Ator** | **Componente** | **Ação / Dado Trafegado no Fluxo** |
+| --- | --- | --- |
+| 1. Usuário | Canal de Comunicação | _"Qual é o prazo para solicitar reembolso e qual é o status atual do meu pedido #9876?"_ |
+| 2. n8n Router | Agente n8n (Classificador) | Detecta dupla intenção (conceitual + operacional) e aciona ambos os agentes em paralelo. |
+| 3. Agente 1 | Políticas (Python) | Consulta base de conhecimento e retorna que o prazo de reembolso é de até 7 dias. |
+| 4. Agente 2 | Tools + Pedidos (Python) | Executa ferramenta de busca no banco/JSON e retorna que o pedido #9876 está "Em análise". |
+| 5. n8n Merge | Merge & Consolidação | Combina as duas respostas e envia ao Telegram: prazo de 7 dias + status em análise. |
+
+</div>
+
+
 
 
