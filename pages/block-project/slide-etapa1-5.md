@@ -20,13 +20,78 @@ routeAlias: etapa1-5
 
 | **#** | **Entregável** | **Observação** |
 | --- | --- | --- |
-| 1 | Qual Gatilho n8n? | Telegram, Chatbot, Aplicativo Web, Gmail, Google Sheet, etc |
-| 2 | Jornada do Usuário | Qual informação estruturada e não estruturada? Ambos obrigatório |
+| 1 | Qual Gatilho n8n | Telegram, Chatbot, Aplicativo Web, Gmail, Google Sheet, etc |
+| 2 | Fonte de Informações | Qual informação estruturada (API/DB/JSON) e não estruturada (doc)? Ambas obrigatório |
 | 2 | Diagrama de arquitetura | Diagrama no formato de imagem com os 9 componentes |
 | 3 | Descrição textual da arquitetura | O que cada um dos 9 componentes devem fazer |
 | 4 | Exemplo do fluxo de dados  | Exemplo passo-a-passo da entrada do usuário passando por cada componente até o resultado final  |
-| 6 | Dado estrururado | Quais informações serão armazenadas/consultadas (banco de dados, JSON ou API)? |
+| 6 | Dado estruturado | Quais informações serão armazenadas/consultadas (banco de dados, JSON ou API)? |
 | 7 | Demais itens do TP2 | Todo o restante do enunciado do TP2 |
+
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: integrations n8n
+source: https://n8n.io/integrations/
+---
+
+# Entregável 1: Qual Gatilho n8n
+#### **Analise como você desejar que o usuário interaja com o seu agente**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
+
+- O modo mais comum de interface agentica é um **chatbot** (Telegram, chatbot app), mas você pode pensar em um **aplicativo web de cadastro** (cadastrar perguntas de usuário)
+- Ou ainda, você pode pesquisar as **centenas de integrações do n8n**, e receber as perguntas do usuário através dessas integrações (Gmail, Slack, Google Sheet, etc)
+
+</div>
+
+::right::
+
+<div class="flex items-start justify-center h-full mt-0">
+  <AssetImg src="n8n-integracao.png" class="rounded-lg w-[350px] border-0 border-white" />
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Entregável 2: Fonte de informação
+#### **Defina as fontes estruturadas e não estruturadas que alimentarão o sistema**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
+
+- O projeto exige **duas fontes de informação distintas**: um banco de dados estruturado e uma base de conhecimento não estruturada.
+- **Exemplo (venda de ingressos):** Consulta de pedidos em tabela de banco de dados com status, valor e data da compra. E documento textual de política de vendas (regras de cancelamento, prazos e exceções).
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center justify-center w-full">
+
+<Transform :scale="1.3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    User["💬 Pergunta<br/>usuário"]
+    User --> DB[("🗄️ Pedidos de<br/> ingresso)</i>")]
+    User --> Doc["📄 Política de Vendas<br/><i>(Documento)</i>"]
+```
+
+</Transform>
 
 </div>
 
