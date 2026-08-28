@@ -35,7 +35,7 @@ layout: default
 ---
 
 # Arquitetura do Projeto de Bloco
-#### **Diagrama da arquitetura do projeto de bloco (entrega mínima)**
+#### **Diagrama da arquitetura do projeto de bloco (resumido para caber no slide)**
 
 <div class="h-[calc(100%-80px)] flex flex-col justify-between">
 
@@ -49,10 +49,13 @@ flowchart LR
     Trigger --> AgentN8N["🤖 #8 Agente<br/>n8n"]
 
     AgentN8N -->|"#5"| API1["🌐 #4 API /run<br/>🤖 #1 Agente 1<br/>🧠 #2 Memoria<br/>📚 #3 RAG"]
-    API1 --> Loop["🔁 Loop<br/>Polling"]
-    Loop -->|"#5"| API2["🌐 #4 /status"]
-    API2 -->|"pending"| Loop
-    API2 -->|"done"| Response["📤 Resposta<br/>Telegram"]
+    API1 --> Loop1["🔁 Loop<br/>Polling"]
+    Loop1 -->|"#5"| Status1["🌐 #4 /status"]
+    Status1 -->|"pending"| Loop1
+    Status1 -->|"done"| Response["📤 Resposta<br/>Telegram"]
+
+    AgentN8N --> API2["🌐 #4 API /agent-tool<br/>🤖 #1 Agente 2<br/>🔧 #6 MCP/Tool"]
+    API2 --> Response
 ```
 
 </Transform>
@@ -62,7 +65,7 @@ flowchart LR
   <div class="text-xs w-full">
 
 > [!NOTE]
-> **Interface de comunicação:** Um componente de interface de comunicação com o usuário (Telegram, Chatbot web via Gradio/Chainlit ou Aplicativo Web).
+> **Fluxo:** O usuário fornece uma dúvida, que é classificada como dúvida sobre base de conhecimento (ex: política de reembolso), ou dúvida sobre dado estruturado em API/banco/JSON (ex: pedidos de reembolso).
 
   </div>
 </div>
