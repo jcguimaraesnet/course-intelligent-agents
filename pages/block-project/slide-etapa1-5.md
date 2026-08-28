@@ -41,18 +41,18 @@ layout: default
 
   <div class="flex-1 flex items-center justify-center">
 
-<Transform :scale="2.5" origin="center">
+<Transform :scale="3" origin="center">
 
 ```mermaid {theme: 'dark'}
 flowchart LR
     UI["📱 Telegram<br/>Chatbot<br/>App Web"] --> Trigger["⚡ #9 Gatilho<br/>n8n"]
     Trigger --> AgentN8N["🤖 #8 Agente<br/>n8n"]
 
-    AgentN8N -->|"#5 Request"| API1["🌐 #4 API /run"]
-    API1 --> Core1["🤖 #1 Agente 1<br/>🧠 #2 Memoria<br/>📚 #3 RAG"]
-
-    AgentN8N -->|"#5 Request"| API2["🌐 #4 /status"]
-    API2 --> Core2["🤖 #1 Agente 2"]
+    AgentN8N -->|"#5"| API1["🌐 #4 API /run<br/>🤖 #1 Agente 1<br/>🧠 #2 Memoria<br/>📚 #3 RAG"]
+    API1 --> Loop["🔁 Loop<br/>Polling"]
+    Loop -->|"#5"| API2["🌐 #4 /status"]
+    API2 -->|"pending"| Loop
+    API2 -->|"done"| Response["📤 Resposta<br/>Telegram"]
 ```
 
 </Transform>
@@ -62,7 +62,7 @@ flowchart LR
   <div class="text-xs w-full">
 
 > [!NOTE]
-> **Interface de comunicação:** Um componente de interface de comunicação (Telegram, Chatbot web via Gradio/Chainlit ou Aplicativo Web) deve ser adicionado à arquitetura/diagrama para atuar como ponto de contato com o usuário final e acionar o gatilho (#9) do workflow.
+> **Interface de comunicação:** Um componente de interface de comunicação com o usuário (Telegram, Chatbot web via Gradio/Chainlit ou Aplicativo Web).
 
   </div>
 </div>
