@@ -13,7 +13,7 @@ sourceLabel: Error Trigger
 source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.errortrigger
 ---
 
-# Error Trigger (action node)
+# Error Trigger (Gatilho de erro)
 #### **O nó Error Trigger permite criar workflows de tratamento de erro em outros workflows**
 
 ::left::
@@ -197,4 +197,232 @@ curl -X 'GET' \
 ### A API REST é essencial para pipelines de CI/CD, deploys automatizados e monitoramento externo de instâncias n8n
 ### O cabeçalho X-N8N-API-KEY é obrigatório em todas as chamadas autenticadas aos endpoints administrativos da API
 ### para instalar o pacote jq `sudo apt  install jq`
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Merge node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
+---
+
+# Merge (action node)
+#### **O nó Merge permite combinar dados de duas ramificações diferentes em um único fluxo**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- Une dados de **duas entradas independentes** (Input 1 e Input 2), permitindo sincronizar e cruzar informações de ramificações paralelas.
+- Oferece diferentes **modos de combinação**: _Append_, _Combine_ e _Choose_.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/merge.svg"
+    label="Merge"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Merge aguarda a chegada de dados de ambas as entradas antes de prosseguir com a execução
+### Útil para enriquecer um conjunto de dados primário com informações complementares obtidas em APIs distintas
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Merge node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
+---
+
+# Merge (action node): modo Append
+#### **O modo Append empilha os itens do Input 1 e Input 2 em uma única lista**
+
+<br/>
+
+::left::
+
+<div class="space-y-2">
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="input 1: 1 item" codeblock>
+
+```json {*}{maxHeight:'115px'}
+[
+  { "id": 1, "produto": "Geladeira", "valor": 5000.00 }
+]
+```
+
+</WindowMockup>
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="input 2: 1 item" codeblock>
+
+```json {*}{maxHeight:'115px'}
+[
+  { "id": 2, "produto": "Televisão", "valor": 3000.00 }
+]
+```
+
+</WindowMockup>
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="saída: 2 itens (concatenados)" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "id": 1,
+    "produto": "Geladeira",
+    "valor": 5000.00
+  },
+  {
+    "id": 2,
+    "produto": "Televisão",
+    "valor": 3000.00
+  }
+]
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O modo Append simplesmente empilha os dados: todos os itens da Entrada 1 seguidos por todos os itens da Entrada 2
+### Não faz casamento de chaves nem cruzamento de colunas, apenas unifica as listas em uma única saída
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Merge node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
+---
+
+# Merge (action node): modo Combine
+#### **O modo Combine mescla as propriedades de ambas as entradas por chaves**
+
+<br/>
+
+::left::
+
+<div class="space-y-2">
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="input 1: dados do produto" codeblock>
+
+```json {*}{maxHeight:'115px'}
+[
+  { "id": 1, "produto": "Geladeira", "valor": 5000.00 }
+]
+```
+
+</WindowMockup>
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="input 2: dados complementares (id: 1)" codeblock>
+
+```json {*}{maxHeight:'115px'}
+[
+  { "id": 1, "categoria": "Eletrodomésticos", "estoque": 12 }
+]
+```
+
+</WindowMockup>
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="saída: 1 item (mesclado por id)" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "id": 1,
+    "produto": "Geladeira",
+    "valor": 5000.00,
+    "categoria": "Eletrodomésticos",
+    "estoque": 12
+  }
+]
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O modo Combine permite fazer 'join' entre duas fontes de dados cruzando por um campo comum (ex: id)
+### É ideal para enriquecer registros (ex: dados de cliente + histórico de compras de outra API)
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Merge node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
+---
+
+# Merge (action node): modo Choose
+#### **O modo Choose repassa os dados de apenas uma das entradas**
+
+<br/>
+
+::left::
+
+<div class="space-y-2">
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="input 1: produto principal" codeblock>
+
+```json {*}{maxHeight:'115px'}
+[
+  { "id": 1, "produto": "Geladeira", "valor": 5000.00 }
+]
+```
+
+</WindowMockup>
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="input 2: produto alternativo" codeblock>
+
+```json {*}{maxHeight:'115px'}
+[
+  { "id": 2, "produto": "Televisão", "valor": 3000.00 }
+]
+```
+
+</WindowMockup>
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="saída: escolhe apenas Input 1" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "id": 1,
+    "produto": "Geladeira",
+    "valor": 5000.00
+  }
+]
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O modo Choose (ou Choose Branch / Keep Non-Empty) decide qual entrada repassar adiante no fluxo
+### Muito usado em cenários de fallback: repassa a entrada 1 se ela tiver dados, caso contrário repassa a entrada 2
 -->
