@@ -129,5 +129,50 @@ flowchart TD
 ### O nó If valida tanto o término da tarefa externa quanto a trava de segurança de retentativas máximas
 -->
 
+---
+layout: default
+---
+
+# Padrão de polling: workflow completo
+#### **O padrão de polling normalmente exige três requisições HTTP (run, status e response)**
+
+<div class="h-[calc(100%-80px)] flex flex-col justify-between">
+  <div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    A["⚡ Webhook"] --> B["🌐 HTTP<br/>(/run)"]
+    B --> C["🌐 HTTP<br/>(/status)"]
+    C --> D["✏️ Edit Fields<br/>(count + 1)"]
+    D --> E{"🔀 If<br/>(Finalizado?)"}
+    E -- "Não" --> F["⏳ Wait"]
+    F --> C
+    E -- "Sim" --> G["🌐 HTTP<br/>(/response)"]
+    G --> H["🔀 Merge"]
+    H --> I["📋 Data Table<br/>(insert)"]
+```
+
+</Transform>
+
+  </div>
+  
+  <div class="text-base w-full">
+
+> [!NOTE]
+> **Fluxo de execução:** O webhook inicia o processo disparando um agente assíncrono em `/run`. Em seguida, o fluxo entra em um loop de polling consultando `/status` com retentativas via `Wait` até a conclusão. Ao finalizar, busca o resultado em `/response`, mergeia e grava os dados na `Data Table`.
+
+  </div>
+</div>
+
+<!--
+## notes slides
+
+### Demonstra o ciclo de vida completo de uma integração assíncrona via HTTP: disparo (/run), monitoramento com polling (/status) e obtenção do payload final (/response)
+### Os dados consolidados da resposta final são persistidos diretamente em uma Data Table do n8n
+-->
+
+
 
 
