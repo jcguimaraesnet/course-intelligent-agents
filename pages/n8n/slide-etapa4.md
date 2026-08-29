@@ -85,4 +85,49 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait
 ### Suporta diferentes modos de espera: After time interval, At specified time, On webhook call e On form submission
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-2
+class: flex items-center justify-center
+---
+
+# Padrão de polling em requisições HTTP
+#### **O padrão de polling é útil em cenários de tarefas em segundo plano**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+
+- É comum adotar a boa prática de um **máximo de retentativas** para evitar um cenário de **loop infinito**.
+- O padrão de polling normalmente exige **três requisições HTTP (run, status e response)**. O fluxo ao lado apresenta a parte mais complexa, o polling na API `/status`.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="0.80" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A["🌐 HTTP Request<br/>(API /status)"] --> B["✏️ Edit Fields<br/>(count = count + 1)"]
+    B --> C{"🔀 If<br/>(Finalizado?)"}
+    C -- "Não (em andamento)" --> D["⏳ Wait<br/>(Aguardar intervalo)"]
+    D --> A
+    C -- "Sim (concluído)" --> E["➡️ Next node<br/>(Seguir fluxo)"]
+```
+
+  </Transform>
+</div>
+
+<!--
+## notes slides
+
+### O padrão de polling combina HTTP Request, Edit Fields para controle de tentativas, If e Wait para criar ciclos seguros
+### O nó If valida tanto o término da tarefa externa quanto a trava de segurança de retentativas máximas
+-->
+
+
 
