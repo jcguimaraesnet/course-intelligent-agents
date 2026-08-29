@@ -286,7 +286,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 # Merge (action node): modo Append
 #### **O modo Append empilha os itens do Input 1 e Input 2 em uma única lista**
 
-<br/>
+<div class="h-2" />
 
 ::left::
 
@@ -296,7 +296,10 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 
 ```json {*}{maxHeight:'115px'}
 [
-  { "id": 1, "produto": "Geladeira", "valor": 5000.00 }
+  { "id": 1, 
+    "produto": "Geladeira", 
+    "valor": 5000.00 
+  }
 ]
 ```
 
@@ -306,7 +309,10 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 
 ```json {*}{maxHeight:'115px'}
 [
-  { "id": 2, "produto": "Televisão", "valor": 3000.00 }
+  { "id": 2, 
+    "produto": "Televisão", 
+    "valor": 3000.00 
+  }
 ]
 ```
 
@@ -352,7 +358,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 # Merge (action node): modo Combine
 #### **O modo Combine mescla as propriedades de ambas as entradas por chaves**
 
-<br/>
+<div class="h-2" />
 
 ::left::
 
@@ -362,7 +368,10 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 
 ```json {*}{maxHeight:'115px'}
 [
-  { "id": 1, "produto": "Geladeira", "valor": 5000.00 }
+  { "id": 1, 
+    "produto": "Geladeira", 
+    "valor": 5000.00 
+  }
 ]
 ```
 
@@ -372,7 +381,10 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 
 ```json {*}{maxHeight:'115px'}
 [
-  { "id": 1, "categoria": "Eletrodomésticos", "estoque": 12 }
+  { "id": 1, 
+    "categoria": "Eletrodomésticos", 
+    "estoque": 12 
+  }
 ]
 ```
 
@@ -415,7 +427,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 # Merge (action node): modo Choose
 #### **O modo Choose repassa os dados de apenas uma das entradas**
 
-<br/>
+<div class="h-2" />
 
 ::left::
 
@@ -425,7 +437,10 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 
 ```json {*}{maxHeight:'115px'}
 [
-  { "id": 1, "produto": "Geladeira", "valor": 5000.00 }
+  { "id": 1, 
+    "produto": "Geladeira", 
+    "valor": 5000.00 
+  }
 ]
 ```
 
@@ -435,7 +450,10 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 
 ```json {*}{maxHeight:'115px'}
 [
-  { "id": 2, "produto": "Televisão", "valor": 3000.00 }
+  { "id": 2, 
+    "produto": "Televisão", 
+    "valor": 3000.00 
+  }
 ]
 ```
 
@@ -464,4 +482,44 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 
 ### O modo Choose (ou Choose Branch / Keep Non-Empty) decide qual entrada repassar adiante no fluxo
 ### Muito usado em cenários de fallback: repassa a entrada 1 se ela tiver dados, caso contrário repassa a entrada 2
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Code node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
+---
+
+# Code (action node)
+#### **O nó Code permite usar código javascript/python personalizado no workflow**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
+
+- **JavaScript** é a opção mais recomendada por ser suportada desde a primeira versão do n8n e oferecer maior ecossistema e suporte nativo que o Python.
+- O código pode ser executado uma única vez para todos os itens recebidos do nó anterior (**Run Once for All Items**) ou executado individualmente para cada item (**Run Once for Each Item**).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/code.svg"
+    label="Code"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O modo Run Once for All Items ($input.all()) é ideal para agregações, ordenações customizadas e manipulação de lotes
+### O modo Run Once for Each Item ($input.item) processa e transforma cada item individualmente em loop implícito
 -->
