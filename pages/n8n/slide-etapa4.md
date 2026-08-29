@@ -177,7 +177,7 @@ class: flex items-center justify-center
 ---
 
 # Padrão de polling: parte 2
-#### **Depois do status retornar sucesso, a resposta é obtida e mergeada**
+#### **Depois do status retornar conclusão, a resposta é obtida e mergeada**
 
 <div class="h-3" />
 
