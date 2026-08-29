@@ -6,6 +6,108 @@ routeAlias: etapa3
 ## **Etapa 3:** Gestão Avançada de Erros
 
 ---
+layout: default
+---
+
+# Codificação assistida por IA - Live coding (1)
+#### **Workflow para exportar pedidos de cliente agrupado por show**
+
+<div class="h-[calc(100%-80px)] flex flex-col justify-between">
+  <div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    A["⏱️ Schedule<br/>Trigger"] --> B["📋 Data Table<br/>(Pedidos)"]
+    A --> C["📋 Data Table<br/>(Clientes)"]
+    B --> D["🔀 Merge<br/>(Combine: cliente_id)"]
+    C --> D
+    D --> E["💻 Code<br/>(Agrupar por Show)"]
+    E --> F["📄 Convert to<br/>File (JSON)"]
+    F --> G["💾 Read/Write Files<br/>(Salvar JSON)"]
+```
+
+</Transform>
+
+  </div>
+  
+  <div class="text-base w-full">
+
+> [!NOTE]
+> **Cenário de negócio:** workflow é disparado em horário específico, consulta tabelas de pedidos de ingressos e de clientes, mergeia os dados com Merge Combine, agrupar pedidos por show, e gera relatório de pediso por show em arquivo JSON. Em caso de erro, um workflow de tratamento de erros é disparado para armazenar os erros em log.
+
+  </div>
+</div>
+
+<!--
+## notes slides
+
+### Demonstra a combinação de dados de múltiplas fontes com Merge Combine e agrupamento estruturado via nó Code
+### Finaliza persistindo o JSON agrupado no diretório local via nós Convert to File e Read/Write Files from Disk
+-->
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Codificação assistida por IA - Live coding (2)
+#### **Workflow para exportar pedidos de cliente agrupado por show**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de automação especialista em n8n e construção de workflows.
+
+# Tarefa
+Crie dois workflows no n8n-infnet:
+1. Um workflow principal que consulte pedidos de ingressos e clientes em Data Tables, combine os dados, agrupe por show via nó Code e salve o resultado em arquivo JSON.
+2. Um workflow de tratamento de erro que capture falhas de execução e registre em uma tabela de log de erros.
+
+# Contexto
+## 1. Workflow Principal (Relatório por Show)
+1. Use o nó Schedule Trigger para agendar a execução do workflow.
+2. Crie/consulte duas Data Tables com 4 registros cada:
+   - Tabela `pedidos_ingressos`: colunas `id`, `cliente_id`, `show` (2 registros para o "Show Rock in Rio" e 2 para o "Show Lollapalooza"), `valor`.
+   - Tabela `clientes`: colunas `id`, `nome`, `email`, `cidade` (1 registro correspondente para cada cliente_id 1 a 4).
+3. Conecte o Schedule Trigger em Fan-out para ler ambas as tabelas (dois nós Data Table).
+4. Use o nó Merge no modo Combine para unir os dados de Pedidos com Clientes baseado na chave `cliente_id` (Input 1) e `id` (Input 2).
+5. Adicione um nó Code (JavaScript no modo Run Once for All Items) que:
+   - Agrupe os pedidos combinados pelo nome do show.
+   - Calcule a quantidade total de ingressos e valor total por show.
+6. Converta a lista agrupada em arquivo com o nó Convert to File (opção To JSON).
+7. Salve o arquivo JSON em disco com o nó Read/Write Files from Disk no caminho `/home/node/.n8n-files/pedidos_por_show.json`.
+8. Configure o workflow principal para apontar para o workflow de erro em _Workflow Settings > Error Workflow_.
+
+## 2. Workflow de Tratamento de Erro (Logs de Falhas)
+1. Crie um segundo workflow chamado `Error Handler - Logs de Erro`.
+2. Use o nó Error Trigger para capturar dados do erro (`workflow.name`, `execution.lastNodeExecuted`, `execution.error.message`).
+3. Crie/consulte uma Data Table `logs_erros` com as colunas `workflow_name`, `last_node_executed`, `error_message`, `data_erro`.
+4. Conecte o Error Trigger a um nó Data Table para inserir um novo registro na tabela `logs_erros`.
+5. Publique (ative) o workflow de erro para que fique disponível para seleção.
+
+# Regras de Expressões e Boas Práticas
+- Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n para evitar barras e caracteres escapados.
+- No nó Code, retorne um array no formato `[{ json: { ... } }]` com a estrutura agrupada por show.
+
+# Saída e Verificação
+- Crie o workflow diretamente na instância n8n via MCP.
+- Certifique-se de que o workflow seja funcional e com nós conectados corretamente.
+```
+</WindowMockup>
+
+<!--
+## notes slides
+
+### 1 - para gerar workflows corretos, é preciso detalhar a estrutura das tabelas e chaves de combinação
+### 2 - o nó Code consolida a agregação por show antes da conversão para arquivo binário JSON
+-->
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
@@ -651,5 +753,8 @@ source: https://docs.n8n.io/build/work-with-data/transform-data/expression-refer
 ### Variáveis como $now e $today utilizam a biblioteca Luxon internamente
 ### $("<node-name>").all() permite acessar o array completo de itens emitidos por qualquer nó anterior no fluxo
 -->
+
+
+
 
 
