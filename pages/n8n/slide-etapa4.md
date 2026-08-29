@@ -87,6 +87,46 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait
 
 ---
 layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Switch
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.switch
+---
+
+# Switch (action node)
+#### **O nó Switch permite rotear para mais de um ramo com base em comparação**
+
+<div class="h-12" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- Diferentemente do nó If que permite rotear para dois ramos, o nó Switch permite rotear para **mais de dois ramos**.
+- O switch permite escolher o modo regra, baseada em **comparação com cada entrada recebida**, ou por **expressão n8n**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/switch.svg"
+    label="Switch"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Switch avalia múltiplos caminhos de saída substituindo cadeias complexas de nós If
+### Suporta modos de roteamento por regras condicionais ou avaliação dinâmica via expressões
+-->
+
+---
+layout: two-cols-header
 layoutClass: gap-2
 class: flex items-center justify-center
 ---
