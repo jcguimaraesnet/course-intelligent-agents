@@ -493,7 +493,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
 ---
 
 # Code (action node)
-#### **O nó Code permite usar código javascript/python personalizado no workflow**
+#### **O nó Code permite usar código javascript/python no workflow**
 
 <div class="h-0" />
 
@@ -502,7 +502,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
 <div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
 
 - **JavaScript** é a opção mais recomendada por ser suportada desde a primeira versão do n8n e oferecer maior ecossistema e suporte nativo que o Python.
-- O código pode ser executado uma única vez para todos os itens recebidos do nó anterior (**Run Once for All Items**) ou executado individualmente para cada item (**Run Once for Each Item**).
+- **Use nó do tipo Código quando** os tipos de nós existente do n8n (Limit, Aggregate, Sort, etc) não são suficientes para resolver um determinado problema.
 
 </div>
 
@@ -523,3 +523,133 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
 ### O modo Run Once for All Items ($input.all()) é ideal para agregações, ordenações customizadas e manipulação de lotes
 ### O modo Run Once for Each Item ($input.item) processa e transforma cada item individualmente em loop implícito
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Code node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
+---
+
+# Code: adicionando código javascript
+#### **O sinal de `$` permite usar variáveis e métodos injetados em nó do tipo Code**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
+
+- O código pode ser executado uma única vez para todos os itens recebidos do nó anterior (**Run Once for All Items**) ou executado individualmente para cada item (**Run Once for Each Item**).
+- O nó do tipo código deve usar `return` para gerar uma saída para o próximo nó.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="JavaScript Code" codeblock>
+
+```javascript {*}{maxHeight:'260px'}
+// Diminui 7 dias a partir da data atual ($today)
+const seteDiasAtras = $today.minus({ days: 7 });
+
+return {
+  data_atual: $today.toISODate(),
+  sete_dias_atras: seteDiasAtras.toISODate()
+};
+```
+
+</WindowMockup>
+
+</div>
+
+<!--
+## notes slides
+
+### $today e $now utilizam internamente a biblioteca Luxon (DateTime), fornecendo métodos como .minus(), .plus() e .toFormat()
+### Objetos auxiliares como $input, $json, $item e $jmespath facilitam o acesso e manipulação da estrutura de dados
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Code node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
+---
+
+# Code: objeto $json
+#### **O objeto `$json` dá acesso direto às propriedades e valores do item atual**
+
+<div class="h-12" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- No modo **Run Once for Each Item**, `$json` representa o conteúdo JSON do item recebido na iteração atual.
+- Qualquer **propriedade adicionada** ou modificada em $json é repassada como saída para o próximo nó.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="JavaScript Code" codeblock>
+
+```javascript {*}{maxHeight:'260px'}
+// Acessa campos existentes e calcula novo valor
+const preco = $json.preco;
+const qtd = $json.quantidade;
+
+$json.total = preco * qtd;
+$json.processado_em = $today.toISODate();
+
+return $json;
+```
+
+</WindowMockup>
+
+</div>
+
+<!--
+## notes slides
+
+### No modo 'Run Once for Each Item', $json é um atalho prático para $input.item.json
+### Qualquer propriedade adicionada ou modificada em $json é repassada como saída para o próximo nó
+-->
+
+---
+sourceLabel: Expression Ref
+source: https://docs.n8n.io/build/work-with-data/transform-data/expression-reference
+---
+
+# Code: variáveis e métodos disponível
+#### **As variáveis e métodos abaixo podem ser usados em expressões e nó do tipo código**
+
+<div class="h-4" />
+
+<div class="[&_table]:w-full text-xs">
+
+| **Operação** | **Variável** | **Descrição** |
+| --- | --- | --- |
+| Criar string | `let rightNow = "Today's date is";` | Cria uma variável de texto (string). |
+| Hora atual | `let hourCurrent = $now;` | Retorna a data e hora atual como objeto DateTime (Luxon). |
+| Data de 7 dias atrás | `let sevenDaysAgo = $today.minus({days: 7});` | Subtrai 7 dias a partir da data atual. |
+| Converter data | `DateTime.fromFormat("23-06-2019", "dd-MM-yyyy");` | Converte uma string de data para objeto DateTime formatado. |
+| Obter itens | `let allItems = $("<node-name>").all();` | Obtém todos os itens de um nó executado anteriormente. |
+
+</div>
+
+<!--
+## notes slides
+
+### Variáveis como $now e $today utilizam a biblioteca Luxon internamente
+### $("<node-name>").all() permite acessar o array completo de itens emitidos por qualquer nó anterior no fluxo
+-->
+
+
