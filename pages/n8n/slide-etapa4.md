@@ -131,7 +131,7 @@ layoutClass: gap-2
 class: flex items-center justify-center
 ---
 
-# Padrão de polling em requisições HTTP
+# Padrão de polling: parte 1
 #### **O padrão de polling é útil em cenários de tarefas em segundo plano**
 
 <div class="h-0" />
@@ -148,7 +148,7 @@ class: flex items-center justify-center
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <Transform :scale="1.1" origin="center">
+  <Transform :scale="1.3" origin="center">
 
 ```mermaid {theme: 'dark'}
 flowchart TD
@@ -156,7 +156,7 @@ flowchart TD
     B --> C{"🔀 Switch<br/>(Status / Tentativas)"}
     C -- "Em andamento" --> D["⏳ Wait<br/>(Aguardar intervalo)"]
     D --> A
-    C -- "Concluído" --> E["➡️ Next node<br/>(Seguir fluxo)"]
+    C -- "Concluído" --> E["➡️ Obter resposta<br/>(API /response)"]
     C -- "Máx. tentativas" --> F["🚨 Tratamento erro<br/>(Notificar / Falha)"]
 ```
 
@@ -187,12 +187,13 @@ flowchart LR
     A["⚡ Webhook"] --> B["🌐 HTTP<br/>(/run)"]
     B --> C["🌐 HTTP<br/>(/status)"]
     C --> D["✏️ Edit Fields<br/>(count + 1)"]
-    D --> E{"🔀 If<br/>(Finalizado?)"}
-    E -- "Não" --> F["⏳ Wait"]
+    D --> E{"🔀 Switch<br/>(Status / Tentativas)"}
+    E -- "Em andamento" --> F["⏳ Wait"]
     F --> C
-    E -- "Sim" --> G["🌐 HTTP<br/>(/response)"]
+    E -- "Concluído" --> G["🌐 HTTP<br/>(/response)"]
     G --> H["🔀 Merge"]
     H --> I["📋 Data Table<br/>(insert)"]
+    E -- "Máx. tentativas" --> J["🚨 Tratamento erro"]
 ```
 
 </Transform>
@@ -202,7 +203,7 @@ flowchart LR
   <div class="text-base w-full">
 
 > [!NOTE]
-> **Fluxo de execução:** O webhook inicia o processo disparando um agente assíncrono em `/run`. Em seguida, o fluxo entra em um loop de polling consultando `/status` com retentativas via `Wait` até a conclusão. Ao finalizar, busca o resultado em `/response`, mergeia e grava os dados na `Data Table`.
+> **Fluxo de execução:** O webhook inicia o processo disparando um agente assíncrono em `/run`. Em seguida, o fluxo entra em um loop de polling consultando `/status` com retentativas via `Wait` até a conclusão. Ao finalizar, busca o resultado em `/response`, mergeia e grava os dados na `Data Table`. Caso atinja o limite máximo de retentativas, o `Switch` direciona para o ramo de tratamento de erro.
 
   </div>
 </div>
@@ -211,7 +212,7 @@ flowchart LR
 ## notes slides
 
 ### Demonstra o ciclo de vida completo de uma integração assíncrona via HTTP: disparo (/run), monitoramento com polling (/status) e obtenção do payload final (/response)
-### Os dados consolidados da resposta final são persistidos diretamente em uma Data Table do n8n
+### O nó Switch orquestra o ciclo de espera, o avanço para persistência dos dados na Data Table ou o desvio para tratamento de erro
 -->
 
 
