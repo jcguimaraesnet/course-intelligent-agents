@@ -148,15 +148,16 @@ class: flex items-center justify-center
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <Transform :scale="0.80" origin="center">
+  <Transform :scale="1.1" origin="center">
 
 ```mermaid {theme: 'dark'}
 flowchart TD
     A["🌐 HTTP Request<br/>(API /status)"] --> B["✏️ Edit Fields<br/>(count = count + 1)"]
-    B --> C{"🔀 If<br/>(Finalizado?)"}
-    C -- "Não (em andamento)" --> D["⏳ Wait<br/>(Aguardar intervalo)"]
+    B --> C{"🔀 Switch<br/>(Status / Tentativas)"}
+    C -- "Em andamento" --> D["⏳ Wait<br/>(Aguardar intervalo)"]
     D --> A
-    C -- "Sim (concluído)" --> E["➡️ Next node<br/>(Seguir fluxo)"]
+    C -- "Concluído" --> E["➡️ Next node<br/>(Seguir fluxo)"]
+    C -- "Máx. tentativas" --> F["🚨 Tratamento erro<br/>(Notificar / Falha)"]
 ```
 
   </Transform>
@@ -165,8 +166,8 @@ flowchart TD
 <!--
 ## notes slides
 
-### O padrão de polling combina HTTP Request, Edit Fields para controle de tentativas, If e Wait para criar ciclos seguros
-### O nó If valida tanto o término da tarefa externa quanto a trava de segurança de retentativas máximas
+### O padrão de polling combina HTTP Request, Edit Fields para controle de tentativas, Switch e Wait para criar ciclos seguros
+### O nó Switch avalia o término da tarefa externa, o ciclo de espera e o limite de retentativas direcionando para tratamento de erro
 -->
 
 ---
