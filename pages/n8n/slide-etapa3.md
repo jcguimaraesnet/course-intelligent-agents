@@ -203,6 +203,45 @@ curl -X 'GET' \
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+---
+
+# Fan-out
+#### **O Fan-out é um padrão clássico da EngSoft que distribui um dado em múltiplos destinos**
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- No n8n, o **Fan-out** ocorre nativamente quando um mesmo nó de saída é conectado simultaneamente à entrada de **dois ou mais nós subsequentes**.
+- Todos os ramos recebem a **mesma cópia idêntica dos dados** de entrada e executam suas operações de forma paralela e independente.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="1.2" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    A["Table<br/>📦 Pedidos<br/>Solicitado"] --> B["HTTP<br/>🚚 Preparar<br/>Entrega"]
+    A --> C["HTTP<br/>🧾 Processar<br/>Nota Fiscal"]
+```
+
+  </Transform>
+</div>
+
+<!--
+## notes slides
+
+### O Fan-out é ideal para executar ações paralelas desacopladas a partir de um mesmo evento (ex: gerar NF e avisar expedição)
+### Para juntar novamente os resultados dessas ramificações paralelas mais à frente no fluxo, utiliza-se o nó Merge (Fan-in)
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 sourceLabel: Merge node
 source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.merge
 ---
