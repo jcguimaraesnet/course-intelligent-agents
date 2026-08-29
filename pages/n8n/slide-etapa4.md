@@ -171,6 +171,49 @@ flowchart TD
 -->
 
 ---
+layout: two-cols-header
+layoutClass: gap-2
+class: flex items-center justify-center
+---
+
+# Padrão de polling: parte 2
+#### **Depois do status retornar sucesso, a resposta é obtida e mergeada**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- Após o status indicar sucesso, é necessário utilizar o nó **Merge** para consolidar a resposta final da API com o fluxo de dados e contexto anteriores.
+- Dependendo da estrutura dos dados, utiliza-se o modo **Combine** (para mesclar propriedades em um único registro) ou **Append** (para empilhar novas linhas) antes da persistência na **Data Table**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="0.6" origin="top">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A{"🔀 Switch<br/>(Concluído)"} 
+    A -- "Concluído" --> B["🌐 Obter Resposta<br/>(API /response)"]
+    B --> C["🔀 Merge<br/>(Juntar dados)"]
+    C --> D["📋 Data Table<br/>(insert)"]
+```
+
+  </Transform>
+</div>
+
+<!--
+## notes slides
+
+### Após a conclusão do polling, o workflow realiza a requisição final para extrair o resultado consolidado
+### O nó Merge unifica os dados da resposta final aos dados originais do fluxo para gravação na Data Table
+-->
+
+---
 layout: default
 ---
 
