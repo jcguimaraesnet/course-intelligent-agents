@@ -107,6 +107,7 @@ Crie dois workflows no n8n-infnet:
 ### 2 - o nó Code consolida a agregação por show antes da conversão para arquivo binário JSON
 -->
 
+
 ---
 layout: two-cols-header
 layoutClass: gap-8
@@ -754,7 +755,48 @@ source: https://docs.n8n.io/build/work-with-data/transform-data/expression-refer
 ### $("<node-name>").all() permite acessar o array completo de itens emitidos por qualquer nó anterior no fluxo
 -->
 
+---
+layout: default
+---
 
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um fluxo agendado que exporta relatório de remessa (e workflow de erro).
+
+🛠️ &nbsp;**Exercício \#2:** Crie um fluxo que combina remessa e motorista combinados e exporta em JSON.
+
+🛠️ &nbsp;**Exercício \#3:** Crie um fluxo que agrupa remessa por estado (usando nó Code, export em JSON).
+
+🛠️ &nbsp;**Exercício \#4:** Depure uma execução com erro, e execute a API do n8n para listar workflows ativos.
+
+<br/>
+
+- [ ] &nbsp;configure e publique o workflow de erro nas configurações do workflow principal
+- [ ] &nbsp;utilize o nó Merge no modo Combine unindo os dados por chave em comum
+- [ ] &nbsp;implemente lógica de agrupamento e consolidação em JavaScript no nó Code
+- [ ] &nbsp;utilize o cabeçalho `X-N8N-API-KEY` ao consultar endpoints da API REST do n8n
+
+<br/>
+
+<!--
+# Exercício #1 — Exportar relatório de pedidos e workflow de erro
+Crie um workflow agendado com Schedule Trigger que busca dados na tabela de pedidos e grava em arquivo JSON.
+Configure um Error Workflow com Error Trigger para registrar qualquer falha em tabela de log.
+
+# Exercício #2 — Exportar relatório de pedidos com clientes (nó Merge)
+Utilize duas tabelas (pedidos e clientes), cruze os registros via nó Merge no modo Combine
+e gere um arquivo JSON consolidado com os dados completos do cliente e do pedido.
+
+# Exercício #3 — Exportar relatório de pedidos agrupado por vendedor (nó Code)
+Crie um fluxo que lê pedidos com coluna vendedor, utiliza um nó Code com JavaScript no modo Run Once for All Items
+para agrupar e somar os totais por vendedor, exportando em arquivo JSON.
+
+# Exercício #4 — Depurar workflow com erro e gerar JSON com workflows ativos
+Force um erro em um workflow para simular a depuração com Debug in Editor.
+Em seguida, crie um fluxo que consulta a API REST do n8n (/api/v1/workflows) e exporta a lista de workflows ativos em JSON.
+-->
 
 
 
