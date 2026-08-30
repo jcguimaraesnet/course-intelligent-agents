@@ -15,7 +15,7 @@ layout: default
 <div class="h-[calc(100%-80px)] flex flex-col justify-between">
   <div class="flex-1 flex items-center justify-center">
 
-<Transform :scale="2.2" origin="center">
+<Transform :scale="3" origin="center">
 
 ```mermaid {theme: 'dark'}
 flowchart LR
@@ -40,7 +40,7 @@ flowchart LR
   <div class="text-base w-full">
 
 > [!NOTE]
-> **Cenário de negócio:** O webhook inicia o processo disparando uma tarefa assíncrona em `/run`. O workflow realiza polling em `/status` com retentativas via `Wait`. Ao concluir, busca o resultado em `/response` e valida o conteúdo: se a resposta for vazia ou o limite de tentativas for atingido, aciona o `Stop and Error`. Se válida, mergeia os dados e grava na `Data Table`. Todas as falhas disparam o workflow de tratamento de erro (`Error Trigger`) para registrar logs na tabela.
+> **Cenário de negócio:** O workflow dispara uma tarefa assíncrona em `/run`, realiza polling em `/status` com retentativas. Ao concluir, busca o resultado em `/response` e valida resposta válida. Se válida, mergeia os dados e grava na `Data Table`.
 
   </div>
 </div>
