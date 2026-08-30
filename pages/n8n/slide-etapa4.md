@@ -486,3 +486,43 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.stopa
 ### Interrompe intencionalmente a execução do workflow disparando o tratamento de falhas configurado
 ### Permite customizar a carga do erro com mensagens em texto ou estruturas JSON para auditoria e alertas
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie três APIs no padrão (run, status e response) de agente Python que classifica.
+
+🛠️ &nbsp;**Exercício \#2:** Crie um fluxo com Webhook que recebe pergunta e executa o agente.
+
+🛠️ &nbsp;**Exercício \#3:** Adicione no fluxo anterior o padrão de polling.
+
+🛠️ &nbsp;**Exercício \#4:** Adicione no fluxo anterior a chamada à API de response e trate erros.
+
+<br/>
+
+- [ ] &nbsp;implemente os endpoints assíncronos com FastAPI e BackgroundTasks em Python
+- [ ] &nbsp;configure o nó Webhook e a primeira chamada HTTP Request para disparar a execução (/run)
+- [ ] &nbsp;estruture o loop de polling com os nós HTTP Request (/status), Edit Fields, Switch e Wait
+- [ ] &nbsp;obtenha o resultado final (/response), combine dados via Merge e trate falhas com Stop and Error
+
+<br/>
+
+<!--
+# Exercício #1 — Criar Web API do agente de triagem com padrão assíncrono
+Desenvolva com FastAPI três endpoints: POST /agent/ask (com BackgroundTasks), GET /agent/status/{task_id} e GET /agent/result/{task_id} para classificação de dúvidas em pré-venda e pós-venda.
+
+# Exercício #2 — Workflow inicial com Webhook e disparo HTTP
+Crie um workflow no n8n iniciado por Webhook que extrai a dúvida enviada e faz a requisição HTTP POST para iniciar a tarefa no agente Python, capturando o task_id.
+
+# Exercício #3 — Implementar loop de polling no n8n
+Adicione ao workflow a consulta contínua de status via GET /agent/status/{task_id}, controlando as tentativas com Edit Fields, avaliando com nó Switch e aguardando intervalos com nó Wait.
+
+# Exercício #4 — Obter resposta final, merge e tratamento de erros
+Faça a requisição GET /agent/result/{task_id}, valide o payload de retorno, utilize o nó Merge para juntar ao contexto original e direcione exceções/timeouts para Stop and Error integrado a um workflow de Error Trigger.
+-->
+
