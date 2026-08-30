@@ -258,6 +258,42 @@ flowchart LR
 ### O nó Switch orquestra o ciclo de espera, o avanço para persistência dos dados na Data Table ou o desvio para tratamento de erro
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Data pinning
+source: https://docs.n8n.io/build/work-with-data/pin-and-mock-data#data-pinning
+---
+
+# Fixação de dados (Data pinning)
+#### **Fixar dados em nós permite testar workflows sem reexecutar nós anteriores**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+
+- O **Data pinning** congela a saída de um nó específico durante o desenvolvimento, evitando chamadas repetidas a APIs externas e consumo desnecessário de cotas.
+- Dados fixados são utilizados apenas em testes manuais no editor e são ignorados automaticamente em execuções de produção.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/workflow-pin-data.png" class="rounded-lg shadow-md max-w-[280px]" />
+</div>
+
+<!--
+## notes slides
+
+### O Data Pinning simula respostas estáticas em nós intermediários acelerando o ciclo de testes e depuração
+### Ideal para testar nós posteriores sem gerar novas requisições em APIs pagas ou com rate limit
+-->
+
+
 
 
 
