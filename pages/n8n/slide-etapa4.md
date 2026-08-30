@@ -293,6 +293,48 @@ source: https://docs.n8n.io/build/work-with-data/pin-and-mock-data#data-pinning
 ### Ideal para testar nós posteriores sem gerar novas requisições em APIs pagas ou com rate limit
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Stop and Error
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.stopanderror
+---
+
+# Stop and Error (action node)
+#### **O nó Stop and Error permite exibir mensagens personalizadas em casos de erros tratados**
+
+<div class="h-8" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Para um nó **Stop and Error** funcionar, é necessário que exista um workflow adicional de tratamento de erro com **Error Trigger**.
+- Permite configurar o tipo de erro personalizado: **_Error Message_** para mensagem simples no formato string ou um **Objeto JSON**.
+- O nó Stop and Error precisa ser um **nó final dentro do seu ramo**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/stop-and-error.svg"
+    label="Stop and Error"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Interrompe intencionalmente a execução do workflow disparando o tratamento de falhas configurado
+### Permite customizar a carga do erro com mensagens em texto ou estruturas JSON para auditoria e alertas
+-->
+
+
 
 
 
