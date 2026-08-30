@@ -115,6 +115,50 @@ Crie dois workflows no n8n-infnet:
 -->
 
 ---
+layout: default
+layoutClass: gap-8
+---
+
+# Codificação assistida por IA - Live coding (3)
+#### **Prompt para gerar a API assíncrona do agente de triagem com FastAPI**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de IA especialista em sistemas agênticos e APIs com Python.
+
+# Tarefa
+Desenvolva uma Web API REST assíncrona com FastAPI e Uvicorn que disponibiliza um assistente de triagem para classificar perguntas de clientes sobre ingressos.
+
+# Contexto
+1. Em "main.py", use FastAPI, Uvicorn e o OpenAI Agents SDK (`Agent` e `Runner`), assíncrono (`async def`), lendo o ".env".
+2. Use os métodos `set_default_openai_api("chat_completions")` e `set_tracing_disabled(True)` do Agents SDK da OpenAI.
+3. Configure o agente de triagem para classificar a dúvida do cliente estritamente entre:
+   - "pré-venda": dúvidas sobre compras, preços, lotes, formas de pagamento, parcelamento ou disponibilidade.
+   - "pós-venda": dúvidas sobre cancelamento, reembolso, troca de titularidade, envio de comprovante ou acesso ao evento.
+4. Crie uma estrutura em memória para armazenar o estado das tarefas (`tasks = {}`).
+5. Implemente três endpoints REST assíncronos (`async def`):
+   - `POST /agent/ask`: recebe a pergunta do usuário no body (`{"question": "..."}`), registra a tarefa como "pendente", adiciona o processamento do agente ao `BackgroundTasks` e retorna imediatamente o `task_id` (UUID) com status `202 Accepted`.
+   - `GET /agent/status/{task_id}`: retorna o status atual da tarefa (`"pendente"`, `"processando"` ou `"concluida"`).
+   - `GET /agent/result/{task_id}`: retorna a resposta gerada pelo agente (classificação e justificativa) quando a tarefa estiver concluída.
+
+# Saída e Verificação
+- Gere o arquivo main.py com as dependências necessárias e execução via Uvicorn.
+- O código deve ser funcional, assíncrono e pronto para integração via HTTP Request no n8n.
+```
+</WindowMockup>
+
+<!--
+## notes slides
+
+### 1 - o prompt estrutura uma API assíncrona em FastAPI com BackgroundTasks para suportar o padrão de polling
+### 2 - divide a interação em três endpoints REST (/ask, /status e /result) ideais para o ciclo de execução do n8n
+-->
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
@@ -442,9 +486,3 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.stopa
 ### Interrompe intencionalmente a execução do workflow disparando o tratamento de falhas configurado
 ### Permite customizar a carga do erro com mensagens em texto ou estruturas JSON para auditoria e alertas
 -->
-
-
-
-
-
-
