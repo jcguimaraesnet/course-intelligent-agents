@@ -6,6 +6,115 @@ routeAlias: etapa4
 ## **Etapa 4:** Integração HTTP com n8n
 
 ---
+layout: default
+---
+
+# Codificação assistida por IA - Live coding (1)
+#### **Workflow com padrão de polling HTTP, validação de resposta e log de erros**
+
+<div class="h-[calc(100%-80px)] flex flex-col justify-between">
+  <div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="2.2" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    A["⚡ Webhook"] --> B["🌐 HTTP<br/>(/run)"]
+    B --> C["🌐 HTTP<br/>(/status)"]
+    C --> D["✏️ Edit Fields<br/>(count + 1)"]
+    D --> E{"🔀 Switch"}
+    E -- "Em andamento" --> F["⏳ Wait"]
+    F --> C
+    E -- "Máx. tentativas" --> J["🛑 Stop & Error<br/>(Timeout)"]
+    E -- "Concluído" --> G["🌐 HTTP<br/>(/response)"]
+    G --> K{"❓ If<br/>(Vazio?)"}
+    K -- "Sim" --> L["🛑 Stop & Error<br/>(Sem dados)"]
+    K -- "Não" --> H["🔀 Merge"]
+    H --> I["📋 Data Table<br/>(insert)"]
+```
+
+</Transform>
+
+  </div>
+  
+  <div class="text-base w-full">
+
+> [!NOTE]
+> **Cenário de negócio:** O webhook inicia o processo disparando uma tarefa assíncrona em `/run`. O workflow realiza polling em `/status` com retentativas via `Wait`. Ao concluir, busca o resultado em `/response` e valida o conteúdo: se a resposta for vazia ou o limite de tentativas for atingido, aciona o `Stop and Error`. Se válida, mergeia os dados e grava na `Data Table`. Todas as falhas disparam o workflow de tratamento de erro (`Error Trigger`) para registrar logs na tabela.
+
+  </div>
+</div>
+
+<!--
+## notes slides
+
+### Demonstra o ciclo completo de integração assíncrona: disparo (/run), polling com retentativas controladas (/status) e obtenção do payload final (/response)
+### O nó Switch orquestra o loop de espera e o nó Stop and Error interrompe o fluxo com erro tratado caso atinja o limite ou receba resposta vazia
+-->
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Codificação assistida por IA - Live coding (2)
+#### **Workflow com padrão de polling HTTP, validação de resposta e log de erros**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de automação especialista em n8n e construção de workflows.
+
+# Tarefa
+Crie dois workflows no n8n-infnet:
+1. Um workflow principal que execute uma tarefa assíncrona via Webhook e HTTP Request (/run), realize polling de status com nós Switch e Wait, valide a resposta em /response (com Stop and Error se vazia), combine os dados via Merge e salve o resultado em uma Data Table.
+2. Um workflow de tratamento de erro com Error Trigger que capture falhas de execução (incluindo Stop and Error) e registre em uma tabela de log de erros (mensagem de erro, nó e nome do workflow).
+
+# Contexto
+## 1. Workflow Principal (Integração HTTP com Polling e Validação)
+1. Use o nó Webhook como gatilho do workflow para receber a requisição inicial.
+2. Adicione um nó HTTP Request (POST /run) para disparar a tarefa assíncrona na API externa e obter o `job_id`.
+3. Adicione um nó HTTP Request (GET /status) consultando o status da execução com base no `job_id`.
+4. Adicione um nó Edit Fields para incrementar a contagem de tentativas (`count = count + 1`).
+5. Conecte a um nó Switch com 3 regras de saída:
+   - "Em andamento" (status = "in_progress" e count < 5): conecta ao nó Wait (aguardar 10 segundos) e retorna ao nó HTTP Request (/status).
+   - "Máx. tentativas" (count >= 5): conecta a um nó Stop and Error com mensagem de timeout ("Limite de tentativas de polling excedido").
+   - "Concluído" (status = "completed"): conecta ao nó HTTP Request (GET /response) para buscar o payload final.
+6. Após o HTTP Request (/response), conecte a um nó If para validar se o retorno possui dados:
+   - Se vazio: conecta a um nó Stop and Error com mensagem amigável ("Resposta da API vazia ou inválida").
+   - Se válido: conecta a um nó Merge (modo Combine) para mesclar o payload da resposta com os dados originais do Webhook.
+7. Grave o resultado final em uma Data Table `execucoes_processadas`.
+8. Configure o workflow principal para apontar para o workflow de erro em _Workflow Settings > Error Workflow_.
+
+## 2. Workflow de Tratamento de Erro (Logs de Falhas)
+1. Crie um segundo workflow chamado `Error Handler - Logs de Erro`.
+2. Use o nó Error Trigger para capturar dados do erro (`workflow.name`, `execution.lastNodeExecuted`, `execution.error.message`).
+3. Crie/consulte uma Data Table `logs_erros` com as colunas `workflow_name`, `last_node_executed`, `error_message`, `data_erro`.
+4. Conecte o Error Trigger a um nó Data Table para inserir um novo registro na tabela `logs_erros`.
+5. Publique (ative) o workflow de erro para que fique disponível para seleção.
+
+# Regras de Expressões e Boas Práticas
+- Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n para evitar barras e caracteres escapados.
+- Nos nós Stop and Error, defina o tipo como Error Message ou JSON com mensagens claras para diagnóstico.
+- Assegure que as rotas de polling e retentativas não gerem loops infinitos.
+
+# Saída e Verificação
+- Crie o workflow diretamente na instância n8n via MCP.
+- Certifique-se de que o workflow seja funcional e com nós conectados corretamente.
+```
+</WindowMockup>
+
+<!--
+## notes slides
+
+### 1 - o prompt instrui a criação do workflow de polling com validações de timeout e payload vazio usando Stop and Error
+### 2 - o workflow de erro com Error Trigger captura falhas e registra logs estruturados na Data Table
+-->
+
+---
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
