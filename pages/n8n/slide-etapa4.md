@@ -457,7 +457,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.stopa
 # Stop and Error (action node)
 #### **O nó Stop and Error permite exibir mensagens personalizadas em casos de erros tratados**
 
-<div class="h-8" />
+<div class="h-0" />
 
 ::left::
 
