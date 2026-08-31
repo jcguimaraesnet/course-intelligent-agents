@@ -66,7 +66,7 @@ class: flex items-center justify-center
 <div class="text-sx w-full self-start [&_ul]:my-18 [&_li]:mb-6">
 
 - O fluxo ao lado avalia o limite numérico rígido: `valor ordem compra >= preço atual bitcoin` e executa a tarefa (realizar a compra).
-- É uma regra cega baseada em uma única variável numérica.
+- É uma **regra cega baseada em uma única variável** numérica.
 
 </div>
 
@@ -109,9 +109,9 @@ class: flex items-center justify-center
 
 <div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-6">
 
-- O agente avalia o contexto (análise multi-fatorial) com base em dados (histórico do cliente, patrimônio, histórico de fraudes, etc).
-- A linguagem natural é a base das regras, e não mais o `if-else`.
-- O agente toma a decisão de qual ferramenta (*tool*) acionar.
+- O agente **avalia o contexto** (análise multi-fatorial) com base em dados (histórico do cliente, patrimônio, histórico de fraudes, etc).
+- A **linguagem natural é a base das regras**, e não mais o `if-else`.
+- O agente **toma a decisão de qual ferramenta** (*tool*) acionar.
 
 </div>
 
@@ -137,6 +137,91 @@ flowchart LR
 
 ### O agente utiliza raciocínio probabilístico e contexto para escolher dinamicamente qual ferramenta (tool) executar
 ### Elimina a rigidez das estruturas if-else tradicionais permitindo ramificações flexíveis baseadas em intenção e dados
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Automação inteligente de agent python (parte 1)
+#### **As automações tradicionais pode reutilizar agentes expostos em API REST**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-6">
+
+- A depender de como o agente foi exposto e projetado via API REST, **pode ser mais complexo invocá-lo a partir de um fluxo de automação**.
+- Se o agente exposto via API REST for projetado para invocá-lo **com polling, a complexidade pode ser ainda maior**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="1.3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A["🌐 HTTP Request<br/>(API /status)"] --> B["✏️ Edit Fields<br/>(count = count + 1)"]
+    B --> C{"🔀 Switch<br/>(Status / Tentativas)"}
+    C -- "Em andamento" --> D["⏳ Wait<br/>(Aguardar intervalo)"]
+    D --> A
+    C -- "Concluído" --> E["➡️ Obter resposta<br/>(API /response)"]
+    C -- "Máx. tentativas" --> F["🚨 Tratamento erro<br/>(Notificar / Falha)"]
+```
+
+</Transform>
+</div>
+
+<!--
+## notes slides
+
+### Invocação de agentes externos via polling exige construção de infraestrutura de controle de estado no fluxo n8n
+### O padrão com retentativas, contagem de loops e checagem de status aumenta a complexidade de manutenção do workflow
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: AI Agent node
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/
+---
+
+# Automação inteligente de agent python (parte 2)
+#### **O n8n disponibiliza o Agent Node (action node) para fluxos agênticos**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O nó **AI Agent** permite integrar agentes inteligentes diretamente no canvas do n8n, orquestrando modelos de linguagem (LLMs), memórias e ferramentas (*tools*).
+- **Elimina a necessidade de infraestruturas complexas de polling HTTP**, executando a lógica agêntica de forma nativa e integrada à automação.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/ai-agent.svg"
+    label="AI Agent"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó AI Agent encapsula a complexidade do ciclo de execução agêntica diretamente na interface visual do n8n
+### Permite acoplar sub-nós de modelo (LLM), memória e ferramentas de forma modular sem código externo adicional
 -->
 
 ---
