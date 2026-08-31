@@ -6,6 +6,50 @@ routeAlias: etapa5
 ## **Etapa 5:** Integração de Agentes Inteligentes
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Automação tradicional x automação com IA
+#### **Os dois tipos de automação são complementares um ao outro, e não substitutos**
+
+
+
+::left::
+
+<div class="h-10" />
+
+<div class="text-base w-full self-start [&_ul]:my-3 [&_li]:mb-6">
+
+- A **automação tradicional** baseia-se em **regras determinísticas**, executando instruções **lógicas estáticas** (como `se-então` e rotinas imperativas de código).
+- A **automação com agentes de IA** introduz **capacidade cognitiva** e probabilística, permitindo raciocínio flexível, tomada de decisão adaptativa, interpretação de contexto e uso dinâmico de ferramentas.
+
+</div>
+
+::right::
+
+<div class="h-10" />
+
+<div class="flex items-center justify-center [&_table]:w-[55%] text-10px">
+
+| **Característica** | **Automação Tradicional** | **Agente de IA** |
+| --- | :---: | :---: |
+| Responde perguntas | ❌ | ✅ |
+| Executa tarefas externas | ✅ | ✅ |
+| Aprende com dados | ❌ | ✅ |
+| Interage com contexto | ❌ | ✅ |
+
+</div>
+
+<!--
+## notes slides
+
+### Automações tradicionais executam fluxos previsíveis baseados em regras rígidas pré-programadas
+### Agentes de IA adicionam autonomia e adaptabilidade ao interpretar contexto e tomar decisões dinâmicas
+-->
+
+---
 layout: default
 ---
 
