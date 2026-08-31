@@ -378,3 +378,51 @@ e, por fim, apresente a conclusão.
 ### A técnica mostrou ganhos significativos em tarefas de raciocínio aritmético, simbólico e de senso comum em LLMs de grande escala
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: ReAct
+source: https://arxiv.org/abs/2210.03629
+---
+
+# Prompt com Inferência Guiada: ReAct
+#### **Publicação com contribuição da Google na ICLR 2023**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- Propôs a combinação de **rastros de raciocínio verbal** (*Reasoning/Thoughts*) com chamadas a ferramentas e ambientes externos (*Acting/Actions*).
+- Essa técnica estabeleceu o uso de ferramentas e é a **base da maioria dos agentes autônomos modernos** atualmente.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md
+Thought: preciso buscar o preço atual
+  do Bitcoin para avaliar a ordem.
+Action: search("preço Bitcoin agora")
+Observation: Bitcoin está em R$ 580.000
+Thought: o valor da ordem (R$ 600.000)
+  é maior que o preço atual.
+Action: execute_buy(amount=0.1)
+```
+</WindowMockup>
+
+</div>
+
+<!--
+## notes slides
+
+### ReAct intercala pensamentos explícitos (Thought) com ações concretas (Action) e observações do ambiente (Observation)
+### Essa estrutura de raciocínio + ação é a base arquitetural dos agentes autônomos modernos com uso de ferramentas
+-->
+
