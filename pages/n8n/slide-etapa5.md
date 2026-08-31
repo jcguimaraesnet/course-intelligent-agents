@@ -74,14 +74,14 @@ class: flex items-center justify-center
 
 
 <div class="flex items-center justify-center h-full">
-  <Transform :scale="1.2" origin="center">
+  <Transform :scale="1.5" origin="center">
 
 
 ```mermaid {theme: 'dark'}
-flowchart TD
-    A{"❓ IF<br/>(valor ordem >= preço bitcoin)"}
-    A -- "Sim" --> B["🛒 Efetua a compra<br/>(bitcoin)"]
-    A -- "Não" --> C["🚫 Não efetua a compra"]
+flowchart LR
+    A{"❓ IF<br/>valor ordem >= <br/>preço bitcoin"}
+    A -- "Sim" --> B["🛒 Efetua a <br/>compra (bitcoin)"]
+    A -- "Não" --> C["🚫 Não efetua<br/> compra"]
 ```
 
 </Transform>
@@ -92,6 +92,51 @@ flowchart TD
 
 ### Automações tradicionais executam checagens numéricas diretas de forma rápida e determinística
 ### A limitação desse modelo é ignorar o contexto de mercado ao tomar a decisão de compra
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Automação inteligente de regra if-else (parte 2)
+#### **As automações inteligentes são boas em compreender contexto e tomar decisão**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-6">
+
+- O agente avalia o contexto (análise multi-fatorial) com base em dados (histórico do cliente, patrimônio, histórico de fraudes, etc).
+- A linguagem natural é a base das regras, e não mais o `if-else`.
+- O agente toma a decisão de qual ferramenta (*tool*) acionar.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="1.1" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    A["🤖 Agente<br/>(avalia ordem<br/>de compra)"]
+    A -- "tool" --> B["🛒 Efetua a <br/>compra (bitcoin)"]
+    A -- "tool" --> C["🚫 Não efetua<br/>a compra"]
+    A -- "tool" --> D["🚨 Identifica<br/>fraude"]
+    A -- "tool" --> E["📲 Solicita<br/>confirmação"]
+```
+
+</Transform>
+</div>
+
+<!--
+## notes slides
+
+### O agente utiliza raciocínio probabilístico e contexto para escolher dinamicamente qual ferramenta (tool) executar
+### Elimina a rigidez das estruturas if-else tradicionais permitindo ramificações flexíveis baseadas em intenção e dados
 -->
 
 ---
