@@ -23,7 +23,7 @@ class: flex items-center justify-center
 <div class="text-base w-full self-start [&_ul]:my-3 [&_li]:mb-6">
 
 - A **automação tradicional** baseia-se em **regras determinísticas**, executando instruções **lógicas estáticas** (como `se-então` e rotinas imperativas de código).
-- A **automação com agentes de IA** introduz **capacidade cognitiva** e probabilística, permitindo raciocínio flexível, tomada de decisão adaptativa, interpretação de contexto e uso dinâmico de ferramentas.
+- A **automação com agentes de IA** introduz **capacidade cognitiva** e probabilística, permitindo raciocínio flexível, **tomada de decisão** adaptativa, **interpretação de contexto** e uso dinâmico de ferramentas.
 
 </div>
 
