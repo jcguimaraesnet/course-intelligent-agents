@@ -261,3 +261,120 @@ layout: default
 ### Vai desde agentes básicos orientados a prompt até ecossistemas colaborativos multiagentes orquestrados
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Prompt Engineering
+source: https://developers.openai.com/api/docs/guides/prompt-engineering
+---
+
+# Prompt com Inferência Guiada (parte 1)
+#### **A inferência guiada direciona como LLMs devem processar os tokens durante a inferência.**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+
+- A **inferência guiada** pode ocorrer no nível de **esquema** (saída estruturada), **lógico** ou ambos.
+- No nível de esquema, o prompt contém instruções direcionadas para gerar uma saída de acordo com um **formato ou valores esperados** (Ex: *dê uma nota de 1 a 5*).
+- O modelo é **forçado matematicamente** a escolher apenas tokens permitidos no formato esperado.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/prompt-engineering-guided-inference.jpg" class="rounded-lg shadow-md max-w-[240px]" />
+</div>
+
+<!--
+## notes slides
+
+### A inferência guiada restringe o espaço de tokens do modelo para garantir saídas compatíveis com o formato esperado
+### Combinar instruções de esquema no prompt com restrições matemáticas nos tokens aumenta a previsibilidade da resposta do agente
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Prompt Engineering
+source: https://developers.openai.com/api/docs/guides/prompt-engineering
+---
+
+# Prompt com Inferência Guiada (parte 2)
+#### **O nível lógico conduz o raciocínio do LLM passo-a-passo antes de chegar à resposta final.**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- A **redução de alucinações** é um dos principais benefícios, ao forçar etapas intermediárias de raciocínio, melhorando a **precisão lógica**.
+- Também entrega possibilidade de **menor latência e custo**, evitando a geração de texto prolixo ou desnecessário, reduzindo o **consumo de tokens**.
+- Algumas técnicas de inferência guiada: Chain-of-Thought **(CoT)**, Reasoning and Acting **(ReAct)**, Skeleton-of-Thought **(SoT)** e Least-to-Most Prompting
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/prompt-engineering-guided-inference.jpg" class="rounded-lg shadow-md max-w-[240px]" />
+</div>
+
+<!--
+## notes slides
+
+### Forçar etapas intermediárias de raciocínio reduz alucinações e aumenta a precisão das respostas do agente
+### A inferência guiada no nível lógico também otimiza latência e custo ao restringir a geração de tokens desnecessários
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Chain-of-Thought
+source: https://arxiv.org/abs/2201.11903
+---
+
+# Prompt com Inferência Guiada: CoT
+#### **Publicação com contribuição da Google Research na NeurIPS 2022**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+
+- Demonstrou que gerar uma sequência de **etapas lógicas intermediárias de raciocínio** (*reasoning steps*) melhora drasticamente o desempenho de LLMs.
+- O estudo considerou vários tipos de tarefas como **raciocínio aritmético**, **simbólico** e de **senso comum**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md
+Pense passo a passo.
+Primeiro analise as premissas,
+depois deduza as consequências
+e, por fim, apresente a conclusão.
+```
+</WindowMockup>
+
+</div>
+
+<!--
+## notes slides
+
+### O Chain-of-Thought força o modelo a externalizar etapas intermediárias de raciocínio antes de produzir a resposta final
+### A técnica mostrou ganhos significativos em tarefas de raciocínio aritmético, simbólico e de senso comum em LLMs de grande escala
+-->
+
