@@ -51,6 +51,50 @@ class: flex items-center justify-center
 -->
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Automação inteligente de regra if-else (parte 1)
+#### **As automações tradicionais são boas e baratas em aplicar regras determinísticas**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-18 [&_li]:mb-6">
+
+- O fluxo ao lado avalia o limite numérico rígido: `valor ordem compra >= preço atual bitcoin` e executa a tarefa (realizar a compra).
+- É uma regra cega baseada em uma única variável numérica.
+
+</div>
+
+::right::
+
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="1.2" origin="center">
+
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A{"❓ IF<br/>(valor ordem >= preço bitcoin)"}
+    A -- "Sim" --> B["🛒 Efetua a compra<br/>(bitcoin)"]
+    A -- "Não" --> C["🚫 Não efetua a compra"]
+```
+
+</Transform>
+</div>
+
+<!--
+## notes slides
+
+### Automações tradicionais executam checagens numéricas diretas de forma rápida e determinística
+### A limitação desse modelo é ignorar o contexto de mercado ao tomar a decisão de compra
+-->
+
+---
 layout: default
 ---
 
