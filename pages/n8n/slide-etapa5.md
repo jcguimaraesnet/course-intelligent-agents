@@ -407,13 +407,20 @@ source: https://arxiv.org/abs/2210.03629
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
 
 ```md
-Thought: preciso buscar o preço atual
-  do Bitcoin para avaliar a ordem.
-Action: search("preço Bitcoin agora")
-Observation: Bitcoin está em R$ 580.000
-Thought: o valor da ordem (R$ 600.000)
-  é maior que o preço atual.
-Action: execute_buy(amount=0.1)
+Você é um assistente de criptoativos. 
+Siga este fluxo para responder:
+1. PENSAMENTO: 
+- Entenda se usuário precisa calcular ou decidir.
+2. AÇÃO: 
+- Consulte as ferramenta disponíveis.
+3. OBSERVAÇÃO: 
+- Analise o resultado da ferramenta.
+4. RESPOSTA FINAL: 
+- Conclua com base na ferramenta.
+
+Ferramentas disponíveis:
+- consultar_preco_bitcoin()
+- checar_saldo_usuario()
 ```
 </WindowMockup>
 
@@ -424,5 +431,57 @@ Action: execute_buy(amount=0.1)
 
 ### ReAct intercala pensamentos explícitos (Thought) com ações concretas (Action) e observações do ambiente (Observation)
 ### Essa estrutura de raciocínio + ação é a base arquitetural dos agentes autônomos modernos com uso de ferramentas
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Least-to-Most Prompting
+source: https://arxiv.org/abs/2205.10625
+---
+
+# Prompt com Inferência Guiada: Least-to-Most
+#### **Publicação com contribuição da Google na ICLR 2023**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+
+- Introduziu a estratégia de **decompor problemas mais difíceis** em uma progressão de subproblemas menores.
+- A resposta do subproblema mais simples é usada como contexto para resolver o próximo subproblema, até resolver o **problema principal**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md
+Problema principal: Calcular o imposto
+total sobre uma carteira de cripto.
+
+1. Decomposição:
+- Subproblema 1: Qual o lucro total?
+- Subproblema 2: Qual a alíquota aplicável?
+
+2. Resolução progressiva:
+- Resp 1: Lucro = R$ 15.000
+- Resp 2 (usando Resp 1): Alíquota = 15%
+- Conclusão: Imposto = R$ 2.250
+```
+</WindowMockup>
+
+</div>
+
+<!--
+## notes slides
+
+### Least-to-Most divide problemas complexos em subproblemas sequenciais encadeando respostas intermediárias
+### Garante que problemas complexos sejam resolvidos incrementalmente do mais simples ao mais avançado
 -->
 
