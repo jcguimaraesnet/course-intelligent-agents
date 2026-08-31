@@ -31,14 +31,15 @@ class: flex items-center justify-center
 
 <div class="h-10" />
 
-<div class="flex items-center justify-center [&_table]:w-[55%] text-10px">
+<div class="flex items-center justify-center [&_table]:w-[65%] text-10px">
 
 | **Característica** | **Automação Tradicional** | **Agente de IA** |
 | --- | :---: | :---: |
+| Executa tarefas previsíveis | ✅ | ✅ |
 | Responde perguntas | ❌ | ✅ |
-| Executa tarefas externas | ✅ | ✅ |
+| Toma decisões | ❌ | ✅ |
+| Interpreta diferentes contextos | ❌ | ✅ |
 | Aprende com dados | ❌ | ✅ |
-| Interage com contexto | ❌ | ✅ |
 
 </div>
 
