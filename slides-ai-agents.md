@@ -43,7 +43,7 @@ python:
   loadPyodideOptions: {}
 ---
 
-# Fundamentos de Agentes com Python e APIs
+# Fundamentos de Agentes com Python
 
 Desenvolvimento de Agentes Inteligentes
 
