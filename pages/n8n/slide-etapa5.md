@@ -56,8 +56,8 @@ layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
-# Automação inteligente de regra if-else (parte 1)
-#### **As automações tradicionais são boas e baratas em aplicar regras determinísticas**
+# Automação inteligente de regra determinística(1)
+#### **As automações tradicionais são boas e baratas em executar regras determinísticas**
 
 <div class="h-0" />
 
@@ -66,7 +66,7 @@ class: flex items-center justify-center
 <div class="text-sx w-full self-start [&_ul]:my-18 [&_li]:mb-6">
 
 - O fluxo ao lado avalia o limite numérico rígido: `valor ordem compra >= preço atual bitcoin` e executa a tarefa (realizar a compra).
-- É uma **regra cega baseada em uma única variável** numérica.
+- É uma **regra cega baseada em uma única variável** numérica, uma regra `if-else`.
 
 </div>
 
@@ -100,18 +100,18 @@ layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
-# Automação inteligente de regra if-else (parte 2)
+# Automação inteligente de regra determinística(2)
 #### **As automações inteligentes são boas em compreender contexto e tomar decisão**
 
 <div class="h-0" />
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-8 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-4 [&_li]:mb-6">
 
 - O agente **avalia o contexto** (análise multi-fatorial) com base em dados (histórico do cliente, patrimônio, histórico de fraudes, etc).
-- A **linguagem natural é a base das regras**, e não mais o `if-else`.
-- O agente **toma a decisão de qual ferramenta** (*tool*) acionar.
+- A **linguagem natural é a base das regras**, e não mais o `if-else`, e o agente **toma a decisão de qual ferramenta** (*tool*) acionar.
+- Regras determinísticas no n8n podem ser: **Edit Fields (set)**, **Code**, **HTTP Request**, etc.
 
 </div>
 
@@ -135,6 +135,7 @@ flowchart LR
 <!--
 ## notes slides
 
+### muito importante enfatizar os tipos de nós que podem ser substituídos por agentes (Code, HTTP, Edit Fields)
 ### O agente utiliza raciocínio probabilístico e contexto para escolher dinamicamente qual ferramenta (tool) executar
 ### Elimina a rigidez das estruturas if-else tradicionais permitindo ramificações flexíveis baseadas em intenção e dados
 -->
