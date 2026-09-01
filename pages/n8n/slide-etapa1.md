@@ -300,7 +300,7 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 mkdir -p ~/.n8n ~/.n8n-files && \
 docker run -d \
   --name n8n \
-  -p 5678:5678 \
+  --network host \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
   -v ~/.n8n:/home/node/.n8n \
