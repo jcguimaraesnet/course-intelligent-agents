@@ -498,39 +498,31 @@ layout: default
 
 # A similaridade de cosseno (em detalhes)
 
-#### **Similaridade de cosseno calcula a similaridade entre dois vetores, resultando entre 0 e 1**
+#### **Exemplo prático de similaridade de cosseno**
 
-<br/>
+<div class="h-2" />
 
-<div class="[&_table]:w-full text-12px leading-tight [&_td]:py-2 [&_th]:py-3">
+<div class="text-14px">
 
 | User Prompt | Embedding | Frases (de uma notícia) | Embedding | Similaridade Cosseno |
 | --- | --- | --- | --- | --- |
-| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Neymar aprecia jogos de poker | `[0.89, 0.15, 0.42, …]` | **0.98** |
-| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Neymar deve jogar poker amanhã | `[0.74, 0.33, 0.58, …]` | **0.85** |
-| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Poker é um jogo difícil | `[0.31, 0.76, 0.54, …]` | **0.71** |
 | Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Poker exige muita estratégia | `[0.26, 0.81, 0.49, …]` | **0.67** |
+| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Poker é um jogo difícil | `[0.31, 0.76, 0.54, …]` | **0.71** |
+| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Neymar deve jogar poker amanhã | `[0.74, 0.33, 0.58, …]` | **0.85** |
+| Quem gosta de jogar poker? | `[0.91, 0.12, 0.40, …]` | Neymar aprecia jogos de poker | `[0.89, 0.15, 0.42, …]` | **0.98** |
 
 </div>
 
-<div class="h-25" />
-
-<Transform :scale="0.7" origin="left bottom">
+<div class="h-2" />
 
 > [!NOTE]
-> **Similaridade próxima de 1:** os textos são muito semelhantes ou têm contexto/significado parecido.
-> **Similaridade próxima de 0:** os textos não têm relação.
-
-</Transform>
+> A similaridade de cosseno é calculada medindo o cosseno do ângulo entre dois vetores de embeddings em um espaço multidimensional. Valores variam entre **-1** e **1** (ou normalizados entre **0** e **1**), onde valores mais próximos de **1** indicam alta similaridade semântica, e próximos de **0** indicam pouca ou nenhuma similaridade.
 
 <!--
-## os valores dos embeddings e das similaridades são fictícios, apenas para ilustrar a ideia.
-
-## o mesmo prompt é comparado com cada frase; a frase mais próxima em significado ("aprecia" ≈ "gosta") tem a maior similaridade (0.98).
-
-## "Poker é um jogo difícil" e "exige estratégia" falam de poker, mas não de gostar/jogar → similaridade menor.
-
-## na prática o vetor tem centenas/milhares de dimensões; aqui mostramos só os primeiros índices.
+## O valor varia entre -1 e 1 (ou 0 e 1 dependendo da normalização), onde:
+## 1 significa que os vetores apontam na mesma direção (alta similaridade semântica)
+## 0 significa ortogonalidade (sem correlação)
+## -1 significa direções opostas (significados opostos)
 -->
 
 ---
@@ -539,52 +531,29 @@ layoutClass: gap-8
 class: flex items-start justify-center
 ---
 
-# RAG: dois fluxos independentes
+# Bancos de dados vetoriais (Vector DB)
 
-#### **Sistemas RAG se dividem em dois momentos: indexação e recuperação/geração**
+#### **Vector DB armazena embeddings e executa buscas por similaridade em larga escala**
 
 ::left::
 
-<div class="text-left w-full self-start [&_ul]:my-0 [&_li]:mb-4">
+<div class="text-16px w-full self-start [&_ul]:my-0 [&_li]:mb-4">
 
-<div class="h-5" />
+<div class="h-2" />
 
-- **Indexação:** carrega os documentos, gera os vetores _embeddings_ e guarda em um banco de dados vetorial.
-- **Recuperação e geração:** na pergunta do usuário, busca os trechos mais parecidos, junta ao prompt e o LLM gera a resposta.
+- Para centenas de documentos, calcular a similaridade de cosseno um a um em memória é viável.
+- Para **milhões de documentos**, precisamos de um **banco de dados especializado**: o banco vetorial.
+- Ele armazena o texto junto com seu vetor (embedding) e usa algoritmos de busca aproximada (ANN - _Approximate Nearest Neighbors_) para responder em milissegundos.
 
 </div>
 
 ::right::
 
-<div class="flex flex-row items-start justify-center gap-2">
-
 <div class="flex flex-col items-center">
 
-<div class="text-center text-sm">Indexação</div>
+<div class="h-0" />
 
-<Transform :scale="0.6" origin="top">
-
-```mermaid {theme: 'dark'}
----
-config:
-  theme: dark
----
-flowchart TD
-Docs["Documentos"]
-Embed["Embeddings"]
-VDB[("Vector DB")]
-Docs --> Embed --> VDB
-```
-
-</Transform>
-
-</div>
-
-<div class="flex flex-col items-center">
-
-<div class="text-center text-sm">Recuperação e Geração</div>
-
-<Transform :scale="0.6" origin="top">
+<Transform :scale="0.85" origin="top">
 
 ```mermaid {theme: 'dark', flowchart: { subGraphTitleMargin: { top: 10, bottom: 10 } }}
 ---
@@ -596,20 +565,239 @@ config:
       bottom: 10
 ---
 flowchart TD
-Prompt["Prompt"]
-subgraph RAG["RAG"]
-  Retrieve["Retrieve"]
-  Augment["Augment"]
-  Generate["Generate"]
-  Retrieve --> Augment --> Generate
-end
-Answer["Answer"]
-Prompt --> Retrieve
-Generate --> Answer
+Doc["Documento"] --> Split["Chunks"]
+Split --> Embed["Embedding Model"]
+Embed --> VectorDB[("Vector DB")]
+Query["User Query"] --> QEmbed["Embedding Model"]
+QEmbed --> Search["Busca Cosseno / ANN"]
+VectorDB --> Search
+Search --> Context["Top-K Chunks"]
 ```
 
 </Transform>
 
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# Principais Bancos Vetoriais do Mercado
+
+#### **Soluções dedicadas e extensões para bancos relacionais existentes**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-15px w-full self-start [&_ul]:my-0 [&_li]:mb-3">
+
+**Bancos Vetoriais Dedicados:**
+- **ChromaDB** — open-source, leve, roda embutido ou como serviço (ideal para protótipos e ensino).
+- **Qdrant** — escrito em Rust, alta performance, filtros avançados.
+- **Pinecone** — totalmente gerenciado (SaaS), escala massiva na nuvem.
+- **Milvus** — projetado para bilhões de vetores em escala corporativa.
+
+</div>
+
+::right::
+
+<div class="text-15px w-full self-start [&_ul]:my-0 [&_li]:mb-3">
+
+**Extensões em Bancos Tradicionais:**
+- **PostgreSQL + pgvector** — adiciona busca vetorial diretamente ao Postgres (a escolha mais popular em produção).
+- **Redis** — busca vetorial ultra-rápida em memória.
+- **MongoDB Atlas Vector** — busca vetorial no MongoDB gerenciado.
+
+> [!TIP]
+> Para quem já usa PostgreSQL, o **pgvector** costuma ser a melhor escolha inicial para evitar manter mais um banco na infraestrutura.
+
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: ChromaDB
+source: https://docs.trychroma.com/
+---
+
+# RAG com ChromaDB (exemplo prático)
+
+#### **Indexando documentos e consultando por similaridade semântica**
+
+<div class="h-2" />
+
+::left::
+
+```python [chroma_rag.py] {6,11-15,18-20|all}{maxHeight:'320px',at:+1}
+import chromadb
+
+# 1. Cria cliente ChromaDB em memória
+client = chromadb.Client()
+collection = client.create_collection(
+    name="noticias_futebol"
+)
+
+# 2. Adiciona documentos (Chroma calcula embeddings)
+collection.add(
+    documents=[
+        "Poker exige muita estratégia e concentração",
+        "Poker é um jogo de cartas difícil de dominar",
+        "Neymar deve jogar poker amanhã no torneio",
+        "Neymar aprecia jogos de poker nas horas vagas",
+    ],
+    ids=["doc1", "doc2", "doc3", "doc4"]
+)
+
+# 3. Busca os 2 documentos mais similares
+results = collection.query(
+    query_texts=["Quem gosta de jogar poker?"],
+    n_results=2
+)
+print(results["documents"])
+# Retorna: [['Neymar aprecia...', 'Neymar deve...']]
+```
+
+::right::
+
+> [!IMPORTANT]
+> O **ChromaDB** embute por padrão o modelo `all-MiniLM-L6-v2` para gerar embeddings automaticamente ao adicionar textos.
+> 
+> A chamada `collection.query()` calcula a similaridade de cosseno debaixo dos panos e já devolve os **Top-K** documentos mais relevantes!
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: RAG + Agent
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# Conectando o RAG ao Agente de IA
+
+#### **Integrando o Vector DB como uma Tool Function para o Agente**
+
+<div class="h-2" />
+
+::left::
+
+```python [agent_rag.py] {8-16,21|all}{maxHeight:'320px',at:+1}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+import chromadb
+
+client = chromadb.Client()
+collection = client.get_collection("noticias_futebol")
+
+@function_tool
+def buscar_base_conhecimento(query: str) -> str:
+    """Busca trechos relevantes na base de documentos."""
+    res = collection.query(query_texts=[query], n_results=2)
+    docs = res["documents"][0]
+    return "\n---\n".join(docs)
+
+rag_agent = Agent(
+    name="Assistente de Notícias",
+    instructions=("Você é um assistente que responde dúvidas "
+                  "consultando a ferramenta buscar_base_conhecimento."),
+    tools=[buscar_base_conhecimento],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+    res = await Runner.run(starting_agent=rag_agent,
+                           input="Qual famoso gosta de poker?")
+    print(res.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> O agente decide **autonomamente** quando precisa consultar o banco vetorial através da descrição da ferramenta (`function_tool`).
+> 
+> Ele recebe o contexto recuperado e gera uma resposta precisa e embasada.
+
+---
+layout: section
+routeAlias: etapa8
+---
+
+## **Etapa 8:** Agentes Multiagentes
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Do agente único ao multiagente
+
+#### **Como sistemas evoluem de agentes individuais para equipes colaborativas**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-17px w-full self-start [&_ul]:my-6 [&_li]:mb-4">
+
+- **Limitações do agente único:** complexidade excessiva no prompt, context window saturada, alucinação por sobrecarga de papéis.
+- **Princípio da especialização:** cada agente tem um papel focado, poucas ferramentas e instruções precisas.
+- **Orquestração:** um coordenador divide o problema e delega tarefas aos especialistas.
+
+</div>
+
+::right::
+
+<div class="h-full flex items-start justify-center">
+    <AssetImg src="multiagent-collaboration.png" class="w-full max-w-[380px] rounded-lg mt-[30px]" />
+</div>
+
+---
+layout: default
+---
+
+# Padrões de colaboração multiagente
+
+#### **Os quatro padrões arquiteturais mais comuns em sistemas multiagentes**
+
+<div class="h-4" />
+
+<div class="grid grid-cols-2 gap-6 text-15px">
+
+<div class="border border-[#444] rounded-lg p-4 bg-[#1a1a2e]/40">
+
+### 1. Handoff (Transmissão de Turno)
+Um agente transfere o controle totalmente para outro quando o contexto muda de domínio.
+- _Exemplo:_ Triagem direciona cliente para Suporte Técnico ou Vendas.
+</div>
+
+<div class="border border-[#444] rounded-lg p-4 bg-[#1a1a2e]/40">
+
+### 2. Supervisor / Roteador
+Um agente central recebe a solicitação, decide qual agente especialista deve agir e sintetiza a resposta.
+- _Exemplo:_ Editor-chefe delegando pesquisa e redação.
+</div>
+
+<div class="border border-[#444] rounded-lg p-4 bg-[#1a1a2e]/40">
+
+### 3. Pipeline Sequencial
+A saída de um agente serve diretamente como entrada para o próximo em uma esteira de processamento.
+- _Exemplo:_ Agente Extrator $\rightarrow$ Agente Analista $\rightarrow$ Agente Formatador.
+</div>
+
+<div class="border border-[#444] rounded-lg p-4 bg-[#1a1a2e]/40">
+
+### 4. Debate / Consenso
+Múltiplos agentes analisam o mesmo problema sob perspectivas diferentes e chegam a um veredito comum.
+- _Exemplo:_ Agente Pró vs. Agente Contra para avaliar risco de crédito.
 </div>
 
 </div>
@@ -617,58 +805,33 @@ Generate --> Answer
 ---
 layout: two-cols-header
 layoutClass: gap-8
-sourceLabel: Tools
-source: https://openai.github.io/openai-agents-python/tools/
+sourceLabel: Handoffs
+source: https://openai.github.io/openai-agents-python/handoffs/
 ---
 
-# RAG: exemplo simples
+# Exemplo de Handoff com OpenAI Agents SDK
 
-#### **Exemplo abaixo com sistema RAG com ingestão e recuperação**
+#### **Transferência transparente de responsabilidade entre agentes especialistas**
 
 <div class="h-2" />
 
 ::left::
 
-```python [main.py] {9,19,25,27,33|all}{maxHeight:'320px',at:+1}
+```python [handoff.py] {14,21|all}{maxHeight:'320px',at:+1}
 import asyncio
-import numpy as np
 from dotenv import load_dotenv
-from sentence_transformers import SentenceTransformer
-from agents import (Agent, Runner, function_tool,
+from agents import (Agent, Runner,
                     set_default_openai_api, set_tracing_disabled)
 
-# carrega o modelo de embeddings local (roda em CPU)
-model = SentenceTransformer("all-MiniLM-L6-v2")
+suporte_tecnico = Agent(
+    name="Suporte Técnico",
+    instructions="Resolva problemas de TI e bugs de software.",
+)
 
-# cada elemento do array é um PDF/documento diferente
-docs = [
-    "O Pantanal é a maior planície alagável do mundo.",
-    "A capital da França é Paris.",
-    "O Bitcoin foi criado por Satoshi Nakamoto em 2009.",
-]
-
-# fluxo de indexação dos documentos em embeddings
-database_vector = model.encode(docs, normalize_embeddings=True)
-
-@function_tool
-def buscar_contexto(pergunta: str) -> str:
-    """Recupera o trecho mais relevante do corpus para a pergunta."""
-    # gera o embedding da pergunta
-    query = model.encode([pergunta], normalize_embeddings=True)[0]
-    # similaridade de cosseno entre a pergunta e cada documento
-    scores = database_vector @ query
-    # percorre cada documento com seu score
-    for doc, score in zip(docs, scores):
-        # imprime o score e o texto (apenas para depuração)
-        print(f"{score:.3f}  {doc}")
-    # retorna o documento de maior similaridade
-    return docs[int(np.argmax(scores))]
-
-rag_agent = Agent(
-    name="Assistente RAG",
-    instructions=("Use a ferramenta buscar_contexto para recuperar "
-                  "informação e responda apenas com base nela."),
-    tools=[buscar_contexto],
+agente_triagem = Agent(
+    name="Triagem",
+    instructions="Encaminhe dúvidas técnicas para o suporte.",
+    handoffs=[suporte_tecnico],
 )
 
 async def main():
@@ -676,8 +839,11 @@ async def main():
     set_default_openai_api("chat_completions")
     set_tracing_disabled(True)
 
-    result = await Runner.run(starting_agent=rag_agent,
-                              input="Quem criou o Bitcoin?")
+    result = await Runner.run(
+        starting_agent=agente_triagem,
+        input="Meu app está dando erro de conexão 500."
+    )
+    print(f"Agente final: {result.last_agent.name}")
     print(f"Resposta: {result.final_output}")
 
 if __name__ == "__main__":
@@ -687,178 +853,19 @@ if __name__ == "__main__":
 ::right::
 
 > [!IMPORTANT]
-> A **indexação** e a **recuperação** devem usar o mesmo modelo de embedding.
+> Ao usar `handoffs=[suporte_tecnico]`, o SDK transforma a transferência em uma **ferramenta nativa** que o modelo aciona quando identifica que a solicitação foge da sua área.
 > 
-> Neste exemplo os vetores **embeddings** são gerados com a lib **SentenceTransformer** (local, sem custo), e não pela API da OpenAI (nuvem, com custo).
+> O histórico completo da conversa acompanha a troca de agente sem perdas!
 
 ---
-layout: section
+layout: center
+class: text-center
 ---
 
-## Live Coding
-📚 **Agente:** bibliotecário que responde sobre políticas de empréstimo e devolução.
+# Parabéns! 🎓
 
-##### **1. Crie cinco políticas diferentes (empréstimo/devolução)**
-##### **2. Faça a indexação das políticas como embeddings (memória)**
-##### **3. Crie o pipeline de recuperação/geração RAG**
-##### **4. Execute um prompt sobre um texto que existe nos embeddings**
-##### **5. Execute um prompt sobre um texto que NÃO exista (defina um threshold)**
+### Você completou o ciclo de fundamentos, ferramentas, memória e multiagentes!
 
-<!--
-=================================================================
-main.py — RAG de políticas da biblioteca (embeddings em memória)
+<div class="h-6" />
 
-import asyncio
-import numpy as np
-from dotenv import load_dotenv
-from sentence_transformers import SentenceTransformer
-from agents import (Agent, Runner, function_tool,
-                    set_default_openai_api, set_tracing_disabled)
-
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-# 1. Cinco políticas de empréstimo/devolução
-policies = [
-    "O prazo de empréstimo padrão é de 14 dias corridos.",
-    "Cada usuário pode ter no máximo 5 livros emprestados ao mesmo tempo.",
-    "A renovação pode ser feita 2 vezes, se não houver reserva do título.",
-    "O atraso na devolução gera multa de R$ 1,00 por dia por livro.",
-    "Livros de referência só podem ser consultados no local, sem empréstimo.",
-]
-
-# 2. Indexação das políticas como embeddings (em memória)
-policy_vectors = model.encode(policies, normalize_embeddings=True)
-
-THRESHOLD = 0.35  # similaridade mínima para considerar relevante
-
-# 3. Pipeline de recuperação (a geração fica a cargo do agente)
-@function_tool
-def buscar_politica(pergunta: str) -> str:
-    """Recupera a política mais relevante para a pergunta do usuário."""
-    q = model.encode([pergunta], normalize_embeddings=True)[0]
-    scores = policy_vectors @ q
-    for pol, score in zip(policies, scores):
-        print(f"{score:.3f}  {pol}")
-    best = int(np.argmax(scores))
-    if scores[best] < THRESHOLD:
-        return "NENHUMA_POLITICA_RELEVANTE"
-    return policies[best]
-
-bibliotecario = Agent(
-    name="Bibliotecário",
-    instructions=(
-        "Responda sobre políticas de empréstimo e devolução usando a "
-        "ferramenta buscar_politica. Se ela retornar "
-        "'NENHUMA_POLITICA_RELEVANTE', diga que não há política sobre o tema."
-    ),
-    tools=[buscar_politica],
-)
-
-async def perguntar(texto: str):
-    result = await Runner.run(starting_agent=bibliotecario, input=texto)
-    print(f"\nP: {texto}\nR: {result.final_output}\n")
-
-async def main():
-    load_dotenv()
-    set_default_openai_api("chat_completions")
-    set_tracing_disabled(True)
-
-    # 4. Pergunta cuja resposta EXISTE nos embeddings
-    await perguntar("Qual é a multa por atraso na devolução?")
-    # 5. Pergunta FORA do corpus (cai no threshold)
-    await perguntar("A biblioteca tem uma cafeteria?")
-
-if __name__ == "__main__":
-    asyncio.run(main())
-
-=================================================================
-## o threshold (0.35) evita "alucinar" contexto: sem política relevante, o agente admite que não sabe.
-## ajuste o valor observando os scores impressos pela tool para calibrar o corte.
--->
-
----
-layout: default
-layoutClass: gap-8
----
-
-# Live coding: codificação assistida por IA
-
-#### **Prompt para gerar o assistente bibliotecário (RAG com threshold)**
-
-<div class="h-7" />
-
-<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
-
-```md {*}{maxHeight:'290px'}
-# Papel
-Você é um engenheiro de IA especialista em sistemas agênticos.
-
-# Tarefa
-Desenvolva um assistente bibliotecário que responde sobre políticas de
-empréstimo e devolução usando RAG (recuperação semântica).
-
-# Contexto
-1. Em "main.py", use o OpenAI Agents SDK, assíncrono, lendo o ".env";
-   configure `set_default_openai_api("chat_completions")` e
-   `set_tracing_disabled(True)`.
-2. Defina 5 políticas diferentes de empréstimo/devolução como uma lista
-   de textos.
-3. Indexe as políticas como embeddings em memória com
-   `sentence-transformers` (modelo local, ex.: "all-MiniLM-L6-v2").
-4. Crie uma `@function_tool` de recuperação que calcula a similaridade de
-   cosseno entre a pergunta e as políticas e retorna a mais relevante.
-5. Use um THRESHOLD de similaridade: se nenhuma política passar do corte,
-   retorne "NENHUMA_POLITICA_RELEVANTE" para o agente admitir que não sabe.
-6. Demonstre com perguntas de usuário definidas no script:
-   - "Qual é a multa por atraso na devolução?" (existe no corpus)
-   - "A biblioteca tem uma cafeteria?" (fora do corpus -> cai no threshold)
-
-# Saída e Verificação
-- Gere main.py.
-- O código deve ser funcional e pronto para execução
-```
-</WindowMockup>
-
----
-layout: default
----
-
-# Hands-on
-
-<br/>
-
-🛠️ &nbsp;**Exercício \#1:** Crie um corpus com cinco frases e gere seus embeddings em memória.
-
-🛠️ &nbsp;**Exercício \#2:** Implemente a busca por similaridade de cosseno e imprima o score de cada frase.
-
-🛠️ &nbsp;**Exercício \#3:** Monte um agente RAG com uma tool que recupera o trecho mais parecido.
-
-🛠️ &nbsp;**Exercício \#4:** Adicione um threshold para o agente admitir quando não há resposta.
-
-<br/>
-
-- [ ] gere os vetores das frases uma vez e guarde em memória
-- [ ] compare a pergunta com cada frase e mostre os scores
-- [ ] recupere o trecho mais similar dentro de uma tool
-- [ ] defina um corte mínimo e trate a ausência de contexto
-
-<br/>
-
-<!--
-# Exercício #1 — Indexação
-Crie uma lista de cinco frases e gere os embeddings com SentenceTransformer.
-Guarde os vetores em memória para reusar nas buscas seguintes.
-
-# Exercício #2 — Similaridade de cosseno
-Vetorize a pergunta e calcule a similaridade contra cada frase.
-Imprima o score de todas para entender por que uma vence.
-
-# Exercício #3 — Agente RAG
-Coloque a recuperação numa tool e conecte ao agente.
-A tool devolve o trecho mais parecido, que vira contexto da resposta.
-
-# Exercício #4 — Threshold
-Defina um valor mínimo de similaridade. Abaixo dele, a tool sinaliza
-ausência de contexto e o agente responde que não sabe.
--->
-
+[Voltar ao Início](#1)
