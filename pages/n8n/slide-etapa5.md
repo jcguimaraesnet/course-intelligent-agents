@@ -242,6 +242,74 @@ layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
+# Observabilidade agêntica com logs (parte 1)
+#### **O nó OpenAI Chat Model permite acompanhar o loop agêntico**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O detalhe do nó **OpenAI Chat Model** permite acompanhar na íntegra tanto o input quanto o output **de cada chamada ao LLM** (Loop Agêntico).
+- O parâmetro `finish_reason` indica se a resposta do LLM solicita uma invocação de uma tool (`tool_calls`) ou é uma resposta final (`stop`).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/openai-chat-model-logs.png" class="max-h-[300px] object-contain rounded-lg border border-gray-700 shadow-lg" />
+</div>
+
+<!--
+## notes slides
+
+### O detalhe do nó OpenAI Chat Model registra os dados completos de entrada e saída de cada iteração do LLM
+### O parâmetro finish_reason determina se o ciclo agêntico prossegue com chamadas de ferramentas ou se foi concluído
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: AI Agent node
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/
+---
+
+# Observabilidade agêntica com logs (parte 2)
+#### **O nó AI Agent permite acompanhar o loop agêntico, inclusive da chamada da ferramenta**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O detalhe do nó **AI Agent** permite acompanhar exatamente na íntegra o input e o output do loop agêntico, **inclusive das ferramentas (Loop Agêntico)**.
+- No detalhe do nó, nos logs, também é possível visualizar a **quantidade de tokens de input e output**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/ai-agent-node-logs.png" class="max-h-[300px] object-contain rounded-lg border border-gray-700 shadow-lg" />
+</div>
+
+<!--
+## notes slides
+
+### O detalhe do nó AI Agent oferece visão completa do fluxo de raciocínio e da execução das ferramentas chamadas
+### Permite auditabilidade detalhada do consumo de tokens em cada etapa de entrada e saída da execução
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
 # Automação inteligente de regra determinística(1)
 #### **As automações tradicionais são boas e baratas em executar regras determinísticas**
 
