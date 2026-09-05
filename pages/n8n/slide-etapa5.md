@@ -252,12 +252,9 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 
 ```mermaid {theme: 'dark'}
 flowchart TD
-    A["🌐 HTTP Request<br/>(API /status)"] --> B["✏️ Edit Fields<br/>(count = count + 1)"]
-    B --> C{"🔀 Switch<br/>(Status / Tentativas)"}
-    C -- "Em andamento" --> D["⏳ Wait<br/>(Aguardar intervalo)"]
-    D --> A
-    C -- "Concluído" --> E["➡️ Obter resposta<br/>(API /response)"]
-    C -- "Máx. tentativas" --> F["🚨 Tratamento erro<br/>(Notificar / Falha)"]
+    A["🌐 Webhook<br/>(chat)"] --> B["🤖 Agente"]
+    B --> C["💬 Resposta<br/>do agente"]
+    B --> D["🚨 Tratamento erro<br/>(verificar falha)"]
 ```
 
 </Transform>
