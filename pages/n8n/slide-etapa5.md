@@ -92,6 +92,46 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: OpenAI Chat Model
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.lmchatopenai
+---
+
+# OpenAI Chat Model (sub-node)
+#### **O OpenAI Chat Model suporta provedores compatíveis com a API Chat Completions**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Funciona como um **subnó** para conexões do tipo **Chat Model**, sendo acoplado obrigatoriamente à entrada correspondente de nós raiz (como o **AI Agent**).
+- Permite configurar **System prompt**, **User prompt**, **LLM** e **hiperparâmetros** (temperatura, top_p, max_retries, frequency_penalty, etc).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/openai.svg"
+    label="OpenAI Chat Model"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O subnó OpenAI Chat Model conecta o motor de raciocínio LLM ao nó raiz do Agente no n8n
+### Permite ajustar hiperparâmetros como temperatura, max tokens e selecionar diferentes modelos da OpenAI ou compatíveis
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 ---
 
 # Automação inteligente de regra determinística(1)
