@@ -59,7 +59,7 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 ---
 
 # AI Agent (root node)
-#### **O n8n disponibiliza o Agent Node (root node) para fluxos agênticos**
+#### **O n8n disponibiliza o Agent Node (root node) para contrução de workflows agênticos**
 
 <div class="h-5" />
 
@@ -67,8 +67,9 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 
 <div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
 
-- O nó **AI Agent** permite integrar agentes inteligentes diretamente no canvas do n8n, orquestrando modelos de linguagem (LLMs), memórias e ferramentas (*tools*).
-- O nó AI Agent pode ser entendido como um nó especial, por ser categorizado como um **nó do tipo raiz**, que **exige um ou mais sub-nodes** para funcionar.
+- O nó **AI Agent** permite construir agentes com uso de todos os conceitos possíves: uso de LLMs, memória e ferramenta (*tools*).
+- O AI Agent é um tipo de nó especial, categorizado como um **nó do tipo raiz**, que **exige um ou mais sub-nodes** para funcionar.
+- Neste nó é possível configurar o **System prompt** e o **User prompt**.
 
 </div>
 
@@ -106,7 +107,7 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nod
 <div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
 - Funciona como um **subnó** para conexões do tipo **Chat Model**, sendo acoplado obrigatoriamente à entrada correspondente de nós raiz (como o **AI Agent**).
-- Permite configurar **System prompt**, **User prompt**, **LLM** e **hiperparâmetros** (temperatura, top_p, max_retries, frequency_penalty, etc).
+- Permite configurar o **modelo LLM** e os **hiperparâmetros** (temperatura, top_p, max_retries, frequency_penalty, etc).
 
 </div>
 
