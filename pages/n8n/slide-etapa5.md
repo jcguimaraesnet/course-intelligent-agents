@@ -132,6 +132,41 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nod
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: OpenAI Credential
+source: https://docs.n8n.io/integrations/builtin/credentials/openai
+---
+
+# OpenAI Credential
+#### **O subnó OpenAI Chat Model exige uma credencial para configurar base url e API KEY**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Armazena de forma segura a **API Key** e o **Base URL** necessários para autenticação na API da OpenAI ou em provedores compatíveis.
+- Permite redirecionar requisições para gateways de IA, modelos locais (como Ollama/LM Studio) ou provedores de nuvem alternativos alterando o parâmetro **URL**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <AssetImg src="n8n/openai-credential.png" class="max-h-[300px] object-contain rounded-lg border border-gray-700 shadow-lg" />
+</div>
+
+<!--
+## notes slides
+
+### A credencial da OpenAI gerencia de forma segura as chaves de API e URLs de conexão no n8n
+### Permite rotear chamadas de LLM para provedores locais ou gateways alterando a URL base de destino
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 ---
 
 # Automação inteligente de regra determinística(1)
