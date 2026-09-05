@@ -58,8 +58,8 @@ sourceLabel: AI Agent node
 source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/
 ---
 
-# AI Agent (cluster node)
-#### **O n8n disponibiliza o Agent Node (cluster node) para fluxos agênticos**
+# AI Agent (root node)
+#### **O n8n disponibiliza o Agent Node (root node) para fluxos agênticos**
 
 <div class="h-5" />
 
@@ -68,7 +68,7 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 <div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
 
 - O nó **AI Agent** permite integrar agentes inteligentes diretamente no canvas do n8n, orquestrando modelos de linguagem (LLMs), memórias e ferramentas (*tools*).
-- É um **nó do tipo cluster**, diferente de um action node, que exige somente entrada e saída.
+- O nó AI Agent pode ser entendido como um nó especial, por ser categorizado como um **nó do tipo raiz**, que **exige um ou mais sub-nodes** para funcionar.
 
 </div>
 
