@@ -232,7 +232,7 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 ---
 
 # Automação inteligente de agent python (parte 2)
-#### **O n8n disponibiliza o Agent Node (action node) para fluxos agênticos**
+#### **É possível implementar fluxos agênticos no n8n com o nó AI Agent Node**
 
 <div class="h-5" />
 
@@ -240,8 +240,8 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 
 <div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
 
-- O nó **AI Agent** elimina a necessidade de fluxos complexos de polling, executando a lógica agêntica de forma nativa e integrada dentro do próprio fluxo de automação.
-- O nó **AI Agent** oferece possibilidade avançadas de integrar em webhooks, requisições HTTP ou qualquer outro tipo integração que o n8n oferece.
+- O nó **Agente de IA** elimina a necessidade de fluxos complexos de polling, executando a lógica agêntica de forma nativa e integrada dentro do próprio fluxo de automação.
+- O nó **Agente de IA** oferece possibilidade avançadas de integrar em webhooks, requisições HTTP ou qualquer outro tipo integração que o n8n oferece.
 
 </div>
 
