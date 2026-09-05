@@ -280,6 +280,205 @@ if __name__ == "__main__":
 ---
 layout: two-cols-header
 layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# RAG e vector DB: cenários escaláveis
+
+#### **Vector DB armazena embeddings e executa buscas por similaridade em larga escala**
+
+::left::
+
+<div class="text-sm w-full self-start [&_ul]:my-0 [&_li]:mb-4">
+
+<div class="h-2" />
+
+- Para centenas de documentos, calcular a similaridade de cosseno (busca exata), um a um em memória, pode ser factível.
+- Para **milhões de documentos**, um banco de dados vetorial é mais indicado, já que ele usa algoritmos mais escalável de busca aproximada (ANN - _Approximate Nearest Neighbors_) junto com busca por cosseno.
+- O algoritmo ANN funciona como um sistema de seções da biblioteca (ex: "Seção de Futebol"). Ele te leva direto para a estante certa em segundos (usando arvores ou grafos). Na seção de futebol, é aplicado a busca por cosseno.
+
+</div>
+
+::right::
+
+<div class="flex flex-col items-center">
+
+<div class="h-0" />
+
+<Transform :scale="0.85" origin="top">
+
+```mermaid {theme: 'dark', flowchart: { subGraphTitleMargin: { top: 10, bottom: 10 } }}
+---
+config:
+  theme: dark
+  flowchart:
+    subGraphTitleMargin:
+      top: 10
+      bottom: 10
+---
+flowchart TD
+Doc["Documento"] --> Split["Chunks"]
+Split --> Embed["Embedding Model"]
+Embed --> VectorDB[("Vector DB")]
+Query["User Query"] --> QEmbed["Embedding Model"]
+QEmbed --> Search["Busca Cosseno / ANN"]
+VectorDB --> Search
+Search --> Context["Top-K Chunks"]
+```
+
+</Transform>
+
+</div>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-start justify-center
+---
+
+# RAG e vector DB: principais bancos vetoriais
+
+#### **Soluções dedicadas e extensões para bancos relacionais existentes**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-15px w-full self-start [&_ul]:my-0 [&_li]:mb-3">
+
+**Bancos Vetoriais Dedicados:**
+- **ChromaDB** — open-source, leve, roda embutido ou como serviço (ideal para protótipos e ensino).
+- **Qdrant** — escrito em Rust, alta performance, filtros avançados.
+- **Pinecone** — totalmente gerenciado (SaaS), escala massiva na nuvem.
+- **Milvus** — projetado para bilhões de vetores em escala corporativa.
+
+</div>
+
+::right::
+
+<div class="text-15px w-full self-start [&_ul]:my-0 [&_li]:mb-3">
+
+**Extensões em Bancos Tradicionais:**
+- **PostgreSQL + pgvector** — adiciona busca vetorial diretamente ao Postgres (a escolha mais popular em produção).
+- **Redis** — busca vetorial ultra-rápida em memória.
+- **MongoDB Atlas Vector** — busca vetorial no MongoDB gerenciado.
+
+</div>
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: ChromaDB
+source: https://docs.trychroma.com/
+---
+
+# RAG e vector DB: ChromaDB (exemplo)
+
+#### **Indexando documentos e consultando por similaridade semântica**
+
+<div class="h-2" />
+
+::left::
+
+```python [chroma_rag.py] {4,5-7,12-16,19-21|all}{maxHeight:'320px',at:+1}
+import chromadb
+
+# 1. Cria cliente ChromaDB persistente em disco
+client = chromadb.PersistentClient(path="./chroma_db")
+collection = client.get_or_create_collection(
+    name="noticias_futebol"
+)
+
+# 2. Adiciona documentos (Chroma calcula embeddings)
+collection.add(
+    documents=[
+        "Poker exige muita estratégia e concentração",
+        "Poker é um jogo de cartas difícil de dominar",
+        "Neymar deve jogar poker amanhã no torneio",
+        "Neymar aprecia jogos de poker nas horas vagas",
+    ],
+    ids=["doc1", "doc2", "doc3", "doc4"]
+)
+
+# 3. Busca os 2 documentos mais similares
+results = collection.query(
+    query_texts=["Quem gosta de jogar poker?"],
+    n_results=2
+)
+print(results["documents"])
+# Retorna: [['Neymar aprecia...', 'Neymar deve...']]
+```
+
+::right::
+
+> [!IMPORTANT]
+> O **ChromaDB** embute por padrão o modelo `all-MiniLM-L6-v2` para gerar embeddings automaticamente ao adicionar textos.
+> 
+> A chamada `collection.query()` calcula a similaridade de cosseno debaixo dos panos e já devolve os **Top-K** documentos mais relevantes!
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: RAG + Agent
+source: https://openai.github.io/openai-agents-python/tools/
+---
+
+# RAG e vector DB: conectando o RAG ao Agente
+
+#### **Integrando o Vector DB como uma Tool Function para o Agente**
+
+<div class="h-2" />
+
+::left::
+
+```python [agent_rag.py] {7-8,12-14,19|all}{maxHeight:'320px',at:+1}
+import asyncio
+from dotenv import load_dotenv
+from agents import (Agent, Runner, function_tool,
+                    set_default_openai_api, set_tracing_disabled)
+import chromadb
+
+client = chromadb.PersistentClient(path="./chroma_db")
+collection = client.get_collection("noticias_futebol")
+
+@function_tool
+def buscar_base_conhecimento(query: str) -> str:
+    """Busca trechos relevantes na base de documentos."""
+    res = collection.query(query_texts=[query], n_results=2)
+    docs = res["documents"][0]
+    return "\n---\n".join(docs)
+
+rag_agent = Agent(
+    name="Assistente de Notícias",
+    instructions=("Você é um assistente que responde dúvidas "
+                  "consultando a ferramenta buscar_base_conhecimento."),
+    tools=[buscar_base_conhecimento],
+)
+
+async def main():
+    load_dotenv()
+    set_default_openai_api("chat_completions")
+    set_tracing_disabled(True)
+    res = await Runner.run(starting_agent=rag_agent,
+                           input="Qual famoso gosta de poker?")
+    print(res.final_output)
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+::right::
+
+> [!NOTE]
+> O agente decide **autonomamente** quando precisa consultar o banco vetorial através da descrição da ferramenta (`function_tool`).
+> 
+> Ele recebe o contexto recuperado e gera uma resposta precisa e embasada.
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
