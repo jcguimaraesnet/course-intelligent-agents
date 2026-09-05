@@ -426,7 +426,7 @@ source: https://docs.n8n.io/build/work-with-data/pin-and-mock-data#data-pinning
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-15 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
 - O **Data pinning** congela a saída de um nó específico durante o desenvolvimento, evitando chamadas repetidas a APIs externas e consumo desnecessário de cotas.
 - Dados fixados são utilizados apenas em testes manuais no editor e são ignorados automaticamente em execuções de produção.

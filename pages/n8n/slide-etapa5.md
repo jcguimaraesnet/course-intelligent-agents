@@ -61,7 +61,7 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 # AI Agent (root node)
 #### **O n8n disponibiliza o Agent Node (root node) para contrução de workflows agênticos**
 
-<div class="h-5" />
+<div class="h-2" />
 
 ::left::
 
@@ -162,6 +162,78 @@ source: https://docs.n8n.io/integrations/builtin/credentials/openai
 
 ### A credencial da OpenAI gerencia de forma segura as chaves de API e URLs de conexão no n8n
 ### Permite rotear chamadas de LLM para provedores locais ou gateways alterando a URL base de destino
+-->
+
+---
+layout: default
+sourceLabel: Custom Code Tool
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolcode
+---
+
+# Tool node (sub-nodes)
+#### **O n8n oferece dezenas de nós do tipo Tool (sub-node) para conectar com nós de Agentes**
+
+<div class="h-2" />
+
+<div class="[&_table]:w-full text-10px">
+
+| **Nó** | **Descrição** |
+| --- | --- |
+| **Code Tool** | Executa scripts customizados em JavaScript ou Python como ferramentas do agente |
+| **HTTP Request Tool** | Permite ao agente realizar chamadas a APIs REST externas dinamicamente |
+| **Call n8n Workflow Tool** | Invoca outro fluxo de trabalho do n8n como uma sub-rotina agêntica |
+| **AI Agent Tool** | Permite ao agente invocar outro Agente de IA (arquitetura multi-agente) |
+| **Data Table Tool** | Consulta e manipula tabelas de dados internas do n8n |
+| **Human Review Tool** | Pausa a execução para aprovação ou intervenção humana (*Human-in-the-Loop*) |
+| **Action in App Tool** | Executa ações em serviços integrados (Gmail, Calendar, Drive, Sheets, etc.) |
+
+</div>
+
+<!--
+## notes slides
+
+### O n8n disponibiliza diversas ferramentas nativas e customizadas que estendem a capacidade de ação do Agente de IA
+### As ferramentas vão desde execuções de código e chamadas de API até interações com aplicativos e intervenção humana
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Sub-nodes Tool
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes
+---
+
+# Exemplo de tool node (Data Table Tool)
+#### **Data Table Tool permite um agente consultar uma tabela como ferramenta**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- É importante que o **System Prompt** do nó Agente IA **contenha uma regra explícita** para usar o nome do nó (usado no Data Table) como ferramenta.
+- Toda ferramenta, incluindo um Data Table Tool, **pode receber input de dados estruturados** usando a função `{{ $fromAI() }}` nas condições de filtro da tabela.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/data-table.svg"
+    label="Data Table Tool"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### A função $fromAI() instrui o agente de IA a extrair dinamicamente parâmetros do prompt para os filtros da ferramenta
+### A função $fromAI() possui três parâmetros: o nome do parâmetro gerado pelo n8n enviado ao LLM, descrição em linguagem natural e o tipo do parâmetro
 -->
 
 ---
