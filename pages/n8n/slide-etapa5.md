@@ -240,18 +240,27 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 
 <div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
 
-- O nó **AI Agent** permite integrar agentes inteligentes diretamente no canvas do n8n, orquestrando modelos de linguagem (LLMs), memórias e ferramentas (*tools*).
-- **Elimina a necessidade de infraestruturas complexas de polling HTTP**, executando a lógica agêntica de forma nativa e integrada à automação.
+- O nó **AI Agent** elimina a necessidade de fluxos complexos de polling, executando a lógica agêntica de forma nativa e integrada dentro do próprio fluxo de automação.
+- O nó **AI Agent** oferece possibilidade avançadas de integrar em webhooks, requisições HTTP ou qualquer outro tipo integração que o n8n oferece.
 
 </div>
 
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <N8nAgentNode
-    label="AI Agent"
-    scale="1.1"
-  />
+  <Transform :scale="1.3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A["🌐 HTTP Request<br/>(API /status)"] --> B["✏️ Edit Fields<br/>(count = count + 1)"]
+    B --> C{"🔀 Switch<br/>(Status / Tentativas)"}
+    C -- "Em andamento" --> D["⏳ Wait<br/>(Aguardar intervalo)"]
+    D --> A
+    C -- "Concluído" --> E["➡️ Obter resposta<br/>(API /response)"]
+    C -- "Máx. tentativas" --> F["🚨 Tratamento erro<br/>(Notificar / Falha)"]
+```
+
+</Transform>
 </div>
 
 <!--
