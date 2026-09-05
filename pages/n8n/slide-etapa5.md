@@ -54,6 +54,44 @@ class: flex items-center justify-center
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: AI Agent node
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/
+---
+
+# AI Agent (cluster node)
+#### **O n8n disponibiliza o Agent Node (cluster node) para fluxos agênticos**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O nó **AI Agent** permite integrar agentes inteligentes diretamente no canvas do n8n, orquestrando modelos de linguagem (LLMs), memórias e ferramentas (*tools*).
+- É um **nó do tipo cluster**, diferente de um action node, que exige somente entrada e saída.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nAgentNode
+    label="AI Agent"
+    scale="1.1"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó AI Agent encapsula a complexidade do ciclo de execução agêntica diretamente na interface visual do n8n
+### Permite acoplar sub-nós de modelo (LLM), memória e ferramentas de forma modular sem código externo adicional
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 ---
 
 # Automação inteligente de regra determinística(1)
@@ -210,11 +248,9 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <N8nNode
-    icon-src="n8n/nodes/ai-agent.svg"
+  <N8nAgentNode
     label="AI Agent"
-    type="action"
-    scale="1.4"
+    scale="1.1"
   />
 </div>
 
