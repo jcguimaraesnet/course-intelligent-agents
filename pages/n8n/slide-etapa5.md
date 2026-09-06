@@ -470,6 +470,46 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nod
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: Execute Sub-workflow node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executeworkflow
+---
+
+# Execute Sub-workflow node (action node)
+#### **O nó Execute Sub-workflow permite invocar outros fluxos de trabalho no n8n**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- Permite **modularizar arquiteturas complexas**, delegando etapas específicas para sub-workflows independentes.
+- O sub-workflow chamado deve iniciar com o nó gatilho **Execute Workflow Trigger**, permitindo a passagem de parâmetros e o retorno de dados ao fluxo principal.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/execute-sub-workflow.svg"
+    label="Execute Sub-workflow"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Execute Sub-workflow permite reutilizar lógicas e dividir fluxos extensos em sub-rotinas modulares no n8n
+### Transmite dados de entrada para o sub-workflow e aguarda a conclusão da execução para receber os resultados de volta
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 ---
 
 # Automação inteligente de regra determinística(1)
