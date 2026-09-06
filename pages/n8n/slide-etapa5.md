@@ -308,6 +308,168 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: Basic LLM Chain
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm
+---
+
+# Basic LLM Chain (root node)
+#### **O nó Basic LLM Chain permite fazer uma chamada simples a um LLM**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O nó **Basic LLM Chain** é categorizado como um **nó do tipo raiz**, exigindo a conexão de um subnó de modelo de linguagem (**Chat Model**) para funcionar.
+- É ideal para executar tarefas diretas e pontuais (como classificação, sumarização ou tradução) em uma **única chamada ao LLM**, sem *loop* agêntico ou uso de ferramentas (*tools*).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/basic-llm-chain.svg"
+    label="Basic LLM Chain"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Basic LLM Chain realiza chamadas diretas de prompt para conclusão ao modelo LLM acoplado
+### Diferente do AI Agent, não possui ciclo de tomada de decisão agêntica nem suporte a ferramentas ou memória integrada
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Text Classifier node
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.text-classifier
+---
+
+# Text Classifier (root node)
+#### **O nó Text Classifier permite categorizar entradas de texto usando um LLM**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O nó **Text Classifier** é um **nó do tipo raiz** que exige a conexão de um subnó de **Chat Model** para realizar a classificação de textos.
+- Permite definir **múltiplas categorias pré-determinadas** e rotear automaticamente o fluxo do workflow com base na classe identificada pelo LLM.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/text-classifier.svg"
+    label="Text Classifier"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Text Classifier analisa o texto de entrada e o atribui a uma das categorias especificadas na configuração do nó
+### Atua como um nó de roteamento inteligente no canvas, direcionando o fluxo de automação conforme a categoria selecionada pelo LLM
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Information Extractor node
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor
+---
+
+# Information Extractor (root node)
+#### **O nó Information Extractor extrai dados estruturados a partir de textos não estruturados**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- O nó **Information Extractor** é um **nó do tipo raiz** que exige a conexão de um subnó de **Chat Model** para extrair dados estruturados.
+- Permite definir um **esquema de atributos (JSON Schema)** para converter textos não estruturados (e-mails, documentos, chats) em dados de saída no formato JSON.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/information-extractor.svg"
+    label="Information Extractor"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Information Extractor utiliza um LLM para analisar textos livres e extrair campos estruturados de acordo com um schema definido
+### É ideal para transformar e-mails, relatórios ou mensagens desestruturadas em dados JSON validados para outros nós do workflow
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Structured Output Parser node
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.outputparserstructured
+---
+
+# Structured Output Parser (sub-node)
+#### **O nó Structured Output Parser força a saída do LLM em formato JSON estruturado**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- Funciona como um **subnó** do tipo **Output Parser**, acoplado a nós raiz como **Basic LLM Chain** ou **AI Agent**.
+- Permite definir um **esquema de saída em JSON**, garantindo que a resposta gerada pelo LLM siga rigorosamente a estrutura de atributos especificada.
+- Precisa habilitar a opção **Require Specific Output Format** nos nós **Basic LLM Chain** ou **AI Agent** para permitir a conexão com o **Output Parser**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/structured-output-parser.svg"
+    label="Structured Output Parser"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O subnó Structured Output Parser injeta instruções de formatação de esquema no prompt e valida a resposta JSON do modelo
+### Garante previsibilidade e integridade nos dados retornados pelo LLM para consumo direto em nós subsequentes do n8n
+### A opção Auto-Fix Format permite fazer uma outra chamada para corrigir o formato do output, se a primeira vez responder fora do formato (exige um OpenAI Chat Model)
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 ---
 
 # Automação inteligente de regra determinística(1)
