@@ -22,9 +22,10 @@ layout: default
 flowchart LR
     A["⚡ Webhook<br/>(Lote de perguntas)"] --> B["✂️ Split Out<br/>(Itens individuais)"]
     B --> C["⛓️ Basic LLM Chain<br/>(Classificar urgência)"]
-    C --> E["🤖 AI Agent<br/>(Atendimento)"]
-    E --> H["🔗 Merge / Join<br/>(Juntar respostas)"]
-    H --> I["📊 Aggregate<br/>(Agrupar por urgência)"]
+    B --> E["🤖 AI Agent<br/>(Atendimento)"]
+    C --> H["🔗 Merge<br/>(Juntar respostas)"]
+    E --> H
+    H --> I["📊 Summarize<br/>(Agrupar por urgência)"]
     I --> J["💾 Convert to File<br/>(report.json)"]
 style B fill:stroke:#f59e0b,font-weight:bold
 style H fill:stroke:#f59e0b,font-weight:bold
