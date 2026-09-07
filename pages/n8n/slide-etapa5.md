@@ -11,29 +11,23 @@ layout: default
 ---
 
 # Codificação assistida por IA - Live coding (1)
-#### **Workflow de secretaria acadêmica para responder sobre requerimentos**
+#### **Workflow de secretaria acadêmica com classificação de urgência e subworkflow**
 
 <div class="h-[calc(100%-80px)] flex flex-col justify-between">
 
 <div class="flex-1 flex items-center justify-center">
 
-<Transform :scale="2.3" origin="center">
+<Transform :scale="2.8" origin="center">
 
 ```mermaid {theme: 'dark'}
 flowchart LR
-    subgraph Main ["Workflow Principal"]
-        A["⚡ Webhook<br/>(/secretaria)"] --> B["⛓️ Basic LLM Chain<br/>(Classificar Urgência)"]
-        B --> C["📋 Data Table<br/>(logs_requerimentos)"]
-        C --> D["🔀 Execute Sub-workflow"]
-        D --> E["📤 Respond to Webhook"]
+    A["⚡ Webhook<br/>(/secretaria)"] --> B["⛓️ Basic LLM Chain<br/>(Classificar Urgência)"]
+    B --> C["📋 Data Table<br/>(logs_requerimentos)"]
+    B --> D
+    subgraph Sub ["Sub-workflow Agêntico (nó Execute Workflow)"]
+        D["🔀 Execute Workflow Trigger"] --> G["🤖 AI Agent"]
     end
-    subgraph Sub ["Sub-workflow Agêntico"]
-        F["⚡ Execute Workflow Trigger"] --> G["🤖 AI Agent"]
-        H["🤖 OpenAI Chat Model<br/>(localhost:20128/v1)"] -.-> G
-        I["📋 Requerimentos Tool<br/>(Data Table - 5 registros)"] -.-> G
-        J["📐 Structured Output Parser"] -.-> G
-    end
-    D --> F
+    G --> E["📤 Respond to Webhook"]
 ```
 
 </Transform>
@@ -60,7 +54,7 @@ layoutClass: gap-8
 ---
 
 # Codificação assistida por IA - Live coding (2)
-#### **Workflow de secretaria acadêmica com classificação de urgência e subworkflow agêntico**
+#### **Workflow de secretaria acadêmica com classificação de urgência e subworkflow**
 
 <div class="h-7" />
 
