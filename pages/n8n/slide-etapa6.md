@@ -358,6 +358,7 @@ flowchart TB
         E --> M["🧠 Simple Memory"]
     end
     Sub --> J["📤 Respond to Webhook"]
+style M fill:stroke:#f59e0b,font-weight:bold,color:yellow
 ```
 
 </Transform>
