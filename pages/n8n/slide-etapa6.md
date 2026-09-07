@@ -7,6 +7,42 @@ routeAlias: etapa6
 
 ---
 layout: default
+---
+
+# Codificação assistida por IA - Live coding (1)
+#### **Workflow de secretaria acadêmica com processamento em lote**
+
+<div class="h-[calc(100%-80px)] flex flex-col justify-between">
+
+<div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    A["⚡ Webhook<br/>(Lote de perguntas)"] --> B["✂️ Split Out<br/>(Itens individuais)"]
+    B --> C["⛓️ Basic LLM Chain<br/>(Classificar urgência)"]
+    C --> E["🤖 AI Agent<br/>(Atendimento)"]
+    E --> H["🔗 Merge / Join<br/>(Juntar respostas)"]
+    H --> I["📊 Aggregate<br/>(Agrupar por urgência)"]
+    I --> J["💾 Convert to File<br/>(report.json)"]
+```
+
+</Transform>
+
+</div>
+  
+</div>
+
+<!--
+## notes slides
+
+### O workflow processa lotes de perguntas via Webhook, dividindo os itens para processamento individual com classificação de urgência (Basic LLM Chain) e consulta agêntica (AI Agent)
+### Ao final, as respostas são consolidadas, agrupadas por urgência (Aggregate) e salvas em formato JSON no sistema de arquivos local
+-->
+
+---
+layout: default
 layoutClass: gap-8
 ---
 
