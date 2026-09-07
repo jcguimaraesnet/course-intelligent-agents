@@ -5,6 +5,119 @@ routeAlias: etapa5
 
 ## **Etapa 5:** Integração de Agentes Inteligentes
 
+
+---
+layout: default
+---
+
+# Codificação assistida por IA - Live coding (1)
+#### **Workflow de secretaria acadêmica para responder sobre requerimentos**
+
+<div class="h-[calc(100%-80px)] flex flex-col justify-between">
+
+<div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="2.3" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart LR
+    subgraph Main ["Workflow Principal"]
+        A["⚡ Webhook<br/>(/secretaria)"] --> B["⛓️ Basic LLM Chain<br/>(Classificar Urgência)"]
+        B --> C["📋 Data Table<br/>(logs_requerimentos)"]
+        C --> D["🔀 Execute Sub-workflow"]
+        D --> E["📤 Respond to Webhook"]
+    end
+    subgraph Sub ["Sub-workflow Agêntico"]
+        F["⚡ Execute Workflow Trigger"] --> G["🤖 AI Agent"]
+        H["🤖 OpenAI Chat Model<br/>(localhost:20128/v1)"] -.-> G
+        I["📋 Requerimentos Tool<br/>(Data Table - 5 registros)"] -.-> G
+        J["📐 Structured Output Parser"] -.-> G
+    end
+    D --> F
+```
+
+</Transform>
+
+</div>
+  
+</div>
+
+<!--
+## notes slides
+
+### O workflow principal captura a mensagem do aluno via Webhook, registra a urgência classificada por um Basic LLM Chain em log e aciona um subworkflow agêntico
+### O subworkflow utiliza um AI Agent com OpenAI Chat Model (Base URL local), Data Table Tool filtrando a tabela Requerimentos por ID e Structured Output Parser
+
+curl -X POST http://localhost:5678/webhook/secretaria \
+  -H "Content-Type: application/json" \
+  -d '{"mensagem": "Qual o status do meu requerimento REQ-001?"}'
+
+-->
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Codificação assistida por IA - Live coding (2)
+#### **Workflow de secretaria acadêmica com classificação de urgência e subworkflow agêntico**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de automação especialista em n8n e construção de workflows agênticos.
+
+# Tarefa
+Crie dois workflows no n8n-infnet para atendimento de secretaria acadêmica:
+1. Workflow Principal: Recebe perguntas de alunos via Webhook (POST /secretaria), classifica a urgência via Basic LLM Chain em 'alta', 'média' ou 'baixa', registra a pergunta e a classificação na Data Table `logs_requerimentos`, executa o Sub-workflow de atendimento agêntico e responde ao Webhook.
+2. Sub-workflow de Atendimento: Inicia com Execute Workflow Trigger, executa um AI Agent acoplado a um OpenAI Chat Model (Base URL: http://localhost:20128/v1, responsesApiEnabled: false), consulta a Data Table `requerimentos` via Data Table Tool (filtro por `requerimento_id` via `$fromAI()`) e formata a resposta com Structured Output Parser.
+
+# Contexto
+## 1. Tabela de Dados (`requerimentos`)
+Crie/simule a Data Table `requerimentos` com 5 registros:
+- REQ-001: Aluno "João Silva", Tipo "Trancamento", Status "Em análise"
+- REQ-002: Aluna "Maria Oliveira", Tipo "Isenção de Disciplina", Status "Aprovado"
+- REQ-003: Aluno "Carlos Souza", Tipo "Emissão de Histórico", Status "Concluído"
+- REQ-004: Aluna "Ana Costa", Tipo "Revisão de Nota", Status "Pendente de Documento"
+- REQ-005: Aluno "Lucas Lima", Tipo "Segunda Chamada", Status "Indeferido"
+
+## 2. Workflow Principal
+1. Use o nó Webhook (POST /secretaria) como gatilho.
+2. Conecte a um nó Basic LLM Chain para classificar a urgência da mensagem em 'alta', 'média' ou 'baixa'.
+3. Conecte a um nó Data Table (`logs_requerimentos`) para gravar `mensagem`, `classificacao_urgencia` e `data`.
+4. Conecte ao nó Execute Sub-workflow para invocar o Sub-workflow de atendimento passando a mensagem e a classificação.
+5. Conecte ao nó Respond to Webhook para retornar a resposta final do subworkflow ao aluno.
+
+## 3. Sub-workflow de Atendimento (Agente IA)
+1. Use o nó Execute Workflow Trigger para receber os parâmetros (`mensagem`, `classificacao`).
+2. Conecte ao nó AI Agent (System Message configurado como assistente de secretaria acadêmica).
+3. Acople o subnó OpenAI Chat Model:
+   - Base URL: `http://localhost:20128/v1`
+   - Credencial: `openAiApi` (necessário configurar a API Key na credencial no n8n)
+   - `responsesApiEnabled`: false
+4. Acople a ferramenta Data Table Tool (`requerimentos`):
+   - Condição de filtro em `requerimento_id`: `={{ $fromAI('conditions0_Value', 'ID do requerimento (ex: REQ-001)', 'string') }}`.
+5. Acople o subnó Structured Output Parser com o esquema de resposta (`requerimento_id`, `aluno`, `tipo`, `status`, `resposta_aluno`).
+
+## 4. Exemplo de Teste via cURL
+- Olá, gostaria de saber o status do meu requerimento REQ-001
+
+# Regras de Expressões e Boas Práticas
+- Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n.
+- Certifique-se de configurar a API Key na credencial OpenAI utilizada pelo nó OpenAI Chat Model.
+```
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O prompt orienta a criação completa da solução em dois workflows modulares no n8n (principal e subworkflow de atendimento)
+### Define a estrutura da Data Table Requerimentos com 5 registros, parâmetros do LLM local, filtro dinâmico $fromAI() e teste via cURL
+-->
+
 ---
 layout: two-cols-header
 layoutClass: gap-8
@@ -49,6 +162,7 @@ class: flex items-center justify-center
 ### Automações tradicionais executam fluxos previsíveis baseados em regras rígidas pré-programadas
 ### Agentes de IA adicionam autonomia e adaptabilidade ao interpretar contexto e tomar decisões dinâmicas
 -->
+
 
 ---
 layout: two-cols-header
