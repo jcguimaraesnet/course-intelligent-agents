@@ -26,6 +26,9 @@ flowchart LR
     E --> H["🔗 Merge / Join<br/>(Juntar respostas)"]
     H --> I["📊 Aggregate<br/>(Agrupar por urgência)"]
     I --> J["💾 Convert to File<br/>(report.json)"]
+style B fill:stroke:#f59e0b,font-weight:bold
+style H fill:stroke:#f59e0b,font-weight:bold
+style I fill:stroke:#f59e0b,font-weight:bold
 ```
 
 </Transform>
@@ -59,21 +62,22 @@ Você é um engenheiro de automação especialista em n8n e construção de work
 
 # Tarefa
 Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
-- Workflow: Recebe um lote de perguntas de alunos sobre seus requerimentos, faz split do lote em itens individuais, classifica a urgencia e responde cada pergunta, junta todas as respostas, e agrupa por urgencia e gera um JSON final com as respostas agregadas
+- Workflow: Recebe um lote de perguntas de alunos sobre seus requerimentos, faz split do lote em itens individuais, ramifica na classifica da urgencia e no agente que responde cada pergunta, mergeia todas as duas ramificações, agrega por urgencia e gera um JSON final com as respostas agregadas.
 
 # Contexto
 ## 1. Tabela de Dados (`requerimentos`)
-- Crie/simule a Data Table `requerimentos` com 5 registros (REQ-XXX, nome, tipo, status, data):
+- Crie/simule a Data Table `requerimentos` com 5 registros (REQ-XXX, nome, tipo, status, data).
 
 ## 2. Detalhamento workflow
 1. Nó Webhook que receber um lote de perguntas de alunos
-2. Nó Split da mensagem em itens individuais (com apenas uma única pergunta)
-3. Nó Basic LLM Chain para classificar a urgência de cada pergunta em 'alta', 'média' ou 'baixa'.
-4. Sub-nó Output Strutured Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de classificação
-4. Nó AI Agent e Data Table Tool para consultar o status do requerimento e reponder pergunta do aluno
-5. Nó Join para juntar todas as perguntas
-6. Nó Aggregate para agrupar mensagens por urgência
-7. Nó Convert to File e Read/Write JSON para gerar arquivo JSON agrupado em: `/home/node/.n8n-files/report.json`
+2. Nó Split que divide o lote com várias perguntas em itens individuais (destination field name -> pergunta), com opção Include marcada como `No Other Fields`
+3. O Split anterior deve bifurcar em duas ramificações para os nós 4 e 5 abaixo:
+4. Nó Basic LLM Chain para classificar a urgência de cada pergunta em 'alta', 'média' ou 'baixa'.
+4.1 Sub-nó Output Strutured Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de classificação
+5. Nó AI Agent e Data Table Tool para consultar o status do requerimento e reponder pergunta do aluno
+6. Nó Merge que combina as duas ramificações
+7. Nó Aggregate para agrupar mensagens pela classificação da urgência
+8. Nó Convert to File e Read/Write JSON para gerar arquivo JSON agrupado em: `/home/node/.n8n-files/report.json`
 
 ## 3. Mais detalhamento do workflow
 1. AI Agent (System Message configurado como assistente de secretaria acadêmica).

@@ -242,9 +242,10 @@ class: flex items-center justify-center
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
 
-- Combina **múltiplos itens recebidos em um único item com array**, permitindo enviar lotes completos para o nó seguinte.
+- O nó Aggregate do n8n `é contraintuitivo`, já que **ele não faz GROUP BY**
+- Ele combina **múltiplos itens de entrada em um único item de saída**, permitindo **executar uma vez o action node seguinte** para um único item.
 - O nó realiza apenas **agrupamento estrutural**; para métricas estatísticas/matemáticas (como _Sum, Avg, Min, Max, etc_), deve-se usar o nó **Summarize**.
 
 </div>
