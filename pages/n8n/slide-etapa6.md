@@ -73,10 +73,11 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 2. Nó Split que divide o lote com várias perguntas em itens individuais (destination field name -> pergunta), com opção Include marcada como `No Other Fields`
 3. O Split anterior deve bifurcar em duas ramificações para os nós 4 e 5 abaixo:
 4. Nó Basic LLM Chain para classificar a urgência de cada pergunta em 'alta', 'média' ou 'baixa'.
-4.1 Sub-nó Output Strutured Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de classificação
+4.1 O nó Basic LLM Chain deve estar conectado a um sub-nó Output Strutured Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de urgencia e requerimento_id
 5. Nó AI Agent e Data Table Tool para consultar o status do requerimento e reponder pergunta do aluno
-6. Nó Merge que combina as duas ramificações
-7. Nó Aggregate para agrupar mensagens pela classificação da urgência
+5.1 O nó AI Agent deve estar conectado a um sub-nó Output Strutured Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de pergunta, resposta e requerimento_id
+6. Nó Merge que mergeia as duas ramificações com a opção de Combine através do campo `requerimento_id`
+7. Nó Summarize para agrupar pela urgência, acrescentando na saída o restante dos campos recebidos na entrada.
 8. Nó Convert to File e Read/Write JSON para gerar arquivo JSON agrupado em: `/home/node/.n8n-files/report.json`
 
 ## 3. Mais detalhamento do workflow
