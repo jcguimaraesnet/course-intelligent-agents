@@ -204,3 +204,107 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.split
 ### O nó Split Out pega o array presente no campo selecionado (ex: perguntas) e emite cada elemento como um item distinto no n8n
 ### Facilita o processamento independente de cada elemento pelos nós seguintes no fluxo
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Summarize
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.summarize
+---
+
+# Summarize (action node)
+#### **O nó Summarize permite realizar agregações, cálculos e agrupamento de dados**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-12 [&_li]:mb-6">
+
+- Agrupa múltiplos itens de entrada e executa **operações de agregação** (como contar, somar, calcular média, obter min/max ou concatenar textos).
+- Permite **agrupar por campos específicos** (ex: por status ou categoria) para consolidar e resumir grandes volumes de dados antes da persistência.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/summarize.svg"
+    label="Summarize"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Summarize agrega conjuntos de dados executando operações estatísticas ou consolidações por grupos no n8n
+### Substitui nós de código complexos quando o objetivo é agrupar e sumarizar informações do fluxo
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Summarize
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.summarize
+---
+
+# Summarize (action node): agrupar e contar
+#### **O nó Summarize consolida múltiplos itens em resumos estatísticos ou agrupados**
+
+<div class="h-2" />
+
+::left::
+
+<div class="space-y-2">
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="entrada: 3 itens de atendimento" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  { "aluno": "Maria", 
+    "urgencia": "alta" 
+  },
+  { "aluno": "João", 
+    "urgencia": "alta" 
+  },
+  { "aluno": "Ana", 
+    "urgencia": "baixa" 
+  }
+]
+```
+
+</WindowMockup>
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="saída: 2 itens agrupados" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "urgencia": "alta",
+    "total": 2,
+    "appended_output": ["Maria", "João"]
+  },
+  {
+    "urgencia": "baixa",
+    "total": 1,
+    "appended_output": ["Ana"]
+  }
+]
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O nó Summarize recebe múltiplos itens e gera relatórios consolidados (ex: contagem de atendimentos agrupados por nível de urgência)
+### Facilita a geração de métricas e relatórios agregados no final de fluxos de lote
+-->
