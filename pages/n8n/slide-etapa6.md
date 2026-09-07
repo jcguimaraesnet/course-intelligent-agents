@@ -220,7 +220,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.summa
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-12 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
 - Agrupa múltiplos itens de entrada e executa **operações de agregação** (como contar, somar, calcular média, obter min/max ou concatenar textos).
 - Permite **agrupar por campos específicos** (ex: por status ou categoria) para consolidar e resumir grandes volumes de dados antes da persistência.
@@ -318,11 +318,11 @@ layoutClass: gap-8
 # Codificação assistida por IA - Live coding (1)
 #### **Workflow de secretaria acadêmica com chat multi-turno e memória**
 
-<div class="h-10" />
+<div class="h-5" />
 
 ::left::
 
-<div class="space-y-2">
+<div class="space-y-5">
 
 <WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="histórico de mensagens (Simple Memory)" codeblock>
 
@@ -410,23 +410,17 @@ Você é um engenheiro de automação especialista em n8n e construção de work
 
 # Tarefa
 Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
-- Workflow: Recebe um lote de perguntas de alunos sobre seus requerimentos, faz split do lote em itens individuais, ramifica na classifica da urgencia e no agente que responde cada pergunta, mergeia todas as duas ramificações, agrega por urgencia e gera um JSON final com as respostas agregadas.
+- Workflow: Recebe uma pergunta de aluno sobre seus requerimentos, invoca agente que responde a pergunta e retorna com resposta no webhook.
 
 # Contexto
 ## 1. Tabela de Dados (`requerimentos`)
-- Crie/simule a Data Table `requerimentos` com 5 registros (REQ-XXX, nome, tipo, status, data).
+- Crie/simule a Data Table `requerimentos` com 5 registros (REQ-XXX, nome, tipo, status, data_previsao).
 
 ## 2. Detalhamento workflow
-1. Nó Webhook que receber um lote de perguntas de alunos
-2. Nó Split que divide o lote com várias perguntas em itens individuais (destination field name -> pergunta), com opção Include marcada como `No Other Fields`
-3. O Split anterior deve bifurcar em duas ramificações para os nós 4 e 5 abaixo:
-4. Nó Basic LLM Chain para classificar a urgência de cada pergunta em 'alta', 'média' ou 'baixa'.
-4.1 O nó Basic LLM Chain deve estar conectado a um sub-nó Output Strutured Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de urgencia e requerimento_id
-5. Nó AI Agent e Data Table Tool para consultar o status do requerimento e reponder pergunta do aluno
-5.1 O nó AI Agent deve estar conectado a um sub-nó Output Strutured Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de pergunta, resposta e requerimento_id
-6. Nó Merge que mergeia as duas ramificações com a opção de Combine através do campo `requerimento_id`
-7. Nó Summarize para agrupar pela urgência, acrescentando na saída o restante dos campos recebidos na entrada.
-8. Nó Convert to File e Read/Write JSON para gerar arquivo JSON agrupado em: `/home/node/.n8n-files/report.json`
+1. Nó Webhook que recebe uma pergunta do aluno
+2. Nó AI Agent e Data Table Tool para consultar o status do requerimento e reponder pergunta do aluno
+2.1 Nó AI Agent deve estar conectado a um sub-nó Simple Memory
+3. Nó Respond to Webhook que devolve resposta ao aluno
 
 ## 3. Mais detalhamento do workflow
 1. AI Agent (System Message configurado como assistente de secretaria acadêmica).
@@ -435,7 +429,10 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 4. Subnó Data Table Tool (`requerimentos`) com condição de filtro usando a coluna `requerimento_id` via `$fromAI()`
 
 ## 4. Exemplo de Teste via cURL
-- Crie um stick note com o comando cURL para o webhook com um lote de três perguntas de alunos sobre seus requerimentos.
+- Crie um stick note com três comandos cURL para o webhook do mesmo aluno, onde cada comando deve ter as seguintes perguntas:
+1. Qual o status do meu requerimento?
+2. O id do meu requerimento é REQ-001
+3. E qual é a data de previsão
 
 # Regras de Expressões e Boas Práticas
 - Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n.
