@@ -72,42 +72,34 @@ Você é um engenheiro de automação especialista em n8n e construção de work
 
 # Tarefa
 Crie dois workflows no n8n-infnet para atendimento de secretaria acadêmica:
-1. Workflow Principal: Recebe perguntas de alunos via Webhook (POST /secretaria), classifica a urgência via Basic LLM Chain em 'alta', 'média' ou 'baixa', registra a pergunta e a classificação na Data Table `logs_requerimentos`, executa o Sub-workflow de atendimento agêntico e responde ao Webhook.
-2. Sub-workflow de Atendimento: Inicia com Execute Workflow Trigger, executa um AI Agent acoplado a um OpenAI Chat Model (Base URL: http://localhost:20128/v1, responsesApiEnabled: false), consulta a Data Table `requerimentos` via Data Table Tool (filtro por `requerimento_id` via `$fromAI()`) e formata a resposta com Structured Output Parser.
+1. Workflow Principal: Recebe perguntas de alunos sobre seus requerimentos, classificando a urgência de cada pergunta, logando cada pergunta de aluno com sua respectiva classificação.
+2. Sub-workflow de Atendimento: Inicia com Execute Workflow Trigger, que executa um AI Agent, e retorna com uma consulta a Data Table `requerimentos` via Data Table Tool
 
 # Contexto
 ## 1. Tabela de Dados (`requerimentos`)
-Crie/simule a Data Table `requerimentos` com 5 registros:
-- REQ-001: Aluno "João Silva", Tipo "Trancamento", Status "Em análise"
-- REQ-002: Aluna "Maria Oliveira", Tipo "Isenção de Disciplina", Status "Aprovado"
-- REQ-003: Aluno "Carlos Souza", Tipo "Emissão de Histórico", Status "Concluído"
-- REQ-004: Aluna "Ana Costa", Tipo "Revisão de Nota", Status "Pendente de Documento"
-- REQ-005: Aluno "Lucas Lima", Tipo "Segunda Chamada", Status "Indeferido"
+- Crie/simule a Data Table `requerimentos` com 5 registros (REQ-XXX, nome, tipo, status, data):
 
 ## 2. Workflow Principal
 1. Use o nó Webhook (POST /secretaria) como gatilho.
 2. Conecte a um nó Basic LLM Chain para classificar a urgência da mensagem em 'alta', 'média' ou 'baixa'.
-3. Conecte a um nó Data Table (`logs_requerimentos`) para gravar `mensagem`, `classificacao_urgencia` e `data`.
-4. Conecte ao nó Execute Sub-workflow para invocar o Sub-workflow de atendimento passando a mensagem e a classificação.
-5. Conecte ao nó Respond to Webhook para retornar a resposta final do subworkflow ao aluno.
+3. Conecte o LLM Chain a um nó Structured Output Parser com a opção Schema Type `Define using JSON Schema` com JSON schema com um atributo de classificação
+4. Crie duas ramificações a partir do LLM Chain nos dois nós a seguir:
+- nó Data Table (`logs_requerimentos`) para gravar `mensagem`, `classificacao_urgencia` e `data`.
+- nó Execute Sub-workflow para invocar o Sub-workflow de atendimento passando a mensagem e a classificação, que por sua vez deve estar conectado a um nó Respond to Webhook para retornar a resposta final do subworkflow ao aluno.
 
 ## 3. Sub-workflow de Atendimento (Agente IA)
 1. Use o nó Execute Workflow Trigger para receber os parâmetros (`mensagem`, `classificacao`).
 2. Conecte ao nó AI Agent (System Message configurado como assistente de secretaria acadêmica).
-3. Acople o subnó OpenAI Chat Model:
-   - Base URL: `http://localhost:20128/v1`
-   - Credencial: `openAiApi` (necessário configurar a API Key na credencial no n8n)
-   - `responsesApiEnabled`: false
+3. Crie um stick note com a pendencia de criar uma Credential OpenAI com base url (http://localhost:20128/v1) e API KEY
+3. Acople o subnó OpenAI Chat Model com `responsesApiEnabled` igual a false
 4. Acople a ferramenta Data Table Tool (`requerimentos`):
-   - Condição de filtro em `requerimento_id`: `={{ $fromAI('conditions0_Value', 'ID do requerimento (ex: REQ-001)', 'string') }}`.
-5. Acople o subnó Structured Output Parser com o esquema de resposta (`requerimento_id`, `aluno`, `tipo`, `status`, `resposta_aluno`).
+   - Condição de filtro usando a coluna `requerimento_id` via `$fromAI()`
 
 ## 4. Exemplo de Teste via cURL
-- Olá, gostaria de saber o status do meu requerimento REQ-001
+- Crie um stick note com o comando cURL para o webhook com a mensagem `Olá, gostaria de saber o status do meu requerimento REQ-001`
 
 # Regras de Expressões e Boas Práticas
 - Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n.
-- Certifique-se de configurar a API Key na credencial OpenAI utilizada pelo nó OpenAI Chat Model.
 ```
 </WindowMockup>
 
