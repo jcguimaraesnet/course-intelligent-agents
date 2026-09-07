@@ -27,9 +27,8 @@ flowchart LR
     E --> H
     H --> I["📊 Summarize<br/>(Agrupar por urgência)"]
     I --> J["💾 Convert to File<br/>(report.json)"]
-style B fill:stroke:#f59e0b,font-weight:bold
-style H fill:stroke:#f59e0b,font-weight:bold
-style I fill:stroke:#f59e0b,font-weight:bold
+style B fill:stroke:#f59e0b,font-weight:bold,color:yellow
+style I fill:stroke:#f59e0b,font-weight:bold,color:yellow
 ```
 
 </Transform>
