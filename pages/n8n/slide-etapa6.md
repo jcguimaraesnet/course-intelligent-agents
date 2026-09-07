@@ -100,3 +100,107 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 ### O prompt orienta a criação completa da solução em dois workflows modulares no n8n (principal e subworkflow de atendimento)
 ### Define a estrutura da Data Table Requerimentos com 5 registros, parâmetros do LLM local, filtro dinâmico $fromAI() e teste via cURL
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Split Out
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.splitout
+---
+
+# Split Out (action node)
+#### **O nó Split Out desmembra um array de itens em múltiplos itens individuais no fluxo**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Transforma um **campo que contém uma lista (array)** dentro de um único item em **múltiplos itens individuais** no n8n.
+- Permite que cada elemento da lista seja **processado individualmente** pelos nós subsequentes no workflow (ex: envio de e-mails ou chamadas a LLMs em lote).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/split-out.svg"
+    label="Split Out"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó Split Out extrai arrays e desmembra seus elementos em execuções individuais de itens no fluxo do n8n
+### É fundamental para iteração e processamento em lote (batch processing) de listas recebidas via Webhook ou APIs
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Split Out
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.splitout
+---
+
+# Split Out (action node): desmembrar array
+#### **O nó Split Out transforma uma lista contida em um campo em itens separados**
+
+<div class="h-2" />
+
+::left::
+
+<div class="space-y-2">
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="entrada: 1 item (com array)" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "lote_id": "LOTE-101",
+    "perguntas": [
+      { "aluno": "Maria", 
+        "duvida": "Qual o prazo do REQ-001?" 
+      },
+      { "aluno": "João", 
+        "duvida": "Como trancar a matrícula?" 
+      }
+    ]
+  }
+]
+```
+
+</WindowMockup>
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="saída: 2 itens (desmembrados)" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  {
+    "aluno": "Maria",
+    "duvida": "Qual o prazo do REQ-001?"
+  },
+  {
+    "aluno": "João",
+    "duvida": "Como trancar a matrícula?"
+  }
+]
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O nó Split Out pega o array presente no campo selecionado (ex: perguntas) e emite cada elemento como um item distinto no n8n
+### Facilita o processamento independente de cada elemento pelos nós seguintes no fluxo
+-->
