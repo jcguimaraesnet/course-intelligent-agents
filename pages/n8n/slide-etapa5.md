@@ -474,6 +474,9 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-no
     label="Text Classifier"
     type="action"
     scale="1.4"
+    first-output="Baixo"
+    second-output="Médio"
+    third-output="Alto"
   />
 </div>
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import AssetImg from './AssetImg.vue'
 
 interface Props {
@@ -9,6 +10,9 @@ interface Props {
   scale?: number | string
   connector?: 'plus' | 'arrow' | 'none'
   arrow?: boolean
+  firstOutput?: boolean | string
+  secondOutput?: boolean | string
+  thirdOutput?: boolean | string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -19,6 +23,33 @@ const props = withDefaults(defineProps<Props>(), {
   scale: 1,
   connector: 'plus',
   arrow: false,
+  firstOutput: true,
+  secondOutput: false,
+  thirdOutput: false,
+})
+
+const getLabel = (val?: boolean | string) => {
+  return typeof val === 'string' && val !== 'true' ? val : undefined
+}
+
+const outputs = computed(() => {
+  if (props.connector === 'none') return []
+  if (props.thirdOutput !== undefined && props.thirdOutput !== false && props.thirdOutput !== 'false') {
+    return [
+      { id: 1, posClass: 'top-3 -translate-y-1/2', label: getLabel(props.firstOutput) },
+      { id: 2, posClass: 'top-1/2 -translate-y-1/2', label: getLabel(props.secondOutput) },
+      { id: 3, posClass: 'bottom-3 translate-y-1/2', label: getLabel(props.thirdOutput) },
+    ]
+  }
+  if (props.secondOutput !== undefined && props.secondOutput !== false && props.secondOutput !== 'false') {
+    return [
+      { id: 1, posClass: 'top-5 -translate-y-1/2', label: getLabel(props.firstOutput) },
+      { id: 2, posClass: 'bottom-5 translate-y-1/2', label: getLabel(props.secondOutput) },
+    ]
+  }
+  return [
+    { id: 1, posClass: 'top-1/2 -translate-y-1/2', label: getLabel(props.firstOutput) },
+  ]
 })
 </script>
 
@@ -36,13 +67,23 @@ const props = withDefaults(defineProps<Props>(), {
           : 'w-24 h-24 rounded-xl'
       ]"
     >
-      <!-- Output Handle (lado direito) -->
+      <!-- Output Handles (lado direito) -->
       <div
-        v-if="connector !== 'none'"
-        class="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border border-gray-600 rounded-full group-hover:border-[#ff6d5a] transition-colors shadow-sm flex items-center"
+        v-for="out in outputs"
+        :key="out.id"
+        class="absolute -right-2 w-4 h-4 bg-white border border-gray-600 rounded-full group-hover:border-[#ff6d5a] transition-colors shadow-sm flex items-center z-10"
+        :class="out.posClass"
       >
         <!-- Linha horizontal saindo do conector -->
         <div class="absolute left-full top-1/2 -translate-y-1/2 w-[50px] h-[2px] bg-gray-400 pointer-events-none">
+          <!-- Rótulo/Legenda acima da linha, centralizado em relação à linha -->
+          <span
+            v-if="out.label"
+            class="absolute left-1/2 -translate-x-1/2 bottom-full mb-[1px] text-[10px] font-semibold text-white whitespace-nowrap leading-none pointer-events-none"
+          >
+            {{ out.label }}
+          </span>
+
           <!-- Seta ou Quadrado com '+' no extremo direito da reta -->
           <!-- Seta -->
           <div
