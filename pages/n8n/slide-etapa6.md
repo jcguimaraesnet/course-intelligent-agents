@@ -321,19 +321,16 @@ layout: default
 
 <div class="flex-1 flex items-center justify-center">
 
-<Transform :scale="3" origin="center">
+<Transform :scale="1.5" origin="center">
 
 ```mermaid {theme: 'dark'}
-flowchart LR
-    A["⚡ Webhook<br/>(Lote de perguntas)"] --> B["✂️ Split Out<br/>(Itens individuais)"]
-    B --> C["⛓️ Basic LLM Chain<br/>(Classificar urgência)"]
-    B --> E["🤖 AI Agent<br/>(Atendimento)"]
-    C --> H["🔗 Merge<br/>(Juntar respostas)"]
-    E --> H
-    H --> I["📊 Summarize<br/>(Agrupar por urgência)"]
-    I --> J["💾 Convert to File<br/>(report.json)"]
-style B fill:stroke:#f59e0b,font-weight:bold,color:yellow
-style I fill:stroke:#f59e0b,font-weight:bold,color:yellow
+flowchart TB
+    A["⚡ Webhook<br/>(Pergunta)"] --> Sub
+    subgraph Sub [" "]
+        E["🤖 AI Agent<br/>(Atendimento)"]
+        E --> M["🧠 Simple Memory"]
+    end
+    Sub --> J["📤 Respond to Webhook"]
 ```
 
 </Transform>
