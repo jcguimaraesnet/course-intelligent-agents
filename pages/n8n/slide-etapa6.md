@@ -311,17 +311,44 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.summa
 
 
 ---
-layout: default
+layout: two-cols-header
+layoutClass: gap-8
 ---
 
 # Codificação assistida por IA - Live coding (1)
 #### **Workflow de secretaria acadêmica com chat multi-turno e memória**
 
-<div class="h-[calc(100%-80px)] flex flex-col justify-between">
+<div class="h-10" />
+
+::left::
+
+<div class="space-y-2">
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="entrada: 3 itens de atendimento" codeblock>
+
+```json {*}{maxHeight:'260px'}
+[
+  { "aluno": "Maria", 
+    "urgencia": "alta" 
+  },
+  { "aluno": "João", 
+    "urgencia": "alta" 
+  },
+  { "aluno": "Ana", 
+    "urgencia": "baixa" 
+  }
+]
+```
+
+</WindowMockup>
+
+</div>
+
+::right::
 
 <div class="flex-1 flex items-center justify-center">
 
-<Transform :scale="1.5" origin="center">
+<Transform :scale="1.05" origin="center">
 
 ```mermaid {theme: 'dark'}
 flowchart TB
@@ -337,7 +364,6 @@ flowchart TB
 
 </div>
   
-</div>
 
 <!--
 ## notes slides
