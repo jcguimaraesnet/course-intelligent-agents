@@ -1045,3 +1045,42 @@ total sobre uma carteira de cripto.
 ### Garante que problemas complexos sejam resolvidos incrementalmente do mais simples ao mais avançado
 -->
 
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um workflow que classifica perguntas.
+
+🛠️ &nbsp;**Exercício \#2:** Crie um workflow que invoca um sub-workflow agêntico.
+
+🛠️ &nbsp;**Exercício \#3:** Crie um workflow que usa AI Agent com output estruturado.
+
+🛠️ &nbsp;**Exercício \#4:** Crie um workflow agêntico que usa um HTTP Tool.
+
+<br/>
+
+- [ ] &nbsp;classificação de perguntas com nó Basic LLM Chain e Structured Output Parser
+- [ ] &nbsp;sub-workflows agênticos com nó Execute Workflow Trigger e Execute Sub-workflow
+- [ ] &nbsp;estruturação de respostas utilizando sub-nó Structured Output Parser no AI Agent
+- [ ] &nbsp;integração de chamadas HTTP externas via ferramentas (Tool nodes) no AI Agent
+
+<br/>
+
+<!--
+# Exercício #1 — Classificação de perguntas
+Crie um workflow no n8n que recebe perguntas de alunos e as classifica em categorias/urgências utilizando o nó Basic LLM Chain e Structured Output Parser.
+
+# Exercício #2 — Invocação de sub-workflows agênticos
+Construa um workflow principal que delega requisições complexas para um sub-workflow agêntico iniciado por Execute Workflow Trigger.
+
+# Exercício #3 — AI Agent com output estruturado
+Crie um sub-workflow agêntico no n8n configurando o nó AI Agent acoplado ao sub-nó Structured Output Parser para garantir respostas padronizadas em JSON.
+
+# Exercício #4 — Workflow agêntico com HTTP Tool
+Adicione ao AI Agent uma ferramenta de chamada HTTP (Tool node / HTTP Request) para consultar dados externos de APIs REST dinamicamente.
+-->
+
