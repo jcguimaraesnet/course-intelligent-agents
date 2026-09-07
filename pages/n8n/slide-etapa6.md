@@ -324,18 +324,37 @@ layoutClass: gap-8
 
 <div class="space-y-2">
 
-<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="entrada: 3 itens de atendimento" codeblock>
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="histórico de mensagens (Simple Memory)" codeblock>
 
 ```json {*}{maxHeight:'260px'}
 [
-  { "aluno": "Maria", 
-    "urgencia": "alta" 
+  {
+    "role": "system",
+    "content": "Você é um assistente útil."
   },
-  { "aluno": "João", 
-    "urgencia": "alta" 
+  {
+    "role": "user",
+    "content": "Qual o status do meu requerimento?"
   },
-  { "aluno": "Ana", 
-    "urgencia": "baixa" 
+  {
+    "role": "assistant",
+    "content": "Qual o id do requerimento?"
+  },
+  {
+    "role": "user",
+    "content": "O id do requerimento é REQ-001."
+  },
+  {
+    "role": "assistant",
+    "content": "Está em andamento."
+  },
+  {
+    "role": "user",
+    "content": "E a previsão de solução?"
+  },
+  {
+    "role": "assistant",
+    "content": "A previsão é daqui a 5 dias."
   }
 ]
 ```
