@@ -599,3 +599,42 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 ## notes slides
 
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um workflow que recebe em lote e faz split out.
+
+🛠️ &nbsp;**Exercício \#2:** Crie um workflow que gera relatório com summarize e count.
+
+🛠️ &nbsp;**Exercício \#3:** Crie um workflow com memória de curto prazo.
+
+🛠️ &nbsp;**Exercício \#4:** Crie um workflow com memória de longo prazo.
+
+<br/>
+
+- [ ] &nbsp;processamento em lote com nó Split Out
+- [ ] &nbsp;geração de relatórios/sumarização com nó Summarize
+- [ ] &nbsp;gestão de contexto conversacional com nó Simple Memory
+- [ ] &nbsp;persistência de histórico em banco de dados com nó Postgres Chat Memory
+
+<br/>
+
+<!--
+# Exercício #1 — Processamento em lote com Split Out
+Crie um workflow no n8n que recebe uma lista de dados em lote e utiliza o nó Split Out (ou Split In Batches) para separar e processar cada item individualmente.
+
+# Exercício #2 — Relatório com Summarize e Count
+Construa um workflow que agregue dados de entrada utilizando o nó Summarize para contar e agrupar registros, gerando um relatório consolidado.
+
+# Exercício #3 — Memória de curto prazo com Simple Memory
+Crie um workflow agêntico no n8n conectando o sub-nó Simple Memory (Window Buffer) ao nó AI Agent para manter o contexto das últimas mensagens da conversa.
+
+# Exercício #4 — Memória de longo prazo com Postgres Chat Memory
+Construa um workflow agêntico no n8n utilizando o sub-nó Postgres Chat Memory conectado ao AI Agent para persistir o histórico de conversas em um banco de dados PostgreSQL.
+-->
