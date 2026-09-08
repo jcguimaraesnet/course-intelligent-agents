@@ -601,6 +601,47 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 -->
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Postgres Chat Memory
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.memorypostgreschat
+---
+
+# Postgres Chat Memory (sub-node)
+#### **Para cenários escaláveis, armazene o histórico de mensagens em um database**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Persiste o **histórico de mensagens (chat history)** de forma durável e escalável em uma tabela do PostgreSQL.
+- Permite manter sessões conversacionais longas e reutilizáveis entre **reinicializações do servidor n8n** e **cenários escaláveis** envolvendo balanceamento de múltiplos servidores com o mesmo fluxo.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/simple-memory.svg"
+    label="Postgres Chat Memory"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O sub-nó Postgres Chat Memory armazena e recupera o histórico de conversas diretamente no PostgreSQL
+### Garante persistência durável, isolamento por sessão de usuário e alta escalabilidade para aplicações em produção
+-->
+
+
+---
 layout: default
 ---
 
