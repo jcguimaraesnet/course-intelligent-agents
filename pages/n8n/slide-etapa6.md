@@ -445,3 +445,160 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 ### O prompt orienta a criação completa da solução em dois workflows modulares no n8n (principal e subworkflow de atendimento)
 ### Define a estrutura da Data Table Requerimentos com 5 registros, parâmetros do LLM local, filtro dinâmico $fromAI() e teste via cURL
 -->
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Simple Memory
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.memorybufferwindow
+---
+
+# Simple Memory (sub-node)
+#### **Por padrão, um agente de IA do n8n é stateless, não armazena histórico de mensagens**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Armazena e gerencia o **histórico de mensagens (chat history)** na memória do servidor n8n.
+- A memória do servidor pode acumular com muitas mensagens e não ser escalável.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/simple-memory.svg"
+    label="Simple Memory"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O sub-nó Simple Memory permite armazenar e recuperar o histórico recente de mensagens de chat no n8n
+### É essencial para manter o contexto em conversas multi-turno com o AI Agent
+-->
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+---
+
+# Codificação assistida por IA - Live coding (1)
+#### **Workflow de secretaria acadêmica com memória persistente**
+
+<div class="h-5" />
+
+::left::
+
+<div class="space-y-5">
+
+<WindowMockup color="dark" padding="0.3rem 0.5rem 0.3rem 0.5rem" title="Comando para criar database" codeblock>
+
+```bash {*}{maxHeight:'260px'}
+docker run -d \
+  --name postgres \
+  --restart always \
+  -p 5432:5432 \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=senha123 \
+  -e POSTGRES_DB=postgres \
+  postgres:16-alpine
+
+```
+
+</WindowMockup>
+
+</div>
+
+::right::
+
+<div class="flex-1 flex items-center justify-center">
+
+<Transform :scale="1.05" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart TB
+    A["⚡ Webhook<br/>(Pergunta)"] --> Sub
+    subgraph Sub [" "]
+        E["🤖 AI Agent<br/>(Atendimento)"]
+        E --> M["🧠 Postgres Chat Memory"]
+    end
+    Sub --> J["📤 Respond to Webhook"]
+style M fill:stroke:#f59e0b,font-weight:bold,color:yellow
+```
+
+</Transform>
+
+</div>
+  
+
+<!--
+## notes slides
+
+### O workflow processa lotes de perguntas via Webhook, dividindo os itens para processamento individual com classificação de urgência (Basic LLM Chain) e consulta agêntica (AI Agent)
+### Ao final, as respostas são consolidadas, agrupadas por urgência (Aggregate) e salvas em formato JSON no sistema de arquivos local
+-->
+
+---
+layout: default
+layoutClass: gap-8
+---
+
+# Codificação assistida por IA - Live coding (2)
+#### **Workflow de secretaria acadêmica com processamento em lote**
+
+<div class="h-7" />
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="prompt.md" codeblock>
+
+```md {*}{maxHeight:'290px'}
+# Papel
+Você é um engenheiro de automação especialista em n8n e construção de workflows agênticos.
+
+# Tarefa
+Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
+- Workflow: Recebe uma pergunta de aluno sobre seus requerimentos, invoca agente que responde a pergunta e retorna com resposta no webhook.
+
+# Contexto
+## 1. Tabela de Dados (`requerimentos`)
+- Crie/simule a Data Table `requerimentos` com 5 registros (REQ-XXX, nome, tipo, status, data_previsao).
+
+## 2. Detalhamento workflow
+1. Nó Webhook que recebe uma pergunta do aluno
+2. Nó AI Agent e Data Table Tool para consultar o status do requerimento e reponder pergunta do aluno
+2.1 Nó AI Agent deve estar conectado a um sub-nó Simple Memory
+3. Nó Respond to Webhook que devolve resposta ao aluno
+
+## 3. Mais detalhamento do workflow
+1. AI Agent (System Message configurado como assistente de secretaria acadêmica).
+2. Crie um stick note com a pendencia de criar uma Credential OpenAI com base url (http://localhost:20128/v1) e API KEY
+3. Subnó OpenAI Chat Model com `responsesApiEnabled` igual a false
+4. Subnó Data Table Tool (`requerimentos`) com condição de filtro usando a coluna `requerimento_id` via `$fromAI()`
+
+## 4. Exemplo de Teste via cURL
+- Crie um stick note com três comandos cURL para o webhook do mesmo aluno, onde cada comando deve ter as seguintes perguntas:
+1. Qual o status do meu requerimento?
+2. O id do meu requerimento é REQ-001
+3. E qual é a data de previsão
+
+# Regras de Expressões e Boas Práticas
+- Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n.
+```
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O prompt orienta a criação completa da solução em dois workflows modulares no n8n (principal e subworkflow de atendimento)
+### Define a estrutura da Data Table Requerimentos com 5 registros, parâmetros do LLM local, filtro dinâmico $fromAI() e teste via cURL
+-->
