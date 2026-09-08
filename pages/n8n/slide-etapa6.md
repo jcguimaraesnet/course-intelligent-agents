@@ -545,8 +545,6 @@ style M fill:stroke:#f59e0b,font-weight:bold,color:yellow
 <!--
 ## notes slides
 
-### O workflow processa lotes de perguntas via Webhook, dividindo os itens para processamento individual com classificação de urgência (Basic LLM Chain) e consulta agêntica (AI Agent)
-### Ao final, as respostas são consolidadas, agrupadas por urgência (Aggregate) e salvas em formato JSON no sistema de arquivos local
 -->
 
 ---
@@ -555,7 +553,7 @@ layoutClass: gap-8
 ---
 
 # Codificação assistida por IA - Live coding (2)
-#### **Workflow de secretaria acadêmica com processamento em lote**
+#### **Workflow de secretaria acadêmica com memória persistente**
 
 <div class="h-7" />
 
@@ -576,14 +574,15 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 ## 2. Detalhamento workflow
 1. Nó Webhook que recebe uma pergunta do aluno
 2. Nó AI Agent e Data Table Tool para consultar o status do requerimento e reponder pergunta do aluno
-2.1 Nó AI Agent deve estar conectado a um sub-nó Simple Memory
+2.1 Nó AI Agent deve estar conectado a um sub-nó Postgres Chat Memory
 3. Nó Respond to Webhook que devolve resposta ao aluno
 
 ## 3. Mais detalhamento do workflow
 1. AI Agent (System Message configurado como assistente de secretaria acadêmica).
 2. Crie um stick note com a pendencia de criar uma Credential OpenAI com base url (http://localhost:20128/v1) e API KEY
-3. Subnó OpenAI Chat Model com `responsesApiEnabled` igual a false
-4. Subnó Data Table Tool (`requerimentos`) com condição de filtro usando a coluna `requerimento_id` via `$fromAI()`
+3. Crie um stick note com a pendencia de configurar uma credencial para o servidor do postgres (server: postgres, user: postgres, e pwd)
+4. Subnó OpenAI Chat Model com `responsesApiEnabled` igual a false
+5. Subnó Data Table Tool (`requerimentos`) com condição de filtro usando a coluna `requerimento_id` via `$fromAI()`
 
 ## 4. Exemplo de Teste via cURL
 - Crie um stick note com três comandos cURL para o webhook do mesmo aluno, onde cada comando deve ter as seguintes perguntas:
@@ -599,6 +598,4 @@ Crie um workflow no n8n-infnet para atendimento de secretaria acadêmica:
 <!--
 ## notes slides
 
-### O prompt orienta a criação completa da solução em dois workflows modulares no n8n (principal e subworkflow de atendimento)
-### Define a estrutura da Data Table Requerimentos com 5 registros, parâmetros do LLM local, filtro dinâmico $fromAI() e teste via cURL
 -->
