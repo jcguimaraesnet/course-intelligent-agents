@@ -161,3 +161,44 @@ source: https://docs.n8n.io/flow-logic/error-handling/
 ### As estratégias abrangem desde a notificação automatizada de incidentes até a execução agêntica de ações corretivas
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Google OAuth2
+source: https://docs.n8n.io/integrations/builtin/credentials/google/
+---
+
+# Google Tool Node (sub-node)
+#### **Os nós de action/tool do google exigem algumas configurações externas**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Exigem a criação de uma aplicação no **Google Cloud Console** para obtenção das credenciais OAuth2 (**Client ID** e **Client Secret**).
+- Requerem a habilitação da API desejada (ex: Gmail API) e a configuração dos **OAuth Scopes** e URLs de redirecionamento no n8n.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/gmail.svg"
+    label="Gmail Tool"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Os nós e ferramentas do Google exigem autenticação OAuth2 configurada externamente via Google Cloud Console
+### É necessário registrar um projeto, gerar o Client ID e Client Secret e configurar os escopos de permissão corretos
+-->
+
+
