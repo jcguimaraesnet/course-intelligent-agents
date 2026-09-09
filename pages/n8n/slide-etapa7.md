@@ -201,4 +201,45 @@ source: https://docs.n8n.io/integrations/builtin/credentials/google/
 ### É necessário registrar um projeto, gerar o Client ID e Client Secret e configurar os escopos de permissão corretos
 -->
 
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: n8n Node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.n8n/
+---
+
+# n8n (action node)
+#### **O nó n8n permite usar a API REST do servidor n8n para consultar e gerenciar workflows**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Permite realizar operações automatizadas na **API REST pública do n8n**, como listar/ativar workflows, buscar dados de execuções e gerenciar audit logs.
+- É essencial na **gestão de erros e governança**, permitindo que workflows de observabilidade e AI Agents recuperem informações completas de falhas.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/n8n.svg"
+    label="n8n"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O nó n8n conecta o fluxo de trabalho à API REST da própria instância do n8n para automação de tarefas administrativas
+### É amplamente utilizado no tratamento de erros para consultar detalhes de execuções com falhas e automatizar rotinas de governança
+-->
+
+
 
