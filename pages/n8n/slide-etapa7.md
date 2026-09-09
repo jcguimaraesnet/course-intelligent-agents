@@ -241,5 +241,45 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.n8n/
 ### É amplamente utilizado no tratamento de erros para consultar detalhes de execuções com falhas e automatizar rotinas de governança
 -->
 
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um workflow de erro que usa o nó n8n para obter detalhes do workflow.
+
+🛠️ &nbsp;**Exercício \#2:** Altere o workflow para notificar pessoas no Telegram pelo tipo do erro.
+
+🛠️ &nbsp;**Exercício \#3:** Altere o workflow para tomar ações distintas de acordo com o tipo de erro.
+
+🛠️ &nbsp;**Exercício \#4:** Altere o workflow para usar outro tipo de ação diferente das da Google.
+
+<br/>
+
+- [ ] &nbsp;consulta de detalhes de execução e workflow com nó n8n (action node)
+- [ ] &nbsp;notificação de responsáveis por tipo de erro via Telegram
+- [ ] &nbsp;decisão e execução de ações corretivas por categoria de falha
+- [ ] &nbsp;uso de ferramentas de ação alternativas fora do ecossistema Google
+
+<br/>
+
+<!--
+# Exercício #1 — Obter detalhes do workflow com nó n8n
+Crie um workflow de erro acionado por um Error Trigger que utiliza o nó n8n (action node) para buscar informações detalhadas do workflow e da execução que falhou.
+
+# Exercício #2 — Notificação no Telegram por tipo de erro
+Altere o workflow para classificar o tipo do erro e enviar mensagens de notificação aos responsáveis através do Telegram.
+
+# Exercício #3 — Ações distintas por tipo de erro
+Modifique o fluxo para executar estratégias de remediação específicas e tomadas de decisão parametrizadas conforme cada tipo de erro.
+
+# Exercício #4 — Ações corretivas com ferramentas não-Google
+Ajuste as ferramentas do AI Agent de correção para utilizar integrações alternativas (ex: Webhooks, Slack, HTTP Request) em vez das ferramentas da Google.
+-->
+
+
 
 
