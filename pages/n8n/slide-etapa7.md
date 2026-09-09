@@ -255,7 +255,7 @@ layout: default
 
 🛠️ &nbsp;**Exercício \#3:** Altere o workflow para tomar ações distintas de acordo com o tipo de erro.
 
-🛠️ &nbsp;**Exercício \#4:** Altere o workflow para usar outro tipo de ação diferente das da Google.
+🛠️ &nbsp;**Exercício \#4:** Altere o workflow para usar outro tipo de ação diferente dos da Google.
 
 <br/>
 
