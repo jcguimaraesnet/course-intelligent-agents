@@ -28,7 +28,7 @@ flowchart LR
     Sub1 --> CG["⚡ Code<br/>Guardrail"]
     CG --> Sub2
     subgraph Sub2 [" "]
-        AG["🤖 AI Agent<br/>(obtem template)"] --> DT2["📋 Data Table<br/>(tipo_req_template)"]
+        AG["🤖 AI Agent<br/>(cria requerimento)"] --> DT2["📋 Data Table<br/>(requerimentos)"]
         AG --> SO2["⚙️ Structured<br/>Output Parser"]
     end
     Sub2 --> RW["📤 Respond to Webhook"]
