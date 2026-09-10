@@ -18,10 +18,10 @@ layout: default
 
 ```mermaid {theme: 'dark'}
 flowchart LR
-    ET["⚡ Webhook<br/>(pergunta)"] --> Sub1
+    ET["⚡ Webhook<br/>(solicitação)"] --> Sub1
     
     subgraph Sub1 [" "]
-        B1["🤖 AI Agent<br/>(classifica tipo req)"] --> DT1["📋 Data Table<br/>(tipo_requerimento)"]
+        B1["🤖 AI Agent<br/>(classifica solicitação)"] --> DT1["📋 Data Table<br/>(tipo_requerimento)"]
         B1 --> SO1["⚙️ Structured<br/>Output Parser"]
     end
     
