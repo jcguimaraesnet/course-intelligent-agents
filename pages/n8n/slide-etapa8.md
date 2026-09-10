@@ -41,7 +41,8 @@ flowchart LR
 <!--
 ## notes slides
 
-### O workflow de tratamento de erros processa falhas e executa ações corretivas e notificações
+### O workflow processa solicitações de alunos com arquitetura multiagente, Data Tables e guardrails
+### Integra Structured Output Parsers e nó Code como camada de teste regressivo e validação determinística
 -->
 
 ---
@@ -50,7 +51,7 @@ layoutClass: gap-8
 ---
 
 # Codificação assistida por IA - Live coding (2)
-#### **Workflow de secretaria acadêmica com tratamento de erro avançado**
+#### **Workflow de secretaria acadêmica com multiagentes e guardrail (teste regressivo)**
 
 <div class="h-7" />
 
@@ -58,57 +59,41 @@ layoutClass: gap-8
 
 ```md {*}{maxHeight:'290px'}
 # Papel
-Você é um engenheiro de automação especialista em n8n, construção de workflows agênticos e gestão avançada de erros.
+Você é um engenheiro de automação especialista em n8n, construção de workflows agênticos, saídas estruturadas e guardrails.
 
 # Tarefa
-Crie dois workflows no n8n para atendimento de secretaria acadêmica com tratamento de erro avançado:
-1. **Workflow Principal (Atendimento):** Recebe uma pergunta de aluno via Webhook, processa via AI Agent conectado à Data Table `requerimentos` e responde de volta via Respond to Webhook.
-2. **Workflow de Tratamento de Erro (Error Handling):** Acionado por um nó Error Trigger para tratar falhas no workflow principal, dividindo em duas ramificações paralela:
-   - **Ramificação 1 (Classificação e Notificação):** AI Agent classifica o tipo de erro, consulta a Data Table `tipo_erro_responsável` e notifica o responsável via Gmail.
-   - **Ramificação 2 (Ação Corretiva Agêntica):** AI Agent consulta a Data Table `tipo_erro_acao` e executa ações de correção via ferramentas (Google Calendar Tool e Google Sheets Tool).
+Crie um workflow no n8n para atendimento de secretaria acadêmica com arquitetura multiagente e guardrails de validação:
+1. **Webhook:** Recebe a dúvida/solicitação do aluno.
+2. **Primeiro Agente (Classificação):** AI Agent conectado à Data Table `tipo_requerimento` (contendo tipo de requerimento e descrição explicativa para auxiliar a classificação).
+3. **Structured Output Parser (Agente 1):** Sub-nó conectado ao primeiro agente para formatar a saída da classificação em JSON. Habilite as opções `Auto-Fix Format` e `Customize Retry Prompt`.
+4. **Code Guardrail (Nó Code):** Nó de código em JavaScript atuando como camada adicional (determinística) de validação sintática do JSON vindo do nó anterior (ex: via `JSON.parse`).
+5. **Segundo Agente (Criação de Requerimento):** AI Agent que recebe a classificação validada e a solicitação do aluno, criando o novo requerimento via Data Table Tool conectada à tabela `requerimentos`.
+6. **Structured Output Parser (Agente 2):** Sub-nó conectado ao segundo agente que formata a resposta final em Markdown (contendo número do requerimento, descrição e data de previsão).
+7. **Respond to Webhook:** Devolve a resposta formatada ao aluno.
 
 # Contexto
 ## 1. Tabelas de Dados (`Data Tables`)
-- `requerimentos`: Armazena os requerimentos dos alunos (REQ-XXX, nome, tipo, status, data).
-- `tipo_erro_responsável`: Mapeia os tipos de erro e os e-mails/responsáveis por cada categoria.
-- `tipo_erro_acao`: Mapeia os tipos de erro e as ações automatizadas a serem executadas.
+- `tipo_requerimento`: Armazena os tipos de requerimentos disponíveis (ex: `trancamento`, `declaracao_matricula`, `revisao_nota`) com suas respectivas descrições explicativas.
+- `requerimentos`: Armazena os requerimentos criados (REQ-XXX, aluno, tipo, descricao, data_solicitacao, data_previsao, status).
 
-## 2. Detalhamento dos Workflows
-
-### Workflow 1: Atendimento Principal
-1. Nó Webhook para receber a pergunta do aluno.
-2. Subgráfico com nó AI Agent (Atendimento) conectado à Data Table Tool (`requerimentos`).
-3. Nó Respond to Webhook para devolver a resposta gerada ao aluno.
-
-### Workflow 2: Error Handling (Tratamento de Erro)
-1. Nó Error Trigger escutando falhas do Workflow Principal (recebe mensagem de erro, id do workflow e data)
-2. Nó n8n que obtem dados do workflow via API REST do n8n com base no id do workflow recebido do Erro Trigger. Esse nó deve ramificar em duas ramificações:
-3. **Ramificação 1:**
-   - AI Agent (Classifica tipo erro).
-   - Data Table Tool (`tipo_erro_responsável`).
-   - Nó Gmail (Enviar mensagem para o responsável).
-4. **Ramificação 2:**
-   - Subgráfico contendo AI Agent de resolução.
-   - Data Table Tool (`tipo_erro_acao`).
-   - Ferramentas `Google Calendar Tool` e `Google Sheets Tool`.
-
-## 3. Mais detalhamento do workflow
-1. Configure as System Messages dos AI Agents com seus papéis específicos.
-2. Simule dados na tabela `requerimentos`.
-3. Simule dados nas tabelas `tipo_erro_responsável` e `tipo_erro_acao` considerando os tipos de erro: `falha_conexao` e `fonte_inexistente`.
-4. Adicione um Stick Note para explicar os dois tipos de erro que podem ser configurados propositalmente: `falha_conexao` (API KEY errada) e `fonte_inexistente` (ID da tabela errado).
-5. Adicione Stick Notes explicativos com instruções de teste e configuração das credenciais e Error Trigger.
+## 2. Detalhamento do Workflow
+1. Configure as System Messages de cada AI Agent definindo claramente suas responsabilidades.
+2. No nó Structured Output Parser do primeiro agente, garanta que o schema exija os campos da classificação da solicitação e configure a retentativa automática com prompt customizado.
+3. No nó Code, insira a validação sintática do JSON (`JSON.parse`) para atuar como guardrail determinístico.
+4. No nó Structured Output Parser do segundo agente, defina o formato de saída em Markdown contendo: Número do Requerimento, Descrição e Data de Previsão de Conclusão.
+5. Simule dados iniciais na tabela `tipo_requerimento` com registros de exemplo.
 
 # Regras de Expressões e Boas Práticas
 - Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n.
 ```
+
 </WindowMockup>
 
 <!--
 ## notes slides
 
-### O prompt orienta a criação completa da solução em dois workflows no n8n: Atendimento Principal e Tratamento de Erros
-### Detalha o uso de AI Agents, Data Tables específicas (requerimentos, tipo_erro_responsável, tipo_erro_acao) e ferramentas de integração (Gmail, Calendar, Sheets)
+### O prompt orienta a criação do workflow de atendimento com arquitetura multiagente, Data Tables e guardrails
+### Detalha o uso de Structured Output Parsers com Auto-Fix e o nó Code como validação determinística
 -->
 
 ---
