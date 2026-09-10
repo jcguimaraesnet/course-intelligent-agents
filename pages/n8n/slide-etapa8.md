@@ -132,3 +132,36 @@ Crie dois workflows no n8n para atendimento de secretaria acadêmica com tratame
 ### O prompt orienta a criação completa da solução em dois workflows no n8n: Atendimento Principal e Tratamento de Erros
 ### Detalha o uso de AI Agents, Data Tables específicas (requerimentos, tipo_erro_responsável, tipo_erro_acao) e ferramentas de integração (Gmail, Calendar, Sheets)
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Comunicação em sistemas de multiagentes
+#### **A comunicação entre agentes cooperativos pode ser refinada com prompts avançados**
+
+<div class="h-1" />
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Usar **saídas estruturadas** é uma boa prática para comunicação entre agentes.
+- Em razão da natureza **estocástica (probabilística)** e **não determinística**, é importante adotar camadas de verificação e segurança na troca de informações entre agentes.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-robot-2-line text-[14rem] text-purple-300" />
+</div>
+
+<!--
+## notes slides
+
+### A utilização de saídas estruturadas (JSON / Schema) reduz ambiguidades na comunicação entre agentes
+### Adicionar validações e rotinas de segurança mitiga falhas causadas pelo comportamento estocástico dos LLMs
+-->
