@@ -198,3 +198,29 @@ class: flex items-center justify-center
 ### Guardrails validam e sanitizam as saídas dos modelos antes que elas cheguem aos nós de execução
 ### Evitam execuções indevidas em operações transacionais e críticas em caso de alucinação ou quebra de formato
 -->
+
+---
+layout: default
+---
+
+# Tipos de Guardrail
+#### **Guardrails sintáticos/estruturais funcionam como testes regressivos com agentes**
+
+<div class="h-8" />
+
+<div class="[&_table]:w-full text-sm">
+
+| **TIPO** | **O QUE FAZ** | **ATUAÇÃO** |
+| --- | --- | --- |
+| **Input Guardrail** | Bloqueia Prompt Injection, filtra dados sensíveis (PII), valida a pergunta do usuário. | Antes do LLM |
+| **Guardrail Semântico / Segurança** | Avalia se a resposta tem alucinações graves, toxicidade, tom inadequado ou viola diretrizes. | Na saída do LLM |
+| **Guardrail Estrutural / Sintático** | Valida conformidade estrita de tipos, campos e formato (contrato de dados) antes de acionar ferramentas, APIs ou bancos de dados. | Logo após o LLM |
+
+</div>
+
+<!--
+## notes slides
+
+### Diferentes categorias de guardrails protegem o sistema em etapas distintas do fluxo de dados
+### Guardrails estruturais atuam como contrato estrito de dados, garantindo previsibilidade e testes regressivos
+-->
