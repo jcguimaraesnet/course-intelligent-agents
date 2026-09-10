@@ -336,7 +336,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
 
 ::right::
 
-<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="validate-json.js" codeblock>
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Code Node" codeblock>
 
 ```javascript {*}{maxHeight:'290px'}
 const rawOutput = $input.first().json.output;
