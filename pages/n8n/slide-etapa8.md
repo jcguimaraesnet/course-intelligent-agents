@@ -320,3 +320,42 @@ try {
 ### O nó Code oferece validação determinística via JavaScript/TypeScript para garantir o schema exato do JSON
 ### Combinar o Auto-Fix Format (estocástico) com o nó Code (determinístico) estabelece uma estratégia sólida de defesa em profundidade
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um workflow com dois agentes se comunicando com saída estruturada.
+
+🛠️ &nbsp;**Exercício \#2:** Crie guardrails no nível do nó Structured Output Parser (Auto-Fix).
+
+🛠️ &nbsp;**Exercício \#3:** Crie guardrails no nível de nó Code para validação determinística.
+
+🛠️ &nbsp;**Exercício \#4:** Simule perguntas de entrada que provoquem erros nos guardrails.
+
+<br/>
+
+- [ ] &nbsp;use Structured Output Parser (schema JSON) para comunicação entre os dois agentes
+- [ ] &nbsp;use retentativas (Auto-Fix Format) e Customize Retry Prompt no Structured Output
+- [ ] &nbsp;faça validação determinística da sintaxe do JSON no nó Code (`JSON.parse`)
+- [ ] &nbsp;faça testes com entradas fora do padrão para provocar erro no guardrail
+
+<br/>
+
+<!--
+# Exercício #1 — Comunicação estruturada entre agentes
+Crie um pipeline encadeando dois AI Agents em que a saída do primeiro agente é estritamente formatada via Structured Output Parser (JSON) para alimentar a entrada do segundo.
+
+# Exercício #2 — Guardrails com Structured Output Parser
+Habilite e configure a opção Auto-Fix Format no nó Structured Output Parser e personalize o prompt de retry com os placeholders {instructions}, {completion} e {error}.
+
+# Exercício #3 — Guardrail determinístico com nó Code
+Insira um nó Code entre os agentes para validar sintaticamente a estrutura do JSON gerado, lançando erro ou tratando falhas de forma determinística antes de acionar a etapa seguinte.
+
+# Exercício #4 — Simulação de falhas e teste de resiliência
+Envie solicitações com formatações ambíguas ou dados incompletos via Webhook para provocar falhas no schema e verificar o comportamento da camada de autocorreção (self-correction loop).
+-->
