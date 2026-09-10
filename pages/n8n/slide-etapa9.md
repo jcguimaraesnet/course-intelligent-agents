@@ -34,7 +34,7 @@ sourceLabel: The Twelve-Factor App
 source: https://12factor.net/dev-prod-parity
 ---
 
-# Ambientes de implantação (1)
+# Ambientes de implantação
 #### **O uso de vários ambientes de implantação é uma boa prática de engenharia (de software)**
 
 <div class="h-3" />
@@ -78,7 +78,7 @@ sourceLabel: n8n Docker
 source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 ---
 
-# Ambientes de implantação (2)
+# Ambientes de implantação com docker
 #### **O docker permite criar vários n8n, que seria uma alternativa de ambiente de implatanção**
 
 <div class="h-3" />
