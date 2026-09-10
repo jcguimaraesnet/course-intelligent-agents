@@ -311,3 +311,49 @@ Error:
 ### O nó Structured Output Parser no n8n oferece mecanismos nativos de guardrail com a funcionalidade Auto-Fix Format
 ### Permite customizar o prompt de retry injetando as instruções originais, o output com falha e a mensagem de erro para correção precisa
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Code node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
+---
+
+# Nó Code como guardrail
+#### **O nó Code também pode ser usado para validar a saída do nó anterior (um agente)**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-3 [&_li]:mb-6">
+
+- O **nó Code** pode ser uma boa alternativa (**determinística**) para validar sintaticamente ou estruturalmente o JSON de saída de um LLM.
+- Usar ambas as abordagens é uma excelente prática de camadas sobrepostas de segurança (**defesa em profundidade** - *defense-in-depth*).
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="validate-json.js" codeblock>
+
+```javascript {*}{maxHeight:'290px'}
+const rawOutput = $input.first().json.output;
+
+try {
+  const data = JSON.parse(rawOutput);
+  return [{ json: data }];
+} catch (error) {
+  throw new Error('JSON sintaticamente inválido!');
+}
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O nó Code oferece validação determinística via JavaScript/TypeScript para garantir o schema exato do JSON
+### Combinar o Auto-Fix Format (estocástico) com o nó Code (determinístico) estabelece uma estratégia sólida de defesa em profundidade
+-->
