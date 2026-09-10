@@ -224,3 +224,38 @@ layout: default
 ### Diferentes categorias de guardrails protegem o sistema em etapas distintas do fluxo de dados
 ### Guardrails estruturais atuam como contrato estrito de dados, garantindo previsibilidade e testes regressivos
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Reflexion
+source: https://arxiv.org/abs/2303.11366
+---
+
+# Self-Correction Loop (Loop de auto-correção)
+#### **O conceito de Self-Correction Loop usa a ideia de um guardrail para autocorreção**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- O conceito de **Self-Correction Loop** usa um guardrail como critério para autocorreção (*loop engineering*) em X tentativas.
+- Um guardrail não precisa ser um ponto de parada, na verdade é uma péssima ideia encerrar um workflow por má formação do output de LLMs.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-code-box-line text-[14rem] text-purple-300" />
+</div>
+
+<!--
+## notes slides
+
+### O Self-Correction Loop permite reavaliar e ajustar as saídas dos modelos automaticamente em caso de falha no guardrail
+### Evita a interrupção abrupta de workflows agênticos promovendo resiliência através de tentativas de correção
+-->
