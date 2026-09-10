@@ -10,60 +10,38 @@ layout: default
 ---
 
 # Codificação assistida por IA - Live coding (1)
-#### **Workflow de secretaria acadêmica com multiagentes**
+#### **Workflow de secretaria acadêmica com multiagentes e guardrail (teste regressivo)**
 
-<div class="w-full h-[calc(100%-80px)] grid grid-cols-2 items-center justify-items-center gap-8">
+<div class="w-full h-[calc(100%-80px)] flex items-center justify-center">
 
-<div class="w-full flex items-left">
-
-<Transform :scale="0.9" origin="center">
+<Transform :scale="2.8" origin="center">
 
 ```mermaid {theme: 'dark'}
-flowchart TB
-    A["⚡ Webhook<br/>(pergunta)"] --> Sub
-    subgraph Sub [" "]
-        E["🤖 AI Agent<br/>(Atendimento)"] --> D["📋 Data Table<br/>(requerimentos)"]
-    end
-    Sub --> J["📤 Respond to Webhook"]
-```
-
-</Transform>
-
-</div>
-
-<div class="w-full flex items-left">
-
-<Transform :scale="1.7" origin="center">
-
-```mermaid {theme: 'dark'}
-flowchart TB
-    ET["🚨 Error Trigger"] --> N8N["n8n"]
+flowchart LR
+    ET["⚡ Webhook<br/>(pergunta)"] --> Sub1
     
-    N8N --> Sub1
     subgraph Sub1 [" "]
-        B1["🤖 AI Agent<br/>(Classifica tipo erro)"] --> DT1["📋 Data Table<br/>(tipo_erro_responsável)"]
+        B1["🤖 AI Agent<br/>(classifica tipo req)"] --> DT1["📋 Data Table<br/>(tipo_requerimento)"]
+        B1 --> SO1["⚙️ Structured<br/>Output Parser"]
     end
-    Sub1 --> GM["📧 Gmail<br/>(Enviar mensagem)"]
     
-    N8N --> Sub2
+    Sub1 --> CG["⚡ Code<br/>Guardrail"]
+    CG --> Sub2
     subgraph Sub2 [" "]
-        AG["🤖 AI Agent"] --> DT2["📋 Data Table<br/>(tipo_erro_acao)"]
-        AG --> GC["📅 Google Calendar Tool"]
-        AG --> GS["📊 Google Sheets Tool"]
+        AG["🤖 AI Agent<br/>(obtem template)"] --> DT2["📋 Data Table<br/>(tipo_req_template)"]
+        AG --> SO2["⚙️ Structured<br/>Output Parser"]
     end
+    Sub2 --> RW["📤 Respond to Webhook"]
 ```
 
 </Transform>
-
-</div>
 
 </div>
 
 <!--
 ## notes slides
 
-### O workflow processa perguntas via Webhook com consulta agêntica (AI Agent)
-### Ao final, a resposta é devolvida ao aluno via nó Respond to Webhook
+### O workflow de tratamento de erros processa falhas e executa ações corretivas e notificações
 -->
 
 ---
