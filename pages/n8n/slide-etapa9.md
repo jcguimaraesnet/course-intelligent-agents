@@ -30,7 +30,7 @@ source: https://12factor.net/dev-prod-parity
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <Transform :scale="1.1" origin="center">
+  <Transform :scale="0.6" origin="top">
 
 ```mermaid {theme: 'dark'}
 flowchart TD
