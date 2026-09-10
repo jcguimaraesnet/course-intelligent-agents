@@ -189,12 +189,7 @@ class: flex items-center justify-center
 ::right::
 
 <div class="flex items-center justify-center h-full">
-  <N8nNode
-    icon-src="n8n/nodes/guardrails.svg"
-    label="Guardrails"
-    type="action"
-    scale="1.4"
-  />
+  <div class="i-ri-shield-check-line text-[14rem] text-purple-300" />
 </div>
 
 <!--
