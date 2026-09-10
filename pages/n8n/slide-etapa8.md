@@ -149,7 +149,7 @@ class: flex items-center justify-center
 <div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
 - Usar **saídas estruturadas** é uma boa prática para comunicação entre agentes.
-- Em razão da natureza **estocástica (probabilística)** e **não determinística**, é importante adotar camadas de verificação e segurança na troca de informações entre agentes.
+- Em razão da natureza **estocástica (probabilística)** e **não determinística** dos LLMs, é importante adotar camadas de verificação e segurança na troca de informações entre agentes.
 
 </div>
 
