@@ -327,7 +327,7 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.code
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-3 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-10 [&_li]:mb-6">
 
 - O **nó Code** pode ser uma boa alternativa (**determinística**) para validar sintaticamente ou estruturalmente o JSON de saída de um LLM.
 - Usar ambas as abordagens é uma excelente prática de camadas sobrepostas de segurança (**defesa em profundidade** - *defense-in-depth*).
@@ -345,7 +345,7 @@ try {
   const data = JSON.parse(rawOutput);
   return [{ json: data }];
 } catch (error) {
-  throw new Error('JSON sintaticamente inválido!');
+  throw new Error('JSON inválido!');
 }
 ```
 
