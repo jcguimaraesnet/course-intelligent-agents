@@ -259,3 +259,55 @@ source: https://arxiv.org/abs/2303.11366
 ### O Self-Correction Loop permite reavaliar e ajustar as saídas dos modelos automaticamente em caso de falha no guardrail
 ### Evita a interrupção abrupta de workflows agênticos promovendo resiliência através de tentativas de correção
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Output Parser
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.outputparserstructured/
+---
+
+# Structured Outputs com Guardrail
+#### **O nó Structured Outputs oferece algumas opções de configuração como guardrail**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-base w-full self-start [&_ul]:my-1 [&_li]:mb-6">
+
+- A opção **Auto-Fix Format** habilita a tentativa automática de correção de formato executando uma nova chamada ao LLM.
+- A opção **Customize Retry Prompt** permite personalizar o prompt de autocorreção enviado ao modelo na re-tentativa, utilizando os placeholders `{instructions}` (esquema/instruções originais), `{completion}` (resposta gerada com falha) e `{error}` (detalhes do erro de validação).
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Retry Prompt" codeblock>
+
+```md {*}{maxHeight:'290px'}
+Instructions:
+--------------
+{instructions}
+--------------
+Completion:
+--------------
+{completion}
+--------------
+Above, the Completion did not satisfy 
+the constraints given in the Instructions.
+Error:
+--------------
+{error}
+--------------
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O nó Structured Output Parser no n8n oferece mecanismos nativos de guardrail com a funcionalidade Auto-Fix Format
+### Permite customizar o prompt de retry injetando as instruções originais, o output com falha e a mensagem de erro para correção precisa
+-->
