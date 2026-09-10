@@ -74,6 +74,55 @@ flowchart TD
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: n8n Docker
+source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
+---
+
+# Ambientes de implantação (2)
+#### **O docker permite criar vários n8n, que seria uma alternativa de ambiente de implatanção**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
+
+- Para rodar **múltiplas instâncias de n8n**, é necessário que o **número da porta externa**, o **nome da instância** e o **diretório do n8n** sejam diferentes entre os ambientes.
+- Além disso, o comando `docker` deve considerar **variáveis de ambiente** específicas de cada ambiente (exemplos: `BASE_URL` e `API_KEY`).
+
+</div>
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Docker Run (Produção)" codeblock>
+
+```bash {*}{maxHeight:'290px'}
+# Executar o container do n8n em produção
+docker run -d \
+  --name n8n-production \
+  -p 5679:5678 \
+  -e GENERIC_TIMEZONE="America/Sao_Paulo" \
+  -e TZ="America/Sao_Paulo" \
+  -e BASE_URL="XXXXX" \
+  -e API_KEY="XXXXX" \
+  -v ~/.n8n-production:/home/node/.n8n \
+  -v ~/.n8n-files:/home/node/.n8n-files \
+  docker.n8n.io/n8nio/n8n
+```
+
+</WindowMockup>
+
+<!--
+## notes slides
+
+### O Docker permite criar instâncias isoladas do n8n alterando o nome da instância, porta e diretório de configurações (.n8n)
+### O diretório de arquivos (.n8n-files) pode ser mantido o mesmo para compartilhamento de dados entre os ambientes
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 sourceLabel: n8n CLI Reference
 source: https://docs.n8n.io/hosting/cli/commands/#export-workflows
 ---
@@ -116,5 +165,3 @@ exit
 ### A CLI do n8n vem pré-instalada junto com a aplicação e permite gerenciar workflows e dados diretamente pelo terminal
 ### A exportação de workflows via CLI facilita a integração com esteiras de CI/CD e versionamento automatizado no Git
 -->
-
-
