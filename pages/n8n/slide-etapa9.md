@@ -6,6 +6,51 @@ routeAlias: etapa9
 ## **Etapa 9:** Preparação para Escala n8n
 
 ---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: The Twelve-Factor App
+source: https://12factor.net/dev-prod-parity
+---
+
+# Ambientes de implantação
+#### **O uso de vários ambientes de implantação é uma boa prática de engenharia (de software)**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- O fluxo de entrega contínua normalmente segue uma ordem de implantação em diferentes estágios: **Local (Dev)**, **Testing (Testers)**, **Staging (Key User)** e **Production (End User)**.
+- O princípio de paridade dev/prod (**12-Factor App**) recomenda que os ambientes sejam o **mais parecidos possível com produção** em termos de SO, CPU, memória RAM e configurações de infraestrutura.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="1.1" origin="center">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A["💻 Local Development<br/>(Dev)"] --> B["🧪 Testing<br/>(Testers)"]
+    B --> C["🎭 Staging<br/>(Key User)"]
+    C --> D["🚀 Production<br/>(End User)"]
+```
+
+</Transform>
+</div>
+
+<!--
+## notes slides
+
+### A esteira de implantação garante que alterações passem por testes e validações antes de chegarem aos usuários finais
+### Manter a paridade entre ambientes reduz bugs causados por divergências de infraestrutura e configurações
+-->
+
+
+---
 layout: default
 sourceLabel: Community Edition Limitation
 source: https://docs.n8n.io/deploy/host-n8n/community-edition-features#community-edition
@@ -71,3 +116,5 @@ exit
 ### A CLI do n8n vem pré-instalada junto com a aplicação e permite gerenciar workflows e dados diretamente pelo terminal
 ### A exportação de workflows via CLI facilita a integração com esteiras de CI/CD e versionamento automatizado no Git
 -->
+
+
