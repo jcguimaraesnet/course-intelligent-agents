@@ -165,3 +165,41 @@ class: flex items-center justify-center
 ### A utilização de saídas estruturadas (JSON / Schema) reduz ambiguidades na comunicação entre agentes
 ### Adicionar validações e rotinas de segurança mitiga falhas causadas pelo comportamento estocástico dos LLMs
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Guardrail em sistemas agênticos
+#### **Guardrails funcionam como uma camada de verificação no fluxo de dados com LLMs**
+
+<div class="h-8" />
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Os LLMs podem ocasionalmente gerar **saídas fora do contrato** estabelecido por um schema de saída, mesmo com temperatura igual a zero.
+- Em razão da **natureza não determinística**, não se deve confiar cegamente na saída de LLMs para acionar **nós críticos**, especialmente os transacionais (ex: emitir pagamento, inserir em banco de dados, enviar um e-mail).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/guardrails.svg"
+    label="Guardrails"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Guardrails validam e sanitizam as saídas dos modelos antes que elas cheguem aos nós de execução
+### Evitam execuções indevidas em operações transacionais e críticas em caso de alucinação ou quebra de formato
+-->

@@ -142,7 +142,7 @@ source: https://docs.n8n.io/flow-logic/error-handling/
 # Tool node (sub-nodes)
 #### **O n8n oferece dezenas de nós do tipo Tool (sub-node) para realizar uma ação**
 
-<div class="h-2" />
+<div class="h-8" />
 
 <div class="[&_table]:w-full text-sm">
 
