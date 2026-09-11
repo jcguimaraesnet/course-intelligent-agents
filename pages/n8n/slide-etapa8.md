@@ -361,3 +361,4 @@ Insira um nó Code entre os agentes para validar sintaticamente a estrutura do J
 # Exercício #4 — Simulação de falhas e teste de resiliência
 Envie solicitações com formatações ambíguas ou dados incompletos via Webhook para provocar falhas no schema e verificar o comportamento da camada de autocorreção (self-correction loop).
 -->
+
