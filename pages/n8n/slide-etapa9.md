@@ -368,7 +368,6 @@ http://localhost:5679/webhook-test/atendimento-secretaria \
     "pergunta": "Qual é o prazo do requerimento 123",
     "aluno": "João Silva",
     "matricula": "20241001",
-    "tipo_requerimento": "Trancamento de Matrícula"
   }'
 ```
 
