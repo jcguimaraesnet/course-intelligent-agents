@@ -220,3 +220,45 @@ exit #sai do container
 ### A CLI do n8n vem pré-instalada junto com a aplicação e permite gerenciar workflows e dados diretamente pelo terminal
 ### A exportação de workflows via CLI facilita a integração com esteiras de CI/CD e versionamento automatizado no Git
 -->
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Ambiente, git e variável: passo-a-passo (1)
+#### **(1) Recriar container DEV com variáveis, (2) usar variáveis no workflow**
+
+<div class="h-3" />
+
+::left::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="(1) recriar container dev" codeblock>
+
+```bash {9,10,11}{maxHeight:'290px'}
+# recria o container do n8n
+docker rm -f n8n-dev && \
+docker run -d \
+  --name n8n-dev \
+  -p 5678:5678 \
+  --add-host=local:host-gateway \
+  -e GENERIC_TIMEZONE="America/Sao_Paulo" \
+  -e TZ="America/Sao_Paulo" \
+  -e BASE_URL="http://local:20128/v1" \
+  -e API_KEY="XXXXX" \
+  -e N8N_BLOCK_ENV_ACCESS_IN_NODE=false \
+  -v ~/.n8n-dev:/home/node/.n8n \
+  -v ~/.n8n-files:/home/node/.n8n-files \
+  docker.n8n.io/n8nio/n8n
+```
+
+</WindowMockup>
+
+
+::right::
+
+<div class="flex items-center justify-center h-[calc(100%-80px)]">
+  <AssetImg src="n8n/n8n-env-var.png" class="max-h-[320px] object-contain rounded-lg shadow-md" />
+</div>
