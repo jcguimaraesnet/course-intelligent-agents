@@ -141,10 +141,9 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Docker Run (Produção)" codeblock>
 
 ```bash {*}{maxHeight:'290px'}
-# stop e remove container
-docker rm -f <n8n-ambiente>
+docker rm -f <n8n-ambiente> #stop/remove
 
-# Executar o container do n8n em produção
+# cria o container do n8n
 docker run -d \
   --name <n8n-ambiente> \
   --network host \
@@ -153,6 +152,7 @@ docker run -d \
   -e TZ="America/Sao_Paulo" \
   -e BASE_URL="XXXXX" \
   -e API_KEY="XXXXX" \
+  -e N8N_BLOCK_ENV_ACCESS_IN_NODE=false \
   -v ~/.n8n-<n8n-ambiente>:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
@@ -195,11 +195,14 @@ source: https://docs.n8n.io/hosting/cli/commands/#export-workflows
 
 ```bash {*}{maxHeight:'290px'}
 # 1. Iniciar terminal interativo no container n8n
-docker exec -it n8n /bin/bash
+docker exec -it <n8n-ambiente> /bin/bash
 
 # 2. Exportar um workflow 
 n8n export:workflow --id=<id> \
   --output=/home/node/.n8n-files/<arq>.json
+
+n8n import:workflow \
+  --input=/home/node/.n8n-files/<arq>.json
 
 # 3. Sair do container Docker
 exit
