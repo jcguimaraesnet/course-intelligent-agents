@@ -596,3 +596,36 @@ Crie um workflow no n8n para atendimento de secretaria acadêmica com arquitetur
 ### O prompt orienta a criação do workflow de atendimento com arquitetura multiagente, Data Tables e guardrails
 ### Detalha o uso de Structured Output Parsers com Auto-Fix e o nó Code como validação determinística
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Arquitetura Army of Agents
+#### **Army of Agents é um paradigma de arquitetura agêntica de IA**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Em vez de depender de um único **agente de IA monolítico**, o sistema coordena **dezenas, centenas ou milhares de agentes autônomos**, especializados e com escopos restritos.
+- A arquitetura **Army of Agents** normalmente trabalha com um **agente orquestrador (General)** de alto raciocínio e dezenas de **agentes workers (soldados)**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <div class="i-ri-team-line text-[14rem] text-purple-300" />
+</div>
+
+<!--
+## notes slides
+
+### A arquitetura Army of Agents substitui agentes monolíticos por dezenas de agentes autônomos e especializados
+### Utiliza um agente orquestrador (General) para coordenação e múltiplos agentes workers (soldados) para execução
+-->
