@@ -141,8 +141,6 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Docker Run (Produção)" codeblock>
 
 ```bash {*}{maxHeight:'290px'}
-docker rm -f <n8n-env> #stop/remove
-
 # cria o container do n8n
 mkdir -p ~/.n8n-<env> && \
 docker run -d \
