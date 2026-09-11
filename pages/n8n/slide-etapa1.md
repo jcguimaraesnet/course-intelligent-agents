@@ -305,9 +305,11 @@ docker run -d \
   --add-host=local:host-gateway \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
+  -e N8N_ENCRYPTION_KEY="n8n" \
   -v ~/.n8n-dev:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
+  
 ```
 
 ::right::

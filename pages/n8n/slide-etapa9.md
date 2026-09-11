@@ -249,6 +249,7 @@ docker run -d \
   -e BASE_URL="http://local:20128/v1" \
   -e API_KEY="XXXXX" \
   -e N8N_BLOCK_ENV_ACCESS_IN_NODE=false \
+  -e N8N_ENCRYPTION_KEY="n8n" \
   -v ~/.n8n-dev:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
@@ -280,18 +281,26 @@ class: flex items-center justify-center
 
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="exportação em DEV" codeblock>
 
-```bash {*}{maxHeight:'290px'}
+```bash {*}{maxHeight:'270px'}
+# 1. entra no container
 docker exec -it n8n-dev sh
 
-# 2. Import/export workflow/credential
+# 2. exporta workflow
 n8n export:workflow --all \
   --output=\
 /home/node/.n8n-files/workflows.json
 
+# 3. exporta credenciais
 n8n export:credentials --all --decrypted \
  --output=\
 /home/node/.n8n-files/credentials.json
 
+# 4. exporta tabelas
+n8n export:entities --decrypted \
+--outputDir=\
+/home/node/.n8n-files/database
+
+# 5. sai do container
 exit #sai do container
 ```
 
@@ -302,7 +311,7 @@ exit #sai do container
 
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="criar container prod" codeblock>
 
-```bash {5,9,10,11}{maxHeight:'290px'}
+```bash {5,9,10,11}{maxHeight:'270px'}
 # cria o container do n8n
 mkdir -p ~/.n8n-prod && \
 docker run -d \
@@ -314,6 +323,7 @@ docker run -d \
   -e BASE_URL="https://openrouter.ai/api/v1" \
   -e API_KEY="XXXXX" \
   -e N8N_BLOCK_ENV_ACCESS_IN_NODE=false \
+  -e N8N_ENCRYPTION_KEY="n8n" \
   -v ~/.n8n-prod:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
@@ -337,15 +347,21 @@ class: flex items-center justify-center
 
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="importação em PROD" codeblock>
 
-```bash {*}{maxHeight:'290px'}
+```bash {*}{maxHeight:'270px'}
+# 1. entra no container
 docker exec -it n8n-dev sh
 
-# 2. Import credential
+# 2. importa credencial
 n8n import:credentials \
 --input=\
 /home/node/.n8n-files/credentials.json
 
-# 2. Import workflows
+# 3. importa tabelas
+n8n import:entities --truncateTables \
+--inputDir=\
+/home/node/.n8n-files/database
+
+# 4. importa workflows
 n8n import:workflow \
 --input=\
 /home/node/.n8n-files/workflows.json

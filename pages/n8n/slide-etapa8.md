@@ -70,6 +70,7 @@ Crie um workflow no n8n para atendimento de secretaria acadêmica com arquitetur
 5. **Segundo Agente (Criação de Requerimento):** AI Agent que recebe a classificação validada e a solicitação do aluno, criando o novo requerimento via Data Table Tool conectada à tabela `requerimentos`.
 6. **Structured Output Parser (Agente 2):** Sub-nó conectado ao segundo agente que formata a resposta final em Markdown (contendo número do requerimento, descrição e data de previsão).
 7. **Respond to Webhook:** Devolve a resposta formatada ao aluno.
+8. **Sticky Notes:** Adicione um sticky note com um exemplo de comando cURL com a requisição para o webhook e outro sticky note de pendência de configuração de credencial (Base URL e API Key).
 
 # Contexto
 ## 1. Tabelas de Dados (`Data Tables`)
@@ -78,10 +79,11 @@ Crie um workflow no n8n para atendimento de secretaria acadêmica com arquitetur
 
 ## 2. Detalhamento do Workflow
 1. Configure as System Messages de cada AI Agent definindo claramente suas responsabilidades.
-2. No nó Structured Output Parser do primeiro agente, garanta que o schema exija os campos da classificação da solicitação e configure a retentativa automática com prompt customizado.
-3. No nó Code, insira a validação sintática do JSON (`JSON.parse`) para atuar como guardrail determinístico.
-4. No nó Structured Output Parser do segundo agente, defina o formato de saída em Markdown contendo: Número do Requerimento, Descrição e Data de Previsão de Conclusão.
-5. Simule dados iniciais na tabela `tipo_requerimento` com registros de exemplo.
+2. No nó OpenAI Chat Model, desligue a opção "Use Responses API".
+3. No nó Structured Output Parser do primeiro agente, garanta que o schema exija os campos da classificação da solicitação e configure a retentativa automática com prompt customizado.
+4. No nó Code, insira a validação sintática do JSON (`JSON.parse`) para atuar como guardrail determinístico.
+5. No nó Structured Output Parser do segundo agente, defina o formato de saída em Markdown contendo: Número do Requerimento, Descrição e Data de Previsão de Conclusão.
+6. Simule dados iniciais na tabela `tipo_requerimento` com registros de exemplo.
 
 # Regras de Expressões e Boas Práticas
 - Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n.
