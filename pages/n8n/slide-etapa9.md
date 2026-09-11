@@ -388,3 +388,39 @@ http://localhost:5679/webhook-test/atendimento-secretaria \
 ```
 
 </WindowMockup>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Ambiente, git e variável: passo-a-passo (4)
+#### **(7) Alguns ajustes podem ser necessários após a promoção entre ambientes**
+
+<div class="h-0" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- A exportação e importação das tabelas pode ser feita **exportando e importando CSV** na própria interface UI do n8n.
+- **Ajustes nas credenciais** para usar as variáveis de ambientes também podem ser necessárias.
+- Em cenários empresariais/corporativos, **todo o ciclo de vida** de lançamento de novas versões de software é **realizado de forma automatizada**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-[calc(100%-80px)]">
+  <AssetImg src="n8n/n8n-datatable-import.png" class="max-h-[320px] object-contain rounded-lg shadow-md" />
+</div>
+
+
+<!--
+## notes slides
+
+### A CLI do n8n vem pré-instalada junto com a aplicação e permite gerenciar workflows e dados diretamente pelo terminal
+### A exportação de workflows via CLI facilita a integração com esteiras de CI/CD e versionamento automatizado no Git
+-->
