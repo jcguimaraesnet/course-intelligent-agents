@@ -297,13 +297,16 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 
 ```sh [Docker Run]
 # Executar o container do n8n
-mkdir -p ~/.n8n ~/.n8n-files && \
+mkdir -p ~/.n8n-dev ~/.n8n-files && \
 docker run -d \
-  --name n8n \
+  --name n8n-dev \
   --network host \
+  -e N8N_PORT=5678 \
+  -e N8N_RUNNERS_BROKER_PORT=5679 \
+  -e WEBHOOK_URL="http://localhost:5679/" \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
-  -v ~/.n8n:/home/node/.n8n \
+  -v ~/.n8n-dev:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
 ```

@@ -144,17 +144,18 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 docker rm -f <n8n-env> #stop/remove
 
 # cria o container do n8n
-mkdir -p ~/.n8n-<n8n-env> && docker run -d \
-  --name <n8n-ambiente> \
+mkdir -p ~/.n8n-<env> && docker run -d \
+  --name <n8n-env> \
   --network host \
   -e N8N_PORT=56<> \
+  -e N8N_RUNNERS_BROKER_PORT=56<> \
   -e WEBHOOK_URL="http://localhost:56<>/" \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
   -e BASE_URL="XXXXX" \
   -e API_KEY="XXXXX" \
   -e N8N_BLOCK_ENV_ACCESS_IN_NODE=false \
-  -v ~/.n8n-<n8n-env>:/home/node/.n8n \
+  -v ~/.n8n-<env>:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
 ```
