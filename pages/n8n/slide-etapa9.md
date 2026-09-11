@@ -519,14 +519,14 @@ layout: default
 flowchart LR
     ET["⚡ Webhook<br/>(solicitação)"] --> Sub1
     
-    subgraph Sub1 ["Workflow agente 1"]
+    subgraph Sub1 ["Call n8n Workflow Tool (1)"]
         B1["🤖 AI Agent<br/>(classifica solicitação)"] --> DT1["📋 Data Table<br/>(tipo_requerimento)"]
         B1 --> SO1["⚙️ Structured<br/>Output Parser"]
     end
     
     Sub1 --> CG["⚡ Code<br/>Guardrail"]
     CG --> Sub2
-    subgraph Sub2 ["Workflow agente 2"]
+    subgraph Sub2 ["Call n8n Workflow Tool (2)"]
         AG["🤖 AI Agent<br/>(cria requerimento)"] --> DT2["📋 Data Table<br/>(requerimentos)"]
         AG --> SO2["⚙️ Structured<br/>Output Parser"]
     end
