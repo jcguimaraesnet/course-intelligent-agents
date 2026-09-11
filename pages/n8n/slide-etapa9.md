@@ -10,23 +10,16 @@ layout: default
 ---
 
 # Codificação assistida por IA - Live coding (1)
-#### **Workflow com agentes simples para promover entre ambientes de implantação**
+#### **Workflow com agentes simples para promover entre ambientes (DEV e PROD)**
 
 <div class="w-full h-[calc(100%-80px)] flex items-center justify-center">
 
-<Transform :scale="2.8" origin="center">
+<Transform :scale="2.5" origin="center">
 
 ```mermaid {theme: 'dark'}
 flowchart LR
-    ET["⚡ Webhook<br/>(solicitação)"] --> Sub1
+    ET["⚡ Webhook<br/>(solicitação)"] --> Sub2
     
-    subgraph Sub1 [" "]
-        B1["🤖 AI Agent<br/>(classifica solicitação)"] --> DT1["📋 Data Table<br/>(tipo_requerimento)"]
-        B1 --> SO1["⚙️ Structured<br/>Output Parser"]
-    end
-    
-    Sub1 --> CG["⚡ Code<br/>Guardrail"]
-    CG --> Sub2
     subgraph Sub2 [" "]
         AG["🤖 AI Agent<br/>(cria requerimento)"] --> DT2["📋 Data Table<br/>(requerimentos)"]
         AG --> SO2["⚙️ Structured<br/>Output Parser"]
@@ -41,8 +34,8 @@ flowchart LR
 <!--
 ## notes slides
 
-### O workflow processa solicitações de alunos com arquitetura multiagente, Data Tables e guardrails
-### Integra Structured Output Parsers e nó Code como camada de teste regressivo e validação determinística
+### O workflow processa solicitações de alunos com arquitetura agêntica e Data Tables
+### Integra Structured Output Parser para formatação e validação das respostas
 -->
 
 ---
@@ -51,7 +44,7 @@ layoutClass: gap-8
 ---
 
 # Codificação assistida por IA - Live coding (2)
-#### **Workflow com agentes simples para promover entre ambientes de implantação**
+#### **Workflow com agentes simples para promover entre ambientes (DEV e PROD)**
 
 <div class="h-7" />
 
@@ -62,28 +55,21 @@ layoutClass: gap-8
 Você é um engenheiro de automação especialista em n8n, construção de workflows agênticos, saídas estruturadas e guardrails.
 
 # Tarefa
-Crie um workflow no n8n para atendimento de secretaria acadêmica com arquitetura multiagente e guardrails de validação:
-1. **Webhook:** Recebe a dúvida/solicitação do aluno.
-2. **Primeiro Agente (Classificação):** AI Agent conectado à Data Table `tipo_requerimento` (contendo tipo de requerimento e descrição explicativa para auxiliar a classificação).
-3. **Structured Output Parser (Agente 1):** Sub-nó conectado ao primeiro agente para formatar a saída da classificação em JSON. Habilite as opções `Auto-Fix Format` e `Customize Retry Prompt`.
-4. **Code Guardrail (Nó Code):** Nó de código em JavaScript atuando como camada adicional (determinística) de validação sintática do JSON vindo do nó anterior (ex: via `JSON.parse`).
-5. **Segundo Agente (Criação de Requerimento):** AI Agent que recebe a classificação validada e a solicitação do aluno, criando o novo requerimento via Data Table Tool conectada à tabela `requerimentos`.
-6. **Structured Output Parser (Agente 2):** Sub-nó conectado ao segundo agente que formata a resposta final em Markdown (contendo número do requerimento, descrição e data de previsão).
+Crie um workflow agêntico no n8n para atendimento de secretaria acadêmica para criar requerimentos:
+1. **Webhook:** Recebe a solicitação do aluno.
+5. **Agente (Criação de Requerimento):** AI Agent que recebe a solicitação do aluno, e cria o novo requerimento via Data Table Tool conectada à tabela `requerimentos`.
+6. **Structured Output Parser:** Sub-nó conectado ao agente formata a resposta final em Markdown (contendo número do requerimento, descrição e data de previsão).
 7. **Respond to Webhook:** Devolve a resposta formatada ao aluno.
 8. **Sticky Notes:** Adicione um sticky note com um exemplo de comando cURL com a requisição para o webhook e outro sticky note de pendência de configuração de credencial (Base URL e API Key).
 
 # Contexto
 ## 1. Tabelas de Dados (`Data Tables`)
-- `tipo_requerimento`: Armazena os tipos de requerimentos disponíveis (ex: `trancamento`, `declaracao_matricula`, `revisao_nota`) com suas respectivas descrições explicativas.
-- `requerimentos`: Armazena os requerimentos criados (REQ-XXX, aluno, tipo, descricao, data_solicitacao, data_previsao, status).
+- `requerimentos`: Armazena os requerimentos criados (REQ-XXX, aluno, descricao, data_solicitacao, data_previsao, status).
 
 ## 2. Detalhamento do Workflow
-1. Configure as System Messages de cada AI Agent definindo claramente suas responsabilidades.
+1. Configure as System Messages do AI Agent definindo claramente suas responsabilidades.
 2. No nó OpenAI Chat Model, desligue a opção "Use Responses API".
-3. No nó Structured Output Parser do primeiro agente, garanta que o schema exija os campos da classificação da solicitação e configure a retentativa automática com prompt customizado.
-4. No nó Code, insira a validação sintática do JSON (`JSON.parse`) para atuar como guardrail determinístico.
-5. No nó Structured Output Parser do segundo agente, defina o formato de saída em Markdown contendo: Número do Requerimento, Descrição e Data de Previsão de Conclusão.
-6. Simule dados iniciais na tabela `tipo_requerimento` com registros de exemplo.
+3. No nó Structured Output Parser, define o formato de saída em Markdown contendo: Número do Requerimento, Descrição e Data de Previsão de Conclusão.
 
 # Regras de Expressões e Boas Práticas
 - Sempre use aspas simples (') ao referenciar nomes de nós em expressões n8n.
