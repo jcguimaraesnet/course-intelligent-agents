@@ -680,3 +680,42 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nod
 ### O subnó Call n8n Workflow Tool permite expor um sub-workflow completo como ferramenta para um AI Agent
 ### Promove a modularidade de arquiteturas agênticas permitindo encapsular lógicas complexas em fluxos dedicados
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie um sub-workflow agêntico para classificar.
+
+🛠️ &nbsp;**Exercício \#2:** Crie um sub-workflow agêntico para consultar.
+
+🛠️ &nbsp;**Exercício \#3:** Crie um workflow agêntico que use os dois sub-workflows.
+
+🛠️ &nbsp;**Exercício \#4:** Faça a implantação dos workflows de DEV para o ambiente PROD.
+
+<br/>
+
+- [ ] &nbsp;use o nó sub-workflow trigger nos sub-workflows
+- [ ] &nbsp;use Structured Output Parser como guardrail
+- [ ] &nbsp;use o nó Call n8n Workflow Tool para chamar os sub-workflows
+- [ ] &nbsp;use docker para criar uma nova instância n8n para o ambiente PROD
+
+<br/>
+
+<!--
+# Exercício #1 — Sub-workflow agêntico de classificação
+Crie um sub-workflow com Sub-workflow Trigger, AI Agent conectado à Data Table de tipos de requerimento e Structured Output Parser para classificar as solicitações.
+
+# Exercício #2 — Sub-workflow agêntico de consulta e criação
+Crie um sub-workflow com Sub-workflow Trigger, AI Agent conectado à Data Table de requerimentos e Structured Output Parser para consultar e registrar novos requerimentos.
+
+# Exercício #3 — Workflow orquestrador com Call n8n Workflow Tool
+Crie o workflow principal com Webhook, Agente Orquestrador (General) e sub-nós Call n8n Workflow Tool para integrar e executar os dois sub-workflows.
+
+# Exercício #4 — Implantação de DEV para PROD
+Exporte a estrutura dos 3 workflows do ambiente de desenvolvimento (DEV) e realize a implantação no ambiente de produção (PROD) ajustando variáveis de ambiente e credenciais.
+-->
