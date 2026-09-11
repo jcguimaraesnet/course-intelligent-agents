@@ -74,6 +74,50 @@ flowchart TD
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: n8n Variables
+source: https://docs.n8n.io/code/builtin/environment-variables/
+---
+
+# Variáveis de ambiente
+#### **O uso de variáveis de ambiente permite ter workflows sem configurações fixas no código**
+
+<div class="h-3" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- O uso de **variáveis de ambiente** permite usar o **mesmo workflow com configurações diferentes** por ambiente, isolando valores específicos (como URLs e chaves) do fluxo.
+- No n8n, é necessário fazer uso do nome da variável nas configurações de credenciais e nós utilizando o padrão **`$env.NOME_DA_VARIAVEL`** (ex.: `{{ $env.BASE_URL }}`).
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <Transform :scale="0.6" origin="top">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A["💻 Local Development<br/>(base url: 9router)"] --> B["🧪 Testing<br/>(base url: opencode.ai)"]
+    B --> C["🎭 Staging<br/>(base url: openrouter.ai)"]
+    C --> D["🚀 Production<br/>(base url: openai.com)"]
+```
+
+</Transform>
+</div>
+
+<!--
+## notes slides
+
+### Variáveis de ambiente parametrizam credenciais e URLs de acordo com o ambiente de execução do container
+### No n8n, a sintaxe $env.NOME_DA_VARIAVEL lê os valores definidos na inicialização da instância
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 sourceLabel: n8n Docker
 source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 ---
@@ -81,11 +125,11 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 # Ambientes de implantação com docker
 #### **O docker permite criar vários n8n, que seria uma alternativa de ambiente de implatanção**
 
-<div class="h-3" />
+<div class="h-0" />
 
 ::left::
 
-<div class="text-sx w-full self-start [&_ul]:my-2 [&_li]:mb-6">
+<div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
 - Para rodar **múltiplas instâncias de n8n**, é necessário que o **número da porta externa**, o **nome da instância** e o **diretório do n8n** sejam diferentes entre os ambientes.
 - Além disso, o comando `docker` deve considerar **variáveis de ambiente** específicas de cada ambiente (exemplos: `BASE_URL` e `API_KEY`).
@@ -97,15 +141,19 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Docker Run (Produção)" codeblock>
 
 ```bash {*}{maxHeight:'290px'}
+# stop e remove container
+docker rm -f <n8n-ambiente>
+
 # Executar o container do n8n em produção
 docker run -d \
-  --name n8n-production \
+  --name <n8n-ambiente> \
+  --network host \
   -p 5679:5678 \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
   -e BASE_URL="XXXXX" \
   -e API_KEY="XXXXX" \
-  -v ~/.n8n-production:/home/node/.n8n \
+  -v ~/.n8n-<n8n-ambiente>:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
 ```
