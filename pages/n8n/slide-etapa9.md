@@ -141,19 +141,20 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Docker Run (Produção)" codeblock>
 
 ```bash {*}{maxHeight:'290px'}
-docker rm -f <n8n-ambiente> #stop/remove
+docker rm -f <n8n-env> #stop/remove
 
 # cria o container do n8n
-docker run -d \
+mkdir -p ~/.n8n-<n8n-env> && docker run -d \
   --name <n8n-ambiente> \
   --network host \
-  -p 5679:5678 \
+  -e N8N_PORT=56<> \
+  -e WEBHOOK_URL="http://localhost:56<>/" \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
   -e BASE_URL="XXXXX" \
   -e API_KEY="XXXXX" \
   -e N8N_BLOCK_ENV_ACCESS_IN_NODE=false \
-  -v ~/.n8n-<n8n-ambiente>:/home/node/.n8n \
+  -v ~/.n8n-<n8n-env>:/home/node/.n8n \
   -v ~/.n8n-files:/home/node/.n8n-files \
   docker.n8n.io/n8nio/n8n
 ```
@@ -185,7 +186,7 @@ source: https://docs.n8n.io/hosting/cli/commands/#export-workflows
 <div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
 - Em **cenários corporativos**, é fundamental adotar o **controle de versão (Git)** como a **única fonte da verdade** (_Single Source of Truth_) para os workflows.
-- A **CLI do n8n** permite **exportar workflows** de forma programática via terminal, facilitando o versionamento automatizado em repositórios Git.
+- A **CLI do n8n** permite **exportar/importar workflows** e **credenciais** de forma programática via terminal, facilitando o versionamento em repositórios Git.
 
 </div>
 
@@ -194,18 +195,23 @@ source: https://docs.n8n.io/hosting/cli/commands/#export-workflows
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Terminal" codeblock>
 
 ```bash {*}{maxHeight:'290px'}
-# 1. Iniciar terminal interativo no container n8n
-docker exec -it <n8n-ambiente> /bin/bash
+# 1. Iniciar terminal interativo no shell sh
+docker exec -it <n8n-ambiente> sh
 
-# 2. Exportar um workflow 
+# 2. Import/export workflow/credential
 n8n export:workflow --id=<id> \
   --output=/home/node/.n8n-files/<arq>.json
+
+n8n export:credentials --all --decrypted \
+ --output=/home/node/.n8n-files/cred.json
+
+n8n import:credentials \
+--input=/home/node/.n8n-files/cred.json
 
 n8n import:workflow \
   --input=/home/node/.n8n-files/<arq>.json
 
-# 3. Sair do container Docker
-exit
+exit #sai do container
 ```
 
 </WindowMockup>
