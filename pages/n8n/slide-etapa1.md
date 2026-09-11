@@ -277,6 +277,7 @@ source: https://docs.docker.com/engine/reference/commandline/cli
 | `docker volume ls` | Lista todos os volumes de dados criados localmente |
 | `docker volume create` | Cria um novo volume persistente para ser usado por containers |
 | `docker pull docker.n8n.io/n8nio/n8n` | Atualiza a imagem oficial mais recente do n8n para o ambiente local |
+| `docker rm -f <container>` | Faz o stop e remove o container |
 
 </div>
 
@@ -300,10 +301,8 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 mkdir -p ~/.n8n-dev ~/.n8n-files && \
 docker run -d \
   --name n8n-dev \
-  --network host \
-  -e N8N_PORT=5678 \
-  -e N8N_RUNNERS_BROKER_PORT=5679 \
-  -e WEBHOOK_URL="http://localhost:5679/" \
+  -p 5678:5678 \
+  --add-host=local:host-gateway \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
   -v ~/.n8n-dev:/home/node/.n8n \
@@ -319,6 +318,14 @@ docker run -d \
 > A pasta **.n8n-files** é o padrão usado pelo n8n para gravar e ler arquivos de dados.
 > 
 > **No primeiro login**, configure seu usuário e senha e o pedido de licença free
+
+<!--
+slide notes
+
+### o parâmetro `--add-host=local:host-gateway` é uma ponte para serviço da maquina windows, permite acessar o 9router através de local:20128/v1 (e não a partir de localhost:20128/v1)
+
+-->
+
 
 ---
 layout: section

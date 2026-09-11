@@ -144,12 +144,11 @@ source: https://docs.n8n.io/deploy/host-n8n/install-options/install-with-docker
 docker rm -f <n8n-env> #stop/remove
 
 # cria o container do n8n
-mkdir -p ~/.n8n-<env> && docker run -d \
-  --name <n8n-env> \
-  --network host \
-  -e N8N_PORT=56<> \
-  -e N8N_RUNNERS_BROKER_PORT=56<> \
-  -e WEBHOOK_URL="http://localhost:56<>/" \
+mkdir -p ~/.n8n-<env> && \
+docker run -d \
+  --name n8n-<env> \
+  -p 5679:5678 \
+  --add-host=local:host-gateway \
   -e GENERIC_TIMEZONE="America/Sao_Paulo" \
   -e TZ="America/Sao_Paulo" \
   -e BASE_URL="XXXXX" \
@@ -195,22 +194,22 @@ source: https://docs.n8n.io/hosting/cli/commands/#export-workflows
 
 <WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="Terminal" codeblock>
 
-```bash {*}{maxHeight:'290px'}
+```bash {*}{maxHeight:'270px'}
 # 1. Iniciar terminal interativo no shell sh
-docker exec -it <n8n-ambiente> sh
+docker exec -it n8n-<env> sh
 
 # 2. Import/export workflow/credential
-n8n export:workflow --id=<id> \
-  --output=/home/node/.n8n-files/<arq>.json
+n8n export:workflow --all \
+  --output=/home/node/.n8n-files/workflows.json
 
 n8n export:credentials --all --decrypted \
- --output=/home/node/.n8n-files/cred.json
+ --output=/home/node/.n8n-files/credentials.json
 
 n8n import:credentials \
---input=/home/node/.n8n-files/cred.json
+--input=/home/node/.n8n-files/credentials.json
 
 n8n import:workflow \
-  --input=/home/node/.n8n-files/<arq>.json
+  --input=/home/node/.n8n-files/workflows.json
 
 exit #sai do container
 ```
