@@ -335,7 +335,7 @@ class: flex items-center justify-center
 
 ::left::
 
-<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="exportação em DEV" codeblock>
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="importação em PROD" codeblock>
 
 ```bash {*}{maxHeight:'290px'}
 docker exec -it n8n-dev sh
@@ -358,7 +358,7 @@ exit #sai do container
 
 ::right::
 
-<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="criar container prod" codeblock>
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="teste em PROD" codeblock>
 
 ```bash {*}{maxHeight:'290px'}
 curl -X POST \
