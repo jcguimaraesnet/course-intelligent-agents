@@ -262,3 +262,114 @@ docker run -d \
 <div class="flex items-center justify-center h-[calc(100%-80px)]">
   <AssetImg src="n8n/n8n-env-var.png" class="max-h-[320px] object-contain rounded-lg shadow-md" />
 </div>
+
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Ambiente, git e variável: passo-a-passo (2)
+#### **(3) Exportar workflows e credenciais em DEV, (4) criar ambiente PROD**
+
+<div class="h-3" />
+
+::left::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="exportação em DEV" codeblock>
+
+```bash {*}{maxHeight:'290px'}
+docker exec -it n8n-dev sh
+
+# 2. Import/export workflow/credential
+n8n export:workflow --all \
+  --output=\
+/home/node/.n8n-files/workflows.json
+
+n8n export:credentials --all --decrypted \
+ --output=\
+/home/node/.n8n-files/credentials.json
+
+exit #sai do container
+```
+
+</WindowMockup>
+
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="criar container prod" codeblock>
+
+```bash {5,9,10,11}{maxHeight:'290px'}
+# cria o container do n8n
+mkdir -p ~/.n8n-prod && \
+docker run -d \
+  --name n8n-prod \
+  -p 5679:5678 \
+  --add-host=local:host-gateway \
+  -e GENERIC_TIMEZONE="America/Sao_Paulo" \
+  -e TZ="America/Sao_Paulo" \
+  -e BASE_URL="https://openrouter.ai/api/v1" \
+  -e API_KEY="XXXXX" \
+  -e N8N_BLOCK_ENV_ACCESS_IN_NODE=false \
+  -v ~/.n8n-prod:/home/node/.n8n \
+  -v ~/.n8n-files:/home/node/.n8n-files \
+  docker.n8n.io/n8nio/n8n
+```
+
+</WindowMockup>
+
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+---
+
+# Ambiente, git e variável: passo-a-passo (3)
+#### **(5) Importação das credenciais e workflows em PROD, (6) teste do workflow em PROD**
+
+<div class="h-3" />
+
+::left::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="exportação em DEV" codeblock>
+
+```bash {*}{maxHeight:'290px'}
+docker exec -it n8n-dev sh
+
+# 2. Import credential
+n8n import:credentials \
+--input=\
+/home/node/.n8n-files/credentials.json
+
+# 2. Import workflows
+n8n import:workflow \
+--input=\
+/home/node/.n8n-files/workflows.json
+
+exit #sai do container
+```
+
+</WindowMockup>
+
+
+::right::
+
+<WindowMockup color="dark" padding="0.5rem 0.5rem 0.5rem 0.5rem" title="criar container prod" codeblock>
+
+```bash {*}{maxHeight:'290px'}
+curl -X POST \
+http://localhost:5679/webhook-test/atendimento-secretaria \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pergunta": "Qual é o prazo do requerimento 123",
+    "aluno": "João Silva",
+    "matricula": "20241001",
+    "tipo_requerimento": "Trancamento de Matrícula"
+  }'
+```
+
+</WindowMockup>
