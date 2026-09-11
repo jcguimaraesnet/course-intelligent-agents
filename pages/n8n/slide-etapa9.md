@@ -629,3 +629,43 @@ class: flex items-center justify-center
 ### A arquitetura Army of Agents substitui agentes monolíticos por dezenas de agentes autônomos e especializados
 ### Utiliza um agente orquestrador (General) para coordenação e múltiplos agentes workers (soldados) para execução
 -->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
+sourceLabel: Call n8n Workflow Tool
+source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.toolworkflow
+---
+
+# n8n Workflow Tool (sub-node)
+#### **O nó n8n Workflow Tool permite ser usado como ferramenta por agentes de IA**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-lg w-full self-start [&_ul]:my-5 [&_li]:mb-6">
+
+- Permite conectar outro **workflow do n8n como uma ferramenta (tool)** acionável por um AI Agent em arquiteturas agênticas modulares e *Army of Agents*.
+- Facilita a **encapsulação de lógicas complexas**, integração com sistemas externos e reutilização de sub-workflows com entradas e saídas estruturadas.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/call-n8n-sub-workflow-tool.svg"
+    label="Call n8n Workflow Tool"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### O subnó Call n8n Workflow Tool permite expor um sub-workflow completo como ferramenta para um AI Agent
+### Promove a modularidade de arquiteturas agênticas permitindo encapsular lógicas complexas em fluxos dedicados
+-->
