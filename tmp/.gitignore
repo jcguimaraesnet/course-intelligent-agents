@@ -1,0 +1,5 @@
+# Pasta de arquivos temporários (prints de slides, exports rápidos).
+# Ignora tudo, menos este próprio arquivo — assim a pasta existe no repo
+# mas o conteúdo nunca é versionado.
+*
+!.gitignore
