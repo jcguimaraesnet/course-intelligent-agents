@@ -8,6 +8,346 @@ routeAlias: etapa9
 ---
 layout: two-cols-header
 layoutClass: gap-8
+sourceLabel: HTTP
+source: https://developer.mozilla.org/pt-BR/docs/Web/HTTP
+---
+
+# Web API: o que é?
+
+#### **Um site devolve HTML para um humano; uma Web API devolve JSON para um programa**
+
+<div class="h-8" />
+
+::left::
+
+<div class="text-17px w-full [&_ul]:my-0 [&_li]:mb-5">
+
+- Uma **Web API** é uma **URL** feita para ser chamada por **código**, e não aberta por uma pessoa
+- O cliente envia uma **requisição**, o servidor devolve uma **resposta** — por **HTTP**, o mesmo protocolo dos sites
+- Muda o público e o formato: **HTML** para o navegador, **JSON** para o programa
+
+</div>
+
+::right::
+
+```html [o site devolve HTML]{maxHeight:'110px'}
+<h1>Praça da Sé</h1>
+<p>São Paulo — SP</p>
+```
+
+```json [a Web API devolve JSON]{maxHeight:'170px'}
+{
+  "logradouro": "Praça da Sé",
+  "localidade": "São Paulo",
+  "uf": "SP"
+}
+```
+
+
+<!--
+## perguntar: quantos já abriram um site hoje? todos fizeram uma requisição HTTP sem saber
+
+## a Web API que vamos construir na etapa 9 é a porta de entrada do agente
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: ViaCEP
+source: https://viacep.com.br/
+---
+
+# Verbo GET: lendo dados de uma Web API
+
+#### **GET pede dados ao servidor — é o que o navegador faz ao abrir qualquer URL**
+
+<div class="h-2" />
+
+::left::
+
+```bash [cURL]{maxHeight:'260px'}
+# GET é o verbo padrão do curl (e do navegador)
+curl https://viacep.com.br/ws/01001000/json/
+
+#  https://   viacep.com.br   /ws/01001000/json/
+#  --------   -------------   ------------------
+#  esquema        host           qual recurso
+#                              (01001000 é o CEP)
+```
+
+::right::
+
+```json [resposta]{maxHeight:'170px'}
+{
+  "cep": "01001-000",
+  "logradouro": "Praça da Sé",
+  "localidade": "São Paulo",
+  "uf": "SP"
+}
+```
+
+<div class="h-2" />
+
+<Transform :scale="0.8" origin="left top">
+
+> [!NOTE]
+> o `curl` é uma ferramenta de linha de comando amplamente utilizada para fazer requisições web, normalmente pré-instaladas em sistemas operacionais linux/mac.
+>
+> 
+
+</Transform>
+
+<!--
+## abrir a URL no navegador antes de mostrar o curl — a ficha cai mais rápido
+
+## trocar o CEP pelo CEP da casa de um aluno
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: restful-api.dev
+source: https://restful-api.dev/
+---
+
+# Verbo POST: criando dados em uma Web API
+
+#### **POST envia dados no corpo da requisição para o servidor criar um recurso novo**
+
+<div class="h-2" />
+
+::left::
+
+```bash [cURL]{maxHeight:'320px'}
+curl -X POST https://api.restful-api.dev/objects \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Turma Infnet",
+    "data": { "alunos": 30 }
+  }'
+
+#  -X POST         escolhe o verbo
+#  -H Content-Type avisa que o corpo é JSON
+#  -d              é o corpo da requisição
+```
+
+::right::
+
+```json [resposta — 201 Created]{maxHeight:'190px'}
+{
+  "id": "ff808181a067127101a09708463a03bc",
+  "name": "Turma Infnet",
+  "createdAt": "2026-09-12T14:31:37.018Z",
+  "data": { "alunos": 30 }
+}
+```
+
+<div class="h-2" />
+
+<Transform :scale="0.85" origin="left top">
+
+> [!NOTE]
+> O servidor devolveu um **`id`** que não existia antes: alguma coisa **mudou** no servidor.
+>
+> Esse é o POST que o navegador **não** consegue fazer só com a URL — por isso precisamos do curl/postman.
+
+</Transform>
+
+<!--
+## pedir para um aluno ditar o "name" — o id devolvido é diferente para cada um
+
+## anotar o id no quadro: vamos usar no próximo slide
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: restful-api.dev
+source: https://restful-api.dev/
+---
+
+# Verbo DELETE: removendo dados de uma Web API
+
+#### **Depois do DELETE, o mesmo GET que funcionava passa a responder 404 Not Found**
+
+<div class="h-2" />
+
+::left::
+
+```bash [cURL]{1-2|4-5|7-8|all}{maxHeight:'320px',at:+1}
+# 1. o recurso existe  ->  200 OK
+curl https://api.restful-api.dev/objects/ff8081...
+
+# 2. apagamos o recurso  ->  200 OK
+curl -X DELETE https://api.restful-api.dev/objects/ff8081...
+
+# 3. o MESMO GET de antes  ->  404 Not Found
+curl https://api.restful-api.dev/objects/ff8081...
+```
+
+::right::
+
+```json [respostas]{maxHeight:'240px'}
+// 1.  200 OK
+{ "id": "ff8081...", "name": "Turma Infnet" }
+
+// 2.  200 OK
+{ "message": "... has been deleted." }
+
+// 3.  404 Not Found
+{ "error": "... was not found." }
+```
+
+<div class="h-2" />
+
+<Transform :scale="0.85" origin="left top">
+
+> [!NOTE]
+> O **404** é a prova de que o DELETE mexeu no servidor. GET só lê; POST e DELETE **modificam**.
+
+</Transform>
+
+<!--
+## rodar os três comandos ao vivo, na ordem, usando o id anotado no slide anterior
+
+## o 404 é o ponto alto: ninguém precisa explicar "estado" depois disso
+-->
+
+---
+layout: default
+sourceLabel: Métodos HTTP
+source: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods
+---
+
+# Verbos HTTP: o que cada um faz
+
+#### **O verbo declara a intenção da requisição — ler, criar, substituir, alterar ou apagar**
+
+<br/>
+
+<div class="[&_table]:w-full text-14px leading-tight [&_td]:py-2 [&_th]:py-3">
+
+| Verbo | Intenção | Tem corpo? | Modifica? | Exemplo |
+| --- | --- | --- | --- | --- |
+| `GET` | Ler um recurso existente | Não | Não | Consultar um CEP |
+| `POST` | Criar um recurso novo | Sim | Sim | Cadastrar um aluno |
+| `PUT` | Substituir um recurso inteiro | Sim | Sim | Trocar todos os dados do aluno |
+| `PATCH` | Alterar apenas alguns campos | Sim | Sim | Corrigir só o e-mail do aluno |
+| `DELETE` | Apagar um recurso | Não | Sim | Remover o cadastro do aluno |
+
+</div>
+
+<div class="h-2" />
+
+<Transform :scale="0.8" origin="left bottom">
+
+> [!NOTE]
+> `GET`, `PUT` e `DELETE` são **idempotentes**: repetir a mesma chamada leva ao mesmo estado final. Já o `POST` repetido **cria um recurso novo a cada vez** — é por isso que recarregar a página depois de um formulário pode duplicar o cadastro.
+
+</Transform>
+
+<!--
+## a URL diz QUAL recurso; o verbo diz O QUE fazer com ele
+
+## PUT x PATCH: só citar, não aprofundar
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: Postman
+source: https://www.postman.com/
+---
+
+# Postman: testando Web APIs sem o terminal
+
+#### **O Postman monta a mesma requisição HTTP do curl, mas por uma interface gráfica**
+
+<div class="h-2" />
+
+::left::
+
+<div class="text-17px w-full self-start [&_ul]:my-2 [&_li]:mb-3">
+
+- Você escolhe o **verbo**, digita a **URL**, preenche **headers** e **body** em formulários — nada de aspas e barras invertidas
+- Guarda as requisições em **coleções**, reaproveitadas e compartilhadas com o time
+- O botão **Code** gera a mesma requisição em `curl`, `Python`, etc.
+
+</div>
+
+::right::
+
+<div class="text-14px [&_table]:w-full [&_td]:py-2 [&_th]:py-2">
+
+| Ferramenta | Observação |
+| --- | --- |
+| **Postman** | O mais conhecido; exige conta |
+| **Insomnia** | Mais leve e simples |
+| **Thunder Client** | Extensão dentro do VS Code |
+
+</div>
+
+<div class="h-10" />
+
+<Transform :scale="0.8" origin="left top">
+
+> [!NOTE]
+> O **Swagger** que o FastAPI gera sozinho (próximos slides) faz esse mesmo papel, sem instalar nada.
+
+</Transform>
+
+<!--
+## mostrar o botão "Code" gerando o curl — conecta com os slides anteriores
+
+## quem preferir terminal continua no curl; o importante é entender a requisição
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+sourceLabel: OpenAI API
+source: https://platform.openai.com/docs/api-reference
+---
+
+# Autenticação: a API da OpenAI é uma Web API
+
+#### **APIs privadas exigem uma chave, enviada no header `Authorization`**
+
+<div class="h-2" />
+
+::left::
+
+```bash [cURL]{2|all}{maxHeight:'320px',at:+1}
+curl https://api.openai.com/v1/chat/completions \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "gpt-5-nano",
+    "messages": [
+      {"role": "user",
+       "content": "Qual a capital da França?"}
+    ]
+  }'
+```
+
+::right::
+
+> [!NOTE]
+> É o mesmo `POST` + `JSON` dos slides anteriores. **Tudo** que vocês fizeram com o Agents SDK desde a etapa 2 vira uma requisição como essa.
+>
+> A chave vai no **header**, nunca na URL: URL fica gravada em log, em histórico e no print da tela.
+>
+> E fica no **`.env`**, nunca no código versionado.
+
+<!--
+## retomar o slide da etapa 2 (3ª camada: OpenAI API via cURL)
+
+## agora que sabem o que é uma Web API, o próximo passo é construir a NOSSA
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
 class: flex items-center justify-center
 sourceLabel: FastAPI
 source: https://github.com/fastapi/fastapi
@@ -402,7 +742,7 @@ source: https://www.python-httpx.org/
 
 # App cliente: exemplo simples usando httpx
 
-#### **HTTPX é um cliente HTTP assíncrono moderno para Python recomendado para consumir Web APIs**
+#### **HTTPX é o cliente HTTP assíncrono recomendado em Python para consumir Web APIs**
 
 <div class="h-2" />
 
