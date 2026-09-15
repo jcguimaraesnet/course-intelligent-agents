@@ -57,7 +57,7 @@ sourceLabel: ViaCEP
 source: https://viacep.com.br/
 ---
 
-# Verbo GET: lendo dados de uma Web API
+# Web API: verbo GET
 
 #### **GET pede dados ao servidor — é o que o navegador faz ao abrir qualquer URL**
 
@@ -110,7 +110,7 @@ sourceLabel: restful-api.dev
 source: https://restful-api.dev/
 ---
 
-# Verbo POST: criando dados em uma Web API
+# Web API: verbo POST
 
 #### **POST envia dados no corpo da requisição para o servidor criar um recurso novo**
 
@@ -166,7 +166,7 @@ sourceLabel: restful-api.dev
 source: https://restful-api.dev/
 ---
 
-# Verbo DELETE: removendo dados de uma Web API
+# Web API: verbo DELETE
 
 #### **Depois do DELETE, o mesmo GET que funcionava passa a responder 404 Not Found**
 
@@ -219,7 +219,7 @@ sourceLabel: Métodos HTTP
 source: https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods
 ---
 
-# Verbos HTTP: o que cada um faz
+# Web API: verbos HTTP
 
 #### **O verbo declara a intenção da requisição — ler, criar, substituir, alterar ou apagar**
 
@@ -259,7 +259,7 @@ sourceLabel: Postman
 source: https://www.postman.com/
 ---
 
-# Postman: testando Web APIs sem o terminal
+# Web API: Postman
 
 #### **O Postman monta a mesma requisição HTTP do curl, mas por uma interface gráfica**
 
@@ -309,7 +309,7 @@ sourceLabel: OpenAI API
 source: https://platform.openai.com/docs/api-reference
 ---
 
-# Autenticação: a API da OpenAI é uma Web API
+# Web API: Header
 
 #### **APIs privadas exigem uma chave, enviada no header `Authorization`**
 
