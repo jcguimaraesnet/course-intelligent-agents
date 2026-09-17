@@ -972,36 +972,6 @@ p {
 }
 </style>
 
-<!--
-# Exercício #1 — Tema
-O aluno escolhe o domínio (RH, financeiro, atendimento) e descreve
-o problema que o sistema multiagente vai resolver.
-
-# Exercício #2 — Consulta e transação
-Modele os dados do tema e defina uma operação de leitura e outra
-de escrita (insert ou update) sobre eles.
-
-# Exercício #3 — Multiagente
-Um agente orquestrador recebe a pergunta e decide o handoff para o
-agente de consulta ou para o agente transacional.
-
-# Exercício #4 — Web APIs
-Uma Web API expõe a rota de consulta (GET) e a outra expõe a rota
-transacional (POST/PUT), ambas com modelos Pydantic.
-
-# Exercício #5 e #6 — Function tooling
-Cada agente de handoff recebe um function tool que chama a sua
-respectiva Web API com httpx.
-
-# Exercício #7 e #8 — RAG
-Divida os documentos em chunks, recupere os mais relevantes e use
-o contexto para responder às perguntas do usuário.
-
-# Exercício #9 e #10 — Pydantic e memória
-Todos os agentes devolvem output_type Pydantic, e a memória de longo
-prazo preserva o histórico entre execuções.
--->
-
 ---
 layout: section
 ---
