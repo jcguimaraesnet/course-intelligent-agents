@@ -939,6 +939,70 @@ status a cada 5 segundos e exibe a resposta final quando concluída.
 -->
 
 ---
+layout: default
+---
+
+# Exercício para compensação de faltas
+
+<div class="h-2" />
+
+🛠️ &nbsp;**Requisito \#1:** Escolha um tema agêntico de sua preferência e defina o domínio.
+
+🛠️ &nbsp;**Requisito \#2:** Defina um caso de consulta (select) e outro de transação (insert ou update).
+
+🛠️ &nbsp;**Requisito \#3:** Construa um multiagente com 1 orquestrador e pelo menos 2 agentes em handoff.
+
+🛠️ &nbsp;**Requisito \#4:** Crie duas Web APIs com FastAPI: uma de consulta e outra de transação.
+
+🛠️ &nbsp;**Requisito \#5:** Implemente um function tool que consuma a Web API de consulta.
+
+🛠️ &nbsp;**Requisito \#6:** Implemente um function tool que consuma a Web API de transação.
+
+🛠️ &nbsp;**Requisito \#7:** Faça o sistema multiagente responder perguntas usando RAG.
+
+🛠️ &nbsp;**Requisito \#8:** Monte a base de RAG com chunking em um banco de dados ChromaDB.
+
+🛠️ &nbsp;**Requisito \#9:** Use saída estruturada com modelos Pydantic nos agentes.
+
+🛠️ &nbsp;**Requisito \#10:** Adicione memória de longo prazo aos agentes entre execuções.
+
+<style>
+p {
+  margin: 0.8rem 0;
+}
+</style>
+
+<!--
+# Exercício #1 — Tema
+O aluno escolhe o domínio (RH, financeiro, atendimento) e descreve
+o problema que o sistema multiagente vai resolver.
+
+# Exercício #2 — Consulta e transação
+Modele os dados do tema e defina uma operação de leitura e outra
+de escrita (insert ou update) sobre eles.
+
+# Exercício #3 — Multiagente
+Um agente orquestrador recebe a pergunta e decide o handoff para o
+agente de consulta ou para o agente transacional.
+
+# Exercício #4 — Web APIs
+Uma Web API expõe a rota de consulta (GET) e a outra expõe a rota
+transacional (POST/PUT), ambas com modelos Pydantic.
+
+# Exercício #5 e #6 — Function tooling
+Cada agente de handoff recebe um function tool que chama a sua
+respectiva Web API com httpx.
+
+# Exercício #7 e #8 — RAG
+Divida os documentos em chunks, recupere os mais relevantes e use
+o contexto para responder às perguntas do usuário.
+
+# Exercício #9 e #10 — Pydantic e memória
+Todos os agentes devolvem output_type Pydantic, e a memória de longo
+prazo preserva o histórico entre execuções.
+-->
+
+---
 layout: section
 ---
 
