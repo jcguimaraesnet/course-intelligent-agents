@@ -3,6 +3,9 @@ dist/
 .slidev/
 *.log
 
+# Playwright MCP — snapshots (.yml) e logs de console das sessões de captura
+.playwright-mcp/
+
 # segredos
 .env
 
