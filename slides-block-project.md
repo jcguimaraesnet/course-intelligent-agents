@@ -40,6 +40,7 @@ routeAlias: ementa
 - **Etapa 1.4** — <Link to="etapa1-4" title="Etapa 1.4 - Tema Relacionado (Chatbots)"/>
 - **Etapa 1.5** — <Link to="etapa1-5" title="Etapa 1.5 - Tema Relacionado (Entregáveis TP2)"/>
 - **Etapa 1.6** — <Link to="etapa1-6" title="Etapa 1.6 - Tema Relacionado (Skill grill-me)"/>
+- **Etapa 1.7** — <Link to="etapa1-7" title="Etapa 1.7 - Tema Relacionado (OWASP Top 10 para Aplicações LLM)"/>
 - **Etapa 2** — <Link to="etapa2" title="Ferramentas, Raciocínio e Memória"/>
 - **Etapa 3** — <Link to="etapa3" title="Exposição via FastAPI"/>
 - **Etapa 4** — <Link to="etapa4" title="Operacionalização com MCP"/>
@@ -75,6 +76,10 @@ src: ./pages/block-project/slide-etapa1-5.md
 
 ---
 src: ./pages/block-project/slide-etapa1-6.md
+---
+
+---
+src: ./pages/block-project/slide-etapa1-7.md
 ---
 
 ---
