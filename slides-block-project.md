@@ -43,6 +43,7 @@ routeAlias: ementa
 - **Etapa 1.7** — <Link to="etapa1-7" title="Etapa 1.7 - Tema Relacionado (Repositório de APIs Públicas)"/>
 - **Etapa 1.8** — <Link to="etapa1-8" title="Etapa 1.8 - Tema Relacionado (OWASP Top 10 para Aplicações LLM)"/>
 - **Etapa 1.9** — <Link to="etapa1-9" title="Etapa 1.9 - Tema Relacionado (APIs de Scraping)"/>
+- **Etapa 2.0** — <Link to="etapa2-0" title="Etapa 2.0 - Modelos Classificadores e o Jev"/>
 - **Etapa 2** — <Link to="etapa2" title="Ferramentas, Raciocínio e Memória"/>
 - **Etapa 3** — <Link to="etapa3" title="Exposição via FastAPI"/>
 - **Etapa 4** — <Link to="etapa4" title="Operacionalização com MCP"/>
@@ -90,6 +91,10 @@ src: ./pages/block-project/slide-etapa1-8.md
 
 ---
 src: ./pages/block-project/slide-etapa1-9.md
+---
+
+---
+src: ./pages/block-project/slide-etapa2-0.md
 ---
 
 ---
