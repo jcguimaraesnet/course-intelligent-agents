@@ -1,11 +1,11 @@
 ---
 layout: section
-routeAlias: etapa1-7
+routeAlias: etapa8
 sourceLabel: public-apis
 source: https://github.com/public-apis/public-apis
 ---
 
-## Etapa 1.7 - Tema Relacionado
+## Etapa 8 - Tema Relacionado
 <br/>
 
 ### **Repositório de APIs Públicas**
@@ -418,7 +418,7 @@ source: https://github.com/public-apis/public-apis
 <!--
 ## o caso da REST Countries aconteceu de verdade preparando esta aula — usar como história
 
-## adiantar que a etapa 1.8 formaliza isso como LLM01 e LLM10 do OWASP
+## adiantar que a etapa 9 formaliza isso como LLM01 e LLM10 do OWASP
 -->
 
 ---
@@ -515,7 +515,7 @@ que o modelo lê para decidir quando chamar.
 
 # Exercício #4 — Pydantic
 A resposta da API é entrada não confiável e precisa ser validada;
-a etapa 1.8 volta a esse ponto pelo lado da segurança.
+a etapa 9 volta a esse ponto pelo lado da segurança.
 
 # Exercício #5 — Star History
 Plotar dois repositórios juntos e discutir o que a curva revela.

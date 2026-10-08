@@ -33,78 +33,62 @@ routeAlias: ementa
 
 # Ementa do projeto
 
-- **Etapa 1.0** — <Link to="etapa1-0" title="Etapa 1.0 - Visão Geral do Projeto e TP1"/>
-- **Etapa 1.1** — <Link to="etapa1-1" title="Etapa 1.1 - Tema Relacionado (Diagrama Arquitetura e MCP)"/>
-- **Etapa 1.2** — <Link to="etapa1-2" title="Etapa 1.2 - Tema Relacionado (Harness Engineering e Claude Code)"/>
-- **Etapa 1.3** — <Link to="etapa1-3" title="Etapa 1.3 - Tema Relacionado (Prompt Engineering)"/>
-- **Etapa 1.4** — <Link to="etapa1-4" title="Etapa 1.4 - Tema Relacionado (Chatbots)"/>
-- **Etapa 1.5** — <Link to="etapa1-5" title="Etapa 1.5 - Tema Relacionado (Entregáveis TP2)"/>
-- **Etapa 1.6** — <Link to="etapa1-6" title="Etapa 1.6 - Tema Relacionado (Skill grill-me)"/>
-- **Etapa 1.7** — <Link to="etapa1-7" title="Etapa 1.7 - Tema Relacionado (Repositório de APIs Públicas)"/>
-- **Etapa 1.8** — <Link to="etapa1-8" title="Etapa 1.8 - Tema Relacionado (OWASP Top 10 para Aplicações LLM)"/>
-- **Etapa 1.9** — <Link to="etapa1-9" title="Etapa 1.9 - Tema Relacionado (APIs de Scraping)"/>
-- **Etapa 2.0** — <Link to="etapa2-0" title="Etapa 2.0 - Modelos Classificadores e o Jev"/>
-- **Etapa 2** — <Link to="etapa2" title="Ferramentas, Raciocínio e Memória"/>
-- **Etapa 3** — <Link to="etapa3" title="Exposição via FastAPI"/>
-- **Etapa 4** — <Link to="etapa4" title="Operacionalização com MCP"/>
-- **Etapa 5** — <Link to="etapa5" title="Integração com n8n"/>
+- **Etapa 1** — <Link to="etapa1" title="Visão Geral do Projeto e TP1"/>
+- **Etapa 2** — <Link to="etapa2" title="Diagrama Arquitetura e MCP"/>
+- **Etapa 3** — <Link to="etapa3" title="Harness Engineering e Claude Code"/>
+- **Etapa 4** — <Link to="etapa4" title="Prompt Engineering"/>
+- **Etapa 5** — <Link to="etapa5" title="Chatbots"/>
+- **Etapa 6** — <Link to="etapa6" title="Entregáveis TP2"/>
+- **Etapa 7** — <Link to="etapa7" title="Skill grill-me"/>
+- **Etapa 8** — <Link to="etapa8" title="Repositório de APIs Públicas"/>
+- **Etapa 9** — <Link to="etapa9" title="OWASP Top 10 para Aplicações LLM"/>
+- **Etapa 10** — <Link to="etapa10" title="APIs de Scraping"/>
+- **Etapa 11** — <Link to="etapa11" title="Modelos Classificadores e o Jev"/>
 
 <!--
-Ementa do projeto — visão geral das 5 etapas.
+Ementa do projeto — visão geral das 11 etapas.
 -->
 
 ---
-src: ./pages/block-project/slide-etapa1-0.md
+src: ./pages/block-project/slide-etapa1.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-1.md
+src: ./pages/block-project/slide-etapa2.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-2.md
+src: ./pages/block-project/slide-etapa3.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-3.md
+src: ./pages/block-project/slide-etapa4.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-4.md
+src: ./pages/block-project/slide-etapa5.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-5.md
+src: ./pages/block-project/slide-etapa6.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-6.md
+src: ./pages/block-project/slide-etapa7.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-7.md
+src: ./pages/block-project/slide-etapa8.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-8.md
+src: ./pages/block-project/slide-etapa9.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa1-9.md
+src: ./pages/block-project/slide-etapa10.md
 ---
 
 ---
-src: ./pages/block-project/slide-etapa2-0.md
----
-
----
-src: ./pages/block-project/slide-etapa3-0.md
----
-
----
-src: ./pages/block-project/slide-etapa4-0.md
----
-
----
-src: ./pages/block-project/slide-etapa5-0.md
+src: ./pages/block-project/slide-etapa11.md
 ---

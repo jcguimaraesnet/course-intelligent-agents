@@ -1,11 +1,11 @@
 ---
 layout: section
-routeAlias: etapa2-0
+routeAlias: etapa11
 sourceLabel: TypeSafe AI
 source: https://typesafe.ai/blog/introducing-system-one-models-and-jev
 ---
 
-## **Etapa 2.0**
+## **Etapa 11**
 
 <br/>
 
@@ -667,7 +667,7 @@ async def responder(mensagem: str):
 ## esse é o padrão "cascata": decidir barato antes de gastar caro
 
 ## o mesmo rotear() pode virar um guardrail: perguntar se a tool é destrutiva
-## antes de executá-la — conecta com LLM03 da etapa 1.8
+## antes de executá-la — conecta com LLM03 da etapa 9
 -->
 
 ---

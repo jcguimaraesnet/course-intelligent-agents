@@ -1,9 +1,9 @@
 ---
 layout: section
-routeAlias: etapa1-6
+routeAlias: etapa7
 ---
 
-## Etapa 1.6 - Tema Relacionado
+## Etapa 7 - Tema Relacionado
 <br/>
 
 ### **Skill grill-me**

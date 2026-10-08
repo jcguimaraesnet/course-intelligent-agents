@@ -1,11 +1,11 @@
 ---
 layout: section
-routeAlias: etapa1-3
+routeAlias: etapa4
 sourceLabel: Prompting Guide
 source: https://www.promptingguide.ai/pt
 ---
 
-## Etapa 1.3 - Tema Relacionado
+## Etapa 4 - Tema Relacionado
 <br/>
 
 ### **Prompt Engineering**

@@ -1,11 +1,11 @@
 ---
 layout: section
-routeAlias: etapa1-8
+routeAlias: etapa9
 sourceLabel: OWASP Gen AI Security Project
 source: https://genai.owasp.org/llm-top-10/
 ---
 
-## Etapa 1.8 - Tema Relacionado
+## Etapa 9 - Tema Relacionado
 <br/>
 
 ### **OWASP Top 10 para Aplicações LLM**
