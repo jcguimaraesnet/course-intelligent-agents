@@ -1,9 +1,9 @@
 ---
 layout: section
-routeAlias: etapa1-2
+routeAlias: etapa3
 ---
 
-## Etapa 1.2 - Tema Relacionado
+## Etapa 3 - Tema Relacionado
 <br/>
 
 ### **Harness Engineering e Claude Code**

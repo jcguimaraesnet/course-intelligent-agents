@@ -1,6 +1,6 @@
 ---
 layout: section
-routeAlias: etapa1-0
+routeAlias: etapa1
 ---
 
 ## **Etapa 1**

@@ -1,9 +1,9 @@
 ---
 layout: section
-routeAlias: etapa1-5
+routeAlias: etapa6
 ---
 
-## Etapa 1.5 - Tema Relacionado
+## Etapa 6 - Tema Relacionado
 <br/>
 
 ### **Entregáveis TP2**

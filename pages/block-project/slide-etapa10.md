@@ -1,11 +1,11 @@
 ---
 layout: section
-routeAlias: etapa1-9
+routeAlias: etapa10
 sourceLabel: Firecrawl
 source: https://www.firecrawl.dev/
 ---
 
-## Etapa 1.9 - Tema Relacionado
+## Etapa 10 - Tema Relacionado
 <br/>
 
 ### **APIs de Scraping (Raspagem)**
@@ -106,7 +106,7 @@ source: https://github.com/firecrawl/firecrawl
 <Transform :scale="0.8" origin="left top">
 
 > [!NOTE]
-> Para comparar: o `public-apis` da etapa 1.7 tem ~481 mil. O tema está entre os mais populares do GitHub.
+> Para comparar: o `public-apis` da etapa 8 tem ~481 mil. O tema está entre os mais populares do GitHub.
 
 </Transform>
 
@@ -115,7 +115,7 @@ source: https://github.com/firecrawl/firecrawl
 <!--
 ## números consultados na API do GitHub em setembro de 2026 — vão mudar
 
-## a curva de estrelas do firecrawl é um bom exemplo para o Star History da etapa 1.7
+## a curva de estrelas do firecrawl é um bom exemplo para o Star History da etapa 8
 -->
 
 ---
@@ -150,7 +150,7 @@ source: https://github.com/public-apis/public-apis
 </Transform>
 
 <!--
-## retomar a etapa 1.7: o aluno deve esgotar a busca por API antes de raspar
+## retomar a etapa 8: o aluno deve esgotar a busca por API antes de raspar
 
 ## frágil não quer dizer ruim: às vezes é a única forma de obter o dado
 -->

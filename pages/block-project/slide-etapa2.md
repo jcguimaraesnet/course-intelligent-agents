@@ -1,9 +1,9 @@
 ---
 layout: section
-routeAlias: etapa1-1
+routeAlias: etapa2
 ---
 
-## **Etapa 1.1 - Tema Relacionado**
+## **Etapa 2 - Tema Relacionado**
 <br/>
 
 ### Diagrama Arquitetura e MCP
