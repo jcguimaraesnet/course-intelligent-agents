@@ -87,12 +87,21 @@ source: https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with
 
 <div class="w-full self-start">
 
-```text [a analogia do compilador]{maxHeight:'150px'}
-   main.java ->  [  compilador ]  ->  binário
-   spec.md   ->  [   agente    ]  ->  código
+<Transform :scale="0.85" origin="top">
+
+```mermaid {theme: 'dark'}
+flowchart TD
+    A1@{ shape: rounded, label: "main.java" }
+    B1@{ shape: rounded, label: "compilador" }
+    C1@{ shape: rounded, label: "binário" }
+    A2@{ shape: rounded, label: "spec.md" }
+    B2@{ shape: rounded, label: "agente" }
+    C2@{ shape: rounded, label: "código" }
+    A1 --> B1 --> C1
+    A2 --> B2 --> C2
 ```
 
-<div class="h-2" />
+</Transform>
 
 
 </div>
@@ -111,7 +120,7 @@ class: flex items-center justify-center
 
 # Vocês já escreveram uma spec
 
-#### **Os TPs podem ser uma parte importante de uma especificação**
+#### **Os entregáveis do TP1 servem de contexto para outras specs**
 
 <div class="h-2" />
 
@@ -119,9 +128,10 @@ class: flex items-center justify-center
 
 <div class="text-17px w-full self-start [&_ul]:my-0 [&_li]:mb-4">
 
-- Os entregáveis do TP1 cobrem quase todas as seções de uma spec de verdade
-- A diferença do SDD é o que acontece **depois da entrega**: o documento não é arquivado
-- Ele vira a **entrada do agente** e é atualizado a cada mudança do projeto
+- Nem toda spec contém **todos os detalhes** a respeito de uma funcionalidade
+- **Os entregáveis do TP1** de bloco fazem parte do contexto (context engineering) para as próximas especificações
+- **Documentos de alto nível são fontes da verdade ou âncoras**, são uma parte da especificação
+
 
 </div>
 
@@ -131,7 +141,7 @@ class: flex items-center justify-center
 
 <div class="text-14px [&_table]:w-full [&_td]:py-2 [&_th]:py-2">
 
-| Entregável do TP1 | Seção da spec |
+| **Entregável do TP1** | **Seção da spec** |
 | --- | --- |
 | Descrição do problema | Contexto e objetivo |
 | Requisitos funcionais | Critérios de aceite |
@@ -176,23 +186,23 @@ source: https://github.blog/ai-and-ml/generative-ai/spec-driven-development-with
 
 ::right::
 
-<Transform :scale="0.65" origin="top">
+<Transform :scale="0.72" origin="top">
 
 ```mermaid {theme: 'dark'}
 flowchart TD
-    A@{ shape: rounded, label: "Especificar<br/>spec.md" }
-    B@{ shape: rounded, label: "Planejar<br/>plan.md" }
-    C@{ shape: rounded, label: "Dividir<br/>tasks.md" }
-    D@{ shape: rounded, label: "Implementar<br/>código" }
-    A -- "revisão" --> B
-    B -- "revisão" --> C
-    C -- "revisão" --> D
+    A@{ shape: rounded, label: "Especificar · spec.md" }
+    B@{ shape: rounded, label: "Planejar · plan.md" }
+    C@{ shape: rounded, label: "Dividir · tasks.md" }
+    D@{ shape: rounded, label: "Implementar · código" }
+    A -- revisão --> B
+    B -- revisão --> C
+    C -- revisão --> D
 ```
 
 </Transform>
 
 <!--
-## o valor do método está nos losangos, não nas caixas
+## o valor do método está nas setas, não nas caixas
 
 ## sem revisão entre as fases, o erro da primeira é amplificado nas outras três
 -->
