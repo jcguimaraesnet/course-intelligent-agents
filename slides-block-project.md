@@ -44,6 +44,7 @@ routeAlias: ementa
 - **Etapa 9** — <Link to="etapa9" title="OWASP Top 10 para Aplicações LLM"/>
 - **Etapa 10** — <Link to="etapa10" title="APIs de Scraping"/>
 - **Etapa 11** — <Link to="etapa11" title="Modelos Classificadores e o Jev"/>
+- **Etapa 12** — <Link to="etapa12" title="Spec Driven Development"/>
 
 <!--
 Ementa do projeto — visão geral das 11 etapas.
@@ -91,4 +92,8 @@ src: ./pages/block-project/slide-etapa10.md
 
 ---
 src: ./pages/block-project/slide-etapa11.md
+---
+
+---
+src: ./pages/block-project/slide-etapa12.md
 ---
