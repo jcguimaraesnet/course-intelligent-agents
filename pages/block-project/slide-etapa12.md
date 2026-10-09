@@ -446,8 +446,8 @@ source: https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
 -->
 
 ---
-sourceLabel: martinfowler.com
-source: https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
+sourceLabel: Vimal Dwarampudi
+source: https://vimal-dwarampudi.medium.com/spec-driven-ai-bmad-speckit-gsd-superpowers-2cae4512819a
 ---
 
 # As ferramentas
@@ -461,8 +461,9 @@ source: https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
 | Ferramenta | Quem fez | Fluxo | Observação |
 | --- | --- | --- | --- |
 | **Spec Kit** | GitHub | constitution → specify → plan → tasks → implement | Aberto, funciona com +30 agentes |
-| **Kiro** | AWS | requirements → design → tasks | IDE próprio; requisitos em EARS |
-| **Tessl** | Tessl | uma spec para cada arquivo de código | Vai até o *spec-as-source* |
+| **GSD** | open-gsd | discutir → planejar → executar → verificar → entregar | Cada fase roda num subagente de contexto limpo |
+| **BMAD** | BMad Code | esclarecer → planejar → construir e verificar → ajustar | Você entra no ponto que o tamanho da tarefa pedir |
+| **Superpowers** | Jesse Vincent | brainstorm → plano → execução → revisão | Impõe TDD e um subagente por tarefa |
 | **Plan mode** | Claude Code | planeja, você aprova, só então executa | Já vem junto, sem instalar nada |
 
 </div>
@@ -472,14 +473,16 @@ source: https://martinfowler.com/articles/exploring-gen-ai/sdd-3-tools.html
 <Transform :scale="0.8" origin="left bottom">
 
 > [!TIP]
-> O **plan mode** pré-existente em agentes de codificação (claude, codex, cursor é um tipo de Spec Driven Development em menor escala: planejar, aprovar, executar.
+> O **plan mode** pré-existente em agentes de codificação (claude, codex, cursor) é um tipo de Spec Driven Development em menor escala: planejar, aprovar, executar.
 
 </Transform>
 
 <!--
 ## começar pelo plan mode é o caminho mais barato de experimentar a ideia
 
-## o Kiro substituiu o Amazon Q Developer e virou GA em maio de 2026
+## as quatro primeiras são abertas e instaláveis no Claude Code que eles já usam
+
+## o GSD nasceu como gsd-build/get-shit-done e hoje segue como GSD Core, no open-gsd
 -->
 
 ---
