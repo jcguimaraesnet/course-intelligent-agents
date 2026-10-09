@@ -118,7 +118,7 @@ layoutClass: gap-8
 class: flex items-center justify-center
 ---
 
-# Vocês já escreveram uma spec
+# Contexto e especificação
 
 #### **Os entregáveis do TP1 servem de contexto para outras specs**
 
