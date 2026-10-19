@@ -909,6 +909,17 @@ layout: section
 
 ##### **2. Aplicar descontos a pedidos de compra** — receber uma solicitação de pedido externo (produto e valor), converter texto para minúsculo (produto), aplicar desconto (valor) e salvar o resultado em JSON.
 
+<!--
+## notes slides
+
+```json
+{
+  "produto": "{{ $json.produto.toLowerCase() }}",
+  "valor": {{ $json.valor * 0.9 }}
+}
+```
+-->
+
 ---
 layout: default
 ---
