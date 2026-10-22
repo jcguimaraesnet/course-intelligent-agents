@@ -45,9 +45,10 @@ routeAlias: ementa
 - **Etapa 10** — <Link to="etapa10" title="APIs de Scraping"/>
 - **Etapa 11** — <Link to="etapa11" title="Modelos Classificadores e o Jev"/>
 - **Etapa 12** — <Link to="etapa12" title="Spec Driven Development"/>
+- **Etapa 13** — <Link to="etapa13" title="Modelos Abertos e Locais"/>
 
 <!--
-Ementa do projeto — visão geral das 11 etapas.
+Ementa do projeto — visão geral das 13 etapas.
 -->
 
 ---
@@ -96,4 +97,8 @@ src: ./pages/block-project/slide-etapa11.md
 
 ---
 src: ./pages/block-project/slide-etapa12.md
+---
+
+---
+src: ./pages/block-project/slide-etapa13.md
 ---
