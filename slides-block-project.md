@@ -33,6 +33,8 @@ routeAlias: ementa
 
 # Ementa do projeto
 
+<div class="mt-10 columns-2 gap-12 [&_li]:break-inside-avoid">
+
 - **Etapa 1** — <Link to="etapa1" title="Visão Geral do Projeto e TP1"/>
 - **Etapa 2** — <Link to="etapa2" title="Diagrama Arquitetura e MCP"/>
 - **Etapa 3** — <Link to="etapa3" title="Harness Engineering e Claude Code"/>
@@ -46,7 +48,10 @@ routeAlias: ementa
 - **Etapa 11** — <Link to="etapa11" title="Modelos Classificadores e o Jev"/>
 - **Etapa 12** — <Link to="etapa12" title="Spec Driven Development"/>
 - **Etapa 13** — <Link to="etapa13" title="Modelos Abertos e Locais"/>
+- **Etapa 14** — <Link to="etapa14" title="MCP Server"/>
 - **Entrega Final** — <Link to="entrega-final" title="Preparação e Apresentação"/>
+
+</div>
 
 <!--
 Ementa do projeto — visão geral das 13 etapas e da entrega final.
@@ -102,6 +107,10 @@ src: ./pages/block-project/slide-etapa12.md
 
 ---
 src: ./pages/block-project/slide-etapa13.md
+---
+
+---
+src: ./pages/block-project/slide-etapa14.md
 ---
 
 ---
