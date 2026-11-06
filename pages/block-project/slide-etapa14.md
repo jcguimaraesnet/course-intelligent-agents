@@ -240,3 +240,39 @@ claude mcp add --transport http loja \
 
 ## o agente usa o modelo da OpenAI: a OPENAI_API_KEY precisa estar no .env
 -->
+
+---
+layout: default
+---
+
+# Hands-on
+
+<br/>
+
+🛠️ &nbsp;**Exercício \#1:** Crie o MCP Server da loja com FastMCP e registre no Claude Code.
+
+🛠️ &nbsp;**Exercício \#2:** Peça ao Claude Code para consultar um pedido usando a tool.
+
+🛠️ &nbsp;**Exercício \#3:** Exporte via FastMCP uma tool do agente do seu TP de bloco.
+
+🛠️ &nbsp;**Exercício \#4:** Teste a mesma tool pelas duas portas: `POST /run` e Claude Code.
+
+<br/>
+
+- [ ] escreva a docstring de cada tool pensando no modelo que vai lê-la
+- [ ] confira com `/mcp` se o servidor conectou e quais tools ele oferece
+- [ ] conclua: quais tools do seu agente valem ser expostas via MCP? justifique
+
+<!--
+# Exercício #1 — Primeiro servidor
+Código do slide "Primeiro MCP Server"; o servidor precisa estar ligado antes do claude mcp add.
+
+# Exercício #2 — Usar a tool
+O Claude Code pede permissão na primeira chamada; o /mcp mostra se conectou.
+
+# Exercício #3 — Tool do TP
+Padrão do main.py: a mesma função no agente e no FastMCP, sem duplicar código — é o Req 6.
+
+# Exercício #4 — Duas portas
+O POST /run sai pelo /docs do FastAPI; o mesmo pedido no Claude Code chega à mesma função.
+-->
