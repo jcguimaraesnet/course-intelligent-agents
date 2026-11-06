@@ -174,11 +174,14 @@ source: https://gofastmcp.com/integrations/fastapi
 
 ::left::
 
-```python [app.py]{6-9|11-17|19-21|23-28|all}{maxHeight:'320px',at:+1}
-# uv add fastapi uvicorn fastmcp openai-agents
+```python [main.py]{9-12|14-20|22-24|26-31|all}{maxHeight:'320px',at:+1}
+# uv add fastapi uvicorn fastmcp openai-agents python-dotenv
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastmcp import FastMCP
 from agents import Agent, Runner, function_tool
+
+load_dotenv()  # lê a OPENAI_API_KEY do .env
 
 def consultar_pedido(codigo: str) -> str:
     """Consulta o status de entrega de um pedido."""
@@ -225,7 +228,7 @@ flowchart TD
 </Transform>
 
 ```bash [subir e registrar]{maxHeight:'110px'}
-uv run uvicorn app:app
+uv run uvicorn main:app
 claude mcp add --transport http loja \
   http://localhost:8000/mcp
 ```
