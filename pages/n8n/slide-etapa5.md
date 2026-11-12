@@ -613,6 +613,46 @@ source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.execu
 layout: two-cols-header
 layoutClass: gap-8
 class: flex items-center justify-center
+sourceLabel: Respond to Webhook node
+source: https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook
+---
+
+# Respond to Webhook node (action node)
+#### **O nó Respond to Webhook devolve a resposta a quem chamou o Webhook**
+
+<div class="h-5" />
+
+::left::
+
+<div class="text-sx w-full self-start [&_ul]:my-0 [&_li]:mb-6">
+
+- No nó **Webhook**, configure **Respond** como *Using 'Respond to Webhook' Node*: a requisição aguarda o fim do fluxo.
+- Define o formato da resposta (**JSON**, **Text**, **First Incoming Item** etc.), o **código HTTP** e os **headers**.
+
+</div>
+
+::right::
+
+<div class="flex items-center justify-center h-full">
+  <N8nNode
+    icon-src="n8n/nodes/respond-to-webhook.svg"
+    label="Respond to Webhook"
+    type="action"
+    scale="1.4"
+  />
+</div>
+
+<!--
+## notes slides
+
+### Se o fluxo terminar sem passar pelo nó, o n8n devolve uma mensagem padrão com status 200; se der erro antes, devolve status 500
+### Só a primeira resposta vale: um segundo Respond to Webhook no mesmo fluxo é ignorado
+-->
+
+---
+layout: two-cols-header
+layoutClass: gap-8
+class: flex items-center justify-center
 ---
 
 # Automação inteligente de regra determinística(1)
