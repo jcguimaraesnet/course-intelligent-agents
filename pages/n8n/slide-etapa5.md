@@ -206,8 +206,8 @@ source: https://docs.n8n.io/integrations/builtin/cluster-nodes/sub-nodes/n8n-nod
 
 <div class="text-sx w-full self-start [&_ul]:my-5 [&_li]:mb-6">
 
-- Funciona como um **subnó** para conexões do tipo **Chat Model**, sendo acoplado obrigatoriamente à entrada correspondente de nós raiz (como o **AI Agent**).
 - Permite configurar o **modelo LLM** e os **hiperparâmetros** (temperatura, top_p, max_retries, frequency_penalty, etc).
+- Para usar a API **Chat Completions** (opção **Responses API** desabilitada), habilite o **Extra Body** com <span class="whitespace-nowrap">`{ "reasoning_effort": "none" }`</span>
 
 </div>
 
