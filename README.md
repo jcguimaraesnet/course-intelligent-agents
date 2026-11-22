@@ -28,6 +28,16 @@ Material para o curso em formato de slides online.
 
 ## 🖥️ Rodando os decks no VS Code
 
+Antes de tudo, instale as dependências na raiz do repositório:
+
+```bash
+pnpm install   # ou: npm install
+```
+
+Depois, abra a pasta do repositório no VS Code e instale a extensão
+[Slidev](https://marketplace.visualstudio.com/items?itemName=antfu.slidev), que o próprio
+VS Code sugere ao abrir a pasta.
+
 O repositório tem mais de um deck na raiz (`slides-*.md`). 
 
 | # | Comando | Quando usar |
