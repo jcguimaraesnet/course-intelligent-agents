@@ -428,7 +428,7 @@ class: flex items-center justify-center
 
 ```bash {*}{maxHeight:'270px'}
 # 1. entra no container
-docker exec -it n8n-dev sh
+docker exec -it n8n-prod sh
 
 # 2. importa credencial
 n8n import:credentials \
